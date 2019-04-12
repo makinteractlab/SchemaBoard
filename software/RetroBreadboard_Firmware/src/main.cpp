@@ -2,12 +2,14 @@
 #include "constants.hpp"
 #include "Breadboard.hpp"
 #include <ArduinoJson.h>
+#include <MsTimer2.h>
 
 // Declarations
 void initialize();
 void blink(uint16_t times, uint16_t durationMs);
 void parse(const String &buffer);
 void ack(const String &buffer);
+void blink();
 
 // Globals
 Breadboard br(LATCH, CLOCK, DATA);
@@ -17,6 +19,10 @@ void setup()
 {
   initialize();
   br.resetAll();
+
+  // set timer 
+  MsTimer2::set(500, blink);
+  MsTimer2::start();
 }
 
 void loop()
@@ -99,4 +105,9 @@ void ack(const String& msg)
 {
   String result= "{\"ack\"=\"" + msg + "\"}\n\r";
   Serial.println (result);
+}
+
+void blink()
+{
+  //Serial.println("blink");
 }
