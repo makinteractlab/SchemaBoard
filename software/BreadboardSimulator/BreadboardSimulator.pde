@@ -2,23 +2,15 @@ import http.*;
 
 SimpleHTTPServer server;
 BreadBoard br;
-<<<<<<< HEAD
 final int PIN_SIZE= 20;
-=======
 
->>>>>>> master
 
 void setup() 
 {
 	size(300, 350); 
 	initServer();
 
-<<<<<<< HEAD
 	br= new BreadBoard (PIN_SIZE);
-=======
-	br= new BreadBoard (20);
-	// br.set(0xF0F1,0x7111,0xF0F1,0x7111);
->>>>>>> master
 }
 
 
