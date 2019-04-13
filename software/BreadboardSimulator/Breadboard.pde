@@ -1,7 +1,7 @@
-class BreadBoard
+class BreadBoard implements Runnable
 {
 
-	class Row implements Runnable
+	class Row 
 	{
 		int id, x, y, sz;
 		boolean on, blinking;
@@ -15,8 +15,6 @@ class BreadBoard
 			on= false;
 			blinking= false; 
 			font= loadFont("font.vlw");
-
-			(new Thread(this)).start();
 		}
 
 		void draw()
@@ -39,21 +37,6 @@ class BreadBoard
 			}
 		}
 
-		public void run()
-		{
-			while (true)
-			{
-				try
-				{
-					Thread.sleep(500);
-					if (blinking)
-					{	
-						if ((millis()/1000) % 2 == 0) on=true;
-						else on=false;
-					}
-				}catch (Exception e){}
-			}
-		}
 
 		void setOn(){ on= true; blinking= false; }
 		void setOff(){ on= false; blinking= false; }
@@ -61,6 +44,11 @@ class BreadBoard
 
 		void blink(){ blinking= true; }
 		void noblink(){ blinking= false; }
+		void doBlink (boolean onState)
+		{
+			if (!blinking) return;
+			on= onState;
+		}
 	}
 
 
@@ -69,6 +57,7 @@ class BreadBoard
 	int rowSize;
 	public final int ROWS= 16;
 	public final int COLS= 5;
+	public final int REFRESH_RATE= 500;
 
 	BreadBoard (int rowSize)
 	{
@@ -83,6 +72,8 @@ class BreadBoard
 			left.add (l);
 			right.add (r);
 		}
+
+		(new Thread(this)).start();
 	}
 
 	int getWidth(){return rowSize*(COLS*2+2);}
@@ -98,6 +89,21 @@ class BreadBoard
 		for (Row r: left) r.draw();
 		for (Row r: right) r.draw();
 		popMatrix();
+	}
+
+	public void run()
+	{
+		while (true)
+		{
+			try
+			{
+				Thread.sleep(REFRESH_RATE);
+				boolean on= (millis()/REFRESH_RATE) % 2 == 0;
+				for (Row r: left)  r.doBlink(on);
+				for (Row r: right) r.doBlink(on);
+
+			}catch (Exception e){}
+		}
 	}
 
 	void setOn(int i)
