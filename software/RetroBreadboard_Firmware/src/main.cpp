@@ -20,7 +20,7 @@ void setup()
   initialize();
   br.resetAll();
 
-  // set timer 
+  // set timer
   MsTimer2::set(500, blink);
   MsTimer2::start();
 }
@@ -71,40 +71,61 @@ void parse(const String &buffer)
   }
 
   // Parse JSON
-  if (json["cmd"] == F("on"))
+  if (json["cmd"] == F("reset"))
   {
-    br.setOn (json["data"].as<long>());
+    br.resetAll();
+    ack("OK");
+  }
+  else if (json["cmd"] == F("on"))
+  {
+    br.setOn(json["data"].as<long>());
     br.update();
     ack("OK");
-
-  }else if (json["cmd"] == F("off"))
+  }
+  else if (json["cmd"] == F("off"))
   {
-    br.setOff (json["data"].as<long>());
+    br.setOff(json["data"].as<long>());
     br.update();
     ack("OK");
-
-  }else if (json["cmd"] == F("toggle"))
+  }
+  else if (json["cmd"] == F("toggle"))
   {
-    br.toggle (json["data"].as<long>());
+    br.toggle(json["data"].as<long>());
     br.update();
     ack("OK");
-
-  }else if (json["cmd"] == F("set"))
+  }
+  else if (json["cmd"] == F("blink"))
   {
-    br.set (json["left"].as<long>(), json["right"].as<long>());
-    br.update();
+    Serial.print("Blink ");
+    Serial.println(json["data"].as<long>());
+    // TODO BLINK
     ack("OK");
+  }
+  else if (json["cmd"] == F("set"))
+  {
+    long left = json["left"].as<long>();
+    long right = json["right"].as<long>();
+    long leftBlink = json["leftBlink"].as<long>();
+    long rightBlink = json["rightBlink"].as<long>();
 
-  }else
+    Serial.println(left);
+    Serial.println(right);
+    Serial.println(leftBlink);
+    Serial.println(rightBlink);
+    // TODO SET
+    // br.update();
+    ack("OK");
+  }
+  else
   {
     ack("Invalid command");
   }
 }
 
-void ack(const String& msg)
+void ack(const String &msg)
 {
-  String result= "{\"ack\"=\"" + msg + "\"}\n\r";
-  Serial.println (result);
+  String result = "{\"ack\"=\"" + msg + "\"}";
+  Serial.println(result);
 }
 
 void blink()

@@ -59,31 +59,31 @@ void Breadboard::set (uint16_t left,uint16_t right)
 
 void Breadboard::update()
 {
-    Serial.println("==========");
+    // Serial.println("==========");
     // Serial.println(ledsLeft, BIN);
     // Serial.println(ledsRight, BIN);
     digitalWrite (latch, LOW);
     byte selection= ledsRight >> LEDS_PER_CHIP;
-    Serial.println (selection, BIN);
+    // Serial.println (selection, BIN);
     shiftOut (data, clock, MSBFIRST, selection); 
     digitalWrite (latch, HIGH);
 
 
     digitalWrite (latch, LOW);
     selection= ledsRight;
-    Serial.println (selection, BIN);
+    // Serial.println (selection, BIN);
     shiftOut (data, clock, MSBFIRST, selection); 
     digitalWrite (latch, HIGH);
 
     digitalWrite (latch, LOW);
     selection= ledsLeft >> LEDS_PER_CHIP;
-    Serial.println (selection, BIN);
+    // Serial.println (selection, BIN);
     shiftOut (data, clock, MSBFIRST, selection); 
     digitalWrite (latch, HIGH);
 
     digitalWrite (latch, LOW);
     selection= ledsLeft;
-    Serial.println (selection, BIN);
+    // Serial.println (selection, BIN);
     shiftOut (data, clock, MSBFIRST, selection); 
     digitalWrite (latch, HIGH);
 }

@@ -9,6 +9,9 @@ Valid commands
 // SINGLE PIN OFF [1-32]
 {"cmd": "off", data: 1}
 
+// SINGLE PIN TOGGLE [1-32]
+{"cmd": "toggle", data: 1}
+
 // SINGLE PIN BLINK [1-32]
 {"cmd": "blink", data: 1}
 
