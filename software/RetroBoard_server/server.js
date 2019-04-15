@@ -3,9 +3,16 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 
+// Settings
+const SERIAL_PORT = 'COM4';
+// const SERIAL_PORT = '/dev/tty.usbmodem14201';
+
+
+// No need to change this
+
 const SerialPort = require('serialport')
 const Readline = require('@serialport/parser-readline')
-const port = new SerialPort('/dev/tty.usbmodem14201', { baudRate: 115200 })
+const port = new SerialPort(SERIAL_PORT, { baudRate: 115200 })
 
 const parser = new Readline()
 port.pipe(parser)
