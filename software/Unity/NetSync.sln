@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSync", "Assembly-CSharp.csproj", "{AF41FB6B-DE50-0FCF-E92C-3B4E47F63EBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSync", "Assembly-CSharp-Editor.csproj", "{DFD6C871-690C-21CB-72BA-5FD454A23CBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF41FB6B-DE50-0FCF-E92C-3B4E47F63EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF41FB6B-DE50-0FCF-E92C-3B4E47F63EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF41FB6B-DE50-0FCF-E92C-3B4E47F63EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF41FB6B-DE50-0FCF-E92C-3B4E47F63EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD6C871-690C-21CB-72BA-5FD454A23CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD6C871-690C-21CB-72BA-5FD454A23CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD6C871-690C-21CB-72BA-5FD454A23CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD6C871-690C-21CB-72BA-5FD454A23CBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
