@@ -2,12 +2,13 @@ import http.*;
 
 SimpleHTTPServer server;
 BreadBoard br;
-final int PIN_SIZE= 20;
+final int PIN_SIZE= 40;
+final int FONT_SIZE= 20;
 
 
 void setup() 
 {
-	size(300, 350); 
+	size(600, 700); 
 	initServer();
 
 	br= new BreadBoard (PIN_SIZE);

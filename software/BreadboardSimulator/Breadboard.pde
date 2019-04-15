@@ -21,7 +21,7 @@ class BreadBoard implements Runnable
 		{
 			ellipseMode(CENTER);
 			stroke(0);
-			textFont(font, 10);
+			textFont(font, FONT_SIZE);
 			textAlign(CENTER, CENTER);
 
 			for (int i=0; i<COLS; i++)
