@@ -36,11 +36,11 @@ public class RotateButton : MonoBehaviour {
             {
                 if(wireObj.name.Contains("connector0")) {
                     wireEndPosition = leftPinObject.transform.position;
-                    wireEndPosition.x -= 10;
+                    wireEndPosition.x -= 5;
                 }
                 else if(wireObj.name.Contains("connector1")) {
                     wireEndPosition = RightPinObject.transform.position;
-                    wireEndPosition.x += 10;
+                    wireEndPosition.x += 5;
                 }
                 LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                 wireLineRender.SetPosition(1, wireEndPosition);
@@ -56,11 +56,11 @@ public class RotateButton : MonoBehaviour {
             {
                 if(wireObj.name.Contains("connector0")) {
                     wireEndPosition = leftPinObject.transform.position;
-                    wireEndPosition.x -= 10;
+                    wireEndPosition.x -= 5;
                 }
                 else if(wireObj.name.Contains("connector1")) {
                     wireEndPosition = RightPinObject.transform.position;
-                    wireEndPosition.x += 10;
+                    wireEndPosition.x += 5;
                 }
                 LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                 wireLineRender.SetPosition(1, wireEndPosition);
@@ -68,11 +68,11 @@ public class RotateButton : MonoBehaviour {
             {
                 if(wireObj.name.Contains("connector0")) {
                     wireStartPosition = leftPinObject.transform.position;
-                    wireStartPosition.x -= 10;
+                    wireStartPosition.x -= 5;
                 }
                 else if(wireObj.name.Contains("connector1")) {
                     wireStartPosition = RightPinObject.transform.position;
-                    wireStartPosition.x += 10;
+                    wireStartPosition.x += 5;
                 }
                 LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                 wireLineRender.SetPosition(0, wireStartPosition);

@@ -60,11 +60,11 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 {
                     if(wireObj.name.Contains("connector0")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector0");
-                        wireEndPosition.x -= 10;
+                        wireEndPosition.x -= 5;
                     }
                     else if(wireObj.name.Contains("connector1")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector1");
-                        wireEndPosition.x += 10;
+                        wireEndPosition.x += 5;
                     }
                     LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                     wireLineRender.SetPosition(1, wireEndPosition);
@@ -82,11 +82,11 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 {
                     if(wireObj.name.Contains("connector0")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector0");
-                        wireEndPosition.x -= 10;
+                        wireEndPosition.x -= 5;
                     }
                     else if(wireObj.name.Contains("connector1")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector1");
-                        wireEndPosition.x += 10;
+                        wireEndPosition.x += 5;
                     }
                     LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                     wireLineRender.SetPosition(1, wireEndPosition);
@@ -94,11 +94,11 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 {
                     if(wireObj.name.Contains("connector0")) {
                         wireStartPosition = getCurrentComponentPinPosition("connector0");
-                        wireStartPosition.x -= 10;
+                        wireStartPosition.x -= 5;
                     }
                     else if(wireObj.name.Contains("connector1")) {
                         wireStartPosition = getCurrentComponentPinPosition("connector1");
-                        wireStartPosition.x += 10;
+                        wireStartPosition.x += 5;
                     }
                     LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                     wireLineRender.SetPosition(0, wireStartPosition);

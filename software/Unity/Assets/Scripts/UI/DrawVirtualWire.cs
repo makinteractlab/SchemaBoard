@@ -39,8 +39,8 @@ public class DrawVirtualWire : MonoBehaviour
             line.endWidth = 4;
             line.SetPosition(0, boardPinObj.transform.position);
             
-            if(componentPinObj.name.Contains("connector0")) xOffset = -10;
-            else if(componentPinObj.name.Contains("connector1")) xOffset = 10;
+            if(componentPinObj.name.Contains("connector0")) xOffset = -5;
+            else if(componentPinObj.name.Contains("connector1")) xOffset = 5;
             line.SetPosition(1, new Vector3(componentPinObj.transform.position.x+xOffset, componentPinObj.transform.position.y-5, componentPinObj.transform.position.z));
 
             line.tag = "wire";
