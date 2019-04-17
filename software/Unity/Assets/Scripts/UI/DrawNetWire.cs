@@ -37,9 +37,13 @@ public class DrawNetWire : MonoBehaviour
         toPinObj = _toPin;
         if((fromPinObj != null) && (toPinObj != null))
         {
-            int xOffset = 0;
+            //int xOffset = 0;
             if(   GameObject.Find("Wire" + ":" + toPinObj.transform.parent.name + "-" + toPinObj.name + "," + fromPinObj.transform.parent.name + "-" + fromPinObj.name) == null
                && GameObject.Find("Wire" + ":" + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "," + toPinObj.transform.parent.name + "-" + toPinObj.name) == null) {
+                
+                // string temp = "Wire" + ":" + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "," + toPinObj.transform.parent.name + "-" + toPinObj.name;
+                // if(temp == "Wire:R1-connector0,P1-connector1")
+                //     toPinObj = Util.getChildObject(GameObject.Find("P1"), "connector1");
                 line = new GameObject("Wire" + ":" + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "," + toPinObj.transform.parent.name + "-" + toPinObj.name).AddComponent<LineRenderer>();
                 line.material = material;
 
@@ -52,21 +56,21 @@ public class DrawNetWire : MonoBehaviour
                 line.endWidth = 4;
                 line.tag = "netwire";
 
-                if(toPinObj.name.Contains("connector0")) xOffset = -5;
-                else if(toPinObj.name.Contains("connector1")) xOffset = 5;
-                
-                line.SetPosition(0, fromPinObj.transform.position);
-                line.SetPosition(1, new Vector3(toPinObj.transform.position.x+xOffset, toPinObj.transform.position.y-5, toPinObj.transform.position.z));
-
+                //if(toPinObj.name.Contains("connector0")) xOffset = -5;
+                //else if(toPinObj.name.Contains("connector1")) xOffset = 5;
+                //line.SetPosition(1, new Vector3(toPinObj.transform.position.x+xOffset, toPinObj.transform.position.y-5, toPinObj.transform.position.z));
                 Debug.Log("\n\n\n\n\n ===== From: " + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "\n\n\n\n\n");
 				Debug.Log("\n\n\n\n\n ===== To: " + toPinObj.transform.parent.name + "-" + toPinObj.name + "\n\n\n\n\n");
                 Debug.Log("\n\n\n\n\n ===== WireName: " + line.name + "\n\n\n\n\n");
 
+                line.SetPosition(0, fromPinObj.transform.position);
+                line.SetPosition(1, toPinObj.transform.position);
+
                 line = null;
             }
-            resetToPinObj();
-            resetFromPinObj();
         }
+        resetToPinObj();
+        resetFromPinObj();
     }
 
     public void setFromPinObj(GameObject obj)
@@ -81,13 +85,11 @@ public class DrawNetWire : MonoBehaviour
 
     public void resetToPinObj()
     {
-        //Debug.Log("resetComponentPin");
         toPinObj = null;
     }
 
     public void resetFromPinObj()
     {
-        //Debug.Log("resetBoardPin");
         fromPinObj = null;
     }
 

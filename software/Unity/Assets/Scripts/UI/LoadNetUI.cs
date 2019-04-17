@@ -147,13 +147,7 @@ public class LoadNetUI : MonoBehaviour {
 				foreach(var target in netElement) {
 					GameObject currentObject = GameObject.Find(item.Key);
 					GameObject targetObject = GameObject.Find(target.component);
-
 					netwire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
-					Debug.Log("\n\n\n\n\nFrom: " + currentObject.name + "-" + pin.id + "\n\n\n\n\n");
-					Debug.Log("\n\n\n\n\nTo: " + targetObject.name + "-" + target.pinid + "\n\n\n\n\n");
-					//wire.setFromPinObj(getChildObject(currentObject, pin.id));
-					//wire.setToPinObj(getChildObject(targetObject, target.pinid));
-					//DottedLine.DottedLine.Instance.DrawDottedLine(currentObject.transform.position, targetObject.transform.position);
 				}
 			}
 		}

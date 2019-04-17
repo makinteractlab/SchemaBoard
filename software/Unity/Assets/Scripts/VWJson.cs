@@ -3,8 +3,9 @@
 public class VWJson : MonoBehaviour
 {
     public string boardPin;
+    public string boardPinLine;
     public string componentPin;
-    public string awgIp;
+    public string ip;
     
     public string SaveToString()
     {

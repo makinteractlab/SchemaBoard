@@ -221,6 +221,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
         {
             if(obj.name == getTargetComponentPinName(targetComponentPinName)) {
                 resultObj = obj.gameObject;
+                break;
             }
         }
         return resultObj;
@@ -270,14 +271,15 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                 }
                 else if( (boardPin != compPin) && !pinAlreadyWired(componentPinName) && !pinAlreadyWired(boardPinName))
                 {
+                    string wireStartBoardPin = "";
                     comm.setComponentPin(componentPinName);
                     Debug.Log("==============");
                     Debug.Log("componentPinName: " + componentPinName);
-                    wire.setComponentPinObj(getTargetComponentPinObject(componentPinName));
+                    wireStartBoardPin = wire.setComponentPinObj(getTargetComponentPinObject(componentPinName));
                     // Todo: arduino에게 Json 보내기 (value 변경)
                     // Notify connected info ComponentDataHandler -> notify BoardDataHandler
                     //                                            -> notify JsonHandler
-                    netdata.syncNetData(getTargetComponentPinObject(componentPinName).transform.parent.name, boardPinName, componentPinName);
+                    netdata.syncNetData(getTargetComponentPinObject(componentPinName).transform.parent.name, componentPinName, wireStartBoardPin);
                 } else {
                     wire.resetBoardPinObj();
                     wire.resetComponentPinObj();

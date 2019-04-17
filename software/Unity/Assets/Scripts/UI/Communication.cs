@@ -75,19 +75,29 @@ public class Communication : MonoBehaviour
         return time;
     }
 
+    // public void setBreadboardPinLine(string _breadboardPinLine)
+    // {
+    //     vw.boardPinLine = _breadboardPinLine;
+    // }
+
+    // public string getBreadboardPinLine()
+    // {
+    //     return vw.boardPinLine;
+    // }
+
     public void setBoardPin(string pin)
     {
         vw.boardPin = pin;
     }
 
-    public void setComponentPin(string pin)
-    {
-        vw.componentPin = pin;
-    }
-
     public string getBoardPin()
     {
         return vw.boardPin;
+    }
+
+    public void setComponentPin(string pin)
+    {
+        vw.componentPin = pin;
     }
 
     public string getComponentPin()
@@ -101,13 +111,13 @@ public class Communication : MonoBehaviour
         vw.componentPin = null;
     }
 
-    public void setAwgIP(string _awgIp)
+    public void setBreadboardIP(string _ip)
     {
-        vw.awgIp = _awgIp;
+        vw.ip = _ip;
     }
 
-    public string getAwgIP()
+    public string getBreadboardIP()
     {
-        return vw.awgIp;
+        return vw.ip;
     }
 }

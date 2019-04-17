@@ -80,11 +80,10 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 //if(wireObj.name.Contains(name))
                 if(last.Contains(name)) // if this component is FromPin
                 {
-                    if(wireObj.name.Contains("connector0")) {
+                    if(last.Contains("connector0")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector0");
                         wireEndPosition.x -= 5;
-                    }
-                    else if(wireObj.name.Contains("connector1")) {
+                    } else if(last.Contains("connector1")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector1");
                         wireEndPosition.x += 5;
                     }
@@ -92,11 +91,11 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     wireLineRender.SetPosition(1, wireEndPosition);
                 } else if(first.Contains(name)) //else if this component is To Pin
                 {
-                    if(wireObj.name.Contains("connector0")) {
+                    if(first.Contains("connector0")) {
                         wireStartPosition = getCurrentComponentPinPosition("connector0");
                         wireStartPosition.x -= 5;
                     }
-                    else if(wireObj.name.Contains("connector1")) {
+                    else if(first.Contains("connector1")) {
                         wireStartPosition = getCurrentComponentPinPosition("connector1");
                         wireStartPosition.x += 5;
                     }

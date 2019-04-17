@@ -16,6 +16,14 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
         setWireObject();
 		setCommunicationObject();
         setNetDataObject();
+
+        this.GetComponent<Button>().onClick.AddListener(componentPinClick);
+    }
+
+    void componentPinClick() {
+        // send json to breadboard - component pin이 연결된 breadboard pin line turn on
+        
+        Debug.Log("============================= componentPinClick: " + this.name);
     }
     
     public void setNetDataObject()
@@ -91,15 +99,16 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
                 {
                     Debug.Log("come to right space...");
                     Debug.Log("boardPinName = " + boardPinName);
-                    GameObject temp = GameObject.Find(boardPinName);
-                    if(temp != null) {
-                        Debug.Log("target object = " + temp.name);  /// pin 111 을 이상하게 찾는 듯 null은 아닌데 값이 이상함
+                    GameObject boardPinObj = GameObject.Find(boardPinName);
+                    if(boardPinObj != null) {
+                        Debug.Log("target object = " + boardPinObj.name);  /// pin 111 을 이상하게 찾는 듯 null은 아닌데 값이 이상함
                         comm.setBoardPin(boardPinName);
-                        wire.setBoardPinObj(temp);
+                        // comm.setBreadboardPinLine(boardPinObj.name);
+                        wire.setBoardPinObj(boardPinObj);
                         // Todo: arduino에게 Json 보내기 (value 변경)
                         // Notify connected info ComponentDataHandler -> notify BoardDataHandler
                         //                                            -> notify JsonHandler
-                        netdata.syncNetData(this.transform.parent.name, boardPinName, componentPinName);
+                        netdata.syncNetData(this.transform.parent.name, componentPinName, boardPinName);
                     } else {
                         Debug.Log("cannot find board pin object");
                     }

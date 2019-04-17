@@ -104,11 +104,12 @@ public class DrawVirtualWire : MonoBehaviour
         }
     }
 
-    public void setComponentPinObj(GameObject obj)
+    public string setComponentPinObj(GameObject obj)
     {
         componentPinObj = obj;
         if(boardPinObj != null)
             boardPinObj.GetComponent<Pin>().connectedTo = componentPinObj;
+        return boardPinObj.name;
     }
 
     public void resetComponentPinObj()
