@@ -20,7 +20,7 @@ public class HttpRequest : MonoBehaviour {
     {
         Debug.Log("json = " + json);
         var www = new UnityWebRequest(url, "POST");
-        byte[] jsonToSend = new System.Text. UTF8Encoding().GetBytes(json);
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
         www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");

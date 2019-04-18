@@ -49,6 +49,8 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     private WifiConnection wifi;
     private HttpRequest http;
 	private bool deleteState;
+    private NetData netdata;
+    private Command cmd;
     // private string unit;
     // private string awgIP;
     // bool awgOn;
@@ -82,14 +84,16 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
         editOn = false;
         //voltmeterPop = false;
         editButonActive = false;
+        
     }
 
 	public void Start()
 	{
         setWireObject();
 		setCommunicationObject();
-        setWifiObject();
+        //setWifiObject();
         setHttpRequestObject();
+        setNetDataObject();
         // setConstraintsHandleObject();
 
         //awgData = new JObject();
@@ -97,14 +101,13 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
         //awgData.Add("amplitude", 0.0);
         //awgData.Add("dcOffset", 0.0);
         //awgData.Add("selectedToggle", 0);
-
         //awgOn = true;
         editOn = true;
-
         // closeActivePopup();
-
         // BUG!
         //GameObject.Find("EditToggleButton").GetComponent<Button>().onClick.AddListener(HandleDeleteMode);
+        cmd = new Command();
+        this.GetComponent<Button>().onClick.AddListener(componentClick);
 	}
 
     void Awake () {
@@ -117,19 +120,27 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
         resetAllStateAction = new UnityAction (HandleDeleteMode);
     }
 
-    public void setWifiObject() {
-        wifi = GameObject.Find("WifiConnection").GetComponent<WifiConnection>();
+    // public void setWifiObject() {
+    //     wifi = GameObject.Find("WifiConnection").GetComponent<WifiConnection>();
+    // }
+
+    void componentClick() {
+        int[] boardPins = new int[2];
+        boardPins = netdata.getComponentPinsNet(this.transform.parent.name);
+        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
     }
 
     public void setHttpRequestObject() {
         http = GameObject.Find("HttpRequest").GetComponent<HttpRequest>();
     }
 
-	public void setWireObject()
-    {
+    public void setNetDataObject() {
+		netdata = GameObject.Find("NetData").GetComponent<NetData>();
+		Debug.Log(netdata.name);
+    }
+
+	public void setWireObject() {
         wire = GameObject.Find("DrawVirtualWires").GetComponent<DrawVirtualWire>();
-        //wire = temp.GetComponent<ComponentObject>().getWireObject();
-		//Debug.Log(wire.name);
     }
 
     // public void setConstraintsHandleObject() {

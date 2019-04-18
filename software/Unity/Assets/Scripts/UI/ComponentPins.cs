@@ -11,19 +11,31 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
     public DrawVirtualWire wire;
     public NetData netdata;
     private bool alreadyWired = false;
+    private Command cmd;
+    private HttpRequest http;
 
     public void Start() {
         setWireObject();
 		setCommunicationObject();
+        setHttpRequestObject();
         setNetDataObject();
 
         this.GetComponent<Button>().onClick.AddListener(componentPinClick);
+        cmd = new Command();
+    }
+
+    public void setHttpRequestObject() {
+        http = GameObject.Find("HttpRequest").GetComponent<HttpRequest>();
     }
 
     void componentPinClick() {
-        // send json to breadboard - component pin이 연결된 breadboard pin line turn on
-        
-        Debug.Log("============================= componentPinClick: " + this.name);
+        //int boardPinLineNumber = int.Parse(netdata.getComponentPinNet(this.transform.parent.name, this.name));
+        int[] boardPins = new int[2];
+
+        boardPins = netdata.getAllNetForPin(this.transform.parent.name, this.name);
+        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        //http.postJson(cmd.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
+        //Debug.Log("============================= componentPinClick: " + this.name);
     }
     
     public void setNetDataObject()

@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\ARCameraSettings\CameraFocusController.cs" />
      <Compile Include="Assets\Scripts\Board.cs" />
      <Compile Include="Assets\Scripts\BoardDataHandler.cs" />
+     <Compile Include="Assets\Scripts\Command.cs" />
      <Compile Include="Assets\Scripts\ComponentFactory.cs" />
      <Compile Include="Assets\Scripts\DataHandler\NetData.cs" />
      <Compile Include="Assets\Scripts\DataHandler\NetDataHandler.cs" />
@@ -66,7 +67,6 @@
      <Compile Include="Assets\Scripts\Popup\EditTogglePanel.cs" />
      <Compile Include="Assets\Scripts\Popup\ModalPanel.cs" />
      <Compile Include="Assets\Scripts\Popup\onDrag.cs" />
-     <Compile Include="Assets\Scripts\Query.cs" />
      <Compile Include="Assets\Scripts\QueryResult.cs" />
      <Compile Include="Assets\Scripts\SendDataEvent.cs" />
      <Compile Include="Assets\Scripts\UI\Communication.cs" />
@@ -84,6 +84,8 @@
      <Compile Include="Assets\Scripts\UI\RefreshButton.cs" />
      <Compile Include="Assets\Scripts\UI\RotateButton.cs" />
      <Compile Include="Assets\Scripts\UI\StatusButton.cs" />
+     <Compile Include="Assets\Scripts\UI\ToggleBoardWires.cs" />
+     <Compile Include="Assets\Scripts\UI\ToggleNetWires.cs" />
      <Compile Include="Assets\Scripts\UpdateDataEvent.cs" />
      <Compile Include="Assets\Scripts\UpdateJsonEvent.cs" />
      <Compile Include="Assets\Scripts\Util.cs" />
