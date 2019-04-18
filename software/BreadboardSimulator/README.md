@@ -1,5 +1,6 @@
 POST REQUEST
 http://127.0.0.1:8081/set
+http://127.0.0.1:8081/get
 
 COMMANDS
 
@@ -23,3 +24,6 @@ COMMANDS
 
 // SET ALL PINS to either be ON/OFF or to BLINK/NO_BLINK
 {"cmd": "set", "left": 0, "right":7, "leftBlink":65535, "rightBlink":0}
+
+// GET THE XML OF A FILE filename.xml
+{"cmd": "getFile", "name":"filename"}
