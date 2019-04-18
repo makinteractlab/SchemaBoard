@@ -1,5 +1,6 @@
 POST REQUEST
 http://127.0.0.1:8081/set
+http://127.0.0.1:8081/get
 
 COMMANDS
 
