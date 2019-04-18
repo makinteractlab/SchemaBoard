@@ -27,16 +27,18 @@ void initServer()
 {
 	// Create a server listening on port 8081
   	server = new SimpleHTTPServer(this, 8081); 
-  	DynamicResponseHandler responder = new DynamicResponseHandler(new JSONserver(), "application/json");
+  	DynamicResponseHandler postResponder = new DynamicResponseHandler(new PostRequest(), "application/json");
+  	DynamicResponseHandler getResponder = new DynamicResponseHandler(new GetRequest(), "application/json");
 
-  	server.createContext("set", responder);
+  	server.createContext("set", postResponder);
+  	server.createContext("get", getResponder);
 }
 
 
 
-class JSONserver extends ResponseBuilder {
+class PostRequest extends ResponseBuilder {
   
-  public  String getResponse(String requestBody) 
+  public String getResponse(String requestBody) 
   {
     JSONObject json = parseJSONObject(requestBody);
     // println(json);
@@ -77,3 +79,24 @@ class JSONserver extends ResponseBuilder {
   }
 }
 
+
+class GetRequest extends ResponseBuilder {
+  
+  public String getResponse(String requestBody) 
+  {
+    JSONObject json = parseJSONObject(requestBody);
+    JSONObject res= new JSONObject();
+
+    if (json.getString("cmd").equals("getFile"))
+    {
+    	String filename= json.getString("name") + ".xml";
+    	File f = new File(dataPath(filename));
+		if(!f.exists()) return "";
+
+		XML xml= loadXML(filename);
+		return xml.toString();
+    }
+    // else
+    return "";
+  }
+}

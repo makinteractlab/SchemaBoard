@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Fritzing (http://www.fritzing.org/) -->
+<netlist date="목 4 18 15:18:00 2019" sketch="test2.fz">
+ <net>
+  <connector name="1" id="connector1">
+   <part label="C1" id="9709720" title="Ceramic Capacitor"/>
+  </connector>
+  <connector name="+" id="connector1">
+   <part label="VCC1" id="9707890" title="Battery"/>
+  </connector>
+  <connector name="pin 1" id="connector1">
+   <part label="P1" id="9709380" title="Photocell (LDR)"/>
+  </connector>
+  <connector name="Pin 0" id="connector0">
+   <part label="R1" id="9707110" title="220Ω Resistor"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="cathode" id="connector0">
+   <part label="LED1" id="9707950" title="Red (633nm) LED"/>
+  </connector>
+  <connector name="0" id="connector0">
+   <part label="C1" id="9709720" title="Ceramic Capacitor"/>
+  </connector>
+  <connector name="-" id="connector0">
+   <part label="VCC1" id="9707890" title="Battery"/>
+  </connector>
+  <connector name="pin 0" id="connector0">
+   <part label="P1" id="9709380" title="Photocell (LDR)"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="anode" id="connector1">
+   <part label="LED1" id="9707950" title="Red (633nm) LED"/>
+  </connector>
+  <connector name="Pin 1" id="connector1">
+   <part label="R1" id="9707110" title="220Ω Resistor"/>
+  </connector>
+ </net>
+</netlist>
