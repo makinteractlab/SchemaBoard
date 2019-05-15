@@ -17,8 +17,11 @@ void Breadboard::resetAll()
 
 void Breadboard::setAllOff ()
 {
+    blinkOn= false;
     ledsLeft=0;
     ledsRight=0;
+    ledsLeftBlink=0;
+    ledsRightBlink=0;
 }
 
 void Breadboard::setOn (uint8_t led)
@@ -27,8 +30,16 @@ void Breadboard::setOn (uint8_t led)
     led--; // base 0
 
     uint16_t mask = ON << led % ROWS;
-    if (led < ROWS) ledsLeft |= mask;
-    else ledsRight |= mask;
+    uint16_t offMask = 0xFFFF ^ ( ON << led % ROWS);
+
+    if (led < ROWS) 
+    {
+        ledsLeft |= mask;
+        ledsLeftBlink &= offMask;
+    } else {
+        ledsRight |= mask;
+        ledsRightBlink &= offMask;
+    }
 }
     
 void Breadboard::setOff (uint8_t led)
@@ -37,8 +48,14 @@ void Breadboard::setOff (uint8_t led)
     led--; // base 0
 
     uint16_t mask = 0xFFFF ^ ( ON << led % ROWS);
-    if (led < ROWS) ledsLeft &= mask;
-    else ledsRight &= mask;
+    if (led < ROWS) 
+    {
+        ledsLeft &= mask;
+        ledsLeftBlink &= mask;
+    } else {
+        ledsRight &= mask;
+        ledsRightBlink &= mask;
+    }
 }
     
 void Breadboard::toggle (uint8_t led)
@@ -47,43 +64,73 @@ void Breadboard::toggle (uint8_t led)
     led--; // base 0
 
     uint16_t mask = ON << led % ROWS;
-    if (led < ROWS) ledsLeft ^= mask;
-    else ledsRight ^= mask;
+    uint16_t offMask = 0xFFFF ^ ( ON << led % ROWS);
+
+    if (led < ROWS) 
+    {
+        ledsLeft ^= mask;
+        ledsLeftBlink &= offMask;
+    } else {
+        ledsRight ^= mask;
+        ledsRightBlink &= offMask;
+    }
+}
+
+void Breadboard::blink (uint8_t led)
+{
+    if (led <1 || led > LEDS) return;
+    led--; // base 0
+
+    uint16_t mask = ON << led % ROWS;
+
+    if (led < ROWS) ledsLeftBlink |= mask;
+    else ledsRightBlink |= mask;
 }
 
 void Breadboard::set (uint16_t left,uint16_t right)
 {
     ledsLeft= left;
     ledsRight= right;
+    ledsLeftBlink&= (0xFFFF ^ ledsLeft);
+    ledsRightBlink&= (0xFFFF ^ ledsRight);
 }
+
+void Breadboard::set (uint16_t left, uint16_t right, uint16_t leftBlink ,uint16_t rightBlink)
+{
+    ledsLeft= left;
+    ledsRight= right;
+    ledsLeftBlink= leftBlink;
+    ledsRightBlink= rightBlink;
+}
+
+void Breadboard::blinkUpdate()
+{
+    if (ledsLeftBlink == 0 && ledsRightBlink == 0) return;
+    if (blinkOn)
+    {
+        ledsLeft |= ledsLeftBlink;
+        ledsRight |= ledsRightBlink;
+    }else{
+        ledsLeft &= (0xFFFF ^ ledsLeftBlink);
+        ledsRight &= (0xFFFF ^ ledsRightBlink);
+    }
+    update();
+    blinkOn= !blinkOn;
+}   
 
 void Breadboard::update()
 {
-    // Serial.println("==========");
-    // Serial.println(ledsLeft, BIN);
-    // Serial.println(ledsRight, BIN);
     digitalWrite (latch, LOW);
     byte selection= ledsRight >> LEDS_PER_CHIP;
-    // Serial.println (selection, BIN);
     shiftOut (data, clock, MSBFIRST, selection); 
-    digitalWrite (latch, HIGH);
 
-
-    digitalWrite (latch, LOW);
     selection= ledsRight;
-    // Serial.println (selection, BIN);
     shiftOut (data, clock, MSBFIRST, selection); 
-    digitalWrite (latch, HIGH);
 
-    digitalWrite (latch, LOW);
     selection= ledsLeft >> LEDS_PER_CHIP;
-    // Serial.println (selection, BIN);
     shiftOut (data, clock, MSBFIRST, selection); 
-    digitalWrite (latch, HIGH);
 
-    digitalWrite (latch, LOW);
     selection= ledsLeft;
-    // Serial.println (selection, BIN);
     shiftOut (data, clock, MSBFIRST, selection); 
     digitalWrite (latch, HIGH);
 }

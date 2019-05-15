@@ -15,14 +15,17 @@ void blink();
 Breadboard br(LATCH, CLOCK, DATA);
 String buffer = "";
 
+
 void setup()
 {
   initialize();
-  br.resetAll();
 
   // set timer
   MsTimer2::set(500, blink);
   MsTimer2::start();
+
+  br.resetAll();
+  br.resetAll();
 }
 
 void loop()
@@ -96,9 +99,8 @@ void parse(const String &buffer)
   }
   else if (json["cmd"] == F("blink"))
   {
-    Serial.print("Blink ");
-    Serial.println(json["data"].as<long>());
-    // TODO BLINK
+    br.blink(json["data"].as<long>());
+    br.update();
     ack("OK");
   }
   else if (json["cmd"] == F("set"))
@@ -108,12 +110,8 @@ void parse(const String &buffer)
     long leftBlink = json["leftBlink"].as<long>();
     long rightBlink = json["rightBlink"].as<long>();
 
-    Serial.println(left);
-    Serial.println(right);
-    Serial.println(leftBlink);
-    Serial.println(rightBlink);
-    // TODO SET
-    // br.update();
+    br.set(left, right, leftBlink, rightBlink);
+    br.update();
     ack("OK");
   }
   else
@@ -129,6 +127,6 @@ void ack(const String &msg)
 }
 
 void blink()
-{
-  //Serial.println("blink");
+{ 
+  br.blinkUpdate();
 }
