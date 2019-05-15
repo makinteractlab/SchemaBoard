@@ -1,15 +1,16 @@
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+const path = require('path');
 
 
 // Settings
-const SERIAL_PORT = 'COM4';
+const SERIAL_PORT = 'COM11';
 // const SERIAL_PORT = '/dev/tty.usbmodem14201';
 
 
 // No need to change this
-
 const SerialPort = require('serialport')
 const Readline = require('@serialport/parser-readline')
 const port = new SerialPort(SERIAL_PORT, { baudRate: 115200 })
@@ -35,6 +36,16 @@ app.post('/set', function(req, res) {
     console.log(body);
     port.write(body)
     res.send ("ok");
+})
+
+app.post('/get', function(req, res) {
+    if (req.body.cmd == "getFile")
+    {
+    	var fileName= path.join("data", req.body.name+".xml");
+    	fs.readFile(fileName, 'utf8', function(err, contents) {
+		    res.send (contents);
+		});
+    }  
 })
 
 var server = app.listen(8081, function() {
