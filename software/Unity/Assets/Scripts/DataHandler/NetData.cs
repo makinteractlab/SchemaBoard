@@ -86,7 +86,10 @@ public class NetData : MonoBehaviour {
 			}
 		}
 
-		foreach(var item in resultPins) boardBinary[int.Parse(item)-1] = '1';
+		foreach(var item in resultPins) {
+			if(item.Contains("init")) continue;
+			else boardBinary[int.Parse(item)-1] = '1';
+		}
 
 		for(int i=0; i<16; i++)
 			if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);

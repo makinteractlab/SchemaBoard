@@ -18,9 +18,9 @@ public class RefreshButton : MonoBehaviour {
 	public StatusButton status;
 //	public ConstraintsHandler constraintsHandle;
 
-	private DeleteConfirmPanel refreshConfirmPanel;
-	private UnityAction refreshYesAction;
-    private UnityAction refreshCancelAction;
+	private LoadConfirmPanel loadConfirmPanel;
+	private UnityAction loadYesAction;
+    private UnityAction loadCancelAction;
 
 	// Use this for initialization
 	void Start () {
@@ -31,13 +31,13 @@ public class RefreshButton : MonoBehaviour {
 	}
 	
 	void Awake() {
-		refreshConfirmPanel = DeleteConfirmPanel.Instance();
-        refreshYesAction = new UnityAction (refresh);
-        refreshCancelAction = new UnityAction (refreshCancel);
+		loadConfirmPanel = LoadConfirmPanel.Instance();
+        loadYesAction = new UnityAction (refresh);
+        loadCancelAction = new UnityAction (refreshCancel);
 	}
 
 	public void refreshCancel() {
-		//Debug.Log("Cancel refresh");
+		Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>refreshCancel!\n\n\n");
 	}
 
 	public void reloadBoard() {
@@ -45,6 +45,7 @@ public class RefreshButton : MonoBehaviour {
 		//after get board name, load the board json from internal storage.
 
 		string path = Application.persistentDataPath + "/xml/netlist.xml";
+		Debug.Log("path = " + path);
 		netUI.setupNet(path);
 
 		//send command to reset all connection
@@ -54,6 +55,7 @@ public class RefreshButton : MonoBehaviour {
 	}
 	
 	public void refresh() {
+		Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
 		gameObject.SetActive(false);
 		ResetAllComponents();
 		pauseButton.play();
@@ -67,9 +69,10 @@ public class RefreshButton : MonoBehaviour {
 
 	// popup을 띄우는 함수를 바로 콜하자
 	public void refreshConfirmWindow() {
-		refreshConfirmPanel.Choice (refreshYesAction, refreshCancelAction);
-        refreshConfirmPanel.setTitle("Load/Reload the schematic");
-        refreshConfirmPanel.setPosition(new Vector3(transform.position.x, transform.position.y-100, transform.position.z));
+		Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> transform x y z " + transform.position.x + " , " +transform.position.y + " , " + transform.position.z + "\n\n\n");
+		loadConfirmPanel.Choice (loadYesAction, loadCancelAction);
+        loadConfirmPanel.setTitle("Load the schematic");
+        loadConfirmPanel.setPosition(new Vector3(transform.position.x, transform.position.y, transform.position.z));
 	}
 
 	//for test

@@ -3,6 +3,7 @@ public class Command {//: MonoBehaviour {
     // POST REQUEST
     // http://127.0.0.1:8081/set
     string url = "http://10.0.1.62:8081/set";
+    //string url = "http://10.0.1.57:8081/set";
 
     public void setUrl(string _url) {
         url = _url;
