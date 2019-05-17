@@ -12,6 +12,8 @@ public class _Pin {
 
 	public List<NetElement> netElements = new List<NetElement>();
 
+	public List<NetElement> netElementsAll = new List<NetElement>();
+
 	public _Pin (string _id, string _breadboardPosition) {
 		this.id = _id;
 		this.breadboardPosition = _breadboardPosition;
@@ -23,6 +25,14 @@ public class _Pin {
 
 	public List<NetElement> getNetElement() {
 		return netElements;
+	}
+
+	public void addNetElementAll(NetElement ne) {
+		this.netElementsAll.Add(ne);
+	}
+
+	public List<NetElement> getNetElementAll() {
+		return netElementsAll;
 	}
 }
 
@@ -70,6 +80,7 @@ public class NetDataHandler {
 	Dictionary<string, _Component> componentsInCircuit = new Dictionary<string, _Component>();
 	string log = "";
 	Dictionary<string, ArrayList> connections = new Dictionary<string, ArrayList>();
+	Dictionary<string, ArrayList> allConnections = new Dictionary<string, ArrayList>();
 	Dictionary<string, ArrayList> componentNameAndPins = new Dictionary<string, ArrayList>();
 	public Dictionary<string, _Component> getNetData(string _filePath)
 	{
@@ -93,6 +104,7 @@ public class NetDataHandler {
 
 		ArrayList connectionKeys = new ArrayList();
 		Dictionary<string, ArrayList> netComponent = new Dictionary<string, ArrayList>();
+		Dictionary<string, ArrayList> netComponentAll = new Dictionary<string, ArrayList>();
 
 		for(int i=0; i<netcount; i++) {
 			int connectorCount = 0;
@@ -116,15 +128,14 @@ public class NetDataHandler {
 				if(!netComponent.ContainsKey(key)) {
 					netComponent[key] = new ArrayList();
 				}
+				if(!netComponentAll.ContainsKey(key)) {
+					netComponentAll[key] = new ArrayList();
+				}
 				connectionKeys.Add(key);
 			}
 			
 			foreach(KeyValuePair<string, ArrayList> entry in netComponent) {
-				//자기 자신이 아니면 자신의 넷 안에 있는 모든 컴포넌트를 connection으로 추가했었음
-				//foreach(var item in connectionKeys) {
-					// if(entry.Key != (string)item)
-					// 	entry.Value.Add((string)item);
-				//}
+				//자신과 연결된 다음 컴포넌트만 net element로 추가한다 for net wires visualization in unity
 				for(int j=0; j<connectionKeys.Count-1; j++){
 					if(entry.Key == (string)connectionKeys[j]){
 						entry.Value.Add((string)connectionKeys[j+1]);
@@ -135,8 +146,20 @@ public class NetDataHandler {
 					connections.Add(entry.Key, entry.Value);
 			}
 
+			foreach(KeyValuePair<string, ArrayList> entry in netComponentAll) {
+				//자기 자신이 아니면 자신의 넷 안에 있는 모든 컴포넌트를 connection으로 추가한다.
+				foreach(var item in connectionKeys) {
+					//if(entry.Key != (string)item)
+						entry.Value.Add((string)item);
+				}
+
+				if(!allConnections.ContainsKey(entry.Key))
+					allConnections.Add(entry.Key, entry.Value);
+			}
+			
 			connectionKeys.Clear();
 			netComponent.Clear();	// netComponent는 componentNameAndPins를 만들기 위한 data
+			netComponentAll.Clear();
 		}
 
 		foreach(KeyValuePair<string, ArrayList> item in componentNameAndPins) {
@@ -159,8 +182,24 @@ public class NetDataHandler {
 						}
 					}
 				}
-
 			}
+
+			// breadboard에서 component pin click시 모든 연결된 pin들을 display하기 위해 따로 데이터를 추가함
+			foreach(KeyValuePair<string, ArrayList> entry in allConnections) {
+				foreach(string[] pin in item.Value){
+					if(entry.Key.Contains(component.label+"-"+pin[0])) {
+						foreach(var arrItem in entry.Value) {
+							string strItem = arrItem.ToString();
+							int pos = strItem.IndexOf("-");
+							string comp = strItem.Substring(0,pos);
+							string pinid = strItem.Substring(pos+1, strItem.Length-pos-1);
+							if(component.getPin(pin[0]) != null)
+								component.getPin(pin[0]).addNetElementAll(new NetElement(comp, pinid));
+						}
+					}
+				}
+			}
+			
 			// dictionary에 component add 하기
 			componentsInCircuit.Add(component.label, component);
 			//Debug.Log("done");

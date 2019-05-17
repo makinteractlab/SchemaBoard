@@ -70,6 +70,37 @@ public class NetData : MonoBehaviour {
 	// 	}
 	// }
 
+	public int[] getAllNetForPin(string _component, string _pin) {
+		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
+		int left = 0;
+		int right = 1;
+
+		int[] result = Enumerable.Repeat(0, 2).ToArray();
+
+		List<string> resultPins = new List<string>();
+		resultPins.Add(componentsInCircuit[_component].getPin(_pin).breadboardPosition);
+
+		// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
+		foreach(var element in componentsInCircuit[_component].getPin(_pin).netElementsAll) {	
+			resultPins.Add(componentsInCircuit[element.component].getPin(element.pinid).breadboardPosition);
+		}
+
+		foreach(var item in resultPins) {
+			if(item.Contains("init")) continue;
+			else boardBinary[int.Parse(item)-1] = '1';
+		}
+
+		for(int i=0; i<16; i++)
+			if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
+
+		for(int i=16; i<32; i++)
+			if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
+
+		return result;
+	}
+
+/* Recursive fuction version */
+/*
 	public void travelAllComponent(ref List<string> resultPins, string _component, string _pin) {
 		//if(componentsInCircuit[_component].getPin(_pin).netElements.Count < 1) return;
 		foreach(var component in componentsInCircuit) {
@@ -130,6 +161,7 @@ public class NetData : MonoBehaviour {
 
 		return result;
 	}
+	*/
 
 	public string getComponentPowerNet(string _component, string _pin) {
 		string result = "";
