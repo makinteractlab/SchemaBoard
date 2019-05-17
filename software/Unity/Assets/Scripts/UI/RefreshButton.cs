@@ -72,7 +72,7 @@ public class RefreshButton : MonoBehaviour {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> transform x y z " + transform.position.x + " , " +transform.position.y + " , " + transform.position.z + "\n\n\n");
 		loadConfirmPanel.Choice (loadYesAction, loadCancelAction);
         loadConfirmPanel.setTitle("Load the schematic");
-        loadConfirmPanel.setPosition(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+        //loadConfirmPanel.setPosition(new Vector3(transform.position.x, transform.position.y, transform.position.z));
 	}
 
 	//for test

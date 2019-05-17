@@ -55,8 +55,13 @@ public class NetData : MonoBehaviour {
 		return result;
 	}
 
-	public string getComponentSinglePinNet(string _component, string _pin) {
+	public string getComponentSinglePinPosition(string _component, string _pin) {
 		string result = componentsInCircuit[_component].getPin(_pin).breadboardPosition;
+		return result;
+	}
+
+	public string getComponentFirstPinPosition(string _component) {
+		string result = componentsInCircuit[_component].getFirstPin().breadboardPosition;
 		return result;
 	}
 

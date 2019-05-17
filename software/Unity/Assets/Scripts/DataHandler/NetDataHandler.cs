@@ -70,6 +70,11 @@ public class _Component {
 		return result;		
 	}
 
+	public _Pin getFirstPin() {
+		_Pin result = pins[0];
+		return result;		
+	}
+
 	public List<_Pin> getPins() {
 		return pins;
 	}
