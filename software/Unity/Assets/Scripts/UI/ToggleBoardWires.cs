@@ -12,26 +12,38 @@ public class ToggleBoardWires : MonoBehaviour {
 	public Sprite offSprite;
 	bool status;
 
-    void Awake()
-    {
+    void Awake() {
         if (ToggleBoardWires.instance == null)
             ToggleBoardWires.instance = this;
     }
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
 		status = true;
 		this.GetComponent<Button>().onClick.AddListener(displayWires);
     }
 
 	void displayWires() {
-		//gameObject.SetActive(true);
 		if(status) {
 			gameObject.GetComponent<Button>().image.sprite = onSprite;
+			showWires(true);
 			status = false;
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = offSprite;
+			showWires(false);
 			status = true;
 		}
+	}
+
+	private void showWires(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+        foreach(GameObject componentObj in temp) {
+			GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
+			foreach(GameObject wireObj in wireTemp) {
+				if( wireObj.name.Contains(componentObj.name) ) {
+					LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+					lr.enabled = onoff;
+				}
+			}
+        }
 	}
 }
