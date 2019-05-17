@@ -60,6 +60,30 @@ public class NetData : MonoBehaviour {
 		return result;
 	}
 
+	// public void addToResultPins(ref List<string> resultPins, string _component, string _pin) {
+
+	// 	if(componentsInCircuit[_component].getPin(_pin).netElements.Count < 1) return;
+
+	// 	foreach(var element in componentsInCircuit[_component].getPin(_pin).netElements) {	
+	// 		resultPins.Add(componentsInCircuit[element.component].getPin(element.pinid).breadboardPosition);
+	// 		addToResultPins(ref resultPins, element.component, element.pinid);
+	// 	}
+	// }
+
+	public void travelAllComponent(ref List<string> resultPins, string _component, string _pin) {
+		//if(componentsInCircuit[_component].getPin(_pin).netElements.Count < 1) return;
+		foreach(var component in componentsInCircuit) {
+			foreach(var item in componentsInCircuit[component.Key].getPins()) {
+				foreach(var element in item.netElements) {
+					if(element.component.Contains(_component) && element.pinid.Contains(_pin)) {
+						resultPins.Add(item.breadboardPosition);
+						travelAllComponent(ref resultPins, component.Key, item.id);
+					}
+				}
+			}
+		}
+	}
+
 	public int[] getAllNetForPin(string _component, string _pin) {
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 		int left = 0;
@@ -70,21 +94,28 @@ public class NetData : MonoBehaviour {
 		List<string> resultPins = new List<string>();
 		resultPins.Add(componentsInCircuit[_component].getPin(_pin).breadboardPosition);
 
-		// VCC ground pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
+		// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
 		foreach(var element in componentsInCircuit[_component].getPin(_pin).netElements) {	
 			resultPins.Add(componentsInCircuit[element.component].getPin(element.pinid).breadboardPosition);
-		}
-
-		// VCC ground pin을 net element로 가지고 있는 Component pin들의 breadboard pin 가져오기
-		//foreach(var item in componentsInCircuit[_component].getPins()) {
-		foreach(var component in componentsInCircuit) {
-			foreach(var item in componentsInCircuit[component.Key].getPins()) {
-				foreach(var element in item.netElements) {
-					if(element.component.Contains(_component) && element.pinid.Contains(_pin))
-						resultPins.Add(item.breadboardPosition);
-				}
+			foreach(var item in componentsInCircuit[element.component].getPin(element.pinid).netElements) {
+				resultPins.Add(componentsInCircuit[item.component].getPin(item.pinid).breadboardPosition);
 			}
 		}
+		//recursive function이 필요한가?
+		//addToResultPins(ref resultPins, _component, _pin);
+
+		// component pin을 net element로 가지고 있는 Component pin들의 breadboard pin 가져오기
+		travelAllComponent(ref resultPins, _component, _pin);
+		
+		//foreach(var item in componentsInCircuit[_component].getPins()) {
+		// foreach(var component in componentsInCircuit) {
+		// 	foreach(var item in componentsInCircuit[component.Key].getPins()) {
+		// 		foreach(var element in item.netElements) {
+		// 			if(element.component.Contains(_component) && element.pinid.Contains(_pin))
+		// 				resultPins.Add(item.breadboardPosition);
+		// 		}
+		// 	}
+		// }
 
 		foreach(var item in resultPins) {
 			if(item.Contains("init")) continue;

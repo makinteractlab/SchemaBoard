@@ -37,7 +37,7 @@ public class RefreshButton : MonoBehaviour {
 	}
 
 	public void refreshCancel() {
-		Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>refreshCancel!\n\n\n");
+		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>refreshCancel!\n\n\n");
 	}
 
 	public void reloadBoard() {
@@ -55,7 +55,7 @@ public class RefreshButton : MonoBehaviour {
 	}
 	
 	public void refresh() {
-		Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
+		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
 		gameObject.SetActive(false);
 		ResetAllComponents();
 		pauseButton.play();
@@ -69,7 +69,7 @@ public class RefreshButton : MonoBehaviour {
 
 	// popup을 띄우는 함수를 바로 콜하자
 	public void refreshConfirmWindow() {
-		Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> transform x y z " + transform.position.x + " , " +transform.position.y + " , " + transform.position.z + "\n\n\n");
+		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> transform x y z " + transform.position.x + " , " +transform.position.y + " , " + transform.position.z + "\n\n\n");
 		loadConfirmPanel.Choice (loadYesAction, loadCancelAction);
         loadConfirmPanel.setTitle("Load the schematic");
         loadConfirmPanel.setPosition(new Vector3(transform.position.x, transform.position.y, transform.position.z));
