@@ -161,8 +161,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
     public void OnPointerEnter(PointerEventData eventData)
     {
         // VuforiaRenderer.Instance.Pause(true);
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetMouseButtonDown(0)) {
             //Debug.Log("[pin.cs] " + "mouse button down: " + name);
             comm.setStartTime(Time.time);
 
@@ -174,8 +173,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                     wire.setBoardPinObj(temp);
                 else Debug.Log("cannot find board pin object");
             }
-        } else
-        {
+        } else {
             if(!comm.getDeleteWireState())
                 comm.setBoardPin(name);
         }
@@ -240,16 +238,14 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
             string boardPin = null;
             string compPin = null;
 
-            if(comm.getBoardPin() != null)
-            {
-                boardPinName = comm.getBoardPin();
+            boardPinName = comm.getBoardPin();
+            if(boardPinName != null)
                 boardPin = boardPinName.Substring(0, 3);
-            }
-            if(comm.getComponentPin() != null)
-            {
-                componentPinName = comm.getComponentPin();
-                compPin = componentPinName.Substring(0, 3);
-            }
+
+            componentPinName = comm.getComponentPin();
+            // if(componentPinName != null)
+            //     compPin = componentPinName.Substring(0, 3);
+
             if(comm.getDeleteWireState())
             {
                 if(PinsInDeleteState()) {

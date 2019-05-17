@@ -251,7 +251,7 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     }
 
     void resetAllCancelFunction () {
-        //ExitDeleteMode(ConnectedPinSprite, false);
+        ExitDeleteMode(ConnectedPinSprite, false);
         comm.resetData();
         wire.resetBoardPinObj();
         wire.resetComponentPinObj();
