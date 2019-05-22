@@ -128,6 +128,7 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
         int[] boardPins = new int[2];
         boardPins = netdata.getComponentPinsNet(this.transform.parent.name);
         http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        
         http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinPosition(this.transform.parent.name)) ) );
     }
 
