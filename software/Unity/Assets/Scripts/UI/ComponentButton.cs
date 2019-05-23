@@ -124,11 +124,21 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     //     wifi = GameObject.Find("WifiConnection").GetComponent<WifiConnection>();
     // }
 
+    public void Wait(float seconds, Action action){
+		StartCoroutine(_wait(seconds, action));
+	}
+	IEnumerator _wait(float time, Action callback){
+		yield return new WaitForSeconds(time);
+		callback();
+	}
+
     void componentClick() {
         int[] boardPins = new int[2];
         boardPins = netdata.getComponentPinsNet(this.transform.parent.name);
         http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        
+        Wait (0.3f, () => {
+             Debug.Log("0.3 seconds is lost forever");
+        });
         http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinPosition(this.transform.parent.name)) ) );
     }
 

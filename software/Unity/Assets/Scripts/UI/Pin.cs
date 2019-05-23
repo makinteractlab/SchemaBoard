@@ -52,21 +52,26 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
     }
 
     void DeleteYesFunction () {
-        ExitDeleteMode(DefaultPinSprite, true);
+        //ExitDeleteMode(DefaultPinSprite, true);
         GameObject.Find(name).GetComponent<Button>().image.sprite = DefaultPinSprite; 
-        string connectedComponent = connectedTo.transform.parent.name;
+        //string connectedComponent = connectedTo.transform.parent.name;
         //comm.setDeleteWireState(false, "");
         //comm.setTargetPin(name); ====???????
-        comm.setBoardPin(name);
-        // Todo: arduino에게 Json 보내기 (Connection 변경)
-        // Notify connected info ComponentDataHandler -> notify BoardDataHandler
-        //                                            -> notify JsonHandler
+        //comm.setBoardPin(name);
 
-        //Debug.Log("*** comm.getComponentPin() = " + comm.getComponentPin());
-        //Debug.Log("*** comm.getBoardPin() = " + comm.getBoardPin());
 
-        //wire.removeWire(comm.getComponentPin(), comm.getBoardPin());
-        wire.removeWire(connectedComponent, name);
+        GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
+        foreach(GameObject wireObj in temp)
+        {
+            if( wireObj.name.Contains(name) )
+            {
+                LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+                lr.enabled = false;
+                lr.positionCount = 0;
+                Destroy(wireObj);
+            }
+        }
+        //wire.removeWire(connectedComponent, name);
         comm.resetData();
         wire.resetBoardPinObj();
         wire.resetComponentPinObj();
@@ -84,13 +89,8 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
     public bool PinsInDeleteState()
     {
         bool active = false;
-        string component = comm.getComponentInDeleteState();
-
-        //Debug.Log("***component = " + component);
-        //Debug.Log("***connectedTo = " + connectedTo.name);
-        //Debug.Log("***connectedTo = " + connectedTo.transform.parent.name);
-
-        if(component == connectedTo.transform.parent.name) {
+        
+        if(comm.getEditWireState()) {
             active = true;
         }
 
@@ -246,12 +246,10 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
             // if(componentPinName != null)
             //     compPin = componentPinName.Substring(0, 3);
 
-            if(comm.getDeleteWireState())
+            if(comm.getEditWireState())
             {
-                if(PinsInDeleteState()) {
-                    //deleteOptionWindow();
-                    DeleteYesFunction();
-                }
+                //deleteOptionWindow();
+                DeleteYesFunction();
             } else if((componentPinName == null) || (componentPinName == "")) {
                 wire.resetBoardPinObj();
                 wire.resetComponentPinObj();
@@ -259,7 +257,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
             } else {   // drag released
                 if (boardPin == "Pin" && compPin == "Pin")
                 {
-                    if(!comm.getDeleteWireState()) {
+                    if(!comm.getEditWireState()) {
                         wire.resetBoardPinObj();
                         wire.resetComponentPinObj();
                         comm.resetData();
@@ -269,8 +267,6 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                 {
                     string wireStartBoardPin = "";
                     comm.setComponentPin(componentPinName);
-                    Debug.Log("==============");
-                    Debug.Log("componentPinName: " + componentPinName);
                     wireStartBoardPin = wire.setComponentPinObj(getTargetComponentPinObject(componentPinName));
                     // Todo: arduino에게 Json 보내기 (value 변경)
                     // Notify connected info ComponentDataHandler -> notify BoardDataHandler

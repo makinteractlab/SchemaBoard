@@ -12,6 +12,7 @@ public class Communication : MonoBehaviour
     private bool deleteState;
     private bool dragState;
     private bool popupState;
+    private bool editWireState;
 
     private string component;
 
@@ -23,6 +24,7 @@ public class Communication : MonoBehaviour
         deleteState = false;
         dragState = false;
         popupState = false;
+        editWireState = false;
     }
 
     public GameObject getPauseButton() {
@@ -58,6 +60,13 @@ public class Communication : MonoBehaviour
     public string getComponentInDeleteState()
     {
         return component;
+    }
+
+    public void setEditWireState(bool state) {
+        editWireState = state;
+    }
+    public bool getEditWireState() {
+        return editWireState;
     }
 
     public bool getDeleteWireState()

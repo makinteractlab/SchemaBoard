@@ -16793,7 +16793,7 @@ GameObject:
   - component: {fileID: 826844130}
   - component: {fileID: 826844129}
   - component: {fileID: 826844128}
-  - component: {fileID: 826844127}
+  - component: {fileID: 826844131}
   m_Layer: 5
   m_Name: EditWireToggle
   m_TagString: functionButton
@@ -16820,19 +16820,6 @@ RectTransform:
   m_AnchoredPosition: {x: 500, y: -565}
   m_SizeDelta: {x: 175, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &826844127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 826844125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535f9642711f38d4dae060c59ec872f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onSprite: {fileID: 21300000, guid: bb3369c93b1592e4bbbfc02f0a6c0f40, type: 3}
-  offSprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
 --- !u!114 &826844128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16904,7 +16891,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bb3369c93b1592e4bbbfc02f0a6c0f40, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16918,6 +16905,22 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 826844125}
+--- !u!114 &826844131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 826844125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890b48edc2bab484cb601aca19e988ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSprite: {fileID: 21300000, guid: bb3369c93b1592e4bbbfc02f0a6c0f40, type: 3}
+  offSprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
+  deleteModePinSprite: {fileID: 21300000, guid: e66e258db9f01734f93648dffbdb0e98,
+    type: 3}
+  connectedPinSprite: {fileID: 21300000, guid: 78ccefed3f63ba246bde2e07d3141304, type: 3}
 --- !u!1 &839222761
 GameObject:
   m_ObjectHideFlags: 0
@@ -18758,7 +18761,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 32956b1600d663f48853286409e89f33, type: 2}
-  ConnectedPinSprite: {fileID: 21300000, guid: 78ccefed3f63ba246bde2e07d3141304, type: 3}
+  connectedPinSprite: {fileID: 21300000, guid: 78ccefed3f63ba246bde2e07d3141304, type: 3}
+  deletePinSprite: {fileID: 21300000, guid: e66e258db9f01734f93648dffbdb0e98, type: 3}
+  comm: {fileID: 889117451}
 --- !u!4 &938458298
 Transform:
   m_ObjectHideFlags: 0
@@ -28190,7 +28195,6 @@ GameObject:
   - component: {fileID: 1407594438}
   - component: {fileID: 1407594437}
   - component: {fileID: 1407594436}
-  - component: {fileID: 1407594435}
   - component: {fileID: 1407594439}
   m_Layer: 5
   m_Name: IconToggle
@@ -28218,19 +28222,6 @@ RectTransform:
   m_AnchoredPosition: {x: 500, y: -445}
   m_SizeDelta: {x: 175, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1407594435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1407594433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535f9642711f38d4dae060c59ec872f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onSprite: {fileID: 21300000, guid: bb3369c93b1592e4bbbfc02f0a6c0f40, type: 3}
-  offSprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
 --- !u!114 &1407594436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28344,10 +28335,10 @@ MonoBehaviour:
   photoresistorImage: {fileID: 21300000, guid: 084cd70d816cc724881063babc69ce16, type: 3}
   vccImage: {fileID: 21300000, guid: 970103222895aac45a7572e99d9d90ed, type: 3}
   inductorImage: {fileID: 0}
-  switchImage: {fileID: 0}
-  diodeImage: {fileID: 0}
-  zenerdiodeImage: {fileID: 0}
-  etcImage: {fileID: 0}
+  switchImage: {fileID: 21300000, guid: 3d507cb448c2f9c4cb848035e0a02bb5, type: 3}
+  diodeImage: {fileID: 21300000, guid: b2bc7fa512a0a4546bae9905cb856386, type: 3}
+  zenerdiodeImage: {fileID: 21300000, guid: a77d4aa653b705d44998b1304e10bc08, type: 3}
+  etcImage: {fileID: 21300000, guid: 70b66e1218e65df4ebce96ca85ea1df2, type: 3}
   onSprite: {fileID: 21300000, guid: bb3369c93b1592e4bbbfc02f0a6c0f40, type: 3}
   offSprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
 --- !u!1 &1412261220

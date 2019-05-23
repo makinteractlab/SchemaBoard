@@ -9,7 +9,9 @@ public class DrawVirtualWire : MonoBehaviour
     public Material material;
     private GameObject boardPinObj;
     private GameObject componentPinObj;
-    public Sprite ConnectedPinSprite;
+    public Sprite connectedPinSprite;
+    public Sprite deletePinSprite;
+    public Communication comm;
 
     public void Reset(LineRenderer lr)
     {
@@ -22,6 +24,7 @@ public class DrawVirtualWire : MonoBehaviour
     void Start() {
         boardPinObj = null;
         componentPinObj = null;
+        //comm = GameObject.Find("Communication").GetComponent<Communication>();
         //EventMessenger
     }
 
@@ -46,7 +49,11 @@ public class DrawVirtualWire : MonoBehaviour
             line.tag = "wire";
             line = null;
             Button btTempPin = boardPinObj.GetComponent<Button>();
-            btTempPin.image.sprite = ConnectedPinSprite;
+            if(comm.getEditWireState()) {
+                btTempPin.image.sprite = deletePinSprite;
+            } else {
+                btTempPin.image.sprite = connectedPinSprite;
+            }
             resetComponentPinObj();
             resetBoardPinObj();
         }
