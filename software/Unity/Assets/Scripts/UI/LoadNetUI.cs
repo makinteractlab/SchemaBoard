@@ -150,6 +150,11 @@ public class LoadNetUI : MonoBehaviour {
 					netwire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
 				}
 			}
+
+			if(item.Key.Contains("VCC")) {
+				netDataObj.setColorGroundPins(item.Key, "connector0");
+				netDataObj.setColorVccPins(item.Key, "connector1");
+			}
 		}
 	}
 }

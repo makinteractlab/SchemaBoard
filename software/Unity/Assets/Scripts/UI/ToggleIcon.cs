@@ -65,50 +65,74 @@ public class ToggleIcon : MonoBehaviour {
 		
 		if(onoff) {
 			foreach(GameObject componentObj in temp) {
-				if( componentObj.name.Contains("LED") ) {
-					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = ledSymbol;
-				} else if( componentObj.name.Contains("R") ) {
+				string componentName = Util.removeDigit(componentObj.name);
+				switch(componentName) {
+					case "LED":
+						Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = ledSymbol;
+						break;
+					case "R":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = resistorSymbol;
-				} else if( componentObj.name.Contains("C") ) {
+						break;
+					case "C":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = capacitorSymbol;
-				} else if( componentObj.name.Contains("L") && !componentObj.name.Contains("ED") ) {
+						break;
+					case "L":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = inductorSymbol;
-				} else if( componentObj.name.Contains("S") ) {
+						break;
+					case "S":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = switchSymbol;
-				} else if( componentObj.name.Contains("P") ) {
+						break;
+					case "P":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = photoresistorSymbol;
-				} else if( componentObj.name.Contains("D") ) {
+						break;
+					case "D":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = diodeSymbol;
-				} else if( componentObj.name.Contains("ZD") ) {
+						break;
+					case "ZD":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = zenerdiodeSymbol;
-				} else if( componentObj.name.Contains("VCC") ) {
+						break;
+					case "VCC":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = vccSymbol;
-				} else {
+						break;
+					default:
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = etcSymbol;
+						break;
 				}
 			}
 		} else {
 			foreach(GameObject componentObj in temp) {
-				if( componentObj.name.Contains("LED") ) {
-					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = ledImage;
-				} else if( componentObj.name.Contains("R") ) {
+				string componentName = Util.removeDigit(componentObj.name);
+				switch(componentName) {
+					case "LED":
+						Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = ledImage;
+						break;
+					case "R":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = resistorImage;
-				} else if( componentObj.name.Contains("C") ) {
+						break;
+					case "C":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = capacitorImage;
-				} else if( componentObj.name.Contains("L") && !componentObj.name.Contains("ED") ) {
+						break;
+					case "L":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = inductorImage;
-				} else if( componentObj.name.Contains("S") ) {
+						break;
+					case "S":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = switchImage;
-				} else if( componentObj.name.Contains("P") ) {
+						break;
+					case "P":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = photoresistorImage;
-				} else if( componentObj.name.Contains("D") ) {
+						break;
+					case "D":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = diodeImage;
-				} else if( componentObj.name.Contains("ZD") ) {
+						break;
+					case "ZD":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = zenerdiodeImage;
-				} else if( componentObj.name.Contains("VCC") ) {
+						break;
+					case "VCC":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = vccImage;
-				} else {
+						break;
+					default:
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = etcImage;
+						break;
 				}
 			}
 		}

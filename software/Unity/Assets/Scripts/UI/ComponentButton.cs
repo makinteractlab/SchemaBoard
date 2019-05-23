@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 
-public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler//,IPointerEnterHandler
+public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownHandler//,IPointerEnterHandler
 {
     public Sprite DeleteModePinSprite;
     public Sprite ConnectedPinSprite;
@@ -135,8 +135,12 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
     void componentClick() {
         int[] boardPins = new int[2];
         boardPins = netdata.getComponentPinsNet(this.transform.parent.name);
+        http.postJson(cmd.getUrl(), cmd.resetAll());
+        Wait (0.5f, () => {
+             Debug.Log("0.3 seconds is lost forever");
+        });
         http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        Wait (0.3f, () => {
+        Wait (0.5f, () => {
              Debug.Log("0.3 seconds is lost forever");
         });
         http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinPosition(this.transform.parent.name)) ) );
@@ -390,7 +394,7 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
             }
         }
     }
-
+/*
     public void OnPointerDown(PointerEventData eventData)
     {
         //Debug.Log("*****ComponentButton down");
@@ -444,5 +448,5 @@ public class ComponentButton : MonoBehaviour, IPointerUpHandler, IPointerDownHan
 				}
 			}
 		}
-	}
+	} */
 }

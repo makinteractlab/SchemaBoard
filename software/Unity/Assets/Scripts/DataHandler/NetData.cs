@@ -9,6 +9,8 @@ using UnityEngine.EventSystems;
 
 public class NetData : MonoBehaviour {
 
+	public Sprite groundPinSprite;
+	public Sprite vccPinSprite;
 	Dictionary<string, _Component> componentsInCircuit;
 	// Use this for initialization
 	void Start () {
@@ -22,8 +24,11 @@ public class NetData : MonoBehaviour {
 
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
 		string pin = _componentPinName.Substring(_componentPinName.IndexOf('-')+1, _componentPinName.Length-_componentPinName.IndexOf('-')-1);
-		componentsInCircuit[_componentName].getPin(pin).breadboardPosition = Util.getChildObject(GameObject.Find(_boardPinName), "LineNumber").GetComponent<Text>().text;
-		Debug.Log("test");
+		if(_boardPinName.Contains("init")) {
+			componentsInCircuit[_componentName].getPin(pin).breadboardPosition = "init";
+		} else {
+			componentsInCircuit[_componentName].getPin(pin).breadboardPosition = Util.getChildObject(GameObject.Find(_boardPinName), "LineNumber").GetComponent<Text>().text;
+		}
 	}
 
 	public void setNetData(Dictionary<string, _Component> _componentsInCircuit) {
@@ -44,7 +49,10 @@ public class NetData : MonoBehaviour {
 			resultPins.Add(item.breadboardPosition);
 		}
 
-		foreach(var item in resultPins) boardBinary[int.Parse(item)-1] = '1';
+		foreach(var item in resultPins) {
+			if(item.Contains("init")) continue;
+			else boardBinary[int.Parse(item)-1] = '1';
+		}
 
 		for(int i=0; i<16; i++)
 			if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
@@ -102,6 +110,20 @@ public class NetData : MonoBehaviour {
 			if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
 
 		return result;
+	}
+
+	public void setColorGroundPins(string _component, string _pin) {
+		foreach(var element in componentsInCircuit[_component].getPin(_pin).netElementsAll) {
+			GameObject groundPin = Util.getChildObject(element.component, element.pinid);
+			groundPin.GetComponent<Button>().image.sprite = groundPinSprite;
+		}
+	}
+
+	public void setColorVccPins(string _component, string _pin) {
+		foreach(var element in componentsInCircuit[_component].getPin(_pin).netElementsAll) {
+			GameObject groundPin = Util.getChildObject(element.component, element.pinid);
+			groundPin.GetComponent<Button>().image.sprite = vccPinSprite;
+		}
 	}
 
 /* Recursive fuction version */

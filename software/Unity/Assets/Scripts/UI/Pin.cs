@@ -250,6 +250,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
             {
                 //deleteOptionWindow();
                 DeleteYesFunction();
+                netdata.syncNetData(getTargetComponentPinObject(componentPinName).transform.parent.name, componentPinName, "init");
             } else if((componentPinName == null) || (componentPinName == "")) {
                 wire.resetBoardPinObj();
                 wire.resetComponentPinObj();
