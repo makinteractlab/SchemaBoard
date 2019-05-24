@@ -56,15 +56,23 @@ public class DrawNetWire : MonoBehaviour
                 line.endWidth = 4;
                 line.tag = "netwire";
 
-                //if(toPinObj.name.Contains("connector0")) xOffset = -5;
-                //else if(toPinObj.name.Contains("connector1")) xOffset = 5;
-                //line.SetPosition(1, new Vector3(toPinObj.transform.position.x+xOffset, toPinObj.transform.position.y-5, toPinObj.transform.position.z));
                 Debug.Log("\n\n\n\n\n ===== From: " + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "\n\n\n\n\n");
 				Debug.Log("\n\n\n\n\n ===== To: " + toPinObj.transform.parent.name + "-" + toPinObj.name + "\n\n\n\n\n");
                 Debug.Log("\n\n\n\n\n ===== WireName: " + line.name + "\n\n\n\n\n");
 
+
                 line.SetPosition(0, fromPinObj.transform.position);
                 line.SetPosition(1, toPinObj.transform.position);
+
+                // int xOffset = 0;
+
+                // if(fromPinObj.name.Contains("connector0")) xOffset = -3;
+                // else if(fromPinObj.name.Contains("connector1")) xOffset = 3;
+                // line.SetPosition(0, new Vector3(fromPinObj.transform.position.x+xOffset, fromPinObj.transform.position.y-5, fromPinObj.transform.position.z));
+
+                // if(toPinObj.name.Contains("connector0")) xOffset = -3;
+                // else if(toPinObj.name.Contains("connector1")) xOffset = 3;
+                // line.SetPosition(1, new Vector3(toPinObj.transform.position.x+xOffset, toPinObj.transform.position.y-5, toPinObj.transform.position.z));
 
                 line = null;
             }
