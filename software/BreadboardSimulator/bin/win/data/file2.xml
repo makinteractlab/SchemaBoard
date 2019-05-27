@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Fritzing (http://www.fritzing.org/) -->
+<netlist sketch="id146_Untitled_Sketch_0.fz" date="금 5 24 17:11:20 2019">
+ <net>
+  <connector name="+" id="connector1">
+   <part title="Electrolytic Capacitor" id="56800" label="C1"/>
+  </connector>
+  <connector name="Pin 0" id="connector0">
+   <part title="22kΩ Resistor" id="59170" label="R2"/>
+  </connector>
+  <connector name="Pin 2" id="connector1">
+   <part title="555 Timer" id="19810" label="U1"/>
+  </connector>
+  <connector name="Pin 6" id="connector5">
+   <part title="555 Timer" id="19810" label="U1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="Pin 7" id="connector6">
+   <part title="555 Timer" id="19810" label="U1"/>
+  </connector>
+  <connector name="Pin 1" id="connector1">
+   <part title="100kΩ Resistor" id="58110" label="R1"/>
+  </connector>
+  <connector name="Pin 1" id="connector1">
+   <part title="22kΩ Resistor" id="59170" label="R2"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="GND" id="connector88">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+  <connector name="GND" id="connector57">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+  <connector name="GND" id="connector89">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+  <connector name="1" id="connector1">
+   <part title="Ceramic Capacitor" id="60460" label="C2"/>
+  </connector>
+  <connector name="Pin 1" id="connector1">
+   <part title="220Ω Resistor" id="60890" label="R3"/>
+  </connector>
+  <connector name="-" id="connector0">
+   <part title="Electrolytic Capacitor" id="56800" label="C1"/>
+  </connector>
+  <connector name="Pin 1" id="connector0">
+   <part title="555 Timer" id="19810" label="U1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="Pin 0" id="connector0">
+   <part title="100kΩ Resistor" id="58110" label="R1"/>
+  </connector>
+  <connector name="Pin 8" id="connector7">
+   <part title="555 Timer" id="19810" label="U1"/>
+  </connector>
+  <connector name="5V" id="connector87">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+  <connector name="Pin 4" id="connector3">
+   <part title="555 Timer" id="19810" label="U1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="Pin 3" id="connector2">
+   <part title="555 Timer" id="19810" label="U1"/>
+  </connector>
+  <connector name="anode" id="connector1">
+   <part title="Red (633nm) LED" id="60550" label="LED1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="Pin 0" id="connector0">
+   <part title="220Ω Resistor" id="60890" label="R3"/>
+  </connector>
+  <connector name="cathode" id="connector0">
+   <part title="Red (633nm) LED" id="60550" label="LED1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="0" id="connector0">
+   <part title="Ceramic Capacitor" id="60460" label="C2"/>
+  </connector>
+  <connector name="Pin 5" id="connector4">
+   <part title="555 Timer" id="19810" label="U1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="A4/SDA" id="connector59">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+  <connector name="A4/SDA" id="connector4">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="A5/SCL" id="connector5">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+  <connector name="A5/SCL" id="connector60">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D9 PWM" id="connector52">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="AREF" id="connector58">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D12/MISO" id="connector55">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="3V3" id="connector86">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="N/C" id="connector91">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D4" id="connector65">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D7" id="connector68">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D10 PWM/SS" id="connector53">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="A2" id="connector2">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D13/SCK" id="connector56">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D11 PWM/MOSI" id="connector54">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D5 PWM" id="connector66">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="A1" id="connector1">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="RESET" id="connector85">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D8" id="connector51">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D0/RX" id="connector61">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D2" id="connector63">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="ioref" id="connector84">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="A0" id="connector0">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="VIN" id="connector90">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="A3" id="connector3">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D1/TX" id="connector62">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D6 PWM" id="connector67">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="D3 PWM" id="connector64">
+   <part title="Arduino Uno (Rev3)" id="56220" label="Part1"/>
+  </connector>
+ </net>
+</netlist>
