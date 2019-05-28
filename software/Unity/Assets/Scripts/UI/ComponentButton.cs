@@ -135,10 +135,6 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     void componentClick() {
         int[] boardPins = new int[2];
         boardPins = netdata.getComponentPinsNet(this.transform.parent.name);
-        http.postJson(cmd.getUrl(), cmd.resetAll());
-        Wait (0.5f, () => {
-             Debug.Log("0.3 seconds is lost forever");
-        });
         http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         Wait (0.5f, () => {
              Debug.Log("0.3 seconds is lost forever");

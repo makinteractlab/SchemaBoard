@@ -243,14 +243,32 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                 boardPin = boardPinName.Substring(0, 3);
 
             componentPinName = comm.getComponentPin();
-            // if(componentPinName != null)
-            //     compPin = componentPinName.Substring(0, 3);
+            if(componentPinName != null)
+                compPin = componentPinName.Substring(0, 3);
 
             if(comm.getEditWireState())
             {
                 //deleteOptionWindow();
                 DeleteYesFunction();
-                netdata.syncNetData(getTargetComponentPinObject(componentPinName).transform.parent.name, componentPinName, "init");
+
+                string targetName = null;
+                string targetComponentName = null;
+                string targetComponentPinName = null;
+
+                GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
+                foreach(GameObject wireObj in wireTemp) {
+                    if( wireObj.name.Contains(this.transform.name) ) {
+                        string wireName = wireObj.name;
+                        //"Wire" + ":" + boardPinObj.name + "," + componentPinObj.transform.parent.name + "-" + componentPinObj.name
+                        int compSeperator = wireName.IndexOf(",");
+                        targetName = wireName.Substring(compSeperator+1, wireName.Length-compSeperator-1);
+
+                        int compPinSeperator = targetName.IndexOf("-");
+                        targetComponentName = targetName.Substring(0, compPinSeperator);
+                        targetComponentPinName = targetName.Substring(compPinSeperator+1, targetName.Length-compPinSeperator-1);
+                    }
+                }
+                netdata.syncNetData(targetComponentName, targetComponentPinName, "init");
             } else if((componentPinName == null) || (componentPinName == "")) {
                 wire.resetBoardPinObj();
                 wire.resetComponentPinObj();
