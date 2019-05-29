@@ -6,6 +6,8 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using UnityEngine.UI;
 using System.Xml;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class LoadNetUI : MonoBehaviour {
 	public GameObject prefabResistor;
@@ -21,15 +23,21 @@ public class LoadNetUI : MonoBehaviour {
     public RectTransform ParentPanel;
 	//public BoardDataHandler board;
 
+	public UnityAction<Dictionary<string, _Component>> dataReceivedAction;
+	public DictionaryDataReceivedEvent dataReceivedEvent;
+
 	public NetData netDataObj;
 
-	Dictionary<string, _Component> netData;
+	// Dictionary<string, _Component> netData;
 
 	public DrawNetWire netwire;
     private bool alreadyWired = false;
 
     public void Start() {
         setWireObject();
+		dataReceivedAction = new UnityAction<Dictionary<string, _Component>>(setupNet);
+        dataReceivedEvent = new DictionaryDataReceivedEvent();
+        dataReceivedEvent.AddListener(dataReceivedAction);
     }
 
     public void setWireObject()
@@ -57,11 +65,16 @@ public class LoadNetUI : MonoBehaviour {
         return resultObj;
     }
 
-	public void setupNet(string filePath)
-	{
+	public void getSchematicData(string _fileName) {
 		NetDataHandler handler = new NetDataHandler();
-		netData = handler.getNetData(filePath);
-		netDataObj.setNetData(netData);
+		netDataObj.getSchematicData(_fileName, handler);
+	}
+
+	public void setupNet(Dictionary<string, _Component> _netData)
+	{	
+		//netData = handler.getNetData(filePath);
+		//netData = netDataObj.getNetData(_filePath, handler);
+		//netDataObj.setNetData(_netData);
 		
 		//string netName = filePath.Substring(filePath.LastIndexOf("xml/"), filePath.Length);
 		//Text fritzingNameText = GameObject.Find("FritzingName").GetComponent<Text>();
@@ -72,7 +85,7 @@ public class LoadNetUI : MonoBehaviour {
 		int count = 0;
 		GameObject component = null;
 
-		foreach(KeyValuePair<string, _Component> item in netData)
+		foreach(KeyValuePair<string, _Component> item in _netData)
 		{
 			string componentName = Util.removeDigit(item.Key);
 			
@@ -138,7 +151,7 @@ public class LoadNetUI : MonoBehaviour {
 			count ++;
 		}
 
-		foreach(KeyValuePair<string, _Component> item in netData)
+		foreach(KeyValuePair<string, _Component> item in _netData)
 		{
 			List<_Pin> pins = item.Value.getPins();
 			foreach(var pin in pins) {

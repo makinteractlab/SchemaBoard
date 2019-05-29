@@ -52,6 +52,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 9e71525203f49a253b204a32a302842f Assembly-CSharp.dll:.ToggleDebugBuild
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BringToFront
 fe40872270ad9e2846646d2ec5eb176f Assembly-CSharp.dll:.ToggleBoardWires
+adef66e864c1984da233ed4964f39956 Assembly-CSharp.dll:.GetResult
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -126,7 +127,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ExtendedBehaviour
-a1addaff37e9c0ffc9cec28be2c95a58 Assembly-CSharp.dll:.NetData
+8bb1b519cdabc4a7ef0cbcefedb88b63 Assembly-CSharp.dll:.NetData
 71d911d478340c3e1e05e564ef1b631a Assembly-CSharp.dll:.StatusButton
 26215f135eeb48d8fa1189498c107f6c Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
@@ -230,7 +231,6 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 96d0fbde9fd209878a0a291f82c9bcdd UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.start
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.RotateButton
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
@@ -244,7 +244,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 8da7f5b59dbed99e6621d08d306b8b77 Assembly-CSharp.dll:.Pin
 9a6bfc3d6fdc86053b1a8e74720bb7ff Assembly-CSharp.dll:.Communication
 5f51b678f80124f6bf1189407548b393 Assembly-CSharp.dll:.ToggleWireEdit
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.HttpRequest
+9886f792f928210edda6f515fc94d372 Assembly-CSharp.dll:.HttpRequest
 26215f135eeb48d8fa1189498c107f6c Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 0561521e336e270e6e5a9c61387cb838 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
 2e0fd93f459db951da0e2e94e2e33fb7 Vuforia.UnityExtensions.dll:Vuforia.AnchorStageBehaviour

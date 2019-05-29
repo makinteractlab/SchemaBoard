@@ -6,20 +6,48 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class NetData : MonoBehaviour {
 
+	public UnityAction<JObject> dataReceivedAction;
+	public DataReceivedEvent dataReceivedEvent;
+	public HttpRequest http;
+	private Command cmd;
 	public Sprite groundPinSprite;
 	public Sprite vccPinSprite;
+	NetDataHandler netHandler;
+	public LoadNetUI netui;
 	Dictionary<string, _Component> componentsInCircuit;
 	// Use this for initialization
 	void Start () {
-		componentsInCircuit = new Dictionary<string, _Component>();
+		//componentsInCircuit = new Dictionary<string, _Component>();
+		dataReceivedAction = new UnityAction<JObject>(setSchematicData);
+        dataReceivedEvent = new DataReceivedEvent();
+        dataReceivedEvent.AddListener(dataReceivedAction);
+		cmd = new Command();
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public void getSchematicData(string _fileName, NetDataHandler _netHandler)
+	{
+		//JObject netData = null;
+		netHandler = _netHandler;
+		cmd.setUrl("http://10.0.1.62:8081/get");
+		//Http get request 로 데이터 받아올 예정
+		http.getJson(cmd.getUrl(), cmd.getFile(_fileName));
+	}
+
+	public void setSchematicData(JObject data) {	
+		componentsInCircuit = new Dictionary<string, _Component>(netHandler.parseNetData(data));
+		//netHandler.parseNetData(data);
+		netui.dataReceivedEvent.Invoke(componentsInCircuit);
 	}
 
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {

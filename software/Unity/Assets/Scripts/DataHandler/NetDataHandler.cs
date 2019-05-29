@@ -87,24 +87,29 @@ public class NetDataHandler {
 	Dictionary<string, ArrayList> connections = new Dictionary<string, ArrayList>();
 	Dictionary<string, ArrayList> allConnections = new Dictionary<string, ArrayList>();
 	Dictionary<string, ArrayList> componentNameAndPins = new Dictionary<string, ArrayList>();
-	public Dictionary<string, _Component> getNetData(string _filePath)
-	{
-		JObject netData = null;
-		XmlDocument doc = new XmlDocument();
-		string xmlContent = System.IO.File.ReadAllText(_filePath);
-		doc.LoadXml(xmlContent);
-		doc.RemoveChild(doc.FirstChild);
-		var json = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
-		json = json.Replace("@", "");
-		netData = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-		parseNetData(netData);
-		return componentsInCircuit;
-	}
+	// public Dictionary<string, _Component> getNetData(string _filePath)
+	// {
+	// 	JObject netData = null;
+	// 	XmlDocument doc = new XmlDocument();
+	// 	string xmlContent = System.IO.File.ReadAllText(_filePath);
+	// 	doc.LoadXml(xmlContent);
+	// 	doc.RemoveChild(doc.FirstChild);
+	// 	var json = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
+	// 	json = json.Replace("@", "");
+	// 	netData = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+	// 	parseNetData(netData);
+	// 	return componentsInCircuit;
+	// }
 
-	public void parseNetData(JObject _netData)
+	public Dictionary<string, _Component> parseNetData(JObject _netData)
 	{
 		int netcount = 0;
-		JArray netArray = (JArray)_netData.GetValue("net");
+
+		string noneFormattedString = _netData.ToString(Newtonsoft.Json.Formatting.None);
+        noneFormattedString = noneFormattedString.Replace("\\\"", "\"");
+		JObject data = JObject.Parse(noneFormattedString);
+
+		JArray netArray = (JArray)data.GetValue("net");
 		netcount = netArray.Count;
 
 		ArrayList connectionKeys = new ArrayList();
@@ -209,6 +214,6 @@ public class NetDataHandler {
 			componentsInCircuit.Add(component.label, component);
 			//Debug.Log("done");
 		}
-
+		return componentsInCircuit;
 	}
 }

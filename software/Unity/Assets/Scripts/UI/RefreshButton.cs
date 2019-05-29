@@ -40,13 +40,13 @@ public class RefreshButton : MonoBehaviour {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>refreshCancel!\n\n\n");
 	}
 
-	public void reloadBoard() {
+	public void reloadBoard(string _filename) {
 		Debug.Log("reloadBoard()");
 		//after get board name, load the board json from internal storage.
 
-		string path = Application.persistentDataPath + "/xml/netlist.xml";
-		Debug.Log("path = " + path);
-		netUI.setupNet(path);
+		// string path = Application.persistentDataPath + "/xml/netlist.xml";
+		// Debug.Log("path = " + path);
+		netUI.getSchematicData(_filename);
 
 		//send command to reset all connection
 		//wifi.sendDataEvent.Invoke(Query.resetAllConnections);
@@ -60,7 +60,7 @@ public class RefreshButton : MonoBehaviour {
 		ResetAllComponents();
 		pauseButton.play();
 		comm.setPopupState(false);
-		reloadBoard();
+		reloadBoard("schematic1.json");
 		// constraintsHandle.clearConstraintsDB();
 		//send query to get board name
 		// wifi.sendDataEvent.Invoke(Query.getBoardID);

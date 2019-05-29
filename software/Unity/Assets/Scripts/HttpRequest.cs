@@ -10,10 +10,15 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 public class HttpRequest : MonoBehaviour {
-    //public QueryResult queryResult;
+    public GetResult getResult;
     public void postJson(string url, string json) {
         //StartCoroutine(PostRequest("http://192.168.4.3", json));
 		StartCoroutine(PostRequest(url, json));
+    }
+
+    public void getJson(string url, string json) {
+        //StartCoroutine(PostRequest("http://192.168.4.3", json));
+		StartCoroutine(GetRequest(url, json));
     }
 
     IEnumerator PostRequest(string url, string json)
@@ -29,15 +34,34 @@ public class HttpRequest : MonoBehaviour {
         //Send the request then wait here until it returns
         yield return www.SendWebRequest();
 
-        if (www.isNetworkError)
-        {
+        if (www.isNetworkError) {
             Debug.Log("Error While Sending: " + www.error);
-        }
-        else
-        {
+        } else {
             string result = www.downloadHandler.text;
             Debug.Log("Received: " + result);
             //queryResult.setQueryResult(result);
+        }
+    }
+
+    IEnumerator GetRequest(string url, string json)
+    {
+        Debug.Log("json = " + json);
+        var www = new UnityWebRequest(url, "GET");
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+        www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
+        www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        www.SetRequestHeader("Content-Type", "application/json");
+        www.chunkedTransfer = false;
+
+        //Send the request then wait here until it returns
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError) {
+            Debug.Log("Error While Sending: " + www.error);
+        } else {
+            string result = www.downloadHandler.text;
+            Debug.Log("Received: " + result);
+            getResult.setQueryResult(result);
         }
     }
 }

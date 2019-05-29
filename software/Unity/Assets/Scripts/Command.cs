@@ -5,6 +5,11 @@ public class Command {//: MonoBehaviour {
     string url = "http://10.0.1.62:8081/set";
     //string url = "http://10.0.1.57:8081/set";
 
+    public string getFile(string _filename) {
+        string result = "{\"cmd\": \"getFile\", \"name\": \"" + _filename + "\"}";
+        return result;
+    }
+    
     public void setUrl(string _url) {
         url = _url;
     }
