@@ -89,14 +89,22 @@ class GetRequest extends ResponseBuilder {
 
     if (json.getString("cmd").equals("getFile"))
     {
-    	String filename= json.getString("name") + ".xml";
+    	String filename= json.getString("name");
     	File f = new File(dataPath(filename));
-		if(!f.exists()) return "";
-
-		XML xml= loadXML(filename);
-		return xml.toString();
+  		if(!f.exists()) return "";
+  
+      if(filename.contains("xml")) {
+  		  XML xml= loadXML(filename);
+        println("xml: " + filename);
+  		  return xml.toString();
+      } else if(filename.contains("json")) {
+        println("json: " + filename);
+        res = loadJSONObject(filename);
+        println(res.toString());
+        return res.toString();
+      }
+      
     }
-    // else
     return "";
   }
 }
