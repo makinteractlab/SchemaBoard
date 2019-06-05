@@ -19,7 +19,7 @@ public class CoverTouch : MonoBehaviour, IPointerDownHandler
 	void Update () {
 		float dist = calDistance();
 
-		if(dist>1100 && dist<1150) {
+		if(dist>1600 && dist<1700) {
 			comm.pauseButton.gameObject.SetActive(true);
 			VuforiaRenderer.Instance.Pause(true);
 		}

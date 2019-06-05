@@ -33,29 +33,56 @@ public class DrawVirtualWire : MonoBehaviour
         if(boardPinObj != null && componentPinObj != null)
         {
             int xOffset = 0;
-            line = new GameObject("Wire" + ":" + boardPinObj.name + "," + componentPinObj.transform.parent.name + "-" + componentPinObj.name).AddComponent<LineRenderer>();
-            Debug.Log(line.name);
+            // line = new GameObject("Wire" + ":" + boardPinObj.name + "," + componentPinObj.transform.parent.name + "-" + componentPinObj.name).AddComponent<LineRenderer>();
+            // Debug.Log(line.name);
 
-            line.material = material;
-            line.positionCount = 2;
-            line.startWidth = 4;
-            line.endWidth = 4;
-            line.SetPosition(0, boardPinObj.transform.position);
+            // line.material = material;
+            // line.positionCount = 2;
+            // line.startWidth = 4;
+            // line.endWidth = 4;
+            // line.SetPosition(0, boardPinObj.transform.position);
             
             if(componentPinObj.name.Contains("connector0")) xOffset = -5;
             else if(componentPinObj.name.Contains("connector1")) xOffset = 5;
-            line.SetPosition(1, new Vector3(componentPinObj.transform.position.x+xOffset, componentPinObj.transform.position.y-5, componentPinObj.transform.position.z));
 
-            line.tag = "wire";
-            line = null;
-            Button btTempPin = boardPinObj.GetComponent<Button>();
-            if(comm.getEditWireState()) {
-                btTempPin.image.sprite = deletePinSprite;
-            } else {
-                btTempPin.image.sprite = connectedPinSprite;
-            }
+            Vector3 startPos = boardPinObj.transform.position;
+            Vector3 endPos = new Vector3(componentPinObj.transform.position.x+xOffset, componentPinObj.transform.position.y-5, componentPinObj.transform.position.z);
+            string wireObjectName = "Wire" + ":" + boardPinObj.name + "," + componentPinObj.transform.parent.name + "-" + componentPinObj.name;
+
+            createWireObject(startPos, endPos, wireObjectName, boardPinObj.name);
+            // line.SetPosition(1, new Vector3(componentPinObj.transform.position.x+xOffset, componentPinObj.transform.position.y-5, componentPinObj.transform.position.z));
+
+            // line.tag = "wire";
+            // line = null;
+            // Button btTempPin = boardPinObj.GetComponent<Button>();
+            // if(comm.getEditWireState()) {
+            //     btTempPin.image.sprite = deletePinSprite;
+            // } else {
+            //     btTempPin.image.sprite = connectedPinSprite;
+            // }
             resetComponentPinObj();
             resetBoardPinObj();
+        }
+    }
+
+    public void createWireObject(Vector3 _startPos, Vector3 _endPos, string _wireObjectname, string _boardPinObjName) {
+        line = new GameObject(_wireObjectname).AddComponent<LineRenderer>();
+        Debug.Log(line.name);
+
+        line.material = material;
+        line.positionCount = 2;
+        line.startWidth = 4;
+        line.endWidth = 4;
+        line.SetPosition(0, _startPos);
+        line.SetPosition(1, _endPos);
+
+        line.tag = "wire";
+        line = null;
+        Button btTempPin = GameObject.Find(_boardPinObjName).GetComponent<Button>();
+        if(comm.getEditWireState()) {
+            btTempPin.image.sprite = deletePinSprite;
+        } else {
+            btTempPin.image.sprite = connectedPinSprite;
         }
     }
 

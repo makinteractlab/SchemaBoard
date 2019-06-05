@@ -19,6 +19,10 @@ public class _Pin {
 		this.breadboardPosition = _breadboardPosition;
 	}
 
+	public string getConnectedBreadboardPosition() {
+		return breadboardPosition;
+	}
+
 	public void addNetElement(NetElement ne) {
 		this.netElements.Add(ne);
 	}
@@ -103,20 +107,24 @@ public class NetDataHandler {
 
 	public Dictionary<string, _Component> parseNetData(JObject _netData)
 	{
-		int netcount = 0;
+		int netCount = 0;
+		int componentCount = 0;
 
 		string noneFormattedString = _netData.ToString(Newtonsoft.Json.Formatting.None);
         noneFormattedString = noneFormattedString.Replace("\\\"", "\"");
 		JObject data = JObject.Parse(noneFormattedString);
 
 		JArray netArray = (JArray)data.GetValue("net");
-		netcount = netArray.Count;
+		JArray compPosArray = (JArray)data.GetValue("components");
+
+		netCount = netArray.Count;
+		componentCount = compPosArray.Count;
 
 		ArrayList connectionKeys = new ArrayList();
 		Dictionary<string, ArrayList> netComponent = new Dictionary<string, ArrayList>();
 		Dictionary<string, ArrayList> netComponentAll = new Dictionary<string, ArrayList>();
 
-		for(int i=0; i<netcount; i++) {
+		for(int i=0; i<netCount; i++) {
 			int connectorCount = 0;
 			JArray connectorArray = (JArray)((JObject)netArray[i]).GetValue("connector");
 			connectorCount = connectorArray.Count;
@@ -124,7 +132,18 @@ public class NetDataHandler {
 			for(int j=0; j<connectorCount; j++) {
 				//string title = ((JObject)connectorArray[j])["part"]["title"].ToString();
 				string label = ((JObject)connectorArray[j])["part"]["label"].ToString();
-				string[] pinid = {((JObject)connectorArray[j])["id"].ToString(), "init"};
+				
+				string breadboardPosition = "";
+
+				for(int k=0; k<componentCount; k++) {
+					if( compPosArray[k]["label"].ToString().Equals(label) ) {
+						int compPinNumber = Util.getDigit(((JObject)connectorArray[j])["id"].ToString());
+						breadboardPosition = compPosArray[k]["position"][compPinNumber].ToString();
+						break;
+					}
+				}
+				
+				string[] pinid = {((JObject)connectorArray[j])["id"].ToString(), breadboardPosition};
 				
 				if(!componentNameAndPins.ContainsKey(label)){
 					componentNameAndPins.Add(label, new ArrayList());

@@ -35,12 +35,15 @@ public class NetData : MonoBehaviour {
 		
 	}
 
+	public Dictionary<string, _Component> getCurrentSchematicData() {
+		return componentsInCircuit;
+	}
+
 	public void getSchematicData(string _fileName, NetDataHandler _netHandler)
 	{
 		//JObject netData = null;
 		netHandler = _netHandler;
 		cmd.setUrl("http://10.0.1.62:8081/get");
-		//Http get request 로 데이터 받아올 예정
 		http.getJson(cmd.getUrl(), cmd.getFile(_fileName));
 	}
 

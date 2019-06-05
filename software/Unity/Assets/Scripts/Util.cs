@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public static class Util
 {
@@ -13,6 +14,17 @@ public static class Util
         }
 
         return result;
+    }
+
+    public static int getDigit(string src) {
+        string result = string.Empty;
+
+        for (int i=0; i< src.Length; i++) {
+            if (char.IsDigit(src[i]))
+                result += src[i];
+        }
+
+        return Int32.Parse(result);
     }
 
     public static string changeUnit(float value, string component) {

@@ -27,10 +27,12 @@ public class LoadNetUI : MonoBehaviour {
 	public DictionaryDataReceivedEvent dataReceivedEvent;
 
 	public NetData netDataObj;
+	public ToggleDebugBuild modeToggleMenu;
 
 	// Dictionary<string, _Component> netData;
-
+	public Sprite DefaultPinSprite;
 	public DrawNetWire netwire;
+	public DrawVirtualWire virtualwire;
     private bool alreadyWired = false;
 
     public void Start() {
@@ -68,6 +70,30 @@ public class LoadNetUI : MonoBehaviour {
 	public void getSchematicData(string _fileName) {
 		NetDataHandler handler = new NetDataHandler();
 		netDataObj.getSchematicData(_fileName, handler);
+	}
+
+	private void ResetAllConnectedWires() {
+		GameObject[] pinsTemp = GameObject.FindGameObjectsWithTag("pin");
+		foreach(GameObject pinObj in pinsTemp) {
+			pinObj.GetComponent<Button>().image.sprite = DefaultPinSprite;;
+		}
+
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+        foreach(GameObject componentObj in temp)
+        {
+			GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
+			foreach(GameObject wireObj in wireTemp)
+			{
+				if( wireObj.name.Contains(componentObj.name) )
+				{
+					LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+					lr.enabled = false;
+					//lr.SetVertexCount(0);
+					lr.positionCount = 0;
+					Destroy(wireObj);
+				}
+			}
+        }
 	}
 
 	public void setupNet(Dictionary<string, _Component> _netData)
@@ -168,6 +194,60 @@ public class LoadNetUI : MonoBehaviour {
 				netDataObj.setColorGroundPins(item.Key, "connector0");
 				netDataObj.setColorVccPins(item.Key, "connector1");
 			}
+		}
+
+		modeToggleMenu.setDebugMode();
+
+		// if(modeToggleMenu.isBuildMode()) {
+		// 	// auto complete connections
+		// 	Vector3 startPos;
+		// 	Vector3 endPos;
+		// 	string wireObjectName;
+
+		// 	foreach(KeyValuePair<string, _Component> item in _netData)
+		// 	{
+		// 		List<_Pin> pins = item.Value.getPins();
+		// 		int index = 1;
+		// 		foreach(var pin in pins) {
+		// 			if(index > 5) index = 1;
+		// 			string connectedPos = pin.getConnectedBreadboardPosition();
+		// 			string boardPinObjName = "Pin" + connectedPos + index.ToString();
+		// 			startPos = GameObject.Find(boardPinObjName).transform.position;
+		// 			endPos = Util.getChildObject(item.Value.label, pin.id).transform.position;
+		// 			wireObjectName = "Wire" + ":" + boardPinObjName + "," + item.Value.label + "-" + pin.id;
+		// 			virtualwire.createWireObject(startPos, endPos, wireObjectName, boardPinObjName);
+		// 			index ++;
+		// 		}
+		// 	}			
+		// }
+	}
+
+	public void setupDebugMode() {
+		ResetAllConnectedWires();
+	}
+
+	public void setupBuildMode() {
+		if(modeToggleMenu.isBuildMode()) {
+			// auto complete connections
+			Vector3 startPos;
+			Vector3 endPos;
+			string wireObjectName;
+
+			foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentSchematicData())
+			{
+				List<_Pin> pins = item.Value.getPins();
+				int index = 4;
+				foreach(var pin in pins) {
+					
+					string connectedPos = pin.getConnectedBreadboardPosition();
+					string boardPinObjName = "Pin" + connectedPos + index.ToString();
+					startPos = GameObject.Find(boardPinObjName).transform.position;
+					endPos = Util.getChildObject(item.Value.label, pin.id).transform.position;
+					wireObjectName = "Wire" + ":" + boardPinObjName + "," + item.Value.label + "-" + pin.id;
+					virtualwire.createWireObject(startPos, endPos, wireObjectName, boardPinObjName);
+					
+				}
+			}			
 		}
 	}
 }

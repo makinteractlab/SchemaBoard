@@ -10,8 +10,10 @@ public class ToggleDebugBuild : MonoBehaviour {
     public static ToggleDebugBuild instance;
 	public Sprite debugSprite;
 	public Sprite buildSprite;
+	public LoadNetUI loadNetUI;
 
 	bool status;
+	bool buildMode;
 
 	private string command = "";
 
@@ -25,17 +27,30 @@ public class ToggleDebugBuild : MonoBehaviour {
 		this.GetComponent<Button>().onClick.AddListener(ModeChange);
     }
 
+	public bool isBuildMode() {
+		return buildMode;
+	}
+
+	public void setDebugMode() {
+		status = false;
+		ModeChange();
+	}
+
 	void ModeChange() {
 		//gameObject.SetActive(true);
 		if(status) {
 			gameObject.GetComponent<Button>().image.sprite = buildSprite;
+			buildMode = true;
 			showNetWire(false);
 			showDebugMenu(false);
+			loadNetUI.setupBuildMode();
 			status = false;
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = debugSprite;
+			buildMode = false;
 			showNetWire(true);
 			showDebugMenu(true);
+			loadNetUI.setupDebugMode();
 			status = true;
 		}
 	}
