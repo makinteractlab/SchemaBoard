@@ -78,22 +78,22 @@ public class LoadNetUI : MonoBehaviour {
 			pinObj.GetComponent<Button>().image.sprite = DefaultPinSprite;;
 		}
 
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
-        foreach(GameObject componentObj in temp)
-        {
+		// GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+        // foreach(GameObject componentObj in temp)
+        // {
 			GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
 			foreach(GameObject wireObj in wireTemp)
 			{
-				if( wireObj.name.Contains(componentObj.name) )
-				{
+				// if( wireObj.name.Contains(componentObj.name) )
+				// {
 					LineRenderer lr = wireObj.GetComponent<LineRenderer>();
 					lr.enabled = false;
 					//lr.SetVertexCount(0);
 					lr.positionCount = 0;
 					Destroy(wireObj);
-				}
+				// }
 			}
-        }
+        // }
 	}
 
 	public void setupNet(Dictionary<string, _Component> _netData)
@@ -222,8 +222,96 @@ public class LoadNetUI : MonoBehaviour {
 		// }
 	}
 
+	void ResetNetWires() {
+		GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("netwire");
+		foreach(GameObject wireObj in wireTemp)
+		{
+			LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+			lr.enabled = false;
+			lr.positionCount = 0;
+			Destroy(wireObj);
+		}
+
+		foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentSchematicData())
+		{
+			List<_Pin> pins = item.Value.getPins();
+			foreach(var pin in pins) {
+				List<NetElement> netElement = pin.getNetElement();
+
+				foreach(var target in netElement) {
+					GameObject currentObject = GameObject.Find(item.Key);
+					GameObject targetObject = GameObject.Find(target.component);
+					netwire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
+				}
+			}
+		}
+	}
+
+	private Vector3 getComponentPinPosition(string componentName, string pinName)
+    {
+        Transform[] children = GameObject.Find(componentName).GetComponentsInChildren<Transform>();
+        Vector3 result = Vector3.zero;
+        foreach(Transform obj in children)     
+        {
+            if(obj.name == pinName) {
+                result = obj.position;
+            }
+        }
+        //Debug.Log("ComponentObject.cs - getTargetComponentPinPosition = " + result);
+        return result;
+    }
+	
+	void changeNetWiresPosition() {
+		Vector3 wireEndPosition = new Vector3(0,0,0);
+    	Vector3 wireStartPosition = new Vector3(0,0,0);
+		GameObject[] netwires = GameObject.FindGameObjectsWithTag("netwire");
+		GameObject[] components = GameObject.FindGameObjectsWithTag("component");
+
+		foreach(GameObject wireObj in netwires)
+		{
+			foreach(GameObject componentObj in components) {
+				string first = wireObj.name.Substring(0,wireObj.name.IndexOf(','));
+				string last = wireObj.name.Substring(wireObj.name.IndexOf(','), wireObj.name.Length - wireObj.name.IndexOf(','));
+
+				if(last.Contains(componentObj.name)) // if this component is FromPin
+				{
+					if(last.Contains("connector0")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector0");
+						wireEndPosition.x -= 5;
+					} else if(last.Contains("connector1")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector1");
+						wireEndPosition.x += 5;
+					}
+					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
+					wireLineRender.SetPosition(1, wireEndPosition);
+				} else if(first.Contains(componentObj.name)) //else if this component is To Pin
+				{
+					if(first.Contains("connector0")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector0");
+						wireStartPosition.x -= 5;
+					}
+					else if(first.Contains("connector1")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector1");
+						wireStartPosition.x += 5;
+					}
+					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
+					wireLineRender.SetPosition(0, wireStartPosition);
+				}
+			}
+		}
+	}
+
 	public void setupDebugMode() {
 		ResetAllConnectedWires();
+		
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+		int count = 0;
+		foreach(GameObject componentObj in temp) {
+			if(count<4) componentObj.transform.position = new Vector3(265, ParentPanel.transform.position.y+10, -80-count*110);
+			else componentObj.transform.position = new Vector3(415,ParentPanel.transform.position.y+10,-80-(count-4)*110);
+			count++;
+		}
+		changeNetWiresPosition();
 	}
 
 	public void setupBuildMode() {
@@ -232,6 +320,13 @@ public class LoadNetUI : MonoBehaviour {
 			Vector3 startPos;
 			Vector3 endPos;
 			string wireObjectName;
+
+			GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+			int count = 0;
+        	foreach(GameObject componentObj in temp) {
+				if(count<4) componentObj.transform.position = new Vector3(-150,componentObj.transform.position.y,componentObj.transform.position.z);
+				else componentObj.transform.position = new Vector3(-50,componentObj.transform.position.y,componentObj.transform.position.z+110);
+			}
 
 			foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentSchematicData())
 			{
@@ -245,9 +340,9 @@ public class LoadNetUI : MonoBehaviour {
 					endPos = Util.getChildObject(item.Value.label, pin.id).transform.position;
 					wireObjectName = "Wire" + ":" + boardPinObjName + "," + item.Value.label + "-" + pin.id;
 					virtualwire.createWireObject(startPos, endPos, wireObjectName, boardPinObjName);
-					
 				}
-			}			
+			}
 		}
+		changeNetWiresPosition();
 	}
 }

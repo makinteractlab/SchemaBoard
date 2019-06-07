@@ -57,6 +57,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 
 	private void showDebugMenu(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("debugMenu");
+		
         foreach(GameObject componentObj in temp) {
 			if(onoff) {
 				componentObj.transform.localScale = new Vector3(1,1,1);
@@ -64,6 +65,14 @@ public class ToggleDebugBuild : MonoBehaviour {
 				componentObj.transform.localScale = new Vector3(0,0,0);
 			}
         }
+
+		// if(onoff) {
+		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(0,0,0);
+		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(1,1,1);
+		// } else {
+		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(0,0,0);
+		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(1,1,1);
+		// }
 	}
 
 	private void showNetWire(bool onoff) {
