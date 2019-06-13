@@ -16,8 +16,8 @@ COMMANDS
 // SINGLE PIN TOGGLE [1-32]
 {"cmd": "toggle", "data": 1}
 
-// SINGLE PIN BLINK [1-32]
-{"cmd": "blink", "data": 1}
+// SINGLE PIN BLINK [1-32] and PERIOD [multiple of 100ms]
+{"cmd": "blink", "data": 1, "period": 200}
 
 // SET ALL PINS to either be ON/OFF
 {"cmd": "set", "left": 0, "right":7}

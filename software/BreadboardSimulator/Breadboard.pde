@@ -3,7 +3,7 @@ class BreadBoard implements Runnable
 
 	class Row 
 	{
-		int id, x, y, sz;
+		int id, x, y, sz, period;
 		boolean on, blinking;
 		public final int COLS= 5;
 		PFont font;
@@ -15,6 +15,7 @@ class BreadBoard implements Runnable
 			on= false;
 			blinking= false; 
 			font= loadFont("font.vlw");
+			period= BLINK_RATE;
 		}
 
 		void draw()
@@ -42,7 +43,8 @@ class BreadBoard implements Runnable
 		void setOff(){ on= false; blinking= false; }
 		void toggle(){ on= !on; blinking= false; }
 
-		void blink(){ blinking= true; }
+		int getBlinkingPeriod () { return period; }
+		void blink(int period){ blinking= true; this.period= period;}
 		void noblink(){ blinking= false; }
 		void doBlink (boolean onState)
 		{
@@ -57,7 +59,8 @@ class BreadBoard implements Runnable
 	int rowSize;
 	public final int ROWS= 16;
 	public final int COLS= 5;
-	public final int REFRESH_RATE= 500;
+	public final int REFRESH_RATE= 100;
+	public final int BLINK_RATE= 500;
 
 	BreadBoard (int rowSize)
 	{
@@ -98,9 +101,19 @@ class BreadBoard implements Runnable
 			try
 			{
 				Thread.sleep(REFRESH_RATE);
-				boolean on= (millis()/REFRESH_RATE) % 2 == 0;
-				for (Row r: left)  r.doBlink(on);
-				for (Row r: right) r.doBlink(on);
+				for (Row r: left)
+				{
+					int p= r.getBlinkingPeriod();
+					boolean on= (millis()/p) % 2 == 0;
+					r.doBlink(on);
+				}
+					
+				for (Row r: right) 
+				{
+					int p= r.getBlinkingPeriod();
+					boolean on= (millis()/p) % 2 == 0;
+					r.doBlink(on);
+				}
 
 			}catch (Exception e){}
 		}
@@ -130,12 +143,20 @@ class BreadBoard implements Runnable
 		else left.get(i).toggle();
 	}
 
+	void blink(int i, int period)
+	{
+		i--;
+		if (i<0 || i>ROWS*2) return;
+		if (i>=ROWS) right.get(i%ROWS).blink(period);
+		else left.get(i).blink(period);
+	} 
+
 	void blink(int i)
 	{
 		i--;
 		if (i<0 || i>ROWS*2) return;
-		if (i>=ROWS) right.get(i%ROWS).blink();
-		else left.get(i).blink();
+		if (i>=ROWS) right.get(i%ROWS).blink(BLINK_RATE);
+		else left.get(i).blink(BLINK_RATE);
 	} 
 
 	void noblink(int i)
