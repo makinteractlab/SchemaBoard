@@ -20,6 +20,7 @@ public class NetData : MonoBehaviour {
 	NetDataHandler netHandler;
 	public LoadNetUI netui;
 	Dictionary<string, _Component> componentsInCircuit;
+	Dictionary<string, _Component> initComponentsInCircuit;
 	// Use this for initialization
 	void Start () {
 		//componentsInCircuit = new Dictionary<string, _Component>();
@@ -33,6 +34,10 @@ public class NetData : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	public Dictionary<string, _Component> getInitialSchematicData() {
+		return initComponentsInCircuit;
 	}
 
 	public Dictionary<string, _Component> getCurrentSchematicData() {
@@ -49,7 +54,7 @@ public class NetData : MonoBehaviour {
 
 	public void setSchematicData(JObject data) {	
 		componentsInCircuit = new Dictionary<string, _Component>(netHandler.parseNetData(data));
-		//netHandler.parseNetData(data);
+		initComponentsInCircuit = new Dictionary<string, _Component>(componentsInCircuit);
 		netui.dataReceivedEvent.Invoke(componentsInCircuit);
 	}
 
@@ -62,13 +67,10 @@ public class NetData : MonoBehaviour {
 		}
 	}
 
-	public void setNetData(Dictionary<string, _Component> _componentsInCircuit) {
-		componentsInCircuit = new Dictionary<string, _Component>(_componentsInCircuit);
-	}
+	// public void setInitNetData(Dictionary<string, _Component> _componentsInCircuit) {
+	// 	initComponentsInCircuit = new Dictionary<string, _Component>(_componentsInCircuit);
+	// }
 
-	public Dictionary<string, _Component> getNetData() {
-		return componentsInCircuit;
-	}
 	public int[] getComponentPinsNet(string _component) {
 		List<string> resultPins = new List<string>();
 		int left = 0;

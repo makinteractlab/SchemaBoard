@@ -52,8 +52,8 @@ public class DrawLine : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         line = new GameObject("Wire" + ":" + this.transform.parent.name + "-" + name).AddComponent<LineRenderer>();
         line.material = material;
         line.positionCount = 2;
-        line.startWidth = 4;
-        line.endWidth = 4;
+        line.startWidth = 6;
+        line.endWidth = 6;
 
         // line.SetPosition(0, boardPinObj.transform.position);
         line.positionCount = 1;

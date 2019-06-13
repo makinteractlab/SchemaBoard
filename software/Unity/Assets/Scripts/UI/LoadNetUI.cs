@@ -169,7 +169,7 @@ public class LoadNetUI : MonoBehaviour {
 				} else {
 					component.transform.position = new Vector3(415,ParentPanel.transform.position.y+10,-80-(count-4)*110);
 				}
-				component.transform.localScale = new Vector3(0.6f, 0.6f, 1);
+				component.transform.localScale = new Vector3(1, 1, 1);
 
 				List<_Pin> pins = item.Value.getPins();
 
@@ -315,6 +315,7 @@ public class LoadNetUI : MonoBehaviour {
 	}
 
 	public void setupBuildMode() {
+		ResetAllConnectedWires();
 		if(modeToggleMenu.isBuildMode()) {
 			// auto complete connections
 			Vector3 startPos;
@@ -328,7 +329,7 @@ public class LoadNetUI : MonoBehaviour {
 				else componentObj.transform.position = new Vector3(-50,componentObj.transform.position.y,componentObj.transform.position.z+110);
 			}
 
-			foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentSchematicData())
+			foreach(KeyValuePair<string, _Component> item in netDataObj.getInitialSchematicData())
 			{
 				List<_Pin> pins = item.Value.getPins();
 				int index = 4;

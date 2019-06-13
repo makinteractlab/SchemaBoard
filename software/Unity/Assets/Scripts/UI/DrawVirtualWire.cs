@@ -71,8 +71,8 @@ public class DrawVirtualWire : MonoBehaviour
 
         line.material = material;
         line.positionCount = 2;
-        line.startWidth = 4;
-        line.endWidth = 4;
+        line.startWidth = 6;
+        line.endWidth = 6;
         line.SetPosition(0, _startPos);
         line.SetPosition(1, _endPos);
 

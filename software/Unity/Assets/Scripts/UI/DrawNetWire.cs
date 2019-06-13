@@ -52,8 +52,8 @@ public class DrawNetWire : MonoBehaviour
                 line.materials[0].mainTextureScale = new Vector3(distance, 1, 1);
 
                 line.positionCount = 2;
-                line.startWidth = 4;
-                line.endWidth = 4;
+                line.startWidth = 6;
+                line.endWidth = 6;
                 line.tag = "netwire";
 
                 Debug.Log("\n\n\n\n\n ===== From: " + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "\n\n\n\n\n");
