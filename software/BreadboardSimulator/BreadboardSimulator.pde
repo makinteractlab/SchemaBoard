@@ -53,7 +53,7 @@ class PostRequest extends ResponseBuilder {
     else if (json.getString("cmd").equals("toggle"))
     	br.toggle(json.getInt("data"));
     else if (json.getString("cmd").equals("blink"))
-    	br.blink(json.getInt("data"), json.getInt("period"));
+    	br.blink(json.getInt("data"));
     else if (json.getString("cmd").equals("reset"))
     	br.reset();
     else if (json.getString("cmd").equals("set"))
