@@ -87,6 +87,8 @@ public class _Component {
 public class NetDataHandler {
 	//List<_Component> components = new List<_Component>();
 	Dictionary<string, _Component> componentsInCircuit = new Dictionary<string, _Component>();
+	Dictionary<string, _Component> initNetData = new Dictionary<string, _Component>();
+
 	string log = "";
 	Dictionary<string, ArrayList> connections = new Dictionary<string, ArrayList>();
 	Dictionary<string, ArrayList> allConnections = new Dictionary<string, ArrayList>();
@@ -104,6 +106,10 @@ public class NetDataHandler {
 	// 	parseNetData(netData);
 	// 	return componentsInCircuit;
 	// }
+
+	public Dictionary<string, _Component> getInitNetData() {
+		return initNetData;
+	}
 
 	public Dictionary<string, _Component> parseNetData(JObject _netData)
 	{
@@ -230,7 +236,10 @@ public class NetDataHandler {
 			}
 			
 			// dictionary에 component add 하기
-			componentsInCircuit.Add(component.label, component);
+			if (!componentsInCircuit.ContainsKey(component.label))
+				componentsInCircuit.Add(component.label, component);
+			if (!initNetData.ContainsKey(component.label))
+				initNetData.Add(component.label, component);
 			//Debug.Log("done");
 		}
 		return componentsInCircuit;

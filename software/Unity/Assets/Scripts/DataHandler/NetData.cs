@@ -54,7 +54,7 @@ public class NetData : MonoBehaviour {
 
 	public void setSchematicData(JObject data) {	
 		componentsInCircuit = new Dictionary<string, _Component>(netHandler.parseNetData(data));
-		initComponentsInCircuit = new Dictionary<string, _Component>(componentsInCircuit);
+		initComponentsInCircuit = new Dictionary<string, _Component>(netHandler.getInitNetData());
 		netui.dataReceivedEvent.Invoke(componentsInCircuit);
 	}
 
@@ -65,6 +65,9 @@ public class NetData : MonoBehaviour {
 		} else {
 			componentsInCircuit[_componentName].getPin(pin).breadboardPosition = Util.getChildObject(GameObject.Find(_boardPinName), "LineNumber").GetComponent<Text>().text;
 		}
+
+		componentsInCircuit.ToList().ForEach(x => Console.WriteLine(x.Key)); // debug
+		initComponentsInCircuit.ToList().ForEach(x => Console.WriteLine(x.Key));	//debug
 	}
 
 	// public void setInitNetData(Dictionary<string, _Component> _componentsInCircuit) {

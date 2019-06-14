@@ -165,9 +165,9 @@ public class LoadNetUI : MonoBehaviour {
 				component.transform.SetParent(ParentPanel, false);
 
 				if(count < 4) {
-					component.transform.position = new Vector3(265,ParentPanel.transform.position.y+10,-80-count*110);
+					component.transform.position = new Vector3(-600,ParentPanel.transform.position.y+10,150-count*110);
 				} else {
-					component.transform.position = new Vector3(415,ParentPanel.transform.position.y+10,-80-(count-4)*110);
+					component.transform.position = new Vector3(-350,ParentPanel.transform.position.y+10,150-(count-4)*110);
 				}
 				component.transform.localScale = new Vector3(1, 1, 1);
 
@@ -301,16 +301,56 @@ public class LoadNetUI : MonoBehaviour {
 		}
 	}
 
-	public void setupDebugMode() {
-		ResetAllConnectedWires();
-		
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
-		int count = 0;
-		foreach(GameObject componentObj in temp) {
-			if(count<4) componentObj.transform.position = new Vector3(265, ParentPanel.transform.position.y+10, -80-count*110);
-			else componentObj.transform.position = new Vector3(415,ParentPanel.transform.position.y+10,-80-(count-4)*110);
-			count++;
+	void changeConnectedWiresPosition() {
+		Vector3 wireEndPosition = new Vector3(0,0,0);
+    	Vector3 wireStartPosition = new Vector3(0,0,0);
+		GameObject[] netwires = GameObject.FindGameObjectsWithTag("wire");
+		GameObject[] components = GameObject.FindGameObjectsWithTag("component");
+
+		foreach(GameObject wireObj in netwires)
+		{
+			foreach(GameObject componentObj in components) {
+				string first = wireObj.name.Substring(0,wireObj.name.IndexOf(','));
+				string last = wireObj.name.Substring(wireObj.name.IndexOf(','), wireObj.name.Length - wireObj.name.IndexOf(','));
+
+				if(last.Contains(componentObj.name)) // if this component is FromPin
+				{
+					if(last.Contains("connector0")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector0");
+						wireEndPosition.x -= 5;
+					} else if(last.Contains("connector1")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector1");
+						wireEndPosition.x += 5;
+					}
+					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
+					wireLineRender.SetPosition(1, wireEndPosition);
+				} else if(first.Contains(componentObj.name)) //else if this component is To Pin
+				{
+					if(first.Contains("connector0")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector0");
+						wireStartPosition.x -= 5;
+					}
+					else if(first.Contains("connector1")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector1");
+						wireStartPosition.x += 5;
+					}
+					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
+					wireLineRender.SetPosition(0, wireStartPosition);
+				}
+			}
 		}
+	}
+
+	public void setupDebugMode() {
+		//ResetAllConnectedWires();
+		
+		// GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+		// int count = 0;
+		// foreach(GameObject componentObj in temp) {
+		// 	if(count<4) componentObj.transform.position = new Vector3(265, ParentPanel.transform.position.y+10, -80-count*110);
+		// 	else componentObj.transform.position = new Vector3(415,ParentPanel.transform.position.y+10,-80-(count-4)*110);
+		// 	count++;
+		// }
 		changeNetWiresPosition();
 	}
 
@@ -325,8 +365,9 @@ public class LoadNetUI : MonoBehaviour {
 			GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
 			int count = 0;
         	foreach(GameObject componentObj in temp) {
-				if(count<4) componentObj.transform.position = new Vector3(-150,componentObj.transform.position.y,componentObj.transform.position.z);
-				else componentObj.transform.position = new Vector3(-50,componentObj.transform.position.y,componentObj.transform.position.z+110);
+				if(count<4) componentObj.transform.position = new Vector3(0,componentObj.transform.position.y,componentObj.transform.position.z);
+				else componentObj.transform.position = new Vector3(100,componentObj.transform.position.y,componentObj.transform.position.z);
+				count ++;
 			}
 
 			foreach(KeyValuePair<string, _Component> item in netDataObj.getInitialSchematicData())

@@ -235,16 +235,16 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
 
             string boardPinName = null;
             string componentPinName = null;
-            string boardPin = null;
-            string compPin = null;
+            // string boardPin = null;
+            // string compPin = null;
 
             boardPinName = comm.getBoardPin();
-            if(boardPinName != null)
-                boardPin = boardPinName.Substring(0, 3);
+            // if(boardPinName != null || boardPinName != "")
+            //     boardPin = boardPinName.Substring(0, 3);
 
             componentPinName = comm.getComponentPin();
-            if(componentPinName != null)
-                compPin = componentPinName.Substring(0, 3);
+            // if(componentPinName != null || componentPinName != "")
+            //     compPin = componentPinName.Substring(0, 3);
 
             if(comm.getEditWireState())
             {
@@ -274,15 +274,14 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                 wire.resetComponentPinObj();
                 comm.resetData();
             } else {   // drag released
-                if (boardPin == "Pin" && compPin == "Pin")
+                if(boardPinName.Contains("Pin") && componentPinName.Contains("Pin"))
                 {
                     if(!comm.getEditWireState()) {
                         wire.resetBoardPinObj();
                         wire.resetComponentPinObj();
                         comm.resetData();
                     }
-                }
-                else if( (boardPin != compPin) && !pinAlreadyWired(componentPinName) && !pinAlreadyWired(boardPinName))
+                } else if(!pinAlreadyWired(componentPinName) && !pinAlreadyWired(boardPinName))
                 {
                     string wireStartBoardPin = "";
                     comm.setComponentPin(componentPinName);
