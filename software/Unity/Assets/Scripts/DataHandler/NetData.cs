@@ -61,9 +61,10 @@ public class NetData : MonoBehaviour {
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
 		string pin = _componentPinName.Substring(_componentPinName.IndexOf('-')+1, _componentPinName.Length-_componentPinName.IndexOf('-')-1);
 		if(_boardPinName.Contains("init")) {
-			componentsInCircuit[_componentName].getPin(pin).breadboardPosition = "init";
+			componentsInCircuit[_componentName].getPin(pin).breadboardRowPosition = "init";
 		} else {
-			componentsInCircuit[_componentName].getPin(pin).breadboardPosition = Util.getChildObject(GameObject.Find(_boardPinName), "LineNumber").GetComponent<Text>().text;
+			componentsInCircuit[_componentName].getPin(pin).breadboardRowPosition = Util.getChildObject(GameObject.Find(_boardPinName), "row").GetComponent<Text>().text;
+			componentsInCircuit[_componentName].getPin(pin).breadboardColPosition = Util.getChildObject(GameObject.Find(_boardPinName), "column").GetComponent<Text>().text;
 		}
 
 		componentsInCircuit.ToList().ForEach(x => Console.WriteLine(x.Key)); // debug
@@ -82,7 +83,7 @@ public class NetData : MonoBehaviour {
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 
 		foreach(var item in componentsInCircuit[_component].getPins()){
-			resultPins.Add(item.breadboardPosition);
+			resultPins.Add(item.breadboardRowPosition);
 		}
 
 		foreach(var item in resultPins) {
@@ -99,13 +100,13 @@ public class NetData : MonoBehaviour {
 		return result;
 	}
 
-	public string getComponentSinglePinPosition(string _component, string _pin) {
-		string result = componentsInCircuit[_component].getPin(_pin).breadboardPosition;
+	public string getComponentSinglePinRowPosition(string _component, string _pin) {
+		string result = componentsInCircuit[_component].getPin(_pin).breadboardRowPosition;
 		return result;
 	}
 
-	public string getComponentFirstPinPosition(string _component) {
-		string result = componentsInCircuit[_component].getFirstPin().breadboardPosition;
+	public string getComponentFirstPinRowPosition(string _component) {
+		string result = componentsInCircuit[_component].getFirstPin().breadboardRowPosition;
 		return result;
 	}
 
@@ -127,11 +128,11 @@ public class NetData : MonoBehaviour {
 		int[] result = Enumerable.Repeat(0, 2).ToArray();
 
 		List<string> resultPins = new List<string>();
-		resultPins.Add(componentsInCircuit[_component].getPin(_pin).breadboardPosition);
+		resultPins.Add(componentsInCircuit[_component].getPin(_pin).breadboardRowPosition);
 
 		// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
 		foreach(var element in componentsInCircuit[_component].getPin(_pin).netElementsAll) {	
-			resultPins.Add(componentsInCircuit[element.component].getPin(element.pinid).breadboardPosition);
+			resultPins.Add(componentsInCircuit[element.component].getPin(element.pinid).breadboardRowPosition);
 		}
 
 		foreach(var item in resultPins) {

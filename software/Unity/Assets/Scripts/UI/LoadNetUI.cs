@@ -373,11 +373,11 @@ public class LoadNetUI : MonoBehaviour {
 			foreach(KeyValuePair<string, _Component> item in netDataObj.getInitialSchematicData())
 			{
 				List<_Pin> pins = item.Value.getPins();
-				int index = 4;
 				foreach(var pin in pins) {
 					
-					string connectedPos = pin.getConnectedBreadboardPosition();
-					string boardPinObjName = "Pin" + connectedPos + index.ToString();
+					string connectedRowPos = pin.getConnectedBreadboardRowPosition();
+					string connectedColPos = pin.getConnectedBreadboardColPosition();
+					string boardPinObjName = "Pin" + connectedRowPos + "-" + connectedColPos;
 					startPos = GameObject.Find(boardPinObjName).transform.position;
 					endPos = Util.getChildObject(item.Value.label, pin.id).transform.position;
 					wireObjectName = "Wire" + ":" + boardPinObjName + "," + item.Value.label + "-" + pin.id;

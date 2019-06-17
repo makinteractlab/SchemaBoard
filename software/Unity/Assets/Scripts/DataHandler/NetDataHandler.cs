@@ -8,19 +8,25 @@ using System;
 
 public class _Pin {
 	public string id;
-	public string breadboardPosition;
+	public string breadboardRowPosition;
+	public string breadboardColPosition;
 
 	public List<NetElement> netElements = new List<NetElement>();
 
 	public List<NetElement> netElementsAll = new List<NetElement>();
 
-	public _Pin (string _id, string _breadboardPosition) {
+	public _Pin (string _id, string _breadboardRowPosition, string _breadboardColPosition) {
 		this.id = _id;
-		this.breadboardPosition = _breadboardPosition;
+		this.breadboardRowPosition = _breadboardRowPosition;
+		this.breadboardColPosition = _breadboardColPosition;
 	}
 
-	public string getConnectedBreadboardPosition() {
-		return breadboardPosition;
+	public string getConnectedBreadboardRowPosition() {
+		return breadboardRowPosition;
+	}
+
+	public string getConnectedBreadboardColPosition() {
+		return breadboardColPosition;
 	}
 
 	public void addNetElement(NetElement ne) {
@@ -121,10 +127,10 @@ public class NetDataHandler {
 		JObject data = JObject.Parse(noneFormattedString);
 
 		JArray netArray = (JArray)data.GetValue("net");
-		JArray compPosArray = (JArray)data.GetValue("components");
+		JArray componentsArray = (JArray)data.GetValue("components");
 
 		netCount = netArray.Count;
-		componentCount = compPosArray.Count;
+		componentCount = componentsArray.Count;
 
 		ArrayList connectionKeys = new ArrayList();
 		Dictionary<string, ArrayList> netComponent = new Dictionary<string, ArrayList>();
@@ -137,19 +143,23 @@ public class NetDataHandler {
 
 			for(int j=0; j<connectorCount; j++) {
 				//string title = ((JObject)connectorArray[j])["part"]["title"].ToString();
-				string label = ((JObject)connectorArray[j])["part"]["label"].ToString();
+				string label = ((JObject)connectorArray[j])["component"].ToString();
 				
-				string breadboardPosition = "";
+				string breadboardRowPosition = "";
+				string breadboardColPosition = "";
+				int row = 0;
+				int col = 1;
 
 				for(int k=0; k<componentCount; k++) {
-					if( compPosArray[k]["label"].ToString().Equals(label) ) {
-						int compPinNumber = Util.getDigit(((JObject)connectorArray[j])["id"].ToString());
-						breadboardPosition = compPosArray[k]["position"][compPinNumber].ToString();
+					if( componentsArray[k]["label"].ToString().Equals(label) ) {
+						int compPinNumber = Util.getDigit(((JObject)connectorArray[j])["pin"].ToString());
+						breadboardRowPosition = componentsArray[k]["connector"][compPinNumber]["position"][row].ToString();
+						breadboardColPosition = componentsArray[k]["connector"][compPinNumber]["position"][col].ToString();
 						break;
 					}
 				}
 				
-				string[] pinid = {((JObject)connectorArray[j])["id"].ToString(), breadboardPosition};
+				string[] pinid = {((JObject)connectorArray[j])["pin"].ToString(), breadboardRowPosition, breadboardColPosition};
 				
 				if(!componentNameAndPins.ContainsKey(label)){
 					componentNameAndPins.Add(label, new ArrayList());
@@ -200,20 +210,20 @@ public class NetDataHandler {
 		foreach(KeyValuePair<string, ArrayList> item in componentNameAndPins) {
 			_Component component = new _Component(item.Key);
 
-			foreach(string[] pin in item.Value) {
-				component.addPin(new _Pin(pin[0], pin[1]));
+			foreach(string[] pinInfo in item.Value) {
+				component.addPin(new _Pin(pinInfo[0], pinInfo[1], pinInfo[2]));
 			}
 
 			foreach(KeyValuePair<string, ArrayList> entry in connections) {
-				foreach(string[] pin in item.Value){
-					if(entry.Key.Contains(component.label+"-"+pin[0])) {
+				foreach(string[] pinInfo in item.Value){
+					if(entry.Key.Contains(component.label+"-"+pinInfo[0])) {
 						foreach(var arrItem in entry.Value) {
 							string strItem = arrItem.ToString();
 							int pos = strItem.IndexOf("-");
 							string comp = strItem.Substring(0,pos);
 							string pinid = strItem.Substring(pos+1, strItem.Length-pos-1);
-							if(component.getPin(pin[0]) != null)
-								component.getPin(pin[0]).addNetElement(new NetElement(comp, pinid));
+							if(component.getPin(pinInfo[0]) != null)
+								component.getPin(pinInfo[0]).addNetElement(new NetElement(comp, pinid));
 						}
 					}
 				}

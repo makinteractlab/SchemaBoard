@@ -139,7 +139,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         Wait (0.5f, () => {
              Debug.Log("0.3 seconds is lost forever");
         });
-        http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinPosition(this.transform.parent.name)) ) );
+        http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
     }
 
     public void setHttpRequestObject() {

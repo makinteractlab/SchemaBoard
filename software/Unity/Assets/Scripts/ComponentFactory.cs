@@ -240,10 +240,10 @@ public class Awg: ComponentBase
 
 public class FixedComponent : ComponentBase
 {
-    public string type;
+    //public string type;
     protected FixedComponent(string _type, int _id, string _componentName, int _numberOfPins, int _value, JArray _connection): base(_type, _id, _componentName, _numberOfPins, _value, _connection)
     {
-        type = _type;
+        //type = _type;
     }
 
     protected static FixedComponent Create(string _type, int _id, string _componentName, int _numberOfPins, int _value, JArray _connection, int _stepResistance, int _totSteps, int _minValue, int _maxValue)
