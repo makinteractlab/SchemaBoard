@@ -165,9 +165,9 @@ public class LoadNetUI : MonoBehaviour {
 				component.transform.SetParent(ParentPanel, false);
 
 				if(count < 4) {
-					component.transform.position = new Vector3(-600,ParentPanel.transform.position.y+10,150-count*110);
+					component.transform.position = new Vector3(-550,ParentPanel.transform.position.y+10,150-count*110);
 				} else {
-					component.transform.position = new Vector3(-350,ParentPanel.transform.position.y+10,150-(count-4)*110);
+					component.transform.position = new Vector3(-300,ParentPanel.transform.position.y+10,150-(count-4)*110);
 				}
 				component.transform.localScale = new Vector3(1, 1, 1);
 

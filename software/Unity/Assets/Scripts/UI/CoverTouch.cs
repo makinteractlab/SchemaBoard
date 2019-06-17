@@ -19,12 +19,12 @@ public class CoverTouch : MonoBehaviour, IPointerDownHandler
 	void Update () {
 		float dist = calDistance();
 
-		if(dist>1500 && dist<1600) {
+		if(dist>1150 && dist<1250) {
 			comm.pauseButton.gameObject.SetActive(true);
 			VuforiaRenderer.Instance.Pause(true);
 		}
 
-		//Debug.Log(dist);
+		// Debug.Log(dist);
 	}
 
 	public Transform ARMarker;   //attach ar marker gameObject here
