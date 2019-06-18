@@ -19,12 +19,22 @@ public class Communication : MonoBehaviour
     public Button pauseButton;
     public Image freezeAll;
 
+    private string selectedJsonFileName;
+
     void Start()
     {
         deleteState = false;
         dragState = false;
         popupState = false;
         editWireState = false;
+    }
+
+    public string getCurrentFileName() {
+        return selectedJsonFileName;
+    }
+
+    public void setCurrentFileName(string _selectedJsonFileName) {
+        selectedJsonFileName = _selectedJsonFileName;
     }
 
     public GameObject getPauseButton() {

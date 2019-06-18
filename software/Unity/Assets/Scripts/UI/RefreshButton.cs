@@ -60,7 +60,8 @@ public class RefreshButton : MonoBehaviour {
 		ResetAllComponents();
 		pauseButton.play();
 		comm.setPopupState(false);
-		reloadBoard("schematic1.json");
+		
+		reloadBoard(comm.getCurrentFileName());
 		// constraintsHandle.clearConstraintsDB();
 		//send query to get board name
 		// wifi.sendDataEvent.Invoke(Query.getBoardID);
@@ -71,7 +72,7 @@ public class RefreshButton : MonoBehaviour {
 	public void refreshConfirmWindow() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> transform x y z " + transform.position.x + " , " +transform.position.y + " , " + transform.position.z + "\n\n\n");
 		loadConfirmPanel.Choice (loadYesAction, loadCancelAction);
-        loadConfirmPanel.setTitle("Load the schematic");
+        loadConfirmPanel.setTitle("Refresh All?");
         //loadConfirmPanel.setPosition(new Vector3(transform.position.x, transform.position.y, transform.position.z));
 	}
 

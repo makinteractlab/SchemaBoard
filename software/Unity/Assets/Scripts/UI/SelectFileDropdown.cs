@@ -22,10 +22,16 @@ public class SelectFileDropdown : MonoBehaviour {
 	public Dropdown dropdown;
 	private string selectedFileName;
 
+	private bool init;
+
 	void Start() {
 		dropdown.onValueChanged.AddListener(delegate {
 			SelectFile(dropdown);
 		});
+		init = true;
+		showBuildMenu(false);
+		showDebugMenu(false);
+		showCommonMenu(false);
 	}
 
 	void Awake() {
@@ -40,10 +46,56 @@ public class SelectFileDropdown : MonoBehaviour {
 
 	public void CancelLoadFile() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>CancelLoadFile!\n\n\n");
+		if(init) {
+			showBuildMenu(false);
+			showDebugMenu(false);
+			showCommonMenu(false);
+		}
 	}
+
+	private void showBuildMenu(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("buildMode");
+		
+        foreach(GameObject componentObj in temp) {
+			if(onoff) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			} else {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+        }
+	}
+
+	private void showDebugMenu(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("debugMenu");
+		
+        foreach(GameObject componentObj in temp) {
+			if(onoff) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			} else {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+        }
+	}
+
+	private void showCommonMenu(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("Menu");
+		
+        foreach(GameObject componentObj in temp) {
+			if(onoff) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			} else {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+        }
+	}
+
+
 
 	public void YesLoadFile() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
+		init = false;
+		showDebugMenu(true);
+		showCommonMenu(true);
 		gameObject.SetActive(false);
 		ResetAllComponents();
 		pauseButton.play();
@@ -70,6 +122,7 @@ public class SelectFileDropdown : MonoBehaviour {
 
 	public void SetSelectedFileName(string _selectedFileName) {
 		selectedFileName = _selectedFileName;
+		comm.setCurrentFileName(_selectedFileName);
 	}
 
 	private void SelectFile(Dropdown _selectedFile)

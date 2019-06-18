@@ -25,6 +25,7 @@ public class ToggleDebugBuild : MonoBehaviour {
     void Start() {
 		status = false;
 		this.GetComponent<Button>().onClick.AddListener(ModeChange);
+		showBuildMenu(false);
     }
 
 	public bool isBuildMode() {
@@ -43,6 +44,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 			buildMode = true;
 			showNetWire(false);
 			showDebugMenu(false);
+			showBuildMenu(true);
 			loadNetUI.setupBuildMode();
 			status = false;
 		} else {
@@ -50,9 +52,30 @@ public class ToggleDebugBuild : MonoBehaviour {
 			buildMode = false;
 			showNetWire(true);
 			showDebugMenu(true);
+			showBuildMenu(false);
 			loadNetUI.setupDebugMode();
 			status = true;
 		}
+	}
+
+	private void showBuildMenu(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("buildMode");
+		
+        foreach(GameObject componentObj in temp) {
+			if(onoff) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			} else {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+        }
+
+		// if(onoff) {
+		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(0,0,0);
+		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(1,1,1);
+		// } else {
+		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(0,0,0);
+		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(1,1,1);
+		// }
 	}
 
 	private void showDebugMenu(bool onoff) {
