@@ -67,9 +67,9 @@ public class LoadNetUI : MonoBehaviour {
         return resultObj;
     }
 
-	public void getSchematicData(string _fileName) {
+	public void readSchematicData(string _fileName) {
 		NetDataHandler handler = new NetDataHandler();
-		netDataObj.getSchematicData(_fileName, handler);
+		netDataObj.readSchematicData(_fileName, handler);
 	}
 
 	private void ResetAllConnectedWires() {
@@ -232,7 +232,7 @@ public class LoadNetUI : MonoBehaviour {
 			Destroy(wireObj);
 		}
 
-		foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentSchematicData())
+		foreach(KeyValuePair<string, _Component> item in netDataObj.getInitialSchematicData())
 		{
 			List<_Pin> pins = item.Value.getPins();
 			foreach(var pin in pins) {
@@ -342,6 +342,7 @@ public class LoadNetUI : MonoBehaviour {
 	}
 
 	public void setupDebugMode() {
+		netDataObj.copyBuildDataToDebugData();
 		//ResetAllConnectedWires();
 		
 		// GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
@@ -356,6 +357,7 @@ public class LoadNetUI : MonoBehaviour {
 
 	public void setupBuildMode() {
 		ResetAllConnectedWires();
+		netDataObj.resetBuildNetData();
 		if(modeToggleMenu.isBuildMode()) {
 			// auto complete connections
 			Vector3 startPos;
@@ -370,7 +372,7 @@ public class LoadNetUI : MonoBehaviour {
 				count ++;
 			}
 
-			foreach(KeyValuePair<string, _Component> item in netDataObj.getInitialSchematicData())
+			foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentBuildSchematicData())
 			{
 				List<_Pin> pins = item.Value.getPins();
 				foreach(var pin in pins) {

@@ -11,6 +11,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 	public Sprite debugSprite;
 	public Sprite buildSprite;
 	public LoadNetUI loadNetUI;
+	public Communication comm;
 
 	bool status;
 	bool buildMode;
@@ -26,6 +27,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 		status = false;
 		this.GetComponent<Button>().onClick.AddListener(ModeChange);
 		showBuildMenu(false);
+		comm.setDebugState();
     }
 
 	public bool isBuildMode() {
@@ -46,6 +48,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 			showDebugMenu(false);
 			showBuildMenu(true);
 			loadNetUI.setupBuildMode();
+			comm.setBuildState();
 			status = false;
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = debugSprite;
@@ -54,6 +57,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 			showDebugMenu(true);
 			showBuildMenu(false);
 			loadNetUI.setupDebugMode();
+			comm.setDebugState();
 			status = true;
 		}
 	}

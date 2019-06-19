@@ -64,6 +64,16 @@
      <Compile Include="Assets\Scripts\GetResult.cs" />
      <Compile Include="Assets\Scripts\HttpRequest.cs" />
      <Compile Include="Assets\Scripts\JsonHandler.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\CloneFactoryTest.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\ClonerHelpers.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\ClonerHelpers.Test.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\ExpressionTreeCloner.Test.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\ICloneFactory.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\ReflectionCloner.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\ReflectionCloner.Test.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\SerializationCloner.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Cloning\SerializationCloner.Test.cs" />
+     <Compile Include="Assets\Scripts\Nuclex.DeepCloner\Source\Program.cs" />
      <Compile Include="Assets\Scripts\Popup\BringToFront.cs" />
      <Compile Include="Assets\Scripts\Popup\DeleteConfirmPanel.cs" />
      <Compile Include="Assets\Scripts\Popup\DisplayManager.cs" />
@@ -94,6 +104,8 @@
      <Compile Include="Assets\Scripts\UI\ToggleIcon.cs" />
      <Compile Include="Assets\Scripts\UI\ToggleNetWires.cs" />
      <Compile Include="Assets\Scripts\UI\ToggleWireEdit.cs" />
+     <Compile Include="Assets\Scripts\UI\TutorialCard.cs" />
+     <Compile Include="Assets\Scripts\UI\TutorialImage.cs" />
      <Compile Include="Assets\Scripts\UpdateDataEvent.cs" />
      <Compile Include="Assets\Scripts\UpdateJsonEvent.cs" />
      <Compile Include="Assets\Scripts\Util.cs" />

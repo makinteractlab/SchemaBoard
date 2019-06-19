@@ -105,7 +105,7 @@ public class SelectFileDropdown : MonoBehaviour {
 
 	public void reloadBoard(string _filename) {
 		Debug.Log("reloadBoard()");
-		netUI.getSchematicData(_filename);
+		netUI.readSchematicData(_filename);
 		gameObject.SetActive(true);
 		VuforiaRenderer.Instance.Pause(false);
 	}

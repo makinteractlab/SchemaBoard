@@ -8,19 +8,22 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Nuclex.Support.Cloning;
 
 public class NetData : MonoBehaviour {
 
 	public UnityAction<JObject> dataReceivedAction;
 	public DataReceivedEvent dataReceivedEvent;
 	public HttpRequest http;
+	public Communication comm;
 	private Command cmd;
 	public Sprite groundPinSprite;
 	public Sprite vccPinSprite;
 	NetDataHandler netHandler;
 	public LoadNetUI netui;
-	Dictionary<string, _Component> componentsInCircuit;
-	Dictionary<string, _Component> initComponentsInCircuit;
+	Dictionary<string, _Component> debugNetData;
+	Dictionary<string, _Component> buildNetData;
+	Dictionary<string, _Component> initNetData;
 	// Use this for initialization
 	void Start () {
 		//componentsInCircuit = new Dictionary<string, _Component>();
@@ -37,14 +40,18 @@ public class NetData : MonoBehaviour {
 	}
 
 	public Dictionary<string, _Component> getInitialSchematicData() {
-		return initComponentsInCircuit;
+		return initNetData;
 	}
 
-	public Dictionary<string, _Component> getCurrentSchematicData() {
-		return componentsInCircuit;
+	public Dictionary<string, _Component> getCurrentDebugSchematicData() {
+		return debugNetData;
 	}
 
-	public void getSchematicData(string _fileName, NetDataHandler _netHandler)
+	public Dictionary<string, _Component> getCurrentBuildSchematicData() {
+		return buildNetData;
+	}
+
+	public void readSchematicData(string _fileName, NetDataHandler _netHandler)
 	{
 		//JObject netData = null;
 		netHandler = _netHandler;
@@ -53,26 +60,61 @@ public class NetData : MonoBehaviour {
 	}
 
 	public void setSchematicData(JObject data) {	
-		componentsInCircuit = new Dictionary<string, _Component>(netHandler.parseNetData(data));
-		initComponentsInCircuit = new Dictionary<string, _Component>(netHandler.getInitNetData());
-		netui.dataReceivedEvent.Invoke(componentsInCircuit);
+		debugNetData = new Dictionary<string, _Component>(netHandler.parseNetData(data));
+		buildNetData = new Dictionary<string, _Component>(netHandler.getBuildNetData());
+		initNetData = new Dictionary<string, _Component>(netHandler.getInitNetData());
+		netui.dataReceivedEvent.Invoke(debugNetData);
+	}
+
+	public void setBuildNetData(Dictionary<string, _Component> _data) {
+		buildNetData.Clear();
+		buildNetData = SerializationCloner.DeepFieldClone(_data);
+	}
+
+	public void setdebugNetData(Dictionary<string, _Component> _data) {
+		debugNetData.Clear();
+		debugNetData = SerializationCloner.DeepFieldClone(_data);;
+	}
+
+	public void copyBuildDataToDebugData(){
+		setdebugNetData(buildNetData);
+	}
+
+	public void resetBuildNetData() {
+		buildNetData.Clear();
+		buildNetData = SerializationCloner.DeepFieldClone(initNetData);
+	}
+
+	public void resetdebugNetData() {
+		debugNetData.Clear();
+		debugNetData = SerializationCloner.DeepFieldClone(initNetData);
 	}
 
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
 		string pin = _componentPinName.Substring(_componentPinName.IndexOf('-')+1, _componentPinName.Length-_componentPinName.IndexOf('-')-1);
-		if(_boardPinName.Contains("init")) {
-			componentsInCircuit[_componentName].getPin(pin).breadboardRowPosition = "init";
+
+		if(comm.getDebugState()) {		
+			if(_boardPinName.Contains("init")) {
+				debugNetData[_componentName].getPin(pin).breadboardRowPosition = "init";
+			} else {
+				debugNetData[_componentName].getPin(pin).breadboardRowPosition = Util.getChildObject(GameObject.Find(_boardPinName), "row").GetComponent<Text>().text;
+				debugNetData[_componentName].getPin(pin).breadboardColPosition = Util.getChildObject(GameObject.Find(_boardPinName), "column").GetComponent<Text>().text;
+			}
 		} else {
-			componentsInCircuit[_componentName].getPin(pin).breadboardRowPosition = Util.getChildObject(GameObject.Find(_boardPinName), "row").GetComponent<Text>().text;
-			componentsInCircuit[_componentName].getPin(pin).breadboardColPosition = Util.getChildObject(GameObject.Find(_boardPinName), "column").GetComponent<Text>().text;
+			if(_boardPinName.Contains("init")) {
+				buildNetData[_componentName].getPin(pin).breadboardRowPosition = "init";
+			} else {
+				buildNetData[_componentName].getPin(pin).breadboardRowPosition = Util.getChildObject(GameObject.Find(_boardPinName), "row").GetComponent<Text>().text;
+				buildNetData[_componentName].getPin(pin).breadboardColPosition = Util.getChildObject(GameObject.Find(_boardPinName), "column").GetComponent<Text>().text;
+			}
 		}
 
-		componentsInCircuit.ToList().ForEach(x => Console.WriteLine(x.Key)); // debug
-		initComponentsInCircuit.ToList().ForEach(x => Console.WriteLine(x.Key));	//debug
+		// debugNetData.ToList().ForEach(x => Console.WriteLine(x.Key)); // debug
+		// initNetData.ToList().ForEach(x => Console.WriteLine(x.Key));	//debug
 	}
 
 	// public void setInitNetData(Dictionary<string, _Component> _componentsInCircuit) {
-	// 	initComponentsInCircuit = new Dictionary<string, _Component>(_componentsInCircuit);
+	// 	initNetData = new Dictionary<string, _Component>(_componentsInCircuit);
 	// }
 
 	public int[] getComponentPinsNet(string _component) {
@@ -82,8 +124,14 @@ public class NetData : MonoBehaviour {
 		int[] result = Enumerable.Repeat(0, 2).ToArray();
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 
-		foreach(var item in componentsInCircuit[_component].getPins()){
-			resultPins.Add(item.breadboardRowPosition);
+		if(comm.getDebugState()) {
+			foreach(var item in debugNetData[_component].getPins()){
+				resultPins.Add(item.breadboardRowPosition);
+			}
+		} else {
+			foreach(var item in buildNetData[_component].getPins()){
+				resultPins.Add(item.breadboardRowPosition);
+			}
 		}
 
 		foreach(var item in resultPins) {
@@ -101,12 +149,22 @@ public class NetData : MonoBehaviour {
 	}
 
 	public string getComponentSinglePinRowPosition(string _component, string _pin) {
-		string result = componentsInCircuit[_component].getPin(_pin).breadboardRowPosition;
+		string result = "";
+		if(comm.getDebugState()) {
+			result = debugNetData[_component].getPin(_pin).breadboardRowPosition;
+		} else {
+			result = buildNetData[_component].getPin(_pin).breadboardRowPosition;
+		}
 		return result;
 	}
 
 	public string getComponentFirstPinRowPosition(string _component) {
-		string result = componentsInCircuit[_component].getFirstPin().breadboardRowPosition;
+		string result = "";
+		if(comm.getDebugState()) {
+			result = debugNetData[_component].getFirstPin().breadboardRowPosition;
+		} else {
+			result = buildNetData[_component].getFirstPin().breadboardRowPosition;
+		}
 		return result;
 	}
 
@@ -120,6 +178,27 @@ public class NetData : MonoBehaviour {
 	// 	}
 	// }
 
+	public int[] getMultiplePinsPosition(string[] _pins) {
+		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
+		int left = 0;
+		int right = 1;
+
+		int[] result = Enumerable.Repeat(0, 2).ToArray();
+
+		foreach(var pin in _pins) {
+			if(pin.Contains("init")) continue;
+			else boardBinary[int.Parse(pin)-1] = '1';
+		}
+
+		for(int i=0; i<16; i++)
+			if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
+
+		for(int i=16; i<32; i++)
+			if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
+
+		return result;
+	}
+
 	public int[] getAllNetForPin(string _component, string _pin) {
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 		int left = 0;
@@ -128,11 +207,21 @@ public class NetData : MonoBehaviour {
 		int[] result = Enumerable.Repeat(0, 2).ToArray();
 
 		List<string> resultPins = new List<string>();
-		resultPins.Add(componentsInCircuit[_component].getPin(_pin).breadboardRowPosition);
 
-		// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
-		foreach(var element in componentsInCircuit[_component].getPin(_pin).netElementsAll) {	
-			resultPins.Add(componentsInCircuit[element.component].getPin(element.pinid).breadboardRowPosition);
+		if(comm.getDebugState()) {
+			resultPins.Add(debugNetData[_component].getPin(_pin).breadboardRowPosition);
+
+			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
+			foreach(var element in debugNetData[_component].getPin(_pin).netElementsAll) {	
+				resultPins.Add(debugNetData[element.component].getPin(element.pinid).breadboardRowPosition);
+			}
+		} else {
+			resultPins.Add(buildNetData[_component].getPin(_pin).breadboardRowPosition);
+
+			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
+			foreach(var element in buildNetData[_component].getPin(_pin).netElementsAll) {	
+				resultPins.Add(buildNetData[element.component].getPin(element.pinid).breadboardRowPosition);
+			}
 		}
 
 		foreach(var item in resultPins) {
@@ -150,14 +239,14 @@ public class NetData : MonoBehaviour {
 	}
 
 	public void setColorGroundPins(string _component, string _pin) {
-		foreach(var element in componentsInCircuit[_component].getPin(_pin).netElementsAll) {
+		foreach(var element in initNetData[_component].getPin(_pin).netElementsAll) {
 			GameObject groundPin = Util.getChildObject(element.component, element.pinid);
 			groundPin.GetComponent<Button>().image.sprite = groundPinSprite;
 		}
 	}
 
 	public void setColorVccPins(string _component, string _pin) {
-		foreach(var element in componentsInCircuit[_component].getPin(_pin).netElementsAll) {
+		foreach(var element in initNetData[_component].getPin(_pin).netElementsAll) {
 			GameObject groundPin = Util.getChildObject(element.component, element.pinid);
 			groundPin.GetComponent<Button>().image.sprite = vccPinSprite;
 		}

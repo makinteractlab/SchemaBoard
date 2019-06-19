@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Xml;
 using System;
+using Nuclex.Support.Cloning;
 
 public class _Pin {
 	public string id;
@@ -92,7 +93,8 @@ public class _Component {
 
 public class NetDataHandler {
 	//List<_Component> components = new List<_Component>();
-	Dictionary<string, _Component> componentsInCircuit = new Dictionary<string, _Component>();
+	Dictionary<string, _Component> debugNetData = new Dictionary<string, _Component>();
+	Dictionary<string, _Component> buildNetData = new Dictionary<string, _Component>();
 	Dictionary<string, _Component> initNetData = new Dictionary<string, _Component>();
 
 	string log = "";
@@ -115,6 +117,14 @@ public class NetDataHandler {
 
 	public Dictionary<string, _Component> getInitNetData() {
 		return initNetData;
+	}
+
+	public Dictionary<string, _Component> getBuildNetData() {
+		return buildNetData;
+	}
+
+	public Dictionary<string, _Component> getDebugNetData() {
+		return debugNetData;
 	}
 
 	public Dictionary<string, _Component> parseNetData(JObject _netData)
@@ -246,12 +256,18 @@ public class NetDataHandler {
 			}
 			
 			// dictionary에 component add 하기
-			if (!componentsInCircuit.ContainsKey(component.label))
-				componentsInCircuit.Add(component.label, component);
-			if (!initNetData.ContainsKey(component.label))
-				initNetData.Add(component.label, component);
+			if (!debugNetData.ContainsKey(component.label))
+				debugNetData.Add(component.label, component);
+			if (!initNetData.ContainsKey(component.label)) {
+				_Component newComponent = SerializationCloner.DeepFieldClone(component);
+				initNetData.Add(component.label, newComponent);
+			}
+			if (!buildNetData.ContainsKey(component.label)) {
+				_Component newComponent = SerializationCloner.DeepFieldClone(component);
+				buildNetData.Add(component.label, newComponent);
+			}
 			//Debug.Log("done");
 		}
-		return componentsInCircuit;
+		return debugNetData;
 	}
 }

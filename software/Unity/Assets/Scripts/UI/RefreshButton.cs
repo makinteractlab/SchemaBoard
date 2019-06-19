@@ -46,7 +46,7 @@ public class RefreshButton : MonoBehaviour {
 
 		// string path = Application.persistentDataPath + "/xml/netlist.xml";
 		// Debug.Log("path = " + path);
-		netUI.getSchematicData(_filename);
+		netUI.readSchematicData(_filename);
 
 		//send command to reset all connection
 		//wifi.sendDataEvent.Invoke(Query.resetAllConnections);
