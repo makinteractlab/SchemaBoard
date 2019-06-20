@@ -12,6 +12,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 	public Sprite buildSprite;
 	public LoadNetUI loadNetUI;
 	public Communication comm;
+	public TutorialCard card;
 
 	bool status;
 	bool buildMode;
@@ -49,6 +50,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 			showBuildMenu(true);
 			loadNetUI.setupBuildMode();
 			comm.setBuildState();
+			card.loadCircuitInfo(1);
 			status = false;
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = debugSprite;

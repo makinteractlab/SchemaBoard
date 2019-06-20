@@ -117,6 +117,33 @@ public class NetData : MonoBehaviour {
 	// 	initNetData = new Dictionary<string, _Component>(_componentsInCircuit);
 	// }
 
+	public Dictionary<string, List<string[]>> getComponentsAndPinsPosition() {
+		Dictionary<string, List<string[]>> result = new Dictionary<string, List<string[]>>();
+		List<string[]> pinsPosition = new List<string[]>();
+		foreach(var item in buildNetData) {
+			foreach(var pin in item.Value.getPins()){
+				pinsPosition.Add(new string[]{pin.id, pin.breadboardRowPosition});
+			}
+			result.Add(item.Key, pinsPosition);
+		}
+		return result;
+	}
+
+	// public Dictionary <string, Dictionary<string,string>> getConnectedComponentAndPinsPosition(string _component, string _pin) {
+	// 	Dictionary <string, Dictionary<string,string>> result = new Dictionary <string, Dictionary<string,string>>();
+	// 	Dictionary<string,string> connectedComponentsPins = new Dictionary<string,string>();
+	// 	foreach(var item in buildNetData) {
+	// 		if(item.Key.Contains(_component)) {
+	// 			foreach(var element in item.Value.getPin(_pin).getNetElementAll()) {
+	// 				getBreadboardPosition(element.component,element.pinid);
+	// 				connectedComponentsPins.Add(element.component, getBreadboardPosition(element.component,element.pinid));
+	// 			}
+	// 			result.Add("net:"+_component+"-"+_pin, );
+	// 		}			
+	// 	}
+	// 	return result;
+	// }
+
 	public int[] getComponentPinsNet(string _component) {
 		List<string> resultPins = new List<string>();
 		int left = 0;
@@ -178,7 +205,7 @@ public class NetData : MonoBehaviour {
 	// 	}
 	// }
 
-	public int[] getMultiplePinsPosition(string[] _pins) {
+	public int[] getMultiplePinsPosition(List<string> _pins) {
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 		int left = 0;
 		int right = 1;

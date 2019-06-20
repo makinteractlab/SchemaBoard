@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using System.Xml;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using System;
 
 public class LoadNetUI : MonoBehaviour {
 	public GameObject prefabResistor;
@@ -138,7 +139,7 @@ public class LoadNetUI : MonoBehaviour {
 					component = (GameObject)Instantiate(prefabSwitch);
 					//getChildObject(component, "ValueText").GetComponent<Text>().text = comp.value.ToString();
 					break;
-				case "P":
+				case "LDR":
 					component = (GameObject)Instantiate(prefabPhotoresistor);
 					//getChildObject(component, "ValueText").GetComponent<Text>().text = comp.value.ToString();
 					break;
@@ -270,10 +271,12 @@ public class LoadNetUI : MonoBehaviour {
 		foreach(GameObject wireObj in netwires)
 		{
 			foreach(GameObject componentObj in components) {
-				string first = wireObj.name.Substring(0,wireObj.name.IndexOf(','));
-				string last = wireObj.name.Substring(wireObj.name.IndexOf(','), wireObj.name.Length - wireObj.name.IndexOf(','));
+				string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
+				string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
+				string firstComponentName = first.Substring(0,first.IndexOf('-'));
+				string lastComponentName = last.Substring(0,last.IndexOf('-'));
 
-				if(last.Contains(componentObj.name)) // if this component is FromPin
+				if(String.Compare(lastComponentName, componentObj.name, true) == 0) // if this component is FromPin
 				{
 					if(last.Contains("connector0")) {
 						wireEndPosition = getComponentPinPosition(componentObj.name, "connector0");
@@ -284,7 +287,7 @@ public class LoadNetUI : MonoBehaviour {
 					}
 					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
 					wireLineRender.SetPosition(1, wireEndPosition);
-				} else if(first.Contains(componentObj.name)) //else if this component is To Pin
+				} else if(String.Compare(firstComponentName, componentObj.name) == 0) //else if this component is To Pin
 				{
 					if(first.Contains("connector0")) {
 						wireStartPosition = getComponentPinPosition(componentObj.name, "connector0");

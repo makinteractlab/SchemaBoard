@@ -6603,7 +6603,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4170055edd838cd4da9711d8af169746, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6628,17 +6628,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a5bb8110941f042a8b4206ef690711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resistor: {fileID: 21300000, guid: aef4f88ec19c8ae438ed2d26ae737950, type: 3}
-  capacitor: {fileID: 21300000, guid: 2079a8579f43d3444813b22850d1bc5b, type: 3}
-  led: {fileID: 21300000, guid: 6f188f5bb1c4fbd47999c0140e769f84, type: 3}
-  button: {fileID: 21300000, guid: 0051fa56d30672e40a3e4f53df197cfb, type: 3}
-  transistor: {fileID: 21300000, guid: 70b66e1218e65df4ebce96ca85ea1df2, type: 3}
-  diode: {fileID: 21300000, guid: 8dba50dd3718adf4ebf4d0997703685d, type: 3}
+  battery: {fileID: 21300000, guid: 7002cee501c77c24683c2eddc56a2af3, type: 3}
+  resistor: {fileID: 21300000, guid: 66079118f9f39684394e1df43b8ba34f, type: 3}
+  capacitor: {fileID: 21300000, guid: d051fe0e7293a1c478ac44f8cb3726ff, type: 3}
+  led: {fileID: 21300000, guid: 445f0a34fabd4284fb59c3c8a475f149, type: 3}
+  button: {fileID: 21300000, guid: f7450f8994c6ffd4b837dc035e370c50, type: 3}
+  transistor: {fileID: 21300000, guid: 182603e334c7ec842bb7925249525373, type: 3}
+  diode: {fileID: 21300000, guid: 6b2c7b54fc29e2c42a0fe52da0d6bbae, type: 3}
   inductor: {fileID: 21300000, guid: e32fecc7a888bea468cacec19951908e, type: 3}
-  photoresistor: {fileID: 21300000, guid: 522b242ac678fa04db77a455c8cd6736, type: 3}
-  piezo: {fileID: 21300000, guid: 70b66e1218e65df4ebce96ca85ea1df2, type: 3}
-  speaker: {fileID: 21300000, guid: 70b66e1218e65df4ebce96ca85ea1df2, type: 3}
-  chipset: {fileID: 21300000, guid: 70b66e1218e65df4ebce96ca85ea1df2, type: 3}
+  photoresistor: {fileID: 21300000, guid: d2f04c8b19c611248aeaacc590900fd2, type: 3}
+  piezo: {fileID: 21300000, guid: c428ab751bc35ba499ae284a5167fb56, type: 3}
+  speaker: {fileID: 21300000, guid: 0785aaf0fa9e4c44ba26a93db75ed9d3, type: 3}
+  chipset: {fileID: 21300000, guid: 2bfec03b482547547a10481b850faad0, type: 3}
   wire: {fileID: 21300000, guid: 189c297fcf4564547a66aecea89648a1, type: 3}
   defaultImage: {fileID: 21300000, guid: 70b66e1218e65df4ebce96ca85ea1df2, type: 3}
 --- !u!1 &209322005
@@ -15638,8 +15639,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -250, y: 0}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &563194993
 MonoBehaviour:
@@ -15660,7 +15661,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4170055edd838cd4da9711d8af169746, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21878,7 +21879,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &792667321
 MonoBehaviour:
@@ -21899,7 +21900,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4170055edd838cd4da9711d8af169746, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22923,7 +22924,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -27791,8 +27792,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 250, y: 0}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1022344907
 MonoBehaviour:
@@ -27813,7 +27814,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4170055edd838cd4da9711d8af169746, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -55744,6 +55745,7 @@ MonoBehaviour:
   buildSprite: {fileID: 21300000, guid: 626455302e4f4f44b91c46b7356f9d9f, type: 3}
   loadNetUI: {fileID: 293546945}
   comm: {fileID: 889117451}
+  card: {fileID: 1175664678}
 --- !u!114 &2124341240
 MonoBehaviour:
   m_ObjectHideFlags: 0

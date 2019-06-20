@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TutorialImage : MonoBehaviour {
 
+	public Sprite battery;
 	public Sprite resistor;
 	public Sprite capacitor;
 	public Sprite led;
@@ -61,7 +62,7 @@ public class TutorialImage : MonoBehaviour {
 			case "L":
 				content.sprite = inductor;
 				break;
-			case "PR":
+			case "LDR":
 				content.sprite = photoresistor;
 				break;
 			case "J":
@@ -93,6 +94,9 @@ public class TutorialImage : MonoBehaviour {
 			content = GameObject.Find("rightImage").GetComponent<Image>();
 
 		switch(_name) {
+			case "VCC":
+				content.sprite = battery;
+				break;
 			case "R":
 				content.sprite = resistor;
 				break;
@@ -114,7 +118,7 @@ public class TutorialImage : MonoBehaviour {
 			case "L":
 				content.sprite = inductor;
 				break;
-			case "PR":
+			case "LDR":
 				content.sprite = photoresistor;
 				break;
 			case "J":

@@ -92,14 +92,14 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
             {
                 componentPinName = comm.getComponentPin();
                 Debug.Log("componentPinName = " + componentPinName);
-                compPin = componentPinName.Substring(0, 3);
+                compPin = Util.removeDigit(componentPinName);
                 Debug.Log("compPin = " + compPin);
             }
             if(comm.getBoardPin() != null)
             {
                 boardPinName = comm.getBoardPin();
                 Debug.Log("boardPinName = " + boardPinName);
-                boardPin = boardPinName.Substring(0, 3);
+                boardPin = Util.removeDigit(boardPinName);
                 Debug.Log("boardPin = " + boardPin);
             }
             if((boardPinName == null) || (boardPinName == "")) {

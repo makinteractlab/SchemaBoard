@@ -82,7 +82,7 @@ public class ToggleIcon : MonoBehaviour {
 					case "S":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = switchSymbol;
 						break;
-					case "P":
+					case "LDR":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = photoresistorSymbol;
 						break;
 					case "D":
@@ -118,7 +118,7 @@ public class ToggleIcon : MonoBehaviour {
 					case "S":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = switchImage;
 						break;
-					case "P":
+					case "LDR":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = photoresistorImage;
 						break;
 					case "D":
