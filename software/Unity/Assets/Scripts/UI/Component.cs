@@ -56,7 +56,13 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             GameObject[] wires = GameObject.FindGameObjectsWithTag("wire");
             foreach(GameObject wireObj in wires)
             {
-                if(wireObj.name.Contains(name))
+                string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
+				string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
+				string firstComponentName = first.Substring(0,first.IndexOf('-'));
+				string lastComponentName = last.Substring(0,last.IndexOf('-'));
+
+                //if(wireObj.name.Contains(name)) // should be fixed!
+                if(String.Compare(lastComponentName, name, true) == 0 || String.Compare(firstComponentName, name) == 0)
                 {
                     if(wireObj.name.Contains("connector0")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector0");
@@ -74,11 +80,14 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             GameObject[] netwires = GameObject.FindGameObjectsWithTag("netwire");
             foreach(GameObject wireObj in netwires)
             {
-                
-                string first = wireObj.name.Substring(0,wireObj.name.IndexOf(','));
-                string last = wireObj.name.Substring(wireObj.name.IndexOf(','), wireObj.name.Length - wireObj.name.IndexOf(','));
+                string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
+				string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
+				string firstComponentName = first.Substring(0,first.IndexOf('-'));
+				string lastComponentName = last.Substring(0,last.IndexOf('-'));
+
+
                 //if(wireObj.name.Contains(name))
-                if(last.Contains(name)) // if this component is FromPin
+                if(String.Compare(lastComponentName, name, true) == 0) // if this component is FromPin
                 {
                     if(last.Contains("connector0")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector0");
@@ -89,7 +98,7 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     }
                     LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                     wireLineRender.SetPosition(1, wireEndPosition);
-                } else if(first.Contains(name)) //else if this component is To Pin
+                } else if(String.Compare(firstComponentName, name) == 0) //else if this component is To Pin
                 {
                     if(first.Contains("connector0")) {
                         wireStartPosition = getCurrentComponentPinPosition("connector0");

@@ -21,6 +21,7 @@ public class TutorialCard : MonoBehaviour {
 	Dictionary<int, string> steps;
 	List<List<string>> layers; // layer
 	List<string> layer; // step, pins[]
+	int stepsCount;
 
 	// Use this for initialization
 	void Start () {
@@ -32,10 +33,41 @@ public class TutorialCard : MonoBehaviour {
 		steps = new Dictionary<int, string>();
 		layers = new List<List<string>>();
 		layer = new List<string>();
+
+		prevButton.GetComponent<Button>().onClick.AddListener(prevButtonClick);
+		nextButton.GetComponent<Button>().onClick.AddListener(nextButtonClick);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+	}
+
+	void prevButtonClick() {
+		index --;
+		if (index <= 1) {
+			index = 1;
+			prevButton.GetComponent<Button>().image.transform.localScale = new Vector3(0,0,0);
+			nextButton.GetComponent<Button>().image.transform.localScale = new Vector3(1,1,1);
+		} else {
+			prevButton.GetComponent<Button>().image.transform.localScale = new Vector3(1,1,1);
+			nextButton.GetComponent<Button>().image.transform.localScale = new Vector3(1,1,1);
+		}
+
+		loadCircuitInfo(index);
+	}
+
+	void nextButtonClick() {
+		index ++;
+		if(index >= stepsCount){
+			index = stepsCount;
+			nextButton.GetComponent<Button>().image.transform.localScale = new Vector3(0,0,0);
+			prevButton.GetComponent<Button>().image.transform.localScale = new Vector3(1,1,1);
+		} else {
+			nextButton.GetComponent<Button>().image.transform.localScale = new Vector3(1,1,1);
+			prevButton.GetComponent<Button>().image.transform.localScale = new Vector3(1,1,1);
+		}
+
+		loadCircuitInfo(index);
 	}
 
 // tutorialData
@@ -65,12 +97,13 @@ public class TutorialCard : MonoBehaviour {
 			}
 		}
 		
-		setContents(_step, steps[1]);
+		setContents(_step, steps[_step]);
 
 		foreach(var item in layers) {
 			if(Int32.Parse(item[0]) == _step) {
 				for(int i=1; i<item.Count; i++) {
 					resultPins.Add(item[i]);
+					//Debug.Log("=====================> resultPins["+i+"] = " + item[i]);
 				}
 			}
 		}
@@ -86,6 +119,9 @@ public class TutorialCard : MonoBehaviour {
 		// 		index ++;
 		// 	}
 		// }
+
+		stepsCount = tutorialData.Count;
+		resultPins.Clear();
 	}
 
 	void reflectToBreadboardLight(List<string> _breadboardpins) {
