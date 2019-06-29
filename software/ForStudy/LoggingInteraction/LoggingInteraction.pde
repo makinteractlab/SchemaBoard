@@ -26,7 +26,7 @@ PImage btfritz;
 PImage btschematic;
 
 void setup() {
-  size(1440, 720);
+  size(2736, 1824);
   font = createFont("Georgia", 70);
   textFont(font);
   textAlign(CENTER, CENTER);
@@ -43,11 +43,11 @@ void setup() {
 
 void draw() {
   if(started) {
-    image(imageToDisplay, 0, 0, imageToDisplay.width, imageToDisplay.height);
+    image(imageToDisplay, 0, 100, imageToDisplay.width*2, imageToDisplay.height*2);
   } else {
     background(220);
-    image(btschematic, 520, 370, btschematic.width*0.72, btschematic.height*0.72);
-    image(btfritz, 720, 370, btfritz.width*0.72,btfritz.height*0.72);
+    image(btschematic, 520, 520, btschematic.width*1.43, btschematic.height*1.43);
+    image(btfritz, 920, 520, btfritz.width*1.43,btfritz.height*1.43);
   }
 }
 
@@ -67,7 +67,8 @@ void showMenu()
   cp5 = new ControlP5(this);
   selectCircuitType = cp5.addButtonBar("circuitTypeBar")
   .setPosition(520,180)
-  .setSize(400,50)
+  .setSize(800,100)
+  .setFont(createFont("Arial", 30))
   .addItems(split("146 810 2971 3351", " "));
   
   selectCircuitType.onMove(new CallbackListener() {
@@ -77,8 +78,9 @@ void showMenu()
   });
 
   selectTaskType = cp5.addButtonBar("taskTypeBar")
-  .setPosition(520,250)
-  .setSize(400,50)
+  .setPosition(520,300)
+  .setSize(800,100)
+  .setFont(createFont("Arial", 30))
   .addItems(split("Build Debug", " "));
   
   selectTaskType.onMove(new CallbackListener() {
@@ -88,8 +90,9 @@ void showMenu()
   });
   
   selectRefType = cp5.addButtonBar("refTypeBar")
-  .setPosition(520,320)
-  .setSize(400,50)
+  .setPosition(520,420)
+  .setSize(800,100)
+  .setFont(createFont("Arial", 30))
   .addItems(split("Schematic Fritzing", " "));
   
   selectRefType.onMove(new CallbackListener() {
@@ -99,8 +102,9 @@ void showMenu()
   });
   
   startButtonBar = cp5.addButtonBar("startTaskBar")
-     .setPosition(620,580)
-     .setSize(200,80)
+     .setPosition(720,820)
+     .setSize(400,160)
+     .setFont(createFont("Arial", 30))
      .addItems(split("Start the task", ":"));
   
   startButtonBar.onMove(new CallbackListener() {
@@ -110,8 +114,9 @@ void showMenu()
   });
   
   finishedButtonBar = cp5.addButtonBar("finishTaskBar")
-     .setPosition(1240,0)
-     .setSize(200,50)
+     .setPosition(2336,0)
+     .setSize(400,100)
+     .setFont(createFont("Arial", 30))
      .addItems(split("Done", " "));
   
   finishedButtonBar.onMove(new CallbackListener() {
@@ -196,7 +201,7 @@ void taskTypeBar(int _taskType) {
 void mousePressed()
 {
   if(started) {
-    if(mouseX>1240 && mouseX<1440 && mouseY>0 && mouseY<50)
+    if(mouseX>2336 && mouseX<2736 && mouseY>0 && mouseY<100)
     {
       // done button area.
     } else {
