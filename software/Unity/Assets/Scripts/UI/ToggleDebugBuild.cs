@@ -50,7 +50,7 @@ public class ToggleDebugBuild : MonoBehaviour {
 			showBuildMenu(true);
 			loadNetUI.setupBuildMode();
 			comm.setBuildState();
-			card.loadCircuitInfo(1);
+			// card.loadCircuitInfo(1);
 			status = false;
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = debugSprite;

@@ -24,6 +24,8 @@ public class SelectFileDropdown : MonoBehaviour {
 
 	private bool init;
 
+	private ArrayList fileList;
+
 	void Start() {
 		dropdown.onValueChanged.AddListener(delegate {
 			SelectFile(dropdown);
@@ -32,6 +34,7 @@ public class SelectFileDropdown : MonoBehaviour {
 		showBuildMenu(false);
 		showDebugMenu(false);
 		showCommonMenu(false);
+		//LoadFileList();
 	}
 
 	void Awake() {
@@ -44,6 +47,10 @@ public class SelectFileDropdown : MonoBehaviour {
 	{
 	}
 
+	private void LoadFileList() {
+
+	}
+	
 	public void CancelLoadFile() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>CancelLoadFile!\n\n\n");
 		if(init) {
@@ -89,8 +96,6 @@ public class SelectFileDropdown : MonoBehaviour {
         }
 	}
 
-
-
 	public void YesLoadFile() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
 		init = false;
@@ -110,7 +115,6 @@ public class SelectFileDropdown : MonoBehaviour {
 		VuforiaRenderer.Instance.Pause(false);
 	}
 
-
 	public void refreshConfirmWindow() {
 		loadConfirmPanel.Choice (loadYesAction, loadCancelAction);
         loadConfirmPanel.setTitle("Load the schematic");
@@ -125,6 +129,10 @@ public class SelectFileDropdown : MonoBehaviour {
 		comm.setCurrentFileName(_selectedFileName);
 	}
 
+	// private string solver(string _fritzfilename) {
+	// 	// execute python solver with python3 _fritzfilename outputfilepath/outputfilename
+	// 	return outputfilename;
+	// }
 	private void SelectFile(Dropdown _selectedFile)
 	{
 		int selectedFile = _selectedFile.value;

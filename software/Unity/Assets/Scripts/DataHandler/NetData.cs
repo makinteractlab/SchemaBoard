@@ -31,6 +31,7 @@ public class NetData : MonoBehaviour {
         dataReceivedEvent = new DataReceivedEvent();
         dataReceivedEvent.AddListener(dataReceivedAction);
 		cmd = new Command();
+		cmd.setUrls();
 	}
 
 	

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler//, IPointerClickHandler, IPointerUpHandler//, IBeginDragHandler, IDragHandler, IEndDragHandler, 
 {
@@ -22,6 +23,7 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 
         this.GetComponent<Button>().onClick.AddListener(componentPinClick);
         cmd = new Command();
+        cmd.setUrls();
     }
 
     public void setHttpRequestObject() {
@@ -33,7 +35,11 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
         int[] boardPins = new int[2];
 
         boardPins = netdata.getAllNetForPin(this.transform.parent.name, this.name);
-        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        //http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        ArrayList urls = new ArrayList(cmd.getUrls());
+        foreach(var url in urls) {
+            http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        }
         //http.postJson(cmd.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
         //Debug.Log("============================= componentPinClick: " + this.name);
     }
@@ -135,12 +141,29 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 
     private bool pinAlreadyWired(string name)
     {
-        //Debug.Log("pin name = " + name);
+        //Debug.Log("===============> pin name = " + name);
         bool result = false;
         GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
         foreach(GameObject wireObj in temp)
         {
-            if( wireObj.name.Contains(name))
+            string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
+            string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
+            // string firstComponentName = first.Substring(0,first.IndexOf('-'));
+            // string firstPin = first.Substring(first.IndexOf('-')+1, first.Length-first.IndexOf('-')-1);
+            // string lastComponentName = last.Substring(0,last.IndexOf('-'));
+            // string lastPin = last.Substring(last.IndexOf('-')+1, last.Length-last.IndexOf('-')-1);
+
+            // Debug.Log("========================================>");
+            // Debug.Log("first = " + first);
+            // Debug.Log("last = " + last);
+            // Debug.Log("first component = " + firstComponentName);
+            // Debug.Log("last component = " + lastComponentName);
+            // Debug.Log("first pin = " + firstPin);
+            // Debug.Log("last pin = " + lastPin);
+            // Debug.Log("========================================>");
+
+            // if(wireObj.name.Contains(name))
+            if ( String.Compare(first, name, true) == 0 || String.Compare(last, name, true) == 0 )
             {
                 Debug.Log("already wired");
                 result = true;

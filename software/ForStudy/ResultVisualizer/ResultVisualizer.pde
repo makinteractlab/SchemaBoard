@@ -1,5 +1,5 @@
 
-float MAX_VALUE= 2700;
+float MAX_VALUE= 60*15;
 String [] build = {"P2","P3","P4","P5"};
 String [] debug = {"P2","P3","P4","P5"};
 
@@ -163,7 +163,6 @@ class Data
 		//else if (type.equals("HW_TEST")) col= HW_TEST; 
 		//else if (type.equals("SW_PROGRAMMING")) col= SW_PROGRAMMING; 
 		//else if (type.equals("SW_TEST")) col= SW_TEST; 
-		else if (type.equals("EndTask")) col = FINISH; 
 		//else if (type.equals("SW_DEBUGGING")) col= SW_DEBUGGING; 
 		//else if (type.equals("HW_DEBUGGING")) col= HW_DEBUGGING;
   //  else if (type.equals("SW_COMPILE")) col=SW_COMPILE;

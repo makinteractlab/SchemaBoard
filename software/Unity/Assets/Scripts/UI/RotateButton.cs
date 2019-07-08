@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RotateButton : MonoBehaviour {
 	private Vector3 wireEndPosition;
@@ -29,10 +30,15 @@ public class RotateButton : MonoBehaviour {
 		// RightPinObject.transform.RotateAround(targetPos, new Vector3 (0, 1, 0), 90);
 		// gameObject.transform.RotateAround(targetPos, new Vector3 (0, 1, 0), 90);    //90 button
 
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
-        foreach(GameObject wireObj in temp)
+		GameObject[] wires = GameObject.FindGameObjectsWithTag("wire");
+        foreach(GameObject wireObj in wires)
         {
-            if(wireObj.name.Contains(transform.parent.name))
+            string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
+            string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
+            string firstComponentName = first.Substring(0,first.IndexOf('-'));
+            string lastComponentName = last.Substring(0,last.IndexOf('-'));
+
+            if(String.Compare(lastComponentName, transform.parent.name, true) == 0 || String.Compare(firstComponentName, transform.parent.name) == 0)
             {
                 if(wireObj.name.Contains("connector0")) {
                     wireEndPosition = leftPinObject.transform.position;
@@ -50,27 +56,30 @@ public class RotateButton : MonoBehaviour {
         GameObject[] netwires = GameObject.FindGameObjectsWithTag("netwire");
         foreach(GameObject wireObj in netwires)
         {
-            string first = wireObj.name.Substring(0,wireObj.name.IndexOf(','));
-            string last = wireObj.name.Substring(wireObj.name.IndexOf(','), wireObj.name.Length - wireObj.name.IndexOf(','));
-            if(last.Contains(transform.parent.name)) // if this component is FromPin
+            string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
+            string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
+            string firstComponentName = first.Substring(0,first.IndexOf('-'));
+            string lastComponentName = last.Substring(0,last.IndexOf('-'));
+
+            if(String.Compare(lastComponentName, transform.parent.name, true) == 0) // if this component is FromPin
             {
-                if(wireObj.name.Contains("connector0")) {
+                if(last.Contains("connector0")) {
                     wireEndPosition = leftPinObject.transform.position;
                     wireEndPosition.x -= 5;
                 }
-                else if(wireObj.name.Contains("connector1")) {
+                else if(last.Contains("connector1")) {
                     wireEndPosition = RightPinObject.transform.position;
                     wireEndPosition.x += 5;
                 }
                 LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                 wireLineRender.SetPosition(1, wireEndPosition);
-            } else if(first.Contains(transform.parent.name)) //else if this component is To Pin
+            } else if(String.Compare(firstComponentName, transform.parent.name) == 0) //else if this component is To Pin
             {
-                if(wireObj.name.Contains("connector0")) {
+                if(first.Contains("connector0")) {
                     wireStartPosition = leftPinObject.transform.position;
                     wireStartPosition.x -= 5;
                 }
-                else if(wireObj.name.Contains("connector1")) {
+                else if(first.Contains("connector1")) {
                     wireStartPosition = RightPinObject.transform.position;
                     wireStartPosition.x += 5;
                 }
@@ -78,7 +87,7 @@ public class RotateButton : MonoBehaviour {
                 wireLineRender.SetPosition(0, wireStartPosition);
             }
         }
-	}
+    }
 
 	private GameObject getChildObject(string ParentObjectName, string ChildObjectName)
     {
