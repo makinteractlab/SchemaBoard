@@ -28,7 +28,7 @@ public class LoadNetUI : MonoBehaviour {
 	public DictionaryDataReceivedEvent dataReceivedEvent;
 
 	public NetData netDataObj;
-	public ToggleDebugBuild modeToggleMenu;
+	public ToggleAutoManual modeToggleMenu;
 
 	// Dictionary<string, _Component> netData;
 	public Sprite DefaultPinSprite;

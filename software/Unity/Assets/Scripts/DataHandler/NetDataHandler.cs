@@ -137,7 +137,7 @@ public class NetDataHandler {
 		JObject data = JObject.Parse(noneFormattedString);
 
 		JArray netArray = (JArray)data.GetValue("net");
-		JArray componentsArray = (JArray)data.GetValue("components");
+		JArray componentsArray = (JArray)data.GetValue("component");
 
 		netCount = netArray.Count;
 		componentCount = componentsArray.Count;

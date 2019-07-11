@@ -6,7 +6,8 @@ using UnityEngine.Events;
 using Vuforia;
 using UnityEngine.EventSystems;
 using Newtonsoft.Json.Linq;
-
+using System.IO;
+using System;
 public class SelectFileDropdown : MonoBehaviour {
 
 	public LoadNetUI netUI;
@@ -19,7 +20,8 @@ public class SelectFileDropdown : MonoBehaviour {
 	private LoadConfirmPanel loadConfirmPanel;
 	private UnityAction loadYesAction;
     private UnityAction loadCancelAction;
-	public Dropdown dropdown;
+	public Dropdown m_Dropdown;
+	List<string> m_DropOptions;
 	private string selectedFileName;
 
 	private bool init;
@@ -27,14 +29,17 @@ public class SelectFileDropdown : MonoBehaviour {
 	private ArrayList fileList;
 
 	void Start() {
-		dropdown.onValueChanged.AddListener(delegate {
-			SelectFile(dropdown);
+		m_Dropdown.onValueChanged.AddListener(delegate {
+			SelectFile(m_Dropdown);
 		});
 		init = true;
-		showBuildMenu(false);
-		showDebugMenu(false);
-		showCommonMenu(false);
-		//LoadFileList();
+		
+		showSchematicUI(true);
+		showCommonUI(true);
+		showTutorialUI(false);
+		showManualUI(false);
+		
+		LoadFileList();
 	}
 
 	void Awake() {
@@ -48,20 +53,60 @@ public class SelectFileDropdown : MonoBehaviour {
 	}
 
 	private void LoadFileList() {
+		m_DropOptions = new List<string>();
+		string path = @"/storage/emulated/0/Android/data/com.kaist.netvisualizer/files/fileList.txt";
+		try {
+			using (StreamReader reader = new StreamReader(path)) {
+				string line;
+				while((line = reader.ReadLine()) !=null) {
+					m_DropOptions.Add(line);
+				}
+			}
+		} catch (Exception e) 
+        {
+            // Let the user know what went wrong.
+            Debug.Log("The file could not be read:");
+            Debug.Log(e.Message);
+        }
 
+		m_Dropdown.AddOptions(m_DropOptions);
 	}
 	
 	public void CancelLoadFile() {
-		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>CancelLoadFile!\n\n\n");
 		if(init) {
-			showBuildMenu(false);
-			showDebugMenu(false);
-			showCommonMenu(false);
+			showSchematicUI(true);
+			showCommonUI(true);
+			showTutorialUI(false);
+			showManualUI(false);
 		}
 	}
 
-	private void showBuildMenu(bool onoff) {
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("buildMode");
+	private void showManualUI(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual");
+		
+        foreach(GameObject manualObject in temp) {
+			if(onoff) {
+				manualObject.transform.localScale = new Vector3(1,1,1);
+			} else {
+				manualObject.transform.localScale = new Vector3(0,0,0);
+			}
+        }
+	}
+
+	private void showTutorialUI(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("tutorial");
+		
+        foreach(GameObject tutorialObject in temp) {
+			if(onoff) {
+				tutorialObject.transform.localScale = new Vector3(1,1,1);
+			} else {
+				tutorialObject.transform.localScale = new Vector3(0,0,0);
+			}
+        }
+	}
+
+	private void showSchematicUI(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("schematic");
 		
         foreach(GameObject componentObj in temp) {
 			if(onoff) {
@@ -72,26 +117,14 @@ public class SelectFileDropdown : MonoBehaviour {
         }
 	}
 
-	private void showDebugMenu(bool onoff) {
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("debugMenu");
+	private void showCommonUI(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("commonMenu");
 		
-        foreach(GameObject componentObj in temp) {
+        foreach(GameObject menuObject in temp) {
 			if(onoff) {
-				componentObj.transform.localScale = new Vector3(1,1,1);
+				menuObject.transform.localScale = new Vector3(1,1,1);
 			} else {
-				componentObj.transform.localScale = new Vector3(0,0,0);
-			}
-        }
-	}
-
-	private void showCommonMenu(bool onoff) {
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("Menu");
-		
-        foreach(GameObject componentObj in temp) {
-			if(onoff) {
-				componentObj.transform.localScale = new Vector3(1,1,1);
-			} else {
-				componentObj.transform.localScale = new Vector3(0,0,0);
+				menuObject.transform.localScale = new Vector3(0,0,0);
 			}
         }
 	}
@@ -99,8 +132,10 @@ public class SelectFileDropdown : MonoBehaviour {
 	public void YesLoadFile() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
 		init = false;
-		showDebugMenu(true);
-		showCommonMenu(true);
+		showCommonUI(true);
+		showSchematicUI(true);
+		showManualUI(false);
+		showTutorialUI(false);
 		gameObject.SetActive(false);
 		ResetAllComponents();
 		pauseButton.play();
@@ -136,51 +171,58 @@ public class SelectFileDropdown : MonoBehaviour {
 	private void SelectFile(Dropdown _selectedFile)
 	{
 		int selectedFile = _selectedFile.value;
-		switch(selectedFile) {
-			case 0: {
-				break;
-			}
-			case 1: {
-				SetSelectedFileName("schematic1.json");
-				refreshConfirmWindow();
-				break;
-			}
-			case 2: {
-				SetSelectedFileName("schematic2.json");
-				refreshConfirmWindow();
-				break;
-			}
-			case 3: {
-				SetSelectedFileName("schematic3.json");
-				refreshConfirmWindow();
-				break;
-			}
-			case 4: {
-				SetSelectedFileName("schematic4.json");
-				refreshConfirmWindow();
-				break;
-			}
-			case 5: {
-				SetSelectedFileName("schematic5.json");
-				refreshConfirmWindow();
-				break;
-			}
-			case 6: {
-				SetSelectedFileName("schematic6.json");
-				refreshConfirmWindow();
-				break;
-			}
-			case 7: {
-				SetSelectedFileName("schematic7.json");
-				refreshConfirmWindow();
-				break;
-			}
-			case 8: {
-				SetSelectedFileName("schematic8.json");
-				refreshConfirmWindow();
-				break;
-			}
+		// ArrayList options = new ArrayList(m_DropOptions.ToArray());
+		// SetSelectedFileName((string)options[selectedFile]);
+		if(selectedFile > 0) {
+			SetSelectedFileName(m_DropOptions[selectedFile-1]);
+			refreshConfirmWindow();
 		}
+
+		// switch(selectedFile) {
+		// 	case 0: {
+		// 		break;
+		// 	}
+		// 	case 1: {
+		// 		SetSelectedFileName("schematic1");
+		// 		refreshConfirmWindow();
+		// 		break;
+		// 	}
+		// 	case 2: {
+		// 		SetSelectedFileName("schematic2.json");
+		// 		refreshConfirmWindow();
+		// 		break;
+		// 	}
+		// 	case 3: {
+		// 		SetSelectedFileName("schematic3.json");
+		// 		refreshConfirmWindow();
+		// 		break;
+		// 	}
+		// 	case 4: {
+		// 		SetSelectedFileName("schematic4.json");
+		// 		refreshConfirmWindow();
+		// 		break;
+		// 	}
+		// 	case 5: {
+		// 		SetSelectedFileName("schematic5.json");
+		// 		refreshConfirmWindow();
+		// 		break;
+		// 	}
+		// 	case 6: {
+		// 		SetSelectedFileName("schematic6.json");
+		// 		refreshConfirmWindow();
+		// 		break;
+		// 	}
+		// 	case 7: {
+		// 		SetSelectedFileName("schematic7.json");
+		// 		refreshConfirmWindow();
+		// 		break;
+		// 	}
+		// 	case 8: {
+		// 		SetSelectedFileName("schematic8.json");
+		// 		refreshConfirmWindow();
+		// 		break;
+		// 	}
+		// }
 	}
 	
 	private void ResetAllComponents() {

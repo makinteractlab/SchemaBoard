@@ -12,8 +12,11 @@ using Nuclex.Support.Cloning;
 
 public class NetData : MonoBehaviour {
 
-	public UnityAction<JObject> dataReceivedAction;
-	public DataReceivedEvent dataReceivedEvent;
+	public UnityAction<JObject> jsonDataReceivedAction;
+	public DataReceivedEvent jsonDataReceivedEvent;
+	public UnityAction<JObject> schDataReceivedAction;
+	public DataReceivedEvent schDataReceivedEvent;
+
 	public HttpRequest http;
 	public Communication comm;
 	private Command cmd;
@@ -27,9 +30,14 @@ public class NetData : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//componentsInCircuit = new Dictionary<string, _Component>();
-		dataReceivedAction = new UnityAction<JObject>(setSchematicData);
-        dataReceivedEvent = new DataReceivedEvent();
-        dataReceivedEvent.AddListener(dataReceivedAction);
+		jsonDataReceivedAction = new UnityAction<JObject>(setSchematicJsonData);
+        jsonDataReceivedEvent = new DataReceivedEvent();
+        jsonDataReceivedEvent.AddListener(jsonDataReceivedAction);
+
+		schDataReceivedAction = new UnityAction<JObject>(setSchematicDrawingData);
+        schDataReceivedEvent = new DataReceivedEvent();
+        schDataReceivedEvent.AddListener(schDataReceivedAction);
+
 		cmd = new Command();
 		cmd.setUrls();
 	}
@@ -57,10 +65,15 @@ public class NetData : MonoBehaviour {
 		//JObject netData = null;
 		netHandler = _netHandler;
 		cmd.setUrl("http://10.0.1.62:8081/get");
-		http.getJson(cmd.getUrl(), cmd.getFile(_fileName));
+		http.getJson(cmd.getUrl(), cmd.getJsonFile(_fileName));
+		http.getSch(cmd.getUrl(), cmd.getSchFile(_fileName));
 	}
 
-	public void setSchematicData(JObject data) {	
+	public void setSchematicDrawingData(JObject _data) {
+		// schematicUI.dataReceivedEvent.Invoke(debugNetData);
+	}
+
+	public void setSchematicJsonData(JObject data) {	
 		debugNetData = new Dictionary<string, _Component>(netHandler.parseNetData(data));
 		buildNetData = new Dictionary<string, _Component>(netHandler.getBuildNetData());
 		initNetData = new Dictionary<string, _Component>(netHandler.getInitNetData());

@@ -18,6 +18,16 @@ public class Command {//: MonoBehaviour {
         string result = "{\"cmd\": \"getFile\", \"name\": \"" + _filename + "\"}";
         return result;
     }
+
+    public string getSchFile(string _filename) {
+        string result = "{\"cmd\": \"getSchFile\", \"name\": \"" + _filename + ".sch\"}";
+        return result;
+    }
+
+    public string getJsonFile(string _filename) {
+        string result = "{\"cmd\": \"getJsonFile\", \"name\": \"" + _filename + ".json\"}";
+        return result;
+    }
     
     public void setUrl(string _url) {
         url = _url;
