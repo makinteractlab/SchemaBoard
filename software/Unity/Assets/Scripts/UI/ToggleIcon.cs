@@ -92,6 +92,7 @@ public class ToggleIcon : MonoBehaviour {
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = zenerdiodeSymbol;
 						break;
 					case "VCC":
+					case "BT":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = vccSymbol;
 						break;
 					default:
@@ -128,6 +129,7 @@ public class ToggleIcon : MonoBehaviour {
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = zenerdiodeImage;
 						break;
 					case "VCC":
+					case "BT":
 					Util.getChildObject(componentObj.name, "Component").GetComponent<Button>().image.sprite = vccImage;
 						break;
 					default:

@@ -162,6 +162,7 @@ public class TutorialCard : MonoBehaviour {
 
 		switch(name) {
 			case "VCC":
+			case "BT":
 				componentName = "battery";
 				break;
 			case "R":

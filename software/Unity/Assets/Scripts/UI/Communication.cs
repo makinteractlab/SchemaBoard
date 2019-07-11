@@ -13,8 +13,8 @@ public class Communication : MonoBehaviour
     private bool dragState;
     private bool popupState;
     private bool editWireState;
-    private bool debugState;
-    private bool buildState;
+    private bool autoState;
+    private bool manualState;
 
     private string component;
 
@@ -63,18 +63,18 @@ public class Communication : MonoBehaviour
         dragState = state;
     }
 
-    public void setDebugState() {
-        debugState = true;
-        buildState = false;
+    public void setAutoState() {
+        autoState = true;
+        manualState = false;
     }
 
-    public void setBuildState() {
-        debugState = false;
-        buildState = true;
+    public void setManualState() {
+        autoState = false;
+        manualState = true;
     }
 
-    public bool getDebugState() {
-        return debugState;
+    public bool getAutoState() {
+        return autoState;
     }
 
     public void setDeleteWireState(bool state, string name)

@@ -107,7 +107,7 @@ public class NetData : MonoBehaviour {
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
 		string pin = _componentPinName.Substring(_componentPinName.IndexOf('-')+1, _componentPinName.Length-_componentPinName.IndexOf('-')-1);
 
-		if(comm.getDebugState()) {		
+		if(comm.getAutoState()) {		
 			if(_boardPinName.Contains("init")) {
 				debugNetData[_componentName].getPin(pin).breadboardRowPosition = "init";
 			} else {
@@ -165,7 +165,7 @@ public class NetData : MonoBehaviour {
 		int[] result = Enumerable.Repeat(0, 2).ToArray();
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 
-		if(comm.getDebugState()) {
+		if(comm.getAutoState()) {
 			foreach(var item in debugNetData[_component].getPins()){
 				resultPins.Add(item.breadboardRowPosition);
 			}
@@ -191,7 +191,7 @@ public class NetData : MonoBehaviour {
 
 	public string getComponentSinglePinRowPosition(string _component, string _pin) {
 		string result = "";
-		if(comm.getDebugState()) {
+		if(comm.getAutoState()) {
 			result = debugNetData[_component].getPin(_pin).breadboardRowPosition;
 		} else {
 			result = buildNetData[_component].getPin(_pin).breadboardRowPosition;
@@ -201,7 +201,7 @@ public class NetData : MonoBehaviour {
 
 	public string getComponentFirstPinRowPosition(string _component) {
 		string result = "";
-		if(comm.getDebugState()) {
+		if(comm.getAutoState()) {
 			result = debugNetData[_component].getFirstPin().breadboardRowPosition;
 		} else {
 			result = buildNetData[_component].getFirstPin().breadboardRowPosition;
@@ -249,7 +249,7 @@ public class NetData : MonoBehaviour {
 
 		List<string> resultPins = new List<string>();
 
-		if(comm.getDebugState()) {
+		if(comm.getAutoState()) {
 			resultPins.Add(debugNetData[_component].getPin(_pin).breadboardRowPosition);
 
 			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기

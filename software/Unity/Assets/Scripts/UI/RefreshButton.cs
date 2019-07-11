@@ -47,7 +47,6 @@ public class RefreshButton : MonoBehaviour {
 		// string path = Application.persistentDataPath + "/xml/netlist.xml";
 		// Debug.Log("path = " + path);
 		netUI.readSchematicData(_filename);
-
 		//send command to reset all connection
 		//wifi.sendDataEvent.Invoke(Query.resetAllConnections);
 		gameObject.SetActive(true);
@@ -62,6 +61,7 @@ public class RefreshButton : MonoBehaviour {
 		comm.setPopupState(false);
 		
 		reloadBoard(comm.getCurrentFileName());
+		netUI.setupManualMode();
 		// constraintsHandle.clearConstraintsDB();
 		//send query to get board name
 		// wifi.sendDataEvent.Invoke(Query.getBoardID);

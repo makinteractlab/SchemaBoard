@@ -95,6 +95,7 @@ public class TutorialImage : MonoBehaviour {
 
 		switch(_name) {
 			case "VCC":
+			case "BT":
 				content.sprite = battery;
 				break;
 			case "R":

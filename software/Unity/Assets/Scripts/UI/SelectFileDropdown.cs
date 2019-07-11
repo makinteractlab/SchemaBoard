@@ -35,7 +35,7 @@ public class SelectFileDropdown : MonoBehaviour {
 		init = true;
 		
 		showSchematicUI(true);
-		showCommonUI(true);
+		showCommonUI(false);
 		showTutorialUI(false);
 		showManualUI(false);
 		
@@ -75,7 +75,7 @@ public class SelectFileDropdown : MonoBehaviour {
 	public void CancelLoadFile() {
 		if(init) {
 			showSchematicUI(true);
-			showCommonUI(true);
+			showCommonUI(false);
 			showTutorialUI(false);
 			showManualUI(false);
 		}

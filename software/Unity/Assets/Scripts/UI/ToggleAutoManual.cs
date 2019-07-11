@@ -15,7 +15,7 @@ public class ToggleAutoManual : MonoBehaviour {
 	public TutorialCard card;
 
 	bool status;
-	bool buildMode;
+	bool manualMode;
 
 	private string command = "";
 
@@ -28,14 +28,14 @@ public class ToggleAutoManual : MonoBehaviour {
 		status = false;
 		this.GetComponent<Button>().onClick.AddListener(ModeChange);
 		showManualUI(false);
-		comm.setDebugState();
+		comm.setAutoState();
     }
 
-	public bool isBuildMode() {
-		return buildMode;
+	public bool isManualMode() {
+		return manualMode;
 	}
 
-	public void setDebugMode() {
+	public void setAutoMode() {
 		status = false;
 		ModeChange();
 	}
@@ -44,22 +44,22 @@ public class ToggleAutoManual : MonoBehaviour {
 		//gameObject.SetActive(true);
 		if(status) {
 			gameObject.GetComponent<Button>().image.sprite = manualSprite;
-			buildMode = true;
-			showNetWire(false);
+			manualMode = true;
+			showNetWire(true);
 			showSchematicUI(false);
 			showManualUI(true);
-			loadNetUI.setupBuildMode();
-			comm.setBuildState();
+			loadNetUI.setupManualMode();
+			comm.setManualState();
 			// card.loadCircuitInfo(1);
 			status = false;
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = autoSprite;
-			buildMode = false;
-			showNetWire(true);
+			manualMode = false;
+			showNetWire(false);
 			showSchematicUI(true);
 			showManualUI(false);
-			loadNetUI.setupDebugMode();
-			comm.setDebugState();
+			loadNetUI.setupAutoMode();
+			comm.setAutoState();
 			status = true;
 		}
 	}

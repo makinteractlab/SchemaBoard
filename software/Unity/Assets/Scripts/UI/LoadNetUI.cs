@@ -152,6 +152,7 @@ public class LoadNetUI : MonoBehaviour {
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
 					break;
 				case "VCC":
+				case "BT":
 					component = (GameObject)Instantiate(prefabVcc);
 					break;
 				default:
@@ -191,13 +192,13 @@ public class LoadNetUI : MonoBehaviour {
 				}
 			}
 
-			if(item.Key.Contains("VCC")) {
+			if(item.Key.Contains("VCC") || item.Key.Contains("BT")) {
 				netDataObj.setColorGroundPins(item.Key, "connector0");
 				netDataObj.setColorVccPins(item.Key, "connector1");
 			}
 		}
 
-		modeToggleMenu.setDebugMode();
+		modeToggleMenu.setAutoMode();
 
 		// if(modeToggleMenu.isBuildMode()) {
 		// 	// auto complete connections
@@ -344,7 +345,7 @@ public class LoadNetUI : MonoBehaviour {
 		}
 	}
 
-	public void setupDebugMode() {
+	public void setupAutoMode() {
 		netDataObj.copyBuildDataToDebugData();
 		//ResetAllConnectedWires();
 		
@@ -358,10 +359,10 @@ public class LoadNetUI : MonoBehaviour {
 		changeNetWiresPosition();
 	}
 
-	public void setupBuildMode() {
+	public void setupManualMode() {
 		ResetAllConnectedWires();
 		netDataObj.resetBuildNetData();
-		if(modeToggleMenu.isBuildMode()) {
+		if(modeToggleMenu.isManualMode()) {
 			// auto complete connections
 			Vector3 startPos;
 			Vector3 endPos;
