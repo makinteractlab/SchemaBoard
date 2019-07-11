@@ -24,6 +24,7 @@ public class NetData : MonoBehaviour {
 	public Sprite vccPinSprite;
 	NetDataHandler netHandler;
 	public LoadNetUI netui;
+	public LoadSchematicUI schematicUI;
 	Dictionary<string, _Component> debugNetData;
 	Dictionary<string, _Component> buildNetData;
 	Dictionary<string, _Component> initNetData;
@@ -70,7 +71,7 @@ public class NetData : MonoBehaviour {
 	}
 
 	public void setSchematicDrawingData(JObject _data) {
-		// schematicUI.dataReceivedEvent.Invoke(debugNetData);
+		schematicUI.dataReceivedEvent.Invoke(_data);
 	}
 
 	public void setSchematicJsonData(JObject data) {	

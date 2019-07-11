@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -42,10 +42,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 683, y: 492}
-  m_MaxSize: {x: 14004, y: 14042}
+  m_MinSize: {x: 681, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 9
+  controlID: 48
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 10
+  controlID: 49
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 11
+  controlID: 50
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -327,19 +327,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Resources/Prefabs/fritzing
+    - Assets/Materials
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/Prefabs/fritzing
+  - Assets/Materials
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Works\Git\RetroBreadboard\software\Unity
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 152}
-    m_SelectedIDs: 902c0000
-    m_LastClickedID: 11408
-    m_ExpandedIDs: 00000000cc290000fc290000c22b00004e2c0000ec2c00005e2d0000522e0000c42e0000d62e0000804800008248000084480000864800008848000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 60}
+    m_SelectedIDs: 5a2a0000
+    m_LastClickedID: 10842
+    m_ExpandedIDs: 00000000d0290000002a0000c62b0000522c0000f02c0000662d00005a2e0000cc2e0000de2e00004c4800004e48000050480000524800005448000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -367,7 +367,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000cc290000fc290000c22b00004e2c0000ec2c00005e2d0000522e0000c42e0000d62e00008048000082480000844800008648000088480000
+    m_ExpandedIDs: 00000000d0290000002a0000c62b0000522c0000f02c0000662d00005a2e0000cc2e0000de2e00004c4800004e480000504800005248000054480000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -487,7 +487,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 02b0feff90b0feffb0b2feffecb7feff7ab8feff9abafeffe6bffeff74c0feff94c2feff10cbfeff9ecbfeffbecdfeff16f9feffc0f9feffe0fbfeff9452ffff4c53ffff6c55ffff967cffff2a7dffff4a7fffff489bffffdc9bfffffc9dffff08d5ffffb0d5ffffd0d7ffff3ef0ffffe8f0ffff08f3ffff9efbffff0000000002960000daf60000c4570100b4b80100c0c70100440302006c640200
+    m_ExpandedIDs: 4a48feffcc48feffee4afefff250feff7451feff9653feff4458feffc658feffe85afeff965ffeff1860feff3a62feff7e6efeff3e6ffeff0472feff2af4ffffc0f4ffffe0f6ffff98fbffff000000000a64000006730000da330100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -538,14 +538,14 @@ MonoBehaviour:
     height: 624
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 4035.7804299724
+  lastFramingTime: 157.71245848173052
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: 183.48929, z: 0}
+    m_Target: {x: 0.73498523, y: -0.30946755, z: 4}
     speed: 2
-    m_Value: {x: 0, y: 183.48929, z: 0}
+    m_Value: {x: 0.73498523, y: -0.30946755, z: 4}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -573,9 +573,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0, y: 0, z: -0, w: -1}
   m_Size:
-    m_Target: 717.7756
+    m_Target: 13.90855
     speed: 2
-    m_Value: 717.7756
+    m_Value: 13.90855
   m_Ortho:
     m_Target: 1
     speed: 2
