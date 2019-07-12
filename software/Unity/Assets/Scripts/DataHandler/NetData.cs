@@ -28,6 +28,8 @@ public class NetData : MonoBehaviour {
 	Dictionary<string, _Component> debugNetData;
 	Dictionary<string, _Component> buildNetData;
 	Dictionary<string, _Component> initNetData;
+
+	JObject schematicDrawingData;
 	// Use this for initialization
 	void Start () {
 		//componentsInCircuit = new Dictionary<string, _Component>();
@@ -41,6 +43,8 @@ public class NetData : MonoBehaviour {
 
 		cmd = new Command();
 		cmd.setUrls();
+
+		schematicDrawingData = new JObject();
 	}
 
 	
@@ -74,8 +78,8 @@ public class NetData : MonoBehaviour {
 		schematicUI.dataReceivedEvent.Invoke(_data);
 	}
 
-	public void setSchematicJsonData(JObject data) {	
-		debugNetData = new Dictionary<string, _Component>(netHandler.parseNetData(data));
+	public void setSchematicJsonData(JObject _data) {	
+		debugNetData = new Dictionary<string, _Component>(netHandler.parseNetData(_data));
 		buildNetData = new Dictionary<string, _Component>(netHandler.getBuildNetData());
 		initNetData = new Dictionary<string, _Component>(netHandler.getInitNetData());
 		netui.dataReceivedEvent.Invoke(debugNetData);
