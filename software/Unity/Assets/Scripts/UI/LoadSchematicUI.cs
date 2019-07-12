@@ -12,14 +12,17 @@ using System;
 
 public class LoadSchematicUI : MonoBehaviour {
 	public GameObject prefabResistor;
-	public GameObject prefabCapacitor;
+	public GameObject prefabUniCapacitor;
+	public GameObject prefabBiCapacitor;
 	public GameObject prefabInductor;
 	public GameObject prefabLed;
 	public GameObject prefabSwitch;
 	public GameObject prefabPhotoresistor;
 	public GameObject prefabDiode;
-	public GameObject prefabZenerdiode;
-	public GameObject prefabVcc;
+	// public GameObject prefabZenerdiode;
+	public GameObject prefabPwr;
+	public GameObject prefabGnd;
+	public GameObject prefabBattery;
 	public GameObject prefabEtc;
     public RectTransform ParentPanel;
 	//public BoardDataHandler board;
@@ -31,7 +34,6 @@ public class LoadSchematicUI : MonoBehaviour {
 	public ToggleAutoManual modeToggleMenu;
 
 	// Dictionary<string, _Component> netData;
-	public Sprite DefaultPinSprite;
 	public DrawSchematicWire schematicWire;
 
     public void Start() {
@@ -83,7 +85,11 @@ public class LoadSchematicUI : MonoBehaviour {
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName); //comp.value.ToString();
 					break;
 				case "C":
-					component = (GameObject)Instantiate(prefabCapacitor);
+					component = (GameObject)Instantiate(prefabUniCapacitor);
+					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);//comp.value.ToString();
+					break;
+				case "CP":
+					component = (GameObject)Instantiate(prefabBiCapacitor);
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);//comp.value.ToString();
 					break;
 				case "L":
@@ -106,13 +112,15 @@ public class LoadSchematicUI : MonoBehaviour {
 					component = (GameObject)Instantiate(prefabDiode);
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
 					break;
-				case "ZD":
-					component = (GameObject)Instantiate(prefabZenerdiode);
+				case "GND":
+					component = (GameObject)Instantiate(prefabGnd);
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
 					break;
-				case "VCC":
+				case "PWR":
+					component = (GameObject)Instantiate(prefabPwr);
+					break;
 				case "BT":
-					component = (GameObject)Instantiate(prefabVcc);
+					component = (GameObject)Instantiate(prefabBattery);
 					break;
 				default:
 					component = (GameObject)Instantiate(prefabEtc);
