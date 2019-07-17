@@ -107,7 +107,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         // BUG!
         //GameObject.Find("EditToggleButton").GetComponent<Button>().onClick.AddListener(HandleDeleteMode);
         cmd = new Command();
-        cmd.setUrls();
+        //cmd.setUrls();
         this.GetComponent<Button>().onClick.AddListener(componentClick);
 	}
 
@@ -136,21 +136,21 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     void componentClick() {
         int[] boardPins = new int[2];
         boardPins = netdata.getComponentPinsNet(this.transform.parent.name);
-        //http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        ArrayList urls = new ArrayList(cmd.getUrls());
-        foreach(var url in urls) {
-            http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        }
+        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // ArrayList urls = new ArrayList(cmd.getUrls());
+        // foreach(var url in urls) {
+        //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // }
 
 
         Wait (0.5f, () => {
              Debug.Log("0.3 seconds is lost forever");
         });
 
-        foreach(var url in urls) {
-            http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
-        }
-        //http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
+        // foreach(var url in urls) {
+        //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
+        // }
+        http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
     }
 
     public void setHttpRequestObject() {

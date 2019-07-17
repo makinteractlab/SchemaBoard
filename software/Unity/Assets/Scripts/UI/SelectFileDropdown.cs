@@ -55,6 +55,7 @@ public class SelectFileDropdown : MonoBehaviour {
 	private void LoadFileList() {
 		m_DropOptions = new List<string>();
 		string path = @"/storage/emulated/0/Android/data/com.kaist.netvisualizer/files/fileList.txt";
+		
 		try {
 			using (StreamReader reader = new StreamReader(path)) {
 				string line;
@@ -67,6 +68,18 @@ public class SelectFileDropdown : MonoBehaviour {
             // Let the user know what went wrong.
             Debug.Log("The file could not be read:");
             Debug.Log(e.Message);
+			string localpath = @"D:/Works/Git/RetroBreadboard/software/Unity/Assets/Scripts/data/fileList.txt";
+			try {
+				using (StreamReader reader = new StreamReader(localpath)) {
+					string line;
+					while((line = reader.ReadLine()) !=null) {
+						m_DropOptions.Add(line);
+					}
+				}
+			} catch (Exception ec) {
+				Debug.Log("The local file could not be read:");
+            	Debug.Log(ec.Message);
+			}
         }
 
 		m_Dropdown.AddOptions(m_DropOptions);

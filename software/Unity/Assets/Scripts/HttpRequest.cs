@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 
 public class HttpRequest : MonoBehaviour {
     public GetResult getResult;
@@ -62,6 +63,25 @@ public class HttpRequest : MonoBehaviour {
 
         if (www.isNetworkError) {
             Debug.Log("Error While Sending: " + www.error);
+
+            string result = "";
+            
+            string path = @"D:/Works/Git/RetroBreadboard/software/Unity/Assets/Scripts/data/circuit1.json";
+            try {
+                using (StreamReader reader = new StreamReader(path)) {
+                    string line;
+                    while((line = reader.ReadLine()) !=null) {
+                        result += line+"\n";
+                    }
+                }
+            } catch (Exception e) 
+            {
+                // Let the user know what went wrong.
+                Debug.Log("The file could not be read:");
+                Debug.Log(e.Message);
+            }
+            Debug.Log("JSON read: " + result);
+            getResult.setJsonQueryResult(result);
         } else {
             string result = www.downloadHandler.text;
             Debug.Log("Received: " + result);
@@ -71,7 +91,7 @@ public class HttpRequest : MonoBehaviour {
 
     IEnumerator GetRequestText(string _url, string _data)
     {
-        Debug.Log("json = " + _data);
+        Debug.Log("sch = " + _data);
         var www = new UnityWebRequest(_url, "GET");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(_data);
         www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
@@ -84,6 +104,25 @@ public class HttpRequest : MonoBehaviour {
 
         if (www.isNetworkError) {
             Debug.Log("Error While Sending: " + www.error);
+
+            string result = "";
+            
+            string path = @"D:/Works/Git/RetroBreadboard/software/Unity/Assets/Scripts/data/circuit1.sch";
+            try {
+                using (StreamReader reader = new StreamReader(path)) {
+                    string line;
+                    while((line = reader.ReadLine()) !=null) {
+                        result += line+"\n";
+                    }
+                }
+            } catch (Exception e) 
+            {
+                // Let the user know what went wrong.
+                Debug.Log("The file could not be read:");
+                Debug.Log(e.Message);
+            }
+            Debug.Log("JSON read: " + result);
+            getResult.setSchQueryResult(result);
         } else {
             string result = www.downloadHandler.text;
             Debug.Log("Received: " + result);

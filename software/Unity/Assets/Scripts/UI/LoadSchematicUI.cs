@@ -36,6 +36,8 @@ public class LoadSchematicUI : MonoBehaviour {
 	// Dictionary<string, _Component> netData;
 	public DrawSchematicWire schematicWire;
 
+	float distance = 3.0f;
+
     public void Start() {
         setWireObject();
 		dataReceivedAction = new UnityAction<JObject>(drawSchematic);
@@ -46,8 +48,6 @@ public class LoadSchematicUI : MonoBehaviour {
     public void setWireObject()
     {
         schematicWire = GameObject.Find("DrawSchematicWires").GetComponent<DrawSchematicWire>();
-        //wire = temp.GetComponent<ComponentObject>().getWireObject();
-		Debug.Log("\n\n\n\n++++++++++++++++++++++++ : " + schematicWire.name + "\n\n\n\n");
     }
 	
 	// Update is called once per frame
@@ -71,50 +71,41 @@ public class LoadSchematicUI : MonoBehaviour {
 	public void drawSchematic(JObject _data)
 	{	
 		GameObject component = null;
-		Dictionary<string,int[]> schematicData = new Dictionary<string,int[]>();
+		Dictionary<string, JObject> schematicData = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(_data.ToString());
 
-		foreach(KeyValuePair<string, int[]> item in schematicData)
+		foreach(KeyValuePair<string, JObject> item in schematicData)
 		{
 			string componentName = Util.removeDigit(item.Key);
 			
-			string uiComponentName = item.Key;
+			string uiComponentName = "SCH_"+item.Key;
 			//ComponentBase comp = ComponentFactory.Create(componentName, componentData);
 			switch (componentName) {
 				case "R":
 					component = (GameObject)Instantiate(prefabResistor);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName); //comp.value.ToString();
 					break;
 				case "C":
 					component = (GameObject)Instantiate(prefabUniCapacitor);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);//comp.value.ToString();
 					break;
 				case "CP":
 					component = (GameObject)Instantiate(prefabBiCapacitor);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);//comp.value.ToString();
 					break;
 				case "L":
 					component = (GameObject)Instantiate(prefabInductor);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);//comp.value.ToString();
 					break;
 				case "LED":
 					component = (GameObject)Instantiate(prefabLed);
-					//getChildObject(component, "ValueText").GetComponent<Text>().text = comp.value.ToString();
 					break;
 				case "S":
 					component = (GameObject)Instantiate(prefabSwitch);
-					//getChildObject(component, "ValueText").GetComponent<Text>().text = comp.value.ToString();
 					break;
 				case "LDR":
 					component = (GameObject)Instantiate(prefabPhotoresistor);
-					//getChildObject(component, "ValueText").GetComponent<Text>().text = comp.value.ToString();
 					break;
 				case "D":
 					component = (GameObject)Instantiate(prefabDiode);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
 					break;
 				case "GND":
 					component = (GameObject)Instantiate(prefabGnd);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
 					break;
 				case "PWR":
 					component = (GameObject)Instantiate(prefabPwr);
@@ -122,31 +113,46 @@ public class LoadSchematicUI : MonoBehaviour {
 				case "BT":
 					component = (GameObject)Instantiate(prefabBattery);
 					break;
+				case "wire":
+				case "connection":
+					component = null;
+				break;
 				default:
 					component = (GameObject)Instantiate(prefabEtc);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
 					break;
 			}
-			
+			//Vector2 scale = new Vector2(ParentPanel.rect.width / Screen.width, ParentPanel.rect.height / Screen.height);
+
 			if(component) {
+				JObject position = item.Value;
 				component.tag = "component";
 				component.name = uiComponentName;
 				component.transform.SetParent(ParentPanel, false);
-				component.transform.position = new Vector3(item.Value[0],ParentPanel.transform.position.y+10,item.Value[1]);
-				component.transform.localScale = new Vector3(1, 1, 1);
+				component.transform.position = new Vector3((float)position["x"]/5+Screen.width/6, (float)position["y"]/5+Screen.height/6, 0);
+				Debug.Log("+=+=+=+" + component.transform.position);
+				component.transform.Rotate(0, (float)position["degree"], 0, Space.Self);
+				if((string)position["flip"] == "x") {//x y
+					component.transform.localScale = new Vector3(-1, 1, 1);
+				} else if((string)position["flip"] == "y") {
+					component.transform.localScale = new Vector3(1, -1, 1);
+				} else {
+					component.transform.localScale = new Vector3(1, 1, 1);
+				}
 			}
 		}
-/*
-		foreach(KeyValuePair<string, _Component> item in _netData)
+
+		Dictionary<string, _Component> netData = netDataObj.getInitialSchematicData();
+
+		foreach(KeyValuePair<string, _Component> item in netData)
 		{
 			List<_Pin> pins = item.Value.getPins();
 			foreach(var pin in pins) {
 				List<NetElement> netElement = pin.getNetElement();
 				//float dashSize = 4.0f;
 				foreach(var target in netElement) {
-					GameObject currentObject = GameObject.Find(item.Key);
-					GameObject targetObject = GameObject.Find(target.component);
-					netwire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
+					GameObject currentObject = GameObject.Find("SCH_"+item.Key);
+					GameObject targetObject = GameObject.Find("SCH_"+target.component);
+					schematicWire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
 				}
 			}
 
@@ -156,6 +162,6 @@ public class LoadSchematicUI : MonoBehaviour {
 			}
 		}
 
-		modeToggleMenu.setAutoMode();*/
+		//modeToggleMenu.setAutoMode();
 	}
 }

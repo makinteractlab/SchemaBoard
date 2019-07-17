@@ -18,7 +18,7 @@ public class SchComponentPins : MonoBehaviour
 
         this.GetComponent<Button>().onClick.AddListener(pinClick);
         cmd = new Command();
-        cmd.setUrls();
+        // cmd.setUrls();
     }
 
     public void setHttpRequestObject() {
@@ -35,11 +35,11 @@ public class SchComponentPins : MonoBehaviour
         componentName = componentName.Substring(3, componentName.Length-3);
         
         boardPins = netdata.getAllNetForPin(componentName, pinName);
-        //http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        ArrayList urls = new ArrayList(cmd.getUrls());
-        foreach(var url in urls) {
-            http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        }
+        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // ArrayList urls = new ArrayList(cmd.getUrls());
+        // foreach(var url in urls) {
+        //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // }
         //http.postJson(cmd.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
         //Debug.Log("============================= componentPinClick: " + this.name);
     }

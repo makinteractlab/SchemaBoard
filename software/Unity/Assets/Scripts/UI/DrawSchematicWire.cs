@@ -11,6 +11,7 @@ public class DrawSchematicWire : MonoBehaviour
     private GameObject toPinObj;
 
     public LineTextureMode textureMode = LineTextureMode.Tile;
+    public RectTransform ParentPanel;
     //public float tileAmount = 1.0f;
 
     public void Reset(LineRenderer lr)
@@ -45,6 +46,7 @@ public class DrawSchematicWire : MonoBehaviour
                 // if(temp == "Wire:R1-connector0,P1-connector1")
                 //     toPinObj = Util.getChildObject(GameObject.Find("P1"), "connector1");
                 line = new GameObject("Wire" + ":" + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "," + toPinObj.transform.parent.name + "-" + toPinObj.name).AddComponent<LineRenderer>();
+                line.transform.SetParent(ParentPanel,false);
                 line.material = material;
 
                 line.textureMode = textureMode;
@@ -54,13 +56,13 @@ public class DrawSchematicWire : MonoBehaviour
                 line.positionCount = 2;
                 line.startWidth = 6;
                 line.endWidth = 6;
-                line.tag = "netwire";
+                line.tag = "schwire";
 
                 Debug.Log("\n\n\n\n\n ===== From: " + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "\n\n\n\n\n");
 				Debug.Log("\n\n\n\n\n ===== To: " + toPinObj.transform.parent.name + "-" + toPinObj.name + "\n\n\n\n\n");
                 Debug.Log("\n\n\n\n\n ===== WireName: " + line.name + "\n\n\n\n\n");
 
-
+                //Vector3 screenOffset = new Vector3(Screen.width/6, Screen.height/6, 0);
                 line.SetPosition(0, fromPinObj.transform.position);
                 line.SetPosition(1, toPinObj.transform.position);
 

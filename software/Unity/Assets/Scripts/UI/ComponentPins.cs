@@ -23,7 +23,7 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 
         this.GetComponent<Button>().onClick.AddListener(componentPinClick);
         cmd = new Command();
-        cmd.setUrls();
+        // cmd.setUrls();
     }
 
     public void setHttpRequestObject() {
@@ -35,11 +35,11 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
         int[] boardPins = new int[2];
 
         boardPins = netdata.getAllNetForPin(this.transform.parent.name, this.name);
-        //http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        ArrayList urls = new ArrayList(cmd.getUrls());
-        foreach(var url in urls) {
-            http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        }
+        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // ArrayList urls = new ArrayList(cmd.getUrls());
+        // foreach(var url in urls) {
+        //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // }
         //http.postJson(cmd.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
         //Debug.Log("============================= componentPinClick: " + this.name);
     }
