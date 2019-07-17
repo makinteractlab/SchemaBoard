@@ -255,7 +255,7 @@ public class NetData : MonoBehaviour {
 		List<string> resultPins = new List<string>();
 
 		if(comm.getAutoState()) {
-			resultPins.Add(debugNetData[_component].getPin(_pin).breadboardRowPosition);
+			//resultPins.Add(debugNetData[_component].getPin(_pin).breadboardRowPosition);
 
 			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
 			foreach(var element in debugNetData[_component].getPin(_pin).netElementsAll) {	

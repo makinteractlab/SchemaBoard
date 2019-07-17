@@ -32,7 +32,7 @@ public class SchComponentPins : MonoBehaviour
         if(this.name.Contains("fconnector")) {
             pinName = pinName.Substring(1,pinName.Length-1);
         }
-        componentName = componentName.Substring(3, componentName.Length-3);
+        componentName = componentName.Substring(4, componentName.Length-4);
         
         boardPins = netdata.getAllNetForPin(componentName, pinName);
         http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));

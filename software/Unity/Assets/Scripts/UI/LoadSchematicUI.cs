@@ -72,6 +72,9 @@ public class LoadSchematicUI : MonoBehaviour {
 	{	
 		GameObject component = null;
 		Dictionary<string, JObject> schematicData = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(_data.ToString());
+		// Dictionary<string, JObject> schematicWireData = new Dictionary<string, JObject>();
+		// Dictionary<string, JObject> schematicConnectionData = new Dictionary<string, JObject>();
+		var pointList = new List<Vector2>();
 
 		foreach(KeyValuePair<string, JObject> item in schematicData)
 		{
@@ -114,9 +117,16 @@ public class LoadSchematicUI : MonoBehaviour {
 					component = (GameObject)Instantiate(prefabBattery);
 					break;
 				case "wire":
-				case "connection":
+					pointList.Add(new Vector2 ((float)item.Value["x1"]/5-Screen.width/2, -(float)item.Value["y1"]/5+Screen.height/2));
+					pointList.Add(new Vector2 ((float)item.Value["x2"]/5-Screen.width/2, -(float)item.Value["y2"]/5+Screen.height/2));
+					schematicWire.createWireObject(pointList, uiComponentName);
+					pointList.Clear();
 					component = null;
-				break;
+					break;
+				case "connection":
+					
+					component = null;
+					break;
 				default:
 					component = (GameObject)Instantiate(prefabEtc);
 					break;
@@ -128,7 +138,9 @@ public class LoadSchematicUI : MonoBehaviour {
 				component.tag = "component";
 				component.name = uiComponentName;
 				component.transform.SetParent(ParentPanel, false);
-				component.transform.position = new Vector3((float)position["x"]/5+Screen.width/6, (float)position["y"]/5+Screen.height/6, 0);
+				component.transform.position = new Vector3((float)position["x"]/5, -(float)position["y"]/5, 0);
+				component.transform.Translate(new Vector3(0,Screen.height,0));
+				
 				Debug.Log("+=+=+=+" + component.transform.position);
 				component.transform.Rotate(0, (float)position["degree"], 0, Space.Self);
 				if((string)position["flip"] == "x") {//x y
@@ -136,31 +148,31 @@ public class LoadSchematicUI : MonoBehaviour {
 				} else if((string)position["flip"] == "y") {
 					component.transform.localScale = new Vector3(1, -1, 1);
 				} else {
-					component.transform.localScale = new Vector3(1, 1, 1);
+					component.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
 				}
 			}
 		}
 
-		Dictionary<string, _Component> netData = netDataObj.getInitialSchematicData();
+		// Dictionary<string, _Component> netData = netDataObj.getInitialSchematicData();
 
-		foreach(KeyValuePair<string, _Component> item in netData)
-		{
-			List<_Pin> pins = item.Value.getPins();
-			foreach(var pin in pins) {
-				List<NetElement> netElement = pin.getNetElement();
-				//float dashSize = 4.0f;
-				foreach(var target in netElement) {
-					GameObject currentObject = GameObject.Find("SCH_"+item.Key);
-					GameObject targetObject = GameObject.Find("SCH_"+target.component);
-					schematicWire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
-				}
-			}
+		// foreach(KeyValuePair<string, _Component> item in netData)
+		// {
+		// 	List<_Pin> pins = item.Value.getPins();
+		// 	foreach(var pin in pins) {
+		// 		List<NetElement> netElement = pin.getNetElement();
+		// 		//float dashSize = 4.0f;
+		// 		foreach(var target in netElement) {
+		// 			GameObject currentObject = GameObject.Find("SCH_"+item.Key);
+		// 			GameObject targetObject = GameObject.Find("SCH_"+target.component);
+		// 			schematicWire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
+		// 		}
+		// 	}
 
-			if(item.Key.Contains("VCC") || item.Key.Contains("BT")) {
-				netDataObj.setColorGroundPins(item.Key, "connector0");
-				netDataObj.setColorVccPins(item.Key, "connector1");
-			}
-		}
+		// 	if(item.Key.Contains("VCC") || item.Key.Contains("BT")) {
+		// 		netDataObj.setColorGroundPins(item.Key, "connector0");
+		// 		netDataObj.setColorVccPins(item.Key, "connector1");
+		// 	}
+		// }
 
 		//modeToggleMenu.setAutoMode();
 	}

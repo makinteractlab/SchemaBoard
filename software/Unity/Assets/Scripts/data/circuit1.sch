@@ -49,26 +49,20 @@ $EndComp
 $Comp
 L Device:Battery_Cell BT1
 U 1 1 5D244D79
-P 1900 4700
-F 0 "BT1" H 2018 4796 50  0000 L CNN
-F 1 "Battery_Cell" H 2018 4705 50  0000 L CNN
-F 2 "" V 1900 4760 50  0001 C CNN
-F 3 "~" V 1900 4760 50  0001 C CNN
-	1    1900 4700
+P 1650 3250
+F 0 "BT1" H 1768 3346 50  0000 L CNN
+F 1 "Battery_Cell" H 1768 3255 50  0000 L CNN
+F 2 "" V 1650 3310 50  0001 C CNN
+F 3 "~" V 1650 3310 50  0001 C CNN
+	1    1650 3250
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1900 4500 1900 1800
-Wire Wire Line
-	1900 1800 2550 1800
 Wire Wire Line
 	2850 1800 4250 1800
 Wire Wire Line
 	4250 1800 4250 3100
 Wire Wire Line
 	4250 3400 4250 4800
-Wire Wire Line
-	4250 4800 1900 4800
 Wire Wire Line
 	4250 1800 6100 1800
 Wire Wire Line
@@ -78,5 +72,13 @@ Wire Wire Line
 	6100 3450 6100 4800
 Wire Wire Line
 	6100 4800 4250 4800
+Wire Wire Line
+	2550 1800 1650 1800
+Wire Wire Line
+	1650 1800 1650 3050
+Wire Wire Line
+	4250 4800 1650 4800
+Wire Wire Line
+	1650 4800 1650 3350
 Connection ~ 4250 4800
 $EndSCHEMATC

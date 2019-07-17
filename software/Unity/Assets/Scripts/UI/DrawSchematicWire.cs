@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class DrawSchematicWire : MonoBehaviour
 {
-    private LineRenderer line;
+    public UnityEngine.UI.Extensions.UILineRenderer line; 
+    // private LineRenderer line;
     public Material material;
     private GameObject fromPinObj;
     private GameObject toPinObj;
@@ -32,6 +33,14 @@ public class DrawSchematicWire : MonoBehaviour
     {
     }
 
+    public void createWireObject(List<Vector2> _pointList, string name) {
+        line = new GameObject(name).AddComponent<UnityEngine.UI.Extensions.UILineRenderer>();
+        line.transform.SetParent(ParentPanel,false);
+        line.material = material;
+        line.tag = "schwire";
+        line.Points = _pointList.ToArray();
+        // line.transform.Translate(new Vector3(0,Screen.height,0));
+    }
     public void createWireObject(GameObject _fromPin, GameObject _toPin)
     {
         fromPinObj = _fromPin;
@@ -45,26 +54,30 @@ public class DrawSchematicWire : MonoBehaviour
                 // string temp = "Wire" + ":" + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "," + toPinObj.transform.parent.name + "-" + toPinObj.name;
                 // if(temp == "Wire:R1-connector0,P1-connector1")
                 //     toPinObj = Util.getChildObject(GameObject.Find("P1"), "connector1");
-                line = new GameObject("Wire" + ":" + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "," + toPinObj.transform.parent.name + "-" + toPinObj.name).AddComponent<LineRenderer>();
+                line = new GameObject("Wire" + ":" + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "," + toPinObj.transform.parent.name + "-" + toPinObj.name).AddComponent<UnityEngine.UI.Extensions.UILineRenderer>();
                 line.transform.SetParent(ParentPanel,false);
                 line.material = material;
 
-                line.textureMode = textureMode;
-                var distance = Vector3.Distance(fromPinObj.transform.position, toPinObj.transform.position);
-                line.materials[0].mainTextureScale = new Vector3(distance, 1, 1);
+                // line.textureMode = textureMode;
+                // var distance = Vector3.Distance(fromPinObj.transform.position, toPinObj.transform.position);
+                // line.materials[0].mainTextureScale = new Vector3(distance, 1, 1);
 
-                line.positionCount = 2;
-                line.startWidth = 6;
-                line.endWidth = 6;
+                // line.positionCount = 2;
+                // line.startWidth = 6;
+                // line.endWidth = 6;
                 line.tag = "schwire";
 
                 Debug.Log("\n\n\n\n\n ===== From: " + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "\n\n\n\n\n");
 				Debug.Log("\n\n\n\n\n ===== To: " + toPinObj.transform.parent.name + "-" + toPinObj.name + "\n\n\n\n\n");
                 Debug.Log("\n\n\n\n\n ===== WireName: " + line.name + "\n\n\n\n\n");
 
-                //Vector3 screenOffset = new Vector3(Screen.width/6, Screen.height/6, 0);
-                line.SetPosition(0, fromPinObj.transform.position);
-                line.SetPosition(1, toPinObj.transform.position);
+                Vector3 screenOffset = new Vector3(Screen.width/6, Screen.height/6, 0);
+                // line.SetPosition(0, fromPinObj.transform.position);
+                // line.SetPosition(1, toPinObj.transform.position);
+                var pointList = new List<Vector2>();
+                pointList.Add(fromPinObj.transform.position+screenOffset);
+                pointList.Add(toPinObj.transform.position+screenOffset);
+                line.Points = pointList.ToArray();
 
                 // int xOffset = 0;
 
