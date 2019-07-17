@@ -148,7 +148,7 @@ public class LoadSchematicUI : MonoBehaviour {
 				} else if((string)position["flip"] == "y") {
 					component.transform.localScale = new Vector3(1, -1, 1);
 				} else {
-					component.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+					component.transform.localScale = new Vector3(1, 1, 1);
 				}
 			}
 		}
