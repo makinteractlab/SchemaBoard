@@ -5,13 +5,13 @@ public class Command {//: MonoBehaviour {
     // POST REQUEST
     // http://127.0.0.1:8081/set
     string url = "http://10.0.1.62:8081/set";
-    ArrayList urls = new ArrayList();
+    //ArrayList urls = new ArrayList();
 
-    public void setUrls() {
-        for(int i=55; i<65; i++) {
-            urls.Add("http://10.0.1."+ i + ":8081/set");
-        }
-    }
+    // public void setUrls() {
+    //     for(int i=55; i<65; i++) {
+    //         urls.Add("http://10.0.1."+ i + ":8081/set");
+    //     }
+    // }
     //string url = "http://10.0.1.57:8081/set";
 
     public string getFile(string _filename) {
@@ -33,17 +33,17 @@ public class Command {//: MonoBehaviour {
         url = _url;
     }
 
-    public void setUrls(ArrayList _urls) {
-        urls = new ArrayList(_urls);
-    }
+    // public void setUrls(ArrayList _urls) {
+    //     urls = new ArrayList(_urls);
+    // }
 
     public string getUrl() {
         return url;
     }
 
-    public ArrayList getUrls() {
-        return urls;
-    }
+    // public ArrayList getUrls() {
+    //     return urls;
+    // }
     
     // RESET - ALL OFF
     // {"cmd": "reset"}

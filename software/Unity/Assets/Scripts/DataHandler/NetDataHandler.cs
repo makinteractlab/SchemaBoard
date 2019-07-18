@@ -163,8 +163,14 @@ public class NetDataHandler {
 				for(int k=0; k<componentCount; k++) {
 					if( componentsArray[k]["label"].ToString().Equals(label) ) {
 						int compPinNumber = Util.getDigit(((JObject)connectorArray[j])["pin"].ToString());
-						breadboardRowPosition = componentsArray[k]["connector"][compPinNumber]["position"][row].ToString();
-						breadboardColPosition = componentsArray[k]["connector"][compPinNumber]["position"][col].ToString();
+						JArray componentPins =  (JArray)((JObject)componentsArray[k]).GetValue("connector");
+						for(int e=0; e<componentPins.Count; e++) {
+							if( Util.getDigit((string)componentsArray[k]["connector"][e]["id"]) == compPinNumber) {
+								breadboardRowPosition = componentsArray[k]["connector"][e]["position"][row].ToString();
+								breadboardColPosition = componentsArray[k]["connector"][e]["position"][col].ToString();
+								break;
+							}
+						}
 						break;
 					}
 				}

@@ -92,6 +92,8 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
         // }
         http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(componentName)) ) );
+
+        Debug.Log("============================= componentClick: " + this.name);
     }
 
     public void setHttpRequestObject() {

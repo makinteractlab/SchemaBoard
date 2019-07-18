@@ -67,11 +67,11 @@ public class ToggleAutoManual : MonoBehaviour {
 	private void showManualUI(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual");
 		
-        foreach(GameObject componentObj in temp) {
+        foreach(GameObject obj in temp) {
 			if(onoff) {
-				componentObj.transform.localScale = new Vector3(1,1,1);
+				obj.transform.localScale = new Vector3(1,1,1);
 			} else {
-				componentObj.transform.localScale = new Vector3(0,0,0);
+				obj.transform.localScale = new Vector3(0,0,0);
 			}
         }
 
@@ -102,6 +102,26 @@ public class ToggleAutoManual : MonoBehaviour {
 		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(0,0,0);
 		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(1,1,1);
 		// }
+	}
+
+	private void hideSchematicCircuit(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("schcomponent");
+		foreach(GameObject obj in temp) {
+			if(onoff) {
+				obj.transform.localScale = new Vector3(1,1,1);
+			} else {
+				obj.transform.localScale = new Vector3(0,0,0);
+			}
+		}
+
+		GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("schwire");
+		foreach(GameObject obj in wireTemp) {
+			if(onoff) {
+				obj.transform.localScale = new Vector3(1,1,1);
+			} else {
+				obj.transform.localScale = new Vector3(0,0,0);
+			}
+		}
 	}
 
 	private void showNetWire(bool onoff) {

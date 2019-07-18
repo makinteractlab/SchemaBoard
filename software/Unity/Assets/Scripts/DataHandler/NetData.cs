@@ -42,7 +42,7 @@ public class NetData : MonoBehaviour {
         schDataReceivedEvent.AddListener(schDataReceivedAction);
 
 		cmd = new Command();
-		cmd.setUrls();
+		//cmd.setUrls();
 
 		schematicDrawingData = new JObject();
 	}

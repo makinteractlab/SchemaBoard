@@ -28,7 +28,7 @@ public class TutorialCard : MonoBehaviour {
 		index = 1;
 		// loadCircuitInfo(index);
 		cmd = new Command();
-		cmd.setUrls();
+		//cmd.setUrls();
 		tutorialData = new Dictionary<string, List<string[]>>();
 		resultPins = new List<string>();
 		steps = new Dictionary<int, string>();
@@ -129,11 +129,11 @@ public class TutorialCard : MonoBehaviour {
 		int[] boardPins = new int[2];
 
         boardPins = netdata.getMultiplePinsPosition(_breadboardpins);
-        //http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-		ArrayList urls = new ArrayList(cmd.getUrls());
-        foreach(var url in urls) {
-            http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        }
+        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+		//ArrayList urls = new ArrayList(cmd.getUrls());
+        // foreach(var url in urls) {
+        //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // }
 	}
 
 	void setContents(int _step, string _leftCompName, string _rightCompName, int _leftCompPin, int _rightCompPin) {	// _type: component or wire

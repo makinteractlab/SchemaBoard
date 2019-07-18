@@ -41,7 +41,7 @@ public class SchComponentPins : MonoBehaviour
         //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         // }
         //http.postJson(cmd.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
-        //Debug.Log("============================= componentPinClick: " + this.name);
+        Debug.Log("============================= componentPinClick: " + this.name);
     }
     
     public void setNetDataObject()
