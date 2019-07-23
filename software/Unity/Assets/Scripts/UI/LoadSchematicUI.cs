@@ -45,6 +45,19 @@ public class LoadSchematicUI : MonoBehaviour {
         dataReceivedEvent.AddListener(dataReceivedAction);
     }
 
+	private void initGlowIcon() {
+		GameObject[] schematic = GameObject.FindGameObjectsWithTag("schematic_glow");
+		GameObject[] fritzing = GameObject.FindGameObjectsWithTag("fritzing_glow");
+
+		foreach(GameObject glow in schematic) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+
+		foreach(GameObject glow in fritzing) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+	}
+
     public void setWireObject()
     {
         schematicWire = GameObject.Find("DrawSchematicWires").GetComponent<DrawSchematicWire>();
@@ -152,6 +165,8 @@ public class LoadSchematicUI : MonoBehaviour {
 				}
 			}
 		}
+
+		initGlowIcon();
 
 		// Dictionary<string, _Component> netData = netDataObj.getInitialSchematicData();
 

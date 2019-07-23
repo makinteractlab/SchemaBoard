@@ -31,7 +31,7 @@ public class ToggleAutoManual : MonoBehaviour {
 		comm.setAutoState();
     }
 
-	public bool isManualMode() {
+	public bool IsManualMode() {
 		return manualMode;
 	}
 

@@ -33,6 +33,8 @@ public class ToggleIcon : MonoBehaviour {
 	public Sprite onSprite;
 	public Sprite offSprite;
 
+	public ToggleAutoManual toggleMode;
+
 	bool status;
 
 	private string command = "";
@@ -44,26 +46,71 @@ public class ToggleIcon : MonoBehaviour {
     // Use this for initialization
     void Start() {
 		status = true;
+		changeComponentIcon();
 		this.GetComponent<Button>().onClick.AddListener(changeComponentIcon);
     }
 
+	public bool IsFritzingIcon() {
+		return status;
+	}
+
 	void changeComponentIcon() {
 		//gameObject.SetActive(true);
-		if(status) {
-			gameObject.GetComponent<Button>().image.sprite = onSprite;
-			showSchematicSymbol(true);
-			status = false;
+		if(toggleMode.IsManualMode()) {
+			if(status) {
+				gameObject.GetComponent<Button>().image.sprite = onSprite;
+				showSchematicSymbol(true);
+				status = false;
+			} else {
+				gameObject.GetComponent<Button>().image.sprite = offSprite;
+				showSchematicSymbol(false);
+				status = true;
+			}
 		} else {
-			gameObject.GetComponent<Button>().image.sprite = offSprite;
-			showSchematicSymbol(false);
-			status = true;
+			if(status) {
+				gameObject.GetComponent<Button>().image.sprite = onSprite;
+				showFritzingCircuitComponent(false);
+				showSchematicCircuitComponent(true);
+				status = false;
+			} else {
+				gameObject.GetComponent<Button>().image.sprite = offSprite;
+				showSchematicCircuitComponent(false);
+				showFritzingCircuitComponent(true);
+				status = true;
+			}
 		}
 	}
 
-	private void showSchematicSymbol(bool onoff) {
+	private void showSchematicCircuitComponent(bool on) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("circuit_prefab_schematic");
+		if(on) {
+			foreach(GameObject componentObj in temp) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			}
+		} else {
+			foreach(GameObject componentObj in temp) {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+		}
+	}
+
+	private void showFritzingCircuitComponent(bool on) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
+		if(on) {
+			foreach(GameObject componentObj in temp) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			}
+		} else {
+			foreach(GameObject componentObj in temp) {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+		}
+	}
+
+	private void showSchematicSymbol(bool on) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
 		
-		if(onoff) {
+		if(on) {
 			foreach(GameObject componentObj in temp) {
 				string componentName = Util.removeDigit(componentObj.name);
 				switch(componentName) {

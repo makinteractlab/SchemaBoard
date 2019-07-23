@@ -163,6 +163,21 @@ public class NetData : MonoBehaviour {
 	// 	return result;
 	// }
 
+	public List<string> getComponentPosition(string _component) {
+		List<string> resultPins = new List<string>();
+
+		if(comm.getAutoState()) {
+			foreach(var item in debugNetData[_component].getPins()){
+				resultPins.Add(item.breadboardRowPosition);
+			}
+		} else {
+			foreach(var item in buildNetData[_component].getPins()){
+				resultPins.Add(item.breadboardRowPosition);
+			}
+		}
+		return resultPins;
+	}
+	
 	public int[] getComponentPinsNet(string _component) {
 		List<string> resultPins = new List<string>();
 		int left = 0;

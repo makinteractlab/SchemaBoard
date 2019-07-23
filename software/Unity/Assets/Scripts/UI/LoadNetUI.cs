@@ -362,7 +362,7 @@ public class LoadNetUI : MonoBehaviour {
 	public void setupManualMode() {
 		ResetAllConnectedWires();
 		netDataObj.resetBuildNetData();
-		if(modeToggleMenu.isManualMode()) {
+		if(modeToggleMenu.IsManualMode()) {
 			// auto complete connections
 			Vector3 startPos;
 			Vector3 endPos;

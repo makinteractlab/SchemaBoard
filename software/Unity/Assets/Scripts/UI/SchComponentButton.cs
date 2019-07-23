@@ -27,6 +27,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
     private UnityAction resetAllCancelAction;
     private UnityAction resetAllStateAction;
 	private Communication comm;
+    private ToggleIcon icon;
     private DrawVirtualWire wire;
     // private WifiConnection wifi;
     private HttpRequest http;
@@ -34,7 +35,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
     private NetData netdata;
     private Command cmd;
     private bool editOn;
-
+    private bool clicked;
     // private bool editButonActive;
 
     void Setup() {
@@ -46,12 +47,14 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
 	{
         setWireObject();
 		setCommunicationObject();
+        setToggleIconObject();
         setHttpRequestObject();
         setNetDataObject();
         editOn = true;
         cmd = new Command();
         //cmd.setUrls();
         this.GetComponent<Button>().onClick.AddListener(componentClick);
+        clicked = true;
 	}
 
     void Awake () {
@@ -69,29 +72,66 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
 		yield return new WaitForSeconds(time);
 		callback();
 	}
+    
+    private bool GlowToggle() {
+        bool result = clicked;
+        if(clicked) {
+            // on glow image
+            if(icon.IsFritzingIcon())
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
+            else
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
+            clicked = false;
+        } else {
+            if(icon.IsFritzingIcon())
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
+            else
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            clicked = true;
+        }
+
+        return result;
+    }
 
     void componentClick() {
-        int[] boardPins = new int[2];
-
+        //int[] boardPins = new int[2];
+        List<string> pins = new List<string>();
         string componentName = this.transform.parent.name;
         componentName = componentName.Substring(4, componentName.Length-4);
+        pins = netdata.getComponentPosition(componentName);
 
-        boardPins = netdata.getComponentPinsNet(componentName);
-        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        // ArrayList urls = new ArrayList(cmd.getUrls());
-        // foreach(var url in urls) {
-        //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        // }
+        if(GlowToggle()) {
+            foreach(var pin in pins) {
+                http.postJson(cmd.getUrl(), cmd.singlePinOn(Int16.Parse(pin)));
+                Wait (0.5f, () => {
+                    Debug.Log("0.5 seconds is lost forever");
+                });
+            }
+            
+            // boardPins = netdata.getComponentPinsNet(componentName); /
+            // http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1])); /
 
+            // ArrayList urls = new ArrayList(cmd.getUrls());
+            // foreach(var url in urls) {
+            //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+            // }
 
-        Wait (0.5f, () => {
-             Debug.Log("0.3 seconds is lost forever");
-        });
+            Wait (0.5f, () => {
+                Debug.Log("0.5 seconds is lost forever");
+            });
 
-        // foreach(var url in urls) {
-        //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
-        // }
-        http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(componentName)) ) );
+            // foreach(var url in urls) {
+            //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
+            // }
+            http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(componentName)) ) );
+        } else {
+            foreach(var pin in pins) {
+                http.postJson(cmd.getUrl(), cmd.singlePinOff(Int16.Parse(pin)));
+                Wait (0.5f, () => {
+                    Debug.Log("0.5 seconds is lost forever");
+                });
+            }
+        }
 
         Debug.Log("============================= componentClick: " + this.name);
     }
@@ -114,6 +154,10 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
 		comm = GameObject.Find("Communication").GetComponent<Communication>();
         //comm = temp.GetComponent<ComponentObject>().getCommunicationObject();
 		//Debug.Log(comm.name);
+    }
+
+    public void setToggleIconObject() {
+        icon = GameObject.Find("ToggleIcon").GetComponent<ToggleIcon>();
     }
 
     public void editToggleWindow() {
