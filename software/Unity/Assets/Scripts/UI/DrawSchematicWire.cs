@@ -57,6 +57,7 @@ public class DrawSchematicWire : MonoBehaviour
                 line = new GameObject("Wire" + ":" + fromPinObj.transform.parent.name + "-" + fromPinObj.name + "," + toPinObj.transform.parent.name + "-" + toPinObj.name).AddComponent<UnityEngine.UI.Extensions.UILineRenderer>();
                 line.transform.SetParent(ParentPanel,false);
                 line.material = material;
+                line.lineThickness = 6;
 
                 // line.textureMode = textureMode;
                 // var distance = Vector3.Distance(fromPinObj.transform.position, toPinObj.transform.position);

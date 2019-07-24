@@ -35,7 +35,7 @@ public class ToggleBoardWires : MonoBehaviour {
 	}
 
 	private void showWires(bool onoff) {
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
         foreach(GameObject componentObj in temp) {
 			GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
 			foreach(GameObject wireObj in wireTemp) {

@@ -40,6 +40,53 @@ public class ToggleAutoManual : MonoBehaviour {
 		ModeChange();
 	}
 
+	void showAutoInterface(bool show) {
+		GameObject[] prefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
+		GameObject[] wires = GameObject.FindGameObjectsWithTag("schwire");
+		if(show) {
+			foreach(var item in prefabs) {
+				item.transform.localScale = new Vector3(1,1,1);
+			}
+			foreach(var item in wires) {
+				item.transform.localScale = new Vector3(1,1,1);
+			}
+		} else {
+			foreach(var item in prefabs) {
+				item.transform.localScale = new Vector3(0,0,0);
+			}
+			foreach(var item in wires) {
+				item.transform.localScale = new Vector3(0,0,0);
+			}
+		}
+	}
+
+	void showManualInterface(bool show) {
+		GameObject[] prefabs = GameObject.FindGameObjectsWithTag("manual_prefab");
+		GameObject[] netwires = GameObject.FindGameObjectsWithTag("netwire");
+		GameObject[] wires = GameObject.FindGameObjectsWithTag("wire");
+		if(show) {
+			foreach(var item in prefabs) {
+				item.transform.localScale = new Vector3(1,1,1);
+			}
+			foreach(var item in netwires) {
+				item.transform.localScale = new Vector3(1,1,1);
+			}
+			foreach(var item in wires) {
+				item.transform.localScale = new Vector3(1,1,1);
+			}
+		} else {
+			foreach(var item in prefabs) {
+				item.transform.localScale = new Vector3(0,0,0);
+			}
+			foreach(var item in netwires) {
+				item.transform.localScale = new Vector3(0,0,0);
+			}
+			foreach(var item in wires) {
+				item.transform.localScale = new Vector3(0,0,0);
+			}
+		}
+	}
+
 	void ModeChange() {
 		//gameObject.SetActive(true);
 		if(status) {
@@ -51,6 +98,8 @@ public class ToggleAutoManual : MonoBehaviour {
 			loadNetUI.setupManualMode();
 			comm.setManualState();
 			// card.loadCircuitInfo(1);
+			showAutoInterface(false);
+			showManualInterface(true);
 			status = false;
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = autoSprite;
@@ -60,6 +109,8 @@ public class ToggleAutoManual : MonoBehaviour {
 			showManualUI(false);
 			loadNetUI.setupAutoMode();
 			comm.setAutoState();
+			showAutoInterface(true);
+			showManualInterface(false);
 			status = true;
 		}
 	}
@@ -125,7 +176,7 @@ public class ToggleAutoManual : MonoBehaviour {
 	}
 
 	private void showNetWire(bool onoff) {
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
         foreach(GameObject componentObj in temp) {
 			GameObject[] netwireTemp = GameObject.FindGameObjectsWithTag("netwire");
 			foreach(GameObject netwireObj in netwireTemp) {

@@ -148,7 +148,7 @@ public class LoadSchematicUI : MonoBehaviour {
 
 			if(component) {
 				JObject position = item.Value;
-				component.tag = "schcomponent";
+				component.tag = "auto_prefab";
 				component.name = uiComponentName;
 				component.transform.SetParent(ParentPanel, false);
 				component.transform.position = new Vector3((float)position["x"]/5, -(float)position["y"]/5, 0);

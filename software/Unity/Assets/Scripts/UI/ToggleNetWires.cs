@@ -39,7 +39,7 @@ public class ToggleNetWires : MonoBehaviour {
 	}
 
 	private void showNetWires(bool onoff) {
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
         foreach(GameObject componentObj in temp) {
 			GameObject[] netwireTemp = GameObject.FindGameObjectsWithTag("netwire");
 			foreach(GameObject netwireObj in netwireTemp) {

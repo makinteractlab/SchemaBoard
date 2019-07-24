@@ -244,7 +244,7 @@ public class SelectFileDropdown : MonoBehaviour {
 			pinObj.GetComponent<Button>().image.sprite = DefaultPinSprite;;
 		}
 
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
         foreach(GameObject componentObj in temp)
         {
 			GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");

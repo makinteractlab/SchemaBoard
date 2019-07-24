@@ -108,7 +108,7 @@ public class ToggleIcon : MonoBehaviour {
 	}
 
 	private void showSchematicSymbol(bool on) {
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
 		
 		if(on) {
 			foreach(GameObject componentObj in temp) {

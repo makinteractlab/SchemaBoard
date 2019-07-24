@@ -162,7 +162,7 @@ public class LoadNetUI : MonoBehaviour {
 			}
 			
 			if(component) {
-				component.tag = "component";
+				component.tag = "manual_prefab";
 				component.name = uiComponentName;
 				component.transform.SetParent(ParentPanel, false);
 
@@ -267,7 +267,7 @@ public class LoadNetUI : MonoBehaviour {
 		Vector3 wireEndPosition = new Vector3(0,0,0);
     	Vector3 wireStartPosition = new Vector3(0,0,0);
 		GameObject[] netwires = GameObject.FindGameObjectsWithTag("netwire");
-		GameObject[] components = GameObject.FindGameObjectsWithTag("component");
+		GameObject[] components = GameObject.FindGameObjectsWithTag("manual_prefab");
 
 		foreach(GameObject wireObj in netwires)
 		{
@@ -309,7 +309,7 @@ public class LoadNetUI : MonoBehaviour {
 		Vector3 wireEndPosition = new Vector3(0,0,0);
     	Vector3 wireStartPosition = new Vector3(0,0,0);
 		GameObject[] netwires = GameObject.FindGameObjectsWithTag("wire");
-		GameObject[] components = GameObject.FindGameObjectsWithTag("component");
+		GameObject[] components = GameObject.FindGameObjectsWithTag("manual_prefab");
 
 		foreach(GameObject wireObj in netwires)
 		{
@@ -368,7 +368,7 @@ public class LoadNetUI : MonoBehaviour {
 			Vector3 endPos;
 			string wireObjectName;
 
-			GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
+			GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
 			int count = 0;
         	foreach(GameObject componentObj in temp) {
 				if(count<4) componentObj.transform.position = new Vector3(0,componentObj.transform.position.y,componentObj.transform.position.z);
