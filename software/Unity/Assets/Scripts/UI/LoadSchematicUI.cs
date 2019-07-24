@@ -21,6 +21,7 @@ public class LoadSchematicUI : MonoBehaviour {
 	public GameObject prefabDiode;
 	// public GameObject prefabZenerdiode;
 	public GameObject prefabTransistor;
+	public GameObject prefabSpeaker;
 	public GameObject prefabPwr;
 	public GameObject prefabGnd;
 	public GameObject prefabBattery;
@@ -46,7 +47,7 @@ public class LoadSchematicUI : MonoBehaviour {
         dataReceivedEvent.AddListener(dataReceivedAction);
     }
 
-	private void initGlowIcon() {
+	public void initGlowIcon() {
 		GameObject[] schematic = GameObject.FindGameObjectsWithTag("schematic_glow");
 		GameObject[] fritzing = GameObject.FindGameObjectsWithTag("fritzing_glow");
 
@@ -120,6 +121,9 @@ public class LoadSchematicUI : MonoBehaviour {
 					break;
 				case "Q":
 					component = (GameObject)Instantiate(prefabTransistor);
+					break;
+				case "SP":
+					component = (GameObject)Instantiate(prefabSpeaker);
 					break;
 				case "D":
 					component = (GameObject)Instantiate(prefabDiode);

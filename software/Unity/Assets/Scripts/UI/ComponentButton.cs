@@ -46,6 +46,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
 //    private ConstraintsHandler constraintsHandle;
 	private Communication comm;
     private DrawVirtualWire wire;
+    private ToggleIcon icon;
     private WifiConnection wifi;
     private HttpRequest http;
 	private bool deleteState;
@@ -64,13 +65,11 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     // int inductorToggleValue;
     // int awgToggleValue;
     // int constraintsSelectedValue;
-
     private bool editOn;
     //private bool voltmeterPop;
-
     private bool editButonActive;
-
     // private List<string> constraintsComponentList;
+    private bool clicked;
 
     void Setup() {
         // resistorWindowDrag = false;
@@ -94,6 +93,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         //setWifiObject();
         setHttpRequestObject();
         setNetDataObject();
+        setToggleIconObject();
         // setConstraintsHandleObject();
 
         //awgData = new JObject();
@@ -133,6 +133,31 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
 		callback();
 	}
 
+    public void setToggleIconObject() {
+        icon = GameObject.Find("ToggleIcon").GetComponent<ToggleIcon>();
+    }
+
+    private bool GlowToggle() {
+        bool result = clicked;
+        if(clicked) {
+            // on glow image
+            if(icon.IsFritzingIcon())
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
+            else
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
+            clicked = false;
+        } else {
+            if(icon.IsFritzingIcon())
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
+            else
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            clicked = true;
+        }
+
+        return result;
+    }
+
+    /*
     void componentClick() {
         int[] boardPins = new int[2];
         boardPins = netdata.getComponentPinsNet(this.transform.parent.name);
@@ -151,6 +176,48 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
         // }
         http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
+    }
+    */
+
+    void componentClick() {
+        //int[] boardPins = new int[2];
+        List<string> pins = new List<string>();
+        string componentName = this.transform.parent.name;
+        componentName = componentName.Substring(4, componentName.Length-4);
+        pins = netdata.getComponentPosition(componentName);
+
+        if(GlowToggle()) {
+            foreach(var pin in pins) {
+                http.postJson(cmd.getUrl(), cmd.singlePinOn(Int16.Parse(pin)));
+                Wait (0.5f, () => {
+                    Debug.Log("0.5 seconds is lost forever");
+                });
+            }
+            
+            // boardPins = netdata.getComponentPinsNet(componentName); /
+            // http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1])); /
+            // ArrayList urls = new ArrayList(cmd.getUrls());
+            // foreach(var url in urls) {
+            //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+            // }
+
+            Wait (0.5f, () => {
+                Debug.Log("0.5 seconds is lost forever");
+            });
+
+            // foreach(var url in urls) {
+            //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
+            // }
+            http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(componentName)) ) );
+        } else {
+            foreach(var pin in pins) {
+                http.postJson(cmd.getUrl(), cmd.singlePinOff(Int16.Parse(pin)));
+                Wait (0.5f, () => {
+                    Debug.Log("0.5 seconds is lost forever");
+                });
+            }
+        }
+        Debug.Log("============================= componentClick: " + this.name);
     }
 
     public void setHttpRequestObject() {

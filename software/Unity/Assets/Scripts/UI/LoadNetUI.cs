@@ -14,14 +14,14 @@ public class LoadNetUI : MonoBehaviour {
 	public GameObject prefabResistor;
 	public GameObject prefabUniCapacitor;
 	public GameObject prefabBiCapacitor;
-	public GameObject prefabCapacitor;
 	public GameObject prefabInductor;
 	public GameObject prefabLed;
 	public GameObject prefabSwitch;
 	public GameObject prefabPhotoresistor;
 	public GameObject prefabDiode;
-	public GameObject prefabZenerdiode;
+	// public GameObject prefabZenerdiode;
 	public GameObject prefabTransistor;
+	public GameObject prefabSpeaker;
 	public GameObject prefabVcc;
 	public GameObject prefabEtc;
     public RectTransform ParentPanel;
@@ -100,6 +100,19 @@ public class LoadNetUI : MonoBehaviour {
         // }
 	}
 
+	public void initGlowIcon() {
+		GameObject[] schematic = GameObject.FindGameObjectsWithTag("schematic_glow");
+		GameObject[] fritzing = GameObject.FindGameObjectsWithTag("fritzing_glow");
+
+		foreach(GameObject glow in schematic) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+
+		foreach(GameObject glow in fritzing) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+	}
+
 	public void setupNet(Dictionary<string, _Component> _netData)
 	{	
 		//netData = handler.getNetData(filePath);
@@ -151,14 +164,17 @@ public class LoadNetUI : MonoBehaviour {
 				case "Q":
 					component = (GameObject)Instantiate(prefabTransistor);
 					break;
+				case "SP":
+					component = (GameObject)Instantiate(prefabSpeaker);
+					break;
 				case "D":
 					component = (GameObject)Instantiate(prefabDiode);
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
 					break;
-				case "ZD":
-					component = (GameObject)Instantiate(prefabZenerdiode);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
-					break;
+				// case "ZD":
+				// 	component = (GameObject)Instantiate(prefabZenerdiode);
+				// 	// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
+				// 	break;
 				case "VCC":
 				case "BT":
 					component = (GameObject)Instantiate(prefabVcc);
@@ -207,6 +223,7 @@ public class LoadNetUI : MonoBehaviour {
 		}
 
 		modeToggleMenu.setAutoMode();
+		initGlowIcon();
 
 		// if(modeToggleMenu.isBuildMode()) {
 		// 	// auto complete connections

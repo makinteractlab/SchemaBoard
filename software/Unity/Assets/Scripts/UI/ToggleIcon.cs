@@ -56,17 +56,17 @@ public class ToggleIcon : MonoBehaviour {
 
 	void changeComponentIcon() {
 		//gameObject.SetActive(true);
-		if(toggleMode.IsManualMode()) {
-			if(status) {
-				gameObject.GetComponent<Button>().image.sprite = onSprite;
-				showSchematicSymbol(true);
-				status = false;
-			} else {
-				gameObject.GetComponent<Button>().image.sprite = offSprite;
-				showSchematicSymbol(false);
-				status = true;
-			}
-		} else {
+		// if(toggleMode.IsManualMode()) {
+		// 	if(status) {
+		// 		gameObject.GetComponent<Button>().image.sprite = onSprite;
+		// 		showSchematicSymbol(true);
+		// 		status = false;
+		// 	} else {
+		// 		gameObject.GetComponent<Button>().image.sprite = offSprite;
+		// 		showSchematicSymbol(false);
+		// 		status = true;
+		// 	}
+		// } else {
 			if(status) {
 				gameObject.GetComponent<Button>().image.sprite = onSprite;
 				showFritzingCircuitComponent(false);
@@ -78,7 +78,7 @@ public class ToggleIcon : MonoBehaviour {
 				showFritzingCircuitComponent(true);
 				status = true;
 			}
-		}
+		// }
 	}
 
 	private void showSchematicCircuitComponent(bool on) {

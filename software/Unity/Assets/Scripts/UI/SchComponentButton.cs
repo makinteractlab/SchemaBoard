@@ -110,7 +110,6 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
             
             // boardPins = netdata.getComponentPinsNet(componentName); /
             // http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1])); /
-
             // ArrayList urls = new ArrayList(cmd.getUrls());
             // foreach(var url in urls) {
             //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
@@ -132,7 +131,6 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
                 });
             }
         }
-
         Debug.Log("============================= componentClick: " + this.name);
     }
 
