@@ -162,7 +162,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
     {
         // VuforiaRenderer.Instance.Pause(true);
         if (Input.GetMouseButtonDown(0)) {
-            //Debug.Log("[pin.cs] " + "mouse button down: " + name);
+            Debug.Log("[pin.cs] " + "mouse button down: " + name);
             comm.setStartTime(Time.time);
 
             if (!comm.getDeleteWireState())

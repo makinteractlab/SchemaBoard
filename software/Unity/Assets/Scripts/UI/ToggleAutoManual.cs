@@ -92,7 +92,6 @@ public class ToggleAutoManual : MonoBehaviour {
 		if(status) {
 			gameObject.GetComponent<Button>().image.sprite = manualSprite;
 			manualMode = true;
-			showNetWire(true);
 			showSchematicUI(false);
 			showManualUI(true);
 			loadNetUI.setupManualMode();
@@ -104,7 +103,7 @@ public class ToggleAutoManual : MonoBehaviour {
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = autoSprite;
 			manualMode = false;
-			showNetWire(false);
+			//showNetWire(false);
 			showSchematicUI(true);
 			showManualUI(false);
 			loadNetUI.setupAutoMode();

@@ -12,6 +12,8 @@ using System;
 
 public class LoadNetUI : MonoBehaviour {
 	public GameObject prefabResistor;
+	public GameObject prefabUniCapacitor;
+	public GameObject prefabBiCapacitor;
 	public GameObject prefabCapacitor;
 	public GameObject prefabInductor;
 	public GameObject prefabLed;
@@ -19,6 +21,7 @@ public class LoadNetUI : MonoBehaviour {
 	public GameObject prefabPhotoresistor;
 	public GameObject prefabDiode;
 	public GameObject prefabZenerdiode;
+	public GameObject prefabTransistor;
 	public GameObject prefabVcc;
 	public GameObject prefabEtc;
     public RectTransform ParentPanel;
@@ -124,8 +127,10 @@ public class LoadNetUI : MonoBehaviour {
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName); //comp.value.ToString();
 					break;
 				case "C":
-					component = (GameObject)Instantiate(prefabCapacitor);
-					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);//comp.value.ToString();
+					component = (GameObject)Instantiate(prefabUniCapacitor);
+					break;
+				case "CP":
+					component = (GameObject)Instantiate(prefabBiCapacitor);
 					break;
 				case "L":
 					component = (GameObject)Instantiate(prefabInductor);
@@ -142,6 +147,9 @@ public class LoadNetUI : MonoBehaviour {
 				case "LDR":
 					component = (GameObject)Instantiate(prefabPhotoresistor);
 					//getChildObject(component, "ValueText").GetComponent<Text>().text = comp.value.ToString();
+					break;
+				case "Q":
+					component = (GameObject)Instantiate(prefabTransistor);
 					break;
 				case "D":
 					component = (GameObject)Instantiate(prefabDiode);
@@ -356,7 +364,7 @@ public class LoadNetUI : MonoBehaviour {
 		// 	else componentObj.transform.position = new Vector3(415,ParentPanel.transform.position.y+10,-80-(count-4)*110);
 		// 	count++;
 		// }
-		changeNetWiresPosition();
+		//changeNetWiresPosition();
 	}
 
 	public void setupManualMode() {
@@ -368,13 +376,13 @@ public class LoadNetUI : MonoBehaviour {
 			Vector3 endPos;
 			string wireObjectName;
 
-			GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
-			int count = 0;
-        	foreach(GameObject componentObj in temp) {
-				if(count<4) componentObj.transform.position = new Vector3(0,componentObj.transform.position.y,componentObj.transform.position.z);
-				else componentObj.transform.position = new Vector3(100,componentObj.transform.position.y,componentObj.transform.position.z);
-				count ++;
-			}
+			// GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
+			// int count = 0;
+        	// foreach(GameObject componentObj in temp) {
+			// 	if(count<4) componentObj.transform.position = new Vector3(-300,componentObj.transform.position.y,componentObj.transform.position.z);
+			// 	else componentObj.transform.position = new Vector3(100,componentObj.transform.position.y,componentObj.transform.position.z);
+			// 	count ++;
+			// }
 
 			foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentBuildSchematicData())
 			{

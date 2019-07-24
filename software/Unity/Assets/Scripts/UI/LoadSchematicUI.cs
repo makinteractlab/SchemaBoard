@@ -20,6 +20,7 @@ public class LoadSchematicUI : MonoBehaviour {
 	public GameObject prefabPhotoresistor;
 	public GameObject prefabDiode;
 	// public GameObject prefabZenerdiode;
+	public GameObject prefabTransistor;
 	public GameObject prefabPwr;
 	public GameObject prefabGnd;
 	public GameObject prefabBattery;
@@ -116,6 +117,9 @@ public class LoadSchematicUI : MonoBehaviour {
 					break;
 				case "LDR":
 					component = (GameObject)Instantiate(prefabPhotoresistor);
+					break;
+				case "Q":
+					component = (GameObject)Instantiate(prefabTransistor);
 					break;
 				case "D":
 					component = (GameObject)Instantiate(prefabDiode);
