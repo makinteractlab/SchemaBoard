@@ -26,7 +26,7 @@ public class NetData : MonoBehaviour {
 	public LoadNetUI netui;
 	public LoadSchematicUI schematicUI;
 	Dictionary<string, _Component> debugNetData;
-	Dictionary<string, _Component> buildNetData;
+	// Dictionary<string, _Component> buildNetData;
 	Dictionary<string, _Component> initNetData;
 
 	JObject schematicDrawingData;
@@ -61,9 +61,9 @@ public class NetData : MonoBehaviour {
 		return debugNetData;
 	}
 
-	public Dictionary<string, _Component> getCurrentBuildSchematicData() {
-		return buildNetData;
-	}
+	// public Dictionary<string, _Component> getCurrentBuildSchematicData() {
+	// 	return buildNetData;
+	// }
 
 	public void readSchematicData(string _fileName, NetDataHandler _netHandler)
 	{
@@ -80,29 +80,33 @@ public class NetData : MonoBehaviour {
 
 	public void setSchematicJsonData(JObject _data) {	
 		debugNetData = new Dictionary<string, _Component>(netHandler.parseNetData(_data));
-		buildNetData = new Dictionary<string, _Component>(netHandler.getBuildNetData());
+		//buildNetData = new Dictionary<string, _Component>(netHandler.getBuildNetData());
 		initNetData = new Dictionary<string, _Component>(netHandler.getInitNetData());
 		netui.dataReceivedEvent.Invoke(debugNetData);
 	}
 
-	public void setBuildNetData(Dictionary<string, _Component> _data) {
-		buildNetData.Clear();
-		buildNetData = SerializationCloner.DeepFieldClone(_data);
-	}
+	// public void setAutoNetData(Dictionary<string, _Component> _data) {
+	// 	buildNetData.Clear();
+	// 	buildNetData = SerializationCloner.DeepFieldClone(_data);
+	// }
 
-	public void setdebugNetData(Dictionary<string, _Component> _data) {
-		debugNetData.Clear();
-		debugNetData = SerializationCloner.DeepFieldClone(_data);;
-	}
+	// public void setManualNetData(Dictionary<string, _Component> _data) {
+	// 	debugNetData.Clear();
+	// 	debugNetData = SerializationCloner.DeepFieldClone(_data);;
+	// }
 
-	public void copyBuildDataToDebugData(){
-		setdebugNetData(buildNetData);
-	}
+	// public void copyAutoDataToManualData(){
+	// 	setManualNetData(buildNetData);
+	// }
 
-	public void resetBuildNetData() {
-		buildNetData.Clear();
-		buildNetData = SerializationCloner.DeepFieldClone(initNetData);
-	}
+	// public void copyManualDataToAutoData(){
+	// 	setAutoNetData(buildNetData);
+	// }
+
+	// public void resetBuildNetData() {
+	// 	buildNetData.Clear();
+	// 	buildNetData = SerializationCloner.DeepFieldClone(initNetData);
+	// }
 
 	public void resetdebugNetData() {
 		debugNetData.Clear();
@@ -112,21 +116,21 @@ public class NetData : MonoBehaviour {
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
 		string pin = _componentPinName.Substring(_componentPinName.IndexOf('-')+1, _componentPinName.Length-_componentPinName.IndexOf('-')-1);
 
-		if(comm.getAutoState()) {		
+		// if(comm.getAutoState()) {		
 			if(_boardPinName.Contains("init")) {
 				debugNetData[_componentName].getPin(pin).breadboardRowPosition = "init";
 			} else {
 				debugNetData[_componentName].getPin(pin).breadboardRowPosition = Util.getChildObject(GameObject.Find(_boardPinName), "row").GetComponent<Text>().text;
 				debugNetData[_componentName].getPin(pin).breadboardColPosition = Util.getChildObject(GameObject.Find(_boardPinName), "column").GetComponent<Text>().text;
 			}
-		} else {
-			if(_boardPinName.Contains("init")) {
-				buildNetData[_componentName].getPin(pin).breadboardRowPosition = "init";
-			} else {
-				buildNetData[_componentName].getPin(pin).breadboardRowPosition = Util.getChildObject(GameObject.Find(_boardPinName), "row").GetComponent<Text>().text;
-				buildNetData[_componentName].getPin(pin).breadboardColPosition = Util.getChildObject(GameObject.Find(_boardPinName), "column").GetComponent<Text>().text;
-			}
-		}
+		// } else {
+		// 	if(_boardPinName.Contains("init")) {
+		// 		buildNetData[_componentName].getPin(pin).breadboardRowPosition = "init";
+		// 	} else {
+		// 		buildNetData[_componentName].getPin(pin).breadboardRowPosition = Util.getChildObject(GameObject.Find(_boardPinName), "row").GetComponent<Text>().text;
+		// 		buildNetData[_componentName].getPin(pin).breadboardColPosition = Util.getChildObject(GameObject.Find(_boardPinName), "column").GetComponent<Text>().text;
+		// 	}
+		// }
 
 		// debugNetData.ToList().ForEach(x => Console.WriteLine(x.Key)); // debug
 		// initNetData.ToList().ForEach(x => Console.WriteLine(x.Key));	//debug
@@ -139,7 +143,7 @@ public class NetData : MonoBehaviour {
 	public Dictionary<string, List<string[]>> getComponentsAndPinsPosition() {
 		Dictionary<string, List<string[]>> result = new Dictionary<string, List<string[]>>();
 		List<string[]> pinsPosition = new List<string[]>();
-		foreach(var item in buildNetData) {
+		foreach(var item in debugNetData) {
 			foreach(var pin in item.Value.getPins()){
 				pinsPosition.Add(new string[]{pin.id, pin.breadboardRowPosition});
 			}
@@ -166,15 +170,15 @@ public class NetData : MonoBehaviour {
 	public List<string> getComponentPosition(string _component) {
 		List<string> resultPins = new List<string>();
 
-		if(comm.getAutoState()) {
+		// if(comm.getAutoState()) {
 			foreach(var item in debugNetData[_component].getPins()){
 				resultPins.Add(item.breadboardRowPosition);
 			}
-		} else {
-			foreach(var item in buildNetData[_component].getPins()){
-				resultPins.Add(item.breadboardRowPosition);
-			}
-		}
+		// } else {
+		// 	foreach(var item in buildNetData[_component].getPins()){
+		// 		resultPins.Add(item.breadboardRowPosition);
+		// 	}
+		// }
 		return resultPins;
 	}
 	
@@ -185,15 +189,15 @@ public class NetData : MonoBehaviour {
 		int[] result = Enumerable.Repeat(0, 2).ToArray();
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 
-		if(comm.getAutoState()) {
+		// if(comm.getAutoState()) {
 			foreach(var item in debugNetData[_component].getPins()){
 				resultPins.Add(item.breadboardRowPosition);
 			}
-		} else {
-			foreach(var item in buildNetData[_component].getPins()){
-				resultPins.Add(item.breadboardRowPosition);
-			}
-		}
+		// } else {
+		// 	foreach(var item in buildNetData[_component].getPins()){
+		// 		resultPins.Add(item.breadboardRowPosition);
+		// 	}
+		// }
 
 		foreach(var item in resultPins) {
 			if(item.Contains("init")) continue;
@@ -211,21 +215,21 @@ public class NetData : MonoBehaviour {
 
 	public string getComponentSinglePinRowPosition(string _component, string _pin) {
 		string result = "";
-		if(comm.getAutoState()) {
+		// if(comm.getAutoState()) {
 			result = debugNetData[_component].getPin(_pin).breadboardRowPosition;
-		} else {
-			result = buildNetData[_component].getPin(_pin).breadboardRowPosition;
-		}
+		// } else {
+		// 	result = buildNetData[_component].getPin(_pin).breadboardRowPosition;
+		// }
 		return result;
 	}
 
 	public string getComponentFirstPinRowPosition(string _component) {
 		string result = "";
-		if(comm.getAutoState()) {
+		// if(comm.getAutoState()) {
 			result = debugNetData[_component].getFirstPin().breadboardRowPosition;
-		} else {
-			result = buildNetData[_component].getFirstPin().breadboardRowPosition;
-		}
+		// } else {
+		// 	result = buildNetData[_component].getFirstPin().breadboardRowPosition;
+		// }
 		return result;
 	}
 
@@ -269,21 +273,21 @@ public class NetData : MonoBehaviour {
 
 		List<string> resultPins = new List<string>();
 
-		if(comm.getAutoState()) {
+		// if(comm.getAutoState()) {
 			//resultPins.Add(debugNetData[_component].getPin(_pin).breadboardRowPosition);
 
 			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
 			foreach(var element in debugNetData[_component].getPin(_pin).netElementsAll) {	
 				resultPins.Add(debugNetData[element.component].getPin(element.pinid).breadboardRowPosition);
 			}
-		} else {
-			resultPins.Add(buildNetData[_component].getPin(_pin).breadboardRowPosition);
+		// } else {
+		// 	resultPins.Add(buildNetData[_component].getPin(_pin).breadboardRowPosition);
 
-			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
-			foreach(var element in buildNetData[_component].getPin(_pin).netElementsAll) {	
-				resultPins.Add(buildNetData[element.component].getPin(element.pinid).breadboardRowPosition);
-			}
-		}
+		// 	// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
+		// 	foreach(var element in buildNetData[_component].getPin(_pin).netElementsAll) {	
+		// 		resultPins.Add(buildNetData[element.component].getPin(element.pinid).breadboardRowPosition);
+		// 	}
+		// }
 
 		foreach(var item in resultPins) {
 			if(item.Contains("init")) continue;

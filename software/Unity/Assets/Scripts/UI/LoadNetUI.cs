@@ -175,9 +175,9 @@ public class LoadNetUI : MonoBehaviour {
 				component.transform.SetParent(ParentPanel, false);
 
 				if(count < 4) {
-					component.transform.position = new Vector3(-550,ParentPanel.transform.position.y+10,150-count*110);
+					component.transform.position = new Vector3(-350,ParentPanel.transform.position.y+10,150-count*110);
 				} else {
-					component.transform.position = new Vector3(-300,ParentPanel.transform.position.y+10,150-(count-4)*110);
+					component.transform.position = new Vector3(-500,ParentPanel.transform.position.y+10,200-(count-4)*110);
 				}
 				component.transform.localScale = new Vector3(1, 1, 1);
 
@@ -354,7 +354,7 @@ public class LoadNetUI : MonoBehaviour {
 	}
 
 	public void setupAutoMode() {
-		netDataObj.copyBuildDataToDebugData();
+		// netDataObj.copyBuildDataToDebugData();
 		//ResetAllConnectedWires();
 		
 		// GameObject[] temp = GameObject.FindGameObjectsWithTag("component");
@@ -369,7 +369,7 @@ public class LoadNetUI : MonoBehaviour {
 
 	public void setupManualMode() {
 		ResetAllConnectedWires();
-		netDataObj.resetBuildNetData();
+		// netDataObj.resetBuildNetData();
 		if(modeToggleMenu.IsManualMode()) {
 			// auto complete connections
 			Vector3 startPos;
@@ -384,7 +384,7 @@ public class LoadNetUI : MonoBehaviour {
 			// 	count ++;
 			// }
 
-			foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentBuildSchematicData())
+			foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentDebugSchematicData())
 			{
 				List<_Pin> pins = item.Value.getPins();
 				foreach(var pin in pins) {
