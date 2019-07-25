@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 using System;
 
 public class LoadSchematicUI : MonoBehaviour {
+	public GameObject prefabConnector;
 	public GameObject prefabResistor;
 	public GameObject prefabUniCapacitor;
 	public GameObject prefabBiCapacitor;
@@ -86,6 +87,7 @@ public class LoadSchematicUI : MonoBehaviour {
 	public void drawSchematic(JObject _data)
 	{	
 		GameObject component = null;
+		GameObject connector = null;
 		Dictionary<string, JObject> schematicData = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(_data.ToString());
 		// Dictionary<string, JObject> schematicWireData = new Dictionary<string, JObject>();
 		// Dictionary<string, JObject> schematicConnectionData = new Dictionary<string, JObject>();
@@ -143,9 +145,10 @@ public class LoadSchematicUI : MonoBehaviour {
 					schematicWire.createWireObject(pointList, uiComponentName);
 					pointList.Clear();
 					component = null;
+					connector = null;
 					break;
 				case "connection":
-					
+					connector = (GameObject)Instantiate(prefabConnector);
 					component = null;
 					break;
 				default:
@@ -153,7 +156,14 @@ public class LoadSchematicUI : MonoBehaviour {
 					break;
 			}
 			//Vector2 scale = new Vector2(ParentPanel.rect.width / Screen.width, ParentPanel.rect.height / Screen.height);
-
+			if(connector) {
+				JObject position = item.Value;
+				connector.tag = "auto_prefab";
+				connector.name = uiComponentName;
+				connector.transform.SetParent(ParentPanel, false);
+				connector.transform.position = new Vector3((float)position["x"]/5, -(float)position["y"]/5, 0);
+				connector.transform.Translate(new Vector3(0,Screen.height,0));
+			}
 			if(component) {
 				JObject position = item.Value;
 				component.tag = "auto_prefab";
@@ -175,6 +185,8 @@ public class LoadSchematicUI : MonoBehaviour {
 		}
 
 		initGlowIcon();
+		component = null;
+		connector = null;
 
 		// Dictionary<string, _Component> netData = netDataObj.getInitialSchematicData();
 

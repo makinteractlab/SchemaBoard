@@ -25,7 +25,20 @@ public class SchComponentPins : MonoBehaviour
         http = GameObject.Find("HttpRequest").GetComponent<HttpRequest>();
     }
 
+    void initGlowIcon() {
+		GameObject[] schematic = GameObject.FindGameObjectsWithTag("schematic_glow");
+		GameObject[] fritzing = GameObject.FindGameObjectsWithTag("fritzing_glow");
+
+		foreach(GameObject glow in schematic) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+
+		foreach(GameObject glow in fritzing) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+	}
     void pinClick() {
+        initGlowIcon();
         int[] boardPins = new int[2];
         string pinName = this.name;
         string componentName = this.transform.parent.name;

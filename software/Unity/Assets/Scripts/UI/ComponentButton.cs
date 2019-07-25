@@ -83,7 +83,6 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         editOn = false;
         //voltmeterPop = false;
         editButonActive = false;
-        
     }
 
 	public void Start()
@@ -103,6 +102,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         //awgData.Add("selectedToggle", 0);
         //awgOn = true;
         editOn = true;
+        clicked = true;
         // closeActivePopup();
         // BUG!
         //GameObject.Find("EditToggleButton").GetComponent<Button>().onClick.AddListener(HandleDeleteMode);

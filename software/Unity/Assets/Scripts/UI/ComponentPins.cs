@@ -30,8 +30,22 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
         http = GameObject.Find("HttpRequest").GetComponent<HttpRequest>();
     }
 
+    void initGlowIcon() {
+		GameObject[] schematic = GameObject.FindGameObjectsWithTag("schematic_glow");
+		GameObject[] fritzing = GameObject.FindGameObjectsWithTag("fritzing_glow");
+
+		foreach(GameObject glow in schematic) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+
+		foreach(GameObject glow in fritzing) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+	}
+
     void componentPinClick() {
         //int boardPinLineNumber = int.Parse(netdata.getComponentPinNet(this.transform.parent.name, this.name));
+        initGlowIcon();
         int[] boardPins = new int[2];
 
         boardPins = netdata.getAllNetForPin(this.transform.parent.name, this.name);
