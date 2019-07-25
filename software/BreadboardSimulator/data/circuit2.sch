@@ -1,0 +1,67 @@
+-640EESchema Schematic File Version 4
+LIBS:test-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:CP CP1
+U 1 1 5D284838
+P 6400 3150
+F 0 "CP1" H 6518 3196 50  0000 L CNN
+F 1 "CP" H 6518 3105 50  0000 L CNN
+F 2 "" H 6438 3000 50  0001 C CNN
+F 3 "~" H 6400 3150 50  0001 C CNN
+	1    6400 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V PWR
+U 1 1 5D285D3F
+P 6400 2500
+F 0 "PWR" H 6400 2350 50  0001 C CNN
+F 1 "+3.3V" H 6488 2537 50  0000 L CNN
+F 2 "" H 6400 2500 50  0001 C CNN
+F 3 "" H 6400 2500 50  0001 C CNN
+	1    6400 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND GND
+U 1 1 5D28685D
+P 2400 4750
+F 0 "GND" H 2400 4500 50  0001 C CNN
+F 1 "GND" H 2488 4713 50  0000 L CNN
+F 2 "" H 2400 4750 50  0001 C CNN
+F 3 "" H 2400 4750 50  0001 C CNN
+	1    2400 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED LED1
+U 1 1 5D241EB4
+P 2550 3300
+F 0 "LED1" H 2543 3516 50  0000 C CNN
+F 1 "LED" H 2543 3425 50  0000 C CNN
+F 2 "" H 2550 3300 50  0001 C CNN
+F 3 "~" H 2550 3300 50  0001 C CNN
+	1    2550 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2700 3300 6400 3300
+Wire Wire Line
+	6400 2500 6400 3000
+Wire Wire Line
+	2400 3300 2400 4750
+$EndSCHEMATC

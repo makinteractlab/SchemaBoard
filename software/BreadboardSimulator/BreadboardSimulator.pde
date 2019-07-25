@@ -27,16 +27,18 @@ void initServer()
 {
 	// Create a server listening on port 8081
   	server = new SimpleHTTPServer(this, 8081); 
-  	DynamicResponseHandler responder = new DynamicResponseHandler(new JSONserver(), "application/json");
+  	DynamicResponseHandler postResponder = new DynamicResponseHandler(new PostRequest(), "application/json");
+  	DynamicResponseHandler getResponder = new DynamicResponseHandler(new GetRequest(), "application/json");
 
-  	server.createContext("set", responder);
+  	server.createContext("set", postResponder);
+  	server.createContext("get", getResponder);
 }
 
 
 
-class JSONserver extends ResponseBuilder {
+class PostRequest extends ResponseBuilder {
   
-  public  String getResponse(String requestBody) 
+  public String getResponse(String requestBody) 
   {
     JSONObject json = parseJSONObject(requestBody);
     // println(json);
@@ -77,3 +79,53 @@ class JSONserver extends ResponseBuilder {
   }
 }
 
+
+class GetRequest extends ResponseBuilder {
+  
+  public String getResponse(String requestBody) 
+  {
+    JSONObject json = parseJSONObject(requestBody);
+    JSONObject res= new JSONObject();
+
+    if (json.getString("cmd").equals("getFile"))
+    {
+    	String filename= json.getString("name");
+    	File f = new File(dataPath(filename));
+  		if(!f.exists()) return "";
+  
+      if(filename.contains("xml")) {
+  		  XML xml= loadXML(filename);
+        println("xml: " + filename);
+  		  return xml.toString();
+      } else if(filename.contains("json")) {
+        println("json: " + filename);
+        res = loadJSONObject(filename);
+        println(res.toString());
+        return res.toString();
+      }
+      
+    } else if(json.getString("cmd").equals("getJsonFile")) {
+      String filename= json.getString("name");
+      File f = new File(dataPath(filename));
+      if(!f.exists()) return "";
+      
+      println("json: " + filename);
+      res = loadJSONObject(filename);
+      println(res.toString());
+      return res.toString();
+    } else if(json.getString("cmd").equals("getSchFile")) {
+      String filename= json.getString("name");
+      File f = new File(dataPath(filename));
+      if(!f.exists()) return "";
+      println("sch: " + filename);
+      String result = "";
+      String[] lines = loadStrings(filename);
+      for (int i = 0 ; i < lines.length; i++) {
+        result += lines[i] + "\n";
+      }
+      println(result);
+      return result;
+    }
+    return "";
+  }
+}

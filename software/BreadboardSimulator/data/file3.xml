@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Fritzing (http://www.fritzing.org/) -->
+<netlist date="수 6 12 14:32:30 2019" sketch="test3.fz">
+ <net>
+  <connector name="pin 1" id="connector1">
+   <part label="P1" title="Photocell (LDR)" id="9709380"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="pin 0" id="connector0">
+   <part label="P1" title="Photocell (LDR)" id="9709380"/>
+  </connector>
+  <connector name="+" id="connector1">
+   <part label="VCC1" title="Battery" id="9707890"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="anode" id="connector1">
+   <part label="LED1" title="Red (633nm) LED" id="9707950"/>
+  </connector>
+ </net>
+ <net>
+  <connector name="cathode" id="connector0">
+   <part label="LED1" title="Red (633nm) LED" id="9707950"/>
+  </connector>
+  <connector name="-" id="connector0">
+   <part label="VCC1" title="Battery" id="9707890"/>
+  </connector>
+ </net>
+</netlist>

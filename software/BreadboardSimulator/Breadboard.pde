@@ -188,8 +188,3 @@ class BreadBoard implements Runnable
 		set (l, r, 0, 0);
 	}
 }
-
-
-
-
-
