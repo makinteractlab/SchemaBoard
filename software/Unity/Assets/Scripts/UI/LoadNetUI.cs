@@ -113,6 +113,44 @@ public class LoadNetUI : MonoBehaviour {
 		}
 	}
 
+	private void setSchematicComponentIcon(bool schematic) {
+			if(schematic) {
+				//gameObject.GetComponent<Button>().image.sprite = onSprite;
+				showFritzingCircuitComponent(false);
+				showSchematicCircuitComponent(true);
+			} else {
+				//gameObject.GetComponent<Button>().image.sprite = offSprite;
+				showSchematicCircuitComponent(false);
+				showFritzingCircuitComponent(true);
+			}
+	}
+
+	private void showSchematicCircuitComponent(bool on) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("circuit_prefab_schematic");
+		if(on) {
+			foreach(GameObject componentObj in temp) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			}
+		} else {
+			foreach(GameObject componentObj in temp) {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+		}
+	}
+
+	private void showFritzingCircuitComponent(bool on) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
+		if(on) {
+			foreach(GameObject componentObj in temp) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			}
+		} else {
+			foreach(GameObject componentObj in temp) {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+		}
+	}
+
 	public void setupNet(Dictionary<string, _Component> _netData)
 	{	
 		//netData = handler.getNetData(filePath);
@@ -224,6 +262,7 @@ public class LoadNetUI : MonoBehaviour {
 
 		modeToggleMenu.setAutoMode();
 		initGlowIcon();
+		setSchematicComponentIcon(true);
 
 		// if(modeToggleMenu.isBuildMode()) {
 		// 	// auto complete connections

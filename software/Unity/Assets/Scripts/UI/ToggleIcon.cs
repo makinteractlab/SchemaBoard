@@ -54,7 +54,7 @@ public class ToggleIcon : MonoBehaviour {
 		return status;
 	}
 
-	void changeComponentIcon() {
+	public void changeComponentIcon() {
 		//gameObject.SetActive(true);
 		// if(toggleMode.IsManualMode()) {
 		// 	if(status) {

@@ -183,7 +183,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         //int[] boardPins = new int[2];
         List<string> pins = new List<string>();
         string componentName = this.transform.parent.name;
-        componentName = componentName.Substring(4, componentName.Length-4);
+        //componentName = componentName.Substring(4, componentName.Length-4);
         pins = netdata.getComponentPosition(componentName);
 
         if(GlowToggle()) {

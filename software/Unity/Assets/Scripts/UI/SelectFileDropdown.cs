@@ -34,10 +34,10 @@ public class SelectFileDropdown : MonoBehaviour {
 		});
 		init = true;
 		
-		showSchematicUI(true);
-		showCommonUI(false);
+		showSchematicMenu(true);
+		showCommonMenu(false);
 		showTutorialUI(false);
-		showManualUI(false);
+		showManualMenu(false);
 		
 		LoadFileList();
 	}
@@ -87,14 +87,14 @@ public class SelectFileDropdown : MonoBehaviour {
 	
 	public void CancelLoadFile() {
 		if(init) {
-			showSchematicUI(true);
-			showCommonUI(false);
+			showSchematicMenu(true);
+			showCommonMenu(false);
 			showTutorialUI(false);
-			showManualUI(false);
+			showManualMenu(false);
 		}
 	}
 
-	private void showManualUI(bool onoff) {
+	private void showManualMenu(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual");
 		
         foreach(GameObject manualObject in temp) {
@@ -118,7 +118,7 @@ public class SelectFileDropdown : MonoBehaviour {
         }
 	}
 
-	private void showSchematicUI(bool onoff) {
+	private void showSchematicMenu(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("schematic");
 		
         foreach(GameObject componentObj in temp) {
@@ -130,7 +130,7 @@ public class SelectFileDropdown : MonoBehaviour {
         }
 	}
 
-	private void showCommonUI(bool onoff) {
+	private void showCommonMenu(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("commonMenu");
 		
         foreach(GameObject menuObject in temp) {
@@ -146,9 +146,9 @@ public class SelectFileDropdown : MonoBehaviour {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
 		if(!init)
 			ResetAllComponents();
-		showCommonUI(true);
-		showSchematicUI(true);
-		showManualUI(false);
+		showCommonMenu(true);
+		showSchematicMenu(true);
+		showManualMenu(false);
 		showTutorialUI(false);
 		gameObject.SetActive(false);
 		pauseButton.play();

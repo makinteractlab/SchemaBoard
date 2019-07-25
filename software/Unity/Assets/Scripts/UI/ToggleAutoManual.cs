@@ -27,7 +27,7 @@ public class ToggleAutoManual : MonoBehaviour {
     void Start() {
 		status = false;
 		this.GetComponent<Button>().onClick.AddListener(ModeChange);
-		showManualUI(false);
+		showManualMenu(false);
 		comm.setAutoState();
     }
 
@@ -40,7 +40,7 @@ public class ToggleAutoManual : MonoBehaviour {
 		ModeChange();
 	}
 
-	void showAutoInterface(bool show) {
+	void showAutoPrefabs(bool show) {
 		GameObject[] prefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
 		GameObject[] wires = GameObject.FindGameObjectsWithTag("schwire");
 		if(show) {
@@ -60,7 +60,7 @@ public class ToggleAutoManual : MonoBehaviour {
 		}
 	}
 
-	void showManualInterface(bool show) {
+	void showManualPrefabs(bool show) {
 		GameObject[] prefabs = GameObject.FindGameObjectsWithTag("manual_prefab");
 		GameObject[] netwires = GameObject.FindGameObjectsWithTag("netwire");
 		GameObject[] wires = GameObject.FindGameObjectsWithTag("wire");
@@ -92,29 +92,29 @@ public class ToggleAutoManual : MonoBehaviour {
 		if(status) {
 			gameObject.GetComponent<Button>().image.sprite = manualSprite;
 			manualMode = true;
-			showSchematicUI(false);
-			showManualUI(true);
+			showSchematicMenu(false);
+			showManualMenu(true);
 			loadNetUI.setupManualMode();
 			comm.setManualState();
 			// card.loadCircuitInfo(1);
-			showAutoInterface(false);
-			showManualInterface(true);
+			showAutoPrefabs(false);
+			showManualPrefabs(true);
 			status = false;
 		} else {
 			gameObject.GetComponent<Button>().image.sprite = autoSprite;
 			manualMode = false;
 			//showNetWire(false);
-			showSchematicUI(true);
-			showManualUI(false);
+			showSchematicMenu(true);
+			showManualMenu(false);
 			loadNetUI.setupAutoMode();
 			comm.setAutoState();
-			showAutoInterface(true);
-			showManualInterface(false);
+			showAutoPrefabs(true);
+			showManualPrefabs(true);
 			status = true;
 		}
 	}
 
-	private void showManualUI(bool onoff) {
+	private void showManualMenu(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual");
 		
         foreach(GameObject obj in temp) {
@@ -124,17 +124,9 @@ public class ToggleAutoManual : MonoBehaviour {
 				obj.transform.localScale = new Vector3(0,0,0);
 			}
         }
-
-		// if(onoff) {
-		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(0,0,0);
-		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(1,1,1);
-		// } else {
-		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(0,0,0);
-		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(1,1,1);
-		// }
 	}
 
-	private void showSchematicUI(bool onoff) {
+	private void showSchematicMenu(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("schematic");
 		
         foreach(GameObject componentObj in temp) {
@@ -144,14 +136,6 @@ public class ToggleAutoManual : MonoBehaviour {
 				componentObj.transform.localScale = new Vector3(0,0,0);
 			}
         }
-
-		// if(onoff) {
-		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(0,0,0);
-		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(1,1,1);
-		// } else {
-		// 	GameObject.Find("debugBackground").transform.localScale = new Vector3(0,0,0);
-		// 	GameObject.Find("buildBackground").transform.localScale = new Vector3(1,1,1);
-		// }
 	}
 
 	private void hideSchematicCircuit(bool onoff) {
