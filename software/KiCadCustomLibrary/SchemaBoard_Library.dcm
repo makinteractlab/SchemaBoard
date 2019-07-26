@@ -1,0 +1,87 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 6pinRelay
+D Standex Meder DIP reed relay, DPST, Closing Contacts
+K Single Pole Reed Relay DPST
+F https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf
+$ENDCMP
+#
+$CMP 8pin_chip
+D Timer, DIP-8/SOIC-8/SSOP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/lm555.pdf
+$ENDCMP
+#
+$CMP ICM7555_copy
+D CMOS General Purpose Timer, DIP-8/SOIC-8
+K single timer 555
+F http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf
+$ENDCMP
+#
+$CMP LMC555xMM_copy
+D CMOS Timer, VSSOP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/lmc555.pdf
+$ENDCMP
+#
+$CMP LMC555xM_copy
+D CMOS Timer, SOIC-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/lmc555.pdf
+$ENDCMP
+#
+$CMP LMC555xN_copy
+D CMOS Timer, DIP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/lmc555.pdf
+$ENDCMP
+#
+$CMP MC1455_copy
+D Timers, DIP-8/SOIC-8
+K timer
+F https://www.onsemi.com/pub/Collateral/MC1455-D.PDF
+$ENDCMP
+#
+$CMP NA555_copy
+D Precision Timers, DIP-8/SOIC-8/SSOP-8
+K timer
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP NE555_copy
+D Precision Timers, DIP-8/SOIC-8
+K timer
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP SA555_copy
+D Precision Timers, DIP-8/SOIC-8
+K timer
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP SE555_copy
+D Precision Timers, DIP-8/SOIC-8
+K timer
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP TLC555CD_copy
+D Single LinCMOS Timer, SOIC-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/tlc555.pdf
+$ENDCMP
+#
+$CMP TLC555CPS_copy
+D Single LinCMOS Timer, SSOP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/tlc555.pdf
+$ENDCMP
+#
+$CMP TLC555CP_copy
+D Single LinCMOS Timer, DIP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/tlc555.pdf
+$ENDCMP
+#
+#End Doc Library
