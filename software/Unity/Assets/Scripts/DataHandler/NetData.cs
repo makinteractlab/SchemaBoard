@@ -90,10 +90,10 @@ public class NetData : MonoBehaviour {
 	// 	buildNetData = SerializationCloner.DeepFieldClone(_data);
 	// }
 
-	// public void setManualNetData(Dictionary<string, _Component> _data) {
-	// 	debugNetData.Clear();
-	// 	debugNetData = SerializationCloner.DeepFieldClone(_data);;
-	// }
+	public void setInitialNetData() {
+		debugNetData.Clear();
+		debugNetData = SerializationCloner.DeepFieldClone(initNetData);
+	}
 
 	// public void copyAutoDataToManualData(){
 	// 	setManualNetData(buildNetData);

@@ -8,16 +8,22 @@ using UnityEngine.Events;
 using Newtonsoft.Json.Linq;
 
 public class RefreshButton : MonoBehaviour {
-	public LoadNetUI netUI;
 	public Sprite DefaultPinSprite;
+	public Sprite AutoRefreshSprite;
+	public Sprite ManualRefreshSprite;
 	public WifiConnection wifi;
-	public UnityAction<JObject> dataReceivedAction;
+	// public UnityAction<JObject> dataReceivedAction;
 	public DataReceivedEvent dataReceivedEvent;
 	public PauseButton pauseButton;
 	public Communication comm;
-	public StatusButton status;
-//	public ConstraintsHandler constraintsHandle;
+	// public StatusButton status;
 
+	private Command cmd;
+    public HttpRequest http;
+	public ToggleAutoManual modeToggleMenu;
+	public NetData netData;
+	public LoadNetUI loadNetUI;
+//	public ConstraintsHandler constraintsHandle;
 	private LoadConfirmPanel loadConfirmPanel;
 	private UnityAction loadYesAction;
     private UnityAction loadCancelAction;
@@ -25,6 +31,7 @@ public class RefreshButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameObject.SetActive(true);
+		cmd = new Command();
 		//dataReceivedAction = new UnityAction<JObject>(reloadBoard);
         //dataReceivedEvent = new DataReceivedEvent();
         //dataReceivedEvent.AddListener(dataReceivedAction);
@@ -46,22 +53,46 @@ public class RefreshButton : MonoBehaviour {
 
 		// string path = Application.persistentDataPath + "/xml/netlist.xml";
 		// Debug.Log("path = " + path);
-		netUI.readSchematicData(_filename);
+		//netUI.readSchematicData(_filename);
+		netData.getInitialSchematicData();
 		//send command to reset all connection
 		//wifi.sendDataEvent.Invoke(Query.resetAllConnections);
 		gameObject.SetActive(true);
 		VuforiaRenderer.Instance.Pause(false);
 	}
 	
+	void initGlowIcon() {
+		GameObject[] schematic = GameObject.FindGameObjectsWithTag("schematic_glow");
+		GameObject[] fritzing = GameObject.FindGameObjectsWithTag("fritzing_glow");
+
+		foreach(GameObject glow in schematic) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+
+		foreach(GameObject glow in fritzing) {
+			glow.transform.localScale = new Vector3(0,0,0);
+		}
+	}
+
 	public void refresh() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
-		gameObject.SetActive(false);
-		ResetAllComponents();
-		pauseButton.play();
-		comm.setPopupState(false);
-		
-		reloadBoard(comm.getCurrentFileName());
-		netUI.setupManualMode();
+		if(modeToggleMenu.IsManualMode()) {
+			// gameObject.SetActive(false);
+			// pauseButton.play();
+			comm.setPopupState(false);
+			// reloadBoard(comm.getCurrentFileName());
+			
+			//send command to reset all connection
+			//wifi.sendDataEvent.Invoke(Query.resetAllConnections);
+			// gameObject.SetActive(true);
+			// VuforiaRenderer.Instance.Pause(false);
+			netData.setInitialNetData();	// set init connection data
+			ResetAllConnection();
+		}
+
+		http.postJson(cmd.getUrl(), cmd.resetAll());
+		initGlowIcon();
+		// netUI.setupManualMode();
 		// constraintsHandle.clearConstraintsDB();
 		//send query to get board name
 		// wifi.sendDataEvent.Invoke(Query.getBoardID);
@@ -72,17 +103,13 @@ public class RefreshButton : MonoBehaviour {
 	public void refreshConfirmWindow() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> transform x y z " + transform.position.x + " , " +transform.position.y + " , " + transform.position.z + "\n\n\n");
 		loadConfirmPanel.Choice (loadYesAction, loadCancelAction);
-        loadConfirmPanel.setTitle("Refresh All?");
+        loadConfirmPanel.setTitle("Reset All?");
         //loadConfirmPanel.setPosition(new Vector3(transform.position.x, transform.position.y, transform.position.z));
 	}
 
-	//for test
-	// public void refresh() {
-	// 	ResetAllComponents();
-	// 	pauseButton.play();
-	// 	string path = @"/storage/emulated/0/Android/data/com.kaist.virtualcomponent/files/Json/102.json";
-	// 	boardUI.setupBoard(path);
-	// }
+	private void ResetAllConnection() {
+		loadNetUI.setupManualMode();
+	}
 
 	private void ResetAllComponents() {
 		GameObject[] pinsTemp = GameObject.FindGameObjectsWithTag("pin");

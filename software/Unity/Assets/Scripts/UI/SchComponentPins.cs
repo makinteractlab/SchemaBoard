@@ -37,6 +37,7 @@ public class SchComponentPins : MonoBehaviour
 			glow.transform.localScale = new Vector3(0,0,0);
 		}
 	}
+    
     void pinClick() {
         initGlowIcon();
         int[] boardPins = new int[2];
