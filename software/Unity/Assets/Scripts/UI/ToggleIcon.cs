@@ -45,7 +45,7 @@ public class ToggleIcon : MonoBehaviour {
     }
     // Use this for initialization
     void Start() {
-		status = true;
+		status = false;
 		//changeComponentIcon();
 		this.GetComponent<Button>().onClick.AddListener(changeComponentIcon);
     }
@@ -82,13 +82,13 @@ public class ToggleIcon : MonoBehaviour {
 	}
 
 	private void showSchematicCircuitComponent(bool on) {
-		GameObject[] temp = GameObject.FindGameObjectsWithTag("circuit_prefab_schematic");
+		GameObject[] prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_schematic");
 		if(on) {
-			foreach(GameObject componentObj in temp) {
-				componentObj.transform.localScale = new Vector3(1,1,1);
+			foreach(GameObject prefab in prefabs) {
+				prefab.transform.localScale = new Vector3(1,1,1);
 			}
 		} else {
-			foreach(GameObject componentObj in temp) {
+			foreach(GameObject componentObj in prefabs) {
 				componentObj.transform.localScale = new Vector3(0,0,0);
 			}
 		}

@@ -67,7 +67,7 @@ public class HttpRequest : MonoBehaviour {
 
             string result = "";
             
-            string path = @"D:/Works/Git/RetroBreadboard/software/Unity/Assets/Scripts/data/circuit1.json";
+            string path = @"D:/Works/Git/RetroBreadboard/software/SchematicParser/circuit2/circuit2.json";
             try {
                 using (StreamReader reader = new StreamReader(path)) {
                     string line;
@@ -108,7 +108,7 @@ public class HttpRequest : MonoBehaviour {
 
             string result = "";
             
-            string path = @"D:/Works/Git/RetroBreadboard/software/Unity/Assets/Scripts/data/circuit1.sch";
+            string path = @"D:/Works/Git/RetroBreadboard/software/SchematicParser/circuit2/circuit2.sch";
             try {
                 using (StreamReader reader = new StreamReader(path)) {
                     string line;

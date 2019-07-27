@@ -11,6 +11,10 @@ using UnityEngine.EventSystems;
 using System;
 
 public class LoadSchematicUI : MonoBehaviour {
+	public GameObject prefabOpAmp;
+	public GameObject prefabRelay;
+	public GameObject prefab8pinChip;
+	public GameObject prefab16pinChip;
 	public GameObject prefabConnector;
 	public GameObject prefabResistor;
 	public GameObject prefabUniCapacitor;
@@ -86,6 +90,7 @@ public class LoadSchematicUI : MonoBehaviour {
 
 	public void drawSchematic(JObject _data)
 	{	
+		int screenOffest = 120;
 		GameObject component = null;
 		GameObject connector = null;
 		Dictionary<string, JObject> schematicData = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(_data.ToString());
@@ -100,6 +105,9 @@ public class LoadSchematicUI : MonoBehaviour {
 			string uiComponentName = "SCH_"+item.Key;
 			//ComponentBase comp = ComponentFactory.Create(componentName, componentData);
 			switch (componentName) {
+				case "OPAMP":
+					component = (GameObject)Instantiate(prefabOpAmp);
+					break;
 				case "R":
 					component = (GameObject)Instantiate(prefabResistor);
 					break;
@@ -115,7 +123,7 @@ public class LoadSchematicUI : MonoBehaviour {
 				case "LED":
 					component = (GameObject)Instantiate(prefabLed);
 					break;
-				case "S":
+				case "SW":
 					component = (GameObject)Instantiate(prefabSwitch);
 					break;
 				case "LDR":
@@ -139,9 +147,26 @@ public class LoadSchematicUI : MonoBehaviour {
 				case "BT":
 					component = (GameObject)Instantiate(prefabBattery);
 					break;
+				case "U-":
+					string name = item.Key;
+					int start = name.IndexOf("-")+1;
+					int length = name.Length-start;
+					int chipType = int.Parse(item.Key.Substring(start,length));
+					switch(chipType){
+						case 6:
+						component = (GameObject)Instantiate(prefabRelay);
+						break;
+						case 8:
+						component = (GameObject)Instantiate(prefab8pinChip);
+						break;
+						case 16:
+						component = (GameObject)Instantiate(prefab16pinChip);
+						break;
+					}
+					break;
 				case "wire":
-					pointList.Add(new Vector2 ((float)item.Value["x1"]/5-Screen.width/2, -(float)item.Value["y1"]/5+Screen.height/2));
-					pointList.Add(new Vector2 ((float)item.Value["x2"]/5-Screen.width/2, -(float)item.Value["y2"]/5+Screen.height/2));
+					pointList.Add(new Vector2 ((float)item.Value["x1"]/4.5f-Screen.width/2-screenOffest, -(float)item.Value["y1"]/4.5f+Screen.height/2+screenOffest));
+					pointList.Add(new Vector2 ((float)item.Value["x2"]/4.5f-Screen.width/2-screenOffest, -(float)item.Value["y2"]/4.5f+Screen.height/2+screenOffest));
 					schematicWire.createWireObject(pointList, uiComponentName);
 					pointList.Clear();
 					component = null;
@@ -161,7 +186,7 @@ public class LoadSchematicUI : MonoBehaviour {
 				connector.tag = "auto_prefab";
 				connector.name = uiComponentName;
 				connector.transform.SetParent(ParentPanel, false);
-				connector.transform.position = new Vector3((float)position["x"]/5-50, -(float)position["y"]/5-20, 0);
+				connector.transform.position = new Vector3((float)position["x"]/4.5f-screenOffest, -(float)position["y"]/4.5f+screenOffest, 0);
 				connector.transform.Translate(new Vector3(0,Screen.height,0));
 			}
 			if(component) {
@@ -169,11 +194,11 @@ public class LoadSchematicUI : MonoBehaviour {
 				component.tag = "auto_prefab";
 				component.name = uiComponentName;
 				component.transform.SetParent(ParentPanel, false);
-				component.transform.position = new Vector3((float)position["x"]/5, -(float)position["y"]/5, 0);
+				component.transform.position = new Vector3((float)position["x"]/4.5f-screenOffest, -(float)position["y"]/4.5f+screenOffest, 0);
 				component.transform.Translate(new Vector3(0,Screen.height,0));
 				
 				Debug.Log("+=+=+=+" + component.transform.position);
-				component.transform.Rotate(0, (float)position["degree"], 0, Space.Self);
+				component.transform.Rotate(0, 0, (float)position["degree"], Space.Self);
 				if((string)position["flip"] == "x") {//x y
 					component.transform.localScale = new Vector3(-1, 1, 1);
 				} else if((string)position["flip"] == "y") {

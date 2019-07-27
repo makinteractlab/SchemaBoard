@@ -4,7 +4,7 @@
          "name":"Net-(LED1-Pad2)",
          "connector":[  
             {  
-               "component":"LED1",
+               "component":"LDR1",
                "pin":"connector1"
             },
             {  
@@ -21,7 +21,7 @@
          "name":"Net-(SP1-Pad1)",
          "connector":[  
             {  
-               "component":"LED1",
+               "component":"LDR1",
                "pin":"connector0"
             },
             {  
@@ -48,7 +48,46 @@
          ]
       }
    ],
-   "components":[  
+   "components":[
+       {  
+         "label":"GND1",
+         "connector":[  
+            {  
+               "id":"connector1",
+               "type":"cathode",
+               "position":[  
+                  1,
+                  2
+               ]
+            }
+         ]
+      },
+      {  
+         "label":"GND2",
+         "connector":[  
+            {  
+               "id":"connector1",
+               "type":"cathode",
+               "position":[  
+                  1,
+                  3
+               ]
+            }
+         ]
+      },
+      {  
+         "label":"GND3",
+         "connector":[  
+            {  
+               "id":"connector1",
+               "type":"cathode",
+               "position":[  
+                  17,
+                  3
+               ]
+            }
+         ]
+      },
       {  
          "label":"LDR1",
          "connector":[  

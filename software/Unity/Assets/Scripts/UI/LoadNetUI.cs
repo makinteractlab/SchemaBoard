@@ -11,6 +11,10 @@ using UnityEngine.EventSystems;
 using System;
 
 public class LoadNetUI : MonoBehaviour {
+	public GameObject prefabOpAmp;
+	public GameObject prefabRelay;
+	public GameObject prefab8pinChip;
+	public GameObject prefab16pinChip;
 	public GameObject prefabResistor;
 	public GameObject prefabUniCapacitor;
 	public GameObject prefabBiCapacitor;
@@ -23,6 +27,8 @@ public class LoadNetUI : MonoBehaviour {
 	public GameObject prefabTransistor;
 	public GameObject prefabSpeaker;
 	public GameObject prefabVcc;
+	public GameObject prefabGND;
+	public GameObject prefabPWR;
 	public GameObject prefabEtc;
     public RectTransform ParentPanel;
 	//public BoardDataHandler board;
@@ -173,6 +179,9 @@ public class LoadNetUI : MonoBehaviour {
 			string uiComponentName = item.Key;
 			//ComponentBase comp = ComponentFactory.Create(componentName, componentData);
 			switch (componentName) {
+				case "OPAMP":
+					component = (GameObject)Instantiate(prefabOpAmp);
+					break;
 				case "R":
 					component = (GameObject)Instantiate(prefabResistor);
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName); //comp.value.ToString();
@@ -191,7 +200,7 @@ public class LoadNetUI : MonoBehaviour {
 					component = (GameObject)Instantiate(prefabLed);
 					//getChildObject(component, "ValueText").GetComponent<Text>().text = comp.value.ToString();
 					break;
-				case "S":
+				case "SW":
 					component = (GameObject)Instantiate(prefabSwitch);
 					//getChildObject(component, "ValueText").GetComponent<Text>().text = comp.value.ToString();
 					break;
@@ -208,6 +217,29 @@ public class LoadNetUI : MonoBehaviour {
 				case "D":
 					component = (GameObject)Instantiate(prefabDiode);
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
+					break;
+				case "GND":
+					component = (GameObject)Instantiate(prefabGND);
+					break;
+				case "PWR":
+					component = (GameObject)Instantiate(prefabPWR);
+					break;
+				case "U":
+					string name = item.Key;
+					int start = name.IndexOf("-");
+					int length = name.Length-start;
+					int chipType = int.Parse(item.Key.Substring(start,length));
+					switch(chipType){
+						case 6:
+						component = (GameObject)Instantiate(prefabRelay);
+						break;
+						case 8:
+						component = (GameObject)Instantiate(prefab8pinChip);
+						break;
+						case 16:
+						component = (GameObject)Instantiate(prefab16pinChip);
+						break;
+					}
 					break;
 				// case "ZD":
 				// 	component = (GameObject)Instantiate(prefabZenerdiode);
@@ -451,11 +483,13 @@ public class LoadNetUI : MonoBehaviour {
 					
 					string connectedRowPos = pin.getConnectedBreadboardRowPosition();
 					string connectedColPos = pin.getConnectedBreadboardColPosition();
-					string boardPinObjName = "Pin" + connectedRowPos + "-" + connectedColPos;
-					startPos = GameObject.Find(boardPinObjName).transform.position;
-					endPos = Util.getChildObject(item.Value.label, pin.id).transform.position;
-					wireObjectName = "Wire" + ":" + boardPinObjName + "," + item.Value.label + "-" + pin.id;
-					virtualwire.createWireObject(startPos, endPos, wireObjectName, boardPinObjName);
+					if(connectedRowPos != null && connectedColPos != null) {
+						string boardPinObjName = "Pin" + connectedRowPos + "-" + connectedColPos;
+						startPos = GameObject.Find(boardPinObjName).transform.position;
+						endPos = Util.getChildObject(item.Value.label, pin.id).transform.position;
+						wireObjectName = "Wire" + ":" + boardPinObjName + "," + item.Value.label + "-" + pin.id;
+						virtualwire.createWireObject(startPos, endPos, wireObjectName, boardPinObjName);
+					}
 				}
 			}
 		}

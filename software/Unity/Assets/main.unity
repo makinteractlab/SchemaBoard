@@ -8632,6 +8632,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e492d456d94294cae11c983f0caf87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabOpAmp: {fileID: 1695084573840478, guid: df313537c236d334b81821a036056119,
+    type: 2}
+  prefabRelay: {fileID: 1274926010261446, guid: 35b05ddd98483ef4ca9a656d17cfc30f,
+    type: 2}
+  prefab8pinChip: {fileID: 1179327549244004, guid: c75bca1bb3d28bb48af20502e2b56b5b,
+    type: 2}
+  prefab16pinChip: {fileID: 1850148539164810, guid: 774b20d9317e34a4a9b149c8b91cb091,
+    type: 2}
   prefabResistor: {fileID: 1121377766904366, guid: 1f952cdb4692f104fba9d61d0d0c70f5,
     type: 2}
   prefabUniCapacitor: {fileID: 1449483271190586, guid: 1604c8a7a94aba6458c899cbe53e4b80,
@@ -8652,6 +8660,8 @@ MonoBehaviour:
   prefabSpeaker: {fileID: 1541223156774606, guid: 9ee7c4357cf096640a4f16f082965b1d,
     type: 2}
   prefabVcc: {fileID: 1376105912386546, guid: f3026ec8fe5ca5449b20ca1b885f00c6, type: 2}
+  prefabGND: {fileID: 1301730628174274, guid: e0e71ea878b235e4e9e22f1fea4e32f7, type: 2}
+  prefabPWR: {fileID: 1333855841300990, guid: 28386e175be31394f9aba4ec5b0ff2d7, type: 2}
   prefabEtc: {fileID: 1424161909001742, guid: 4ea01b8b175bace44891e0270a5c7403, type: 2}
   ParentPanel: {fileID: 1984457900}
   netDataObj: {fileID: 855837059}
@@ -12979,32 +12989,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b544637e2afc554486f0e6e6c6996b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabConnector: {fileID: 1767302969245942, guid: b131f9692c57357479f3d4b1950db98d,
+  prefabOpAmp: {fileID: 1044155462628320, guid: 61d60e2be9500af49a84ded850dfc359,
     type: 2}
-  prefabResistor: {fileID: 1862099715689820, guid: b8943ea94bef3314b9a7e289d7b4f16c,
+  prefabRelay: {fileID: 1437609045420102, guid: 2060bbf71a9403649a2ab30b525e8a42,
     type: 2}
-  prefabUniCapacitor: {fileID: 1049040651198352, guid: 3743541d83f44a4478b0cdfcc97dc02d,
+  prefab8pinChip: {fileID: 1441610316592590, guid: 89f655ea3b242224ab5181b85493f307,
     type: 2}
-  prefabBiCapacitor: {fileID: 1483539754352266, guid: 4cb4d4d40270eab4fa152ac93d5adb7f,
+  prefab16pinChip: {fileID: 1968158008434116, guid: 64fd95c4da931194780de7043560926a,
     type: 2}
-  prefabInductor: {fileID: 1560934959676300, guid: 0df5f75c4592ddc4fa0517401e15892e,
+  prefabConnector: {fileID: 1513820579801034, guid: b131f9692c57357479f3d4b1950db98d,
     type: 2}
-  prefabLed: {fileID: 1910281075923786, guid: 950366a6290c9a94996ed86269c5c4da, type: 2}
-  prefabSwitch: {fileID: 1278194457590130, guid: 05e253754f07d034a970dbd2c547857c,
+  prefabResistor: {fileID: 1253464597454860, guid: b8943ea94bef3314b9a7e289d7b4f16c,
     type: 2}
-  prefabPhotoresistor: {fileID: 1958050065845764, guid: 0fab09cfdc744684d9ecb1a3b479d0c0,
+  prefabUniCapacitor: {fileID: 1847223873664324, guid: 3743541d83f44a4478b0cdfcc97dc02d,
     type: 2}
-  prefabDiode: {fileID: 1230251469614408, guid: c031837846f96894d969edb265abe70d,
+  prefabBiCapacitor: {fileID: 1132341312491846, guid: 4cb4d4d40270eab4fa152ac93d5adb7f,
     type: 2}
-  prefabTransistor: {fileID: 1152078445166018, guid: f3d4b991dded7ba4c9f84fc716e0c506,
+  prefabInductor: {fileID: 1330318314430584, guid: 0df5f75c4592ddc4fa0517401e15892e,
     type: 2}
-  prefabSpeaker: {fileID: 1743333495154978, guid: 04d456ba1f9ad384cb046df483c5c740,
+  prefabLed: {fileID: 1272773833355916, guid: 950366a6290c9a94996ed86269c5c4da, type: 2}
+  prefabSwitch: {fileID: 1859238205263976, guid: 05e253754f07d034a970dbd2c547857c,
     type: 2}
-  prefabPwr: {fileID: 1859129933663836, guid: 6024e7d47524e884a815a4ca68f4002d, type: 2}
-  prefabGnd: {fileID: 1210481529163624, guid: d4d11f0e40990164c82926c261ac7284, type: 2}
-  prefabBattery: {fileID: 1095791200504742, guid: 599b74a29e554b044a3950d031616c3d,
+  prefabPhotoresistor: {fileID: 1182391060239948, guid: 0fab09cfdc744684d9ecb1a3b479d0c0,
     type: 2}
-  prefabEtc: {fileID: 0}
+  prefabDiode: {fileID: 1886536136552166, guid: c031837846f96894d969edb265abe70d,
+    type: 2}
+  prefabTransistor: {fileID: 1541482780266742, guid: f3d4b991dded7ba4c9f84fc716e0c506,
+    type: 2}
+  prefabSpeaker: {fileID: 1610199251393550, guid: 04d456ba1f9ad384cb046df483c5c740,
+    type: 2}
+  prefabPwr: {fileID: 1520919274871464, guid: 6024e7d47524e884a815a4ca68f4002d, type: 2}
+  prefabGnd: {fileID: 1791150718597138, guid: d4d11f0e40990164c82926c261ac7284, type: 2}
+  prefabBattery: {fileID: 1732290803373546, guid: 599b74a29e554b044a3950d031616c3d,
+    type: 2}
+  prefabEtc: {fileID: 1583551655101774, guid: a2dd508a27b29a44db34e60c91c0163b, type: 2}
   ParentPanel: {fileID: 110182758}
   netDataObj: {fileID: 855837059}
   modeToggleMenu: {fileID: 2124341239}

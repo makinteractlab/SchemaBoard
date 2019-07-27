@@ -171,8 +171,10 @@ public class NetData : MonoBehaviour {
 		List<string> resultPins = new List<string>();
 
 		// if(comm.getAutoState()) {
-			foreach(var item in debugNetData[_component].getPins()){
-				resultPins.Add(item.breadboardRowPosition);
+			if(debugNetData.ContainsKey(_component)) {
+				foreach(var item in debugNetData[_component].getPins()){
+					resultPins.Add(item.breadboardRowPosition);
+				}
 			}
 		// } else {
 		// 	foreach(var item in buildNetData[_component].getPins()){
@@ -190,25 +192,28 @@ public class NetData : MonoBehaviour {
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 
 		// if(comm.getAutoState()) {
+		if(debugNetData.ContainsKey(_component)) {
 			foreach(var item in debugNetData[_component].getPins()){
 				resultPins.Add(item.breadboardRowPosition);
 			}
-		// } else {
-		// 	foreach(var item in buildNetData[_component].getPins()){
-		// 		resultPins.Add(item.breadboardRowPosition);
-		// 	}
-		// }
+		
+			// } else {
+			// 	foreach(var item in buildNetData[_component].getPins()){
+			// 		resultPins.Add(item.breadboardRowPosition);
+			// 	}
+			// }
 
-		foreach(var item in resultPins) {
-			if(item.Contains("init")) continue;
-			else boardBinary[int.Parse(item)-1] = '1';
+			foreach(var item in resultPins) {
+				if(item.Contains("init")) continue;
+				else boardBinary[int.Parse(item)-1] = '1';
+			}
+
+			for(int i=0; i<16; i++)
+				if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
+
+			for(int i=16; i<32; i++)
+				if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
 		}
-
-		for(int i=0; i<16; i++)
-			if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
-
-		for(int i=16; i<32; i++)
-			if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
 
 		return result;
 	}
@@ -216,7 +221,9 @@ public class NetData : MonoBehaviour {
 	public string getComponentSinglePinRowPosition(string _component, string _pin) {
 		string result = "";
 		// if(comm.getAutoState()) {
+		if(debugNetData.ContainsKey(_component)) {
 			result = debugNetData[_component].getPin(_pin).breadboardRowPosition;
+		}
 		// } else {
 		// 	result = buildNetData[_component].getPin(_pin).breadboardRowPosition;
 		// }
@@ -226,7 +233,9 @@ public class NetData : MonoBehaviour {
 	public string getComponentFirstPinRowPosition(string _component) {
 		string result = "";
 		// if(comm.getAutoState()) {
+		if(debugNetData.ContainsKey(_component)) {
 			result = debugNetData[_component].getFirstPin().breadboardRowPosition;
+		}
 		// } else {
 		// 	result = buildNetData[_component].getFirstPin().breadboardRowPosition;
 		// }
@@ -276,44 +285,50 @@ public class NetData : MonoBehaviour {
 		// if(comm.getAutoState()) {
 			//resultPins.Add(debugNetData[_component].getPin(_pin).breadboardRowPosition);
 
+		if(debugNetData.ContainsKey(_component)) {
 			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
 			foreach(var element in debugNetData[_component].getPin(_pin).netElementsAll) {	
 				resultPins.Add(debugNetData[element.component].getPin(element.pinid).breadboardRowPosition);
 			}
-		// } else {
-		// 	resultPins.Add(buildNetData[_component].getPin(_pin).breadboardRowPosition);
+			// } else {
+			// 	resultPins.Add(buildNetData[_component].getPin(_pin).breadboardRowPosition);
 
-		// 	// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
-		// 	foreach(var element in buildNetData[_component].getPin(_pin).netElementsAll) {	
-		// 		resultPins.Add(buildNetData[element.component].getPin(element.pinid).breadboardRowPosition);
-		// 	}
-		// }
+			// 	// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
+			// 	foreach(var element in buildNetData[_component].getPin(_pin).netElementsAll) {	
+			// 		resultPins.Add(buildNetData[element.component].getPin(element.pinid).breadboardRowPosition);
+			// 	}
+			// }
 
-		foreach(var item in resultPins) {
-			if(item.Contains("init")) continue;
-			else boardBinary[int.Parse(item)-1] = '1';
+			foreach(var item in resultPins) {
+				if(item.Contains("init")) continue;
+				else boardBinary[int.Parse(item)-1] = '1';
+			}
+
+			for(int i=0; i<16; i++)
+				if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
+
+			for(int i=16; i<32; i++)
+				if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
 		}
-
-		for(int i=0; i<16; i++)
-			if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
-
-		for(int i=16; i<32; i++)
-			if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
 
 		return result;
 	}
 
 	public void setColorGroundPins(string _component, string _pin) {
-		foreach(var element in initNetData[_component].getPin(_pin).netElementsAll) {
-			GameObject groundPin = Util.getChildObject(element.component, element.pinid);
-			groundPin.GetComponent<Button>().image.sprite = groundPinSprite;
+		if(initNetData.ContainsKey(_component)) {
+			foreach(var element in initNetData[_component].getPin(_pin).netElementsAll) {
+				GameObject groundPin = Util.getChildObject(element.component, element.pinid);
+				groundPin.GetComponent<Button>().image.sprite = groundPinSprite;
+			}
 		}
 	}
 
 	public void setColorVccPins(string _component, string _pin) {
-		foreach(var element in initNetData[_component].getPin(_pin).netElementsAll) {
-			GameObject groundPin = Util.getChildObject(element.component, element.pinid);
-			groundPin.GetComponent<Button>().image.sprite = vccPinSprite;
+		if(initNetData.ContainsKey(_component)) {
+			foreach(var element in initNetData[_component].getPin(_pin).netElementsAll) {
+				GameObject groundPin = Util.getChildObject(element.component, element.pinid);
+				groundPin.GetComponent<Button>().image.sprite = vccPinSprite;
+			}
 		}
 	}
 

@@ -17,217 +17,287 @@ $EndDescr
 $Comp
 L SchemaBoard_Library:8pinChip U1-8
 U 1 1 5D3CCD89
-P 3800 4450
-F 0 "U1-8" H 3800 4917 50  0000 C CNN
-F 1 "8pinChip" H 3800 4826 50  0000 C CNN
-F 2 "" H 3800 4450 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 3800 4450 50  0001 C CNN
-	1    3800 4450
+P 2300 4200
+F 0 "U1-8" H 2300 4667 50  0000 C CNN
+F 1 "8pinChip" H 2300 4576 50  0000 C CNN
+F 2 "" H 2300 4200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 2300 4200 50  0001 C CNN
+	1    2300 4200
 	1    0    0    -1  
 $EndComp
 $Comp
 L SchemaBoard_Library:Speaker SP1
 U 1 1 5D3CD94C
-P 7750 3600
-F 0 "SP1" H 7920 3596 50  0000 L CNN
-F 1 "Speaker" H 7920 3505 50  0000 L CNN
-F 2 "" H 7750 3400 50  0001 C CNN
-F 3 "~" H 7740 3550 50  0001 C CNN
-	1    7750 3600
+P 5750 1650
+F 0 "SP1" H 5920 1646 50  0000 L CNN
+F 1 "Speaker" H 5920 1555 50  0000 L CNN
+F 2 "" H 5750 1450 50  0001 C CNN
+F 3 "~" H 5740 1600 50  0001 C CNN
+	1    5750 1650
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:R_PHOTO LDR1
-U 1 1 5D3CE114
-P 5550 1500
-F 0 "LDR1" V 5225 1500 50  0000 C CNN
-F 1 "R_PHOTO" V 5316 1500 50  0000 C CNN
-F 2 "" V 5600 1250 50  0001 L CNN
-F 3 "~" H 5550 1450 50  0001 C CNN
-	1    5550 1500
-	0    1    1    0   
-$EndComp
-$Comp
-L SchemaBoard_Library:Resistor R2
-U 1 1 5D3CEC12
-P 2350 5600
-F 0 "R2" V 2145 5600 50  0000 C CNN
-F 1 "Resistor" V 2236 5600 50  0000 C CNN
-F 2 "" H 2350 5600 50  0001 C CNN
-F 3 "~" H 2350 5600 50  0001 C CNN
-	1    2350 5600
-	0    1    1    0   
-$EndComp
-$Comp
-L SchemaBoard_Library:Resistor R3
+L SchemaBoard_Library:Resistor R1
 U 1 1 5D3CF2F7
-P 5550 3000
-F 0 "R3" V 5345 3000 50  0000 C CNN
-F 1 "Resistor" V 5436 3000 50  0000 C CNN
-F 2 "" H 5550 3000 50  0001 C CNN
-F 3 "~" H 5550 3000 50  0001 C CNN
-	1    5550 3000
+P 4400 1650
+F 0 "R1" V 4195 1650 50  0000 C CNN
+F 1 "Resistor" V 4286 1650 50  0000 C CNN
+F 2 "" H 4400 1650 50  0001 C CNN
+F 3 "~" H 4400 1650 50  0001 C CNN
+	1    4400 1650
 	0    1    1    0   
 $EndComp
 $Comp
 L SchemaBoard_Library:Transistor Q1
 U 1 1 5D3CFB42
-P 5450 4400
-F 0 "Q1" H 5641 4446 50  0000 L CNN
-F 1 "Transistor" H 5641 4355 50  0000 L CNN
-F 2 "" H 5650 4275 50  0001 L CIN
-F 3 "http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF" H 5450 4400 50  0001 L CNN
-	1    5450 4400
+P 6850 5300
+F 0 "Q1" H 7041 5346 50  0000 L CNN
+F 1 "Transistor" H 7041 5255 50  0000 L CNN
+F 2 "" H 7050 5175 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF" H 6850 5300 50  0001 L CNN
+	1    6850 5300
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:GND #PWR0101
-U 1 1 5D3D0435
-P 5050 5700
-F 0 "#PWR0101" H 5050 5450 50  0001 C CNN
-F 1 "GND" H 5055 5527 50  0000 C CNN
-F 2 "" H 5050 5700 50  0001 C CNN
-F 3 "" H 5050 5700 50  0001 C CNN
-	1    5050 5700
-	1    0    0    -1  
-$EndComp
-$Comp
-L SchemaBoard_Library:GND #PWR0102
+L SchemaBoard_Library:GND GND1
 U 1 1 5D3D0965
-P 7900 2100
-F 0 "#PWR0102" H 7900 1850 50  0001 C CNN
-F 1 "GND" H 7905 1927 50  0000 C CNN
-F 2 "" H 7900 2100 50  0001 C CNN
-F 3 "" H 7900 2100 50  0001 C CNN
-	1    7900 2100
+P 1750 6450
+F 0 "GND1" H 1750 6200 50  0001 C CNN
+F 1 "GND" H 1755 6277 50  0000 C CNN
+F 2 "" H 1750 6450 50  0001 C CNN
+F 3 "" H 1750 6450 50  0001 C CNN
+	1    1750 6450
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:Resistor R1
-U 1 1 5D3CE851
-P 2050 4550
-F 0 "R1" V 1845 4550 50  0000 C CNN
-F 1 "Resistor" V 1936 4550 50  0000 C CNN
-F 2 "" H 2050 4550 50  0001 C CNN
-F 3 "~" H 2050 4550 50  0001 C CNN
-	1    2050 4550
+L SchemaBoard_Library:R_PHOTO LDR1
+U 1 1 5D3CE114
+P 3150 1650
+F 0 "LDR1" V 2825 1650 50  0000 C CNN
+F 1 "R_PHOTO" V 2916 1650 50  0000 C CNN
+F 2 "" V 3200 1400 50  0001 L CNN
+F 3 "~" H 3150 1600 50  0001 C CNN
+	1    3150 1650
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	1800 4550 1100 4550
-Wire Wire Line
-	1100 4550 1100 2250
-Wire Wire Line
-	4500 3000 4500 4250
-Wire Wire Line
-	4500 4250 4300 4250
-Wire Wire Line
-	5800 3000 6350 3000
-Wire Wire Line
-	6350 3000 6350 3600
-Wire Wire Line
-	6350 3600 7100 3600
-Wire Wire Line
-	7100 2250 7100 3600
-Wire Wire Line
-	1100 2250 7100 2250
-Connection ~ 7100 3600
-Wire Wire Line
-	7100 3600 7550 3600
-Wire Wire Line
-	6350 3600 5550 3600
-Wire Wire Line
-	5550 3600 5550 4200
-Connection ~ 6350 3600
-Wire Wire Line
-	5550 4600 5550 5000
-Wire Wire Line
-	5550 5000 6350 5000
-Wire Wire Line
-	4500 3000 5300 3000
-Wire Wire Line
-	5400 1500 4500 1500
-Wire Wire Line
-	4500 1500 4500 3000
-Connection ~ 4500 3000
-Wire Wire Line
-	5700 1500 7900 1500
-Wire Wire Line
-	7900 1500 7900 2100
-Wire Wire Line
-	4300 4550 5050 4550
-Wire Wire Line
-	5050 4550 5050 3550
-Wire Wire Line
-	5050 3550 2700 3550
-Wire Wire Line
-	2300 4550 3100 4550
-Wire Wire Line
-	2700 3550 2700 3900
-Wire Wire Line
-	2700 4400 3300 4400
-Wire Wire Line
-	3100 4550 3100 5600
-Wire Wire Line
-	3100 5600 2600 5600
-Connection ~ 3100 4550
-Wire Wire Line
-	3100 4550 3300 4550
-Wire Wire Line
-	2700 3900 1500 3900
-Wire Wire Line
-	1500 3900 1500 5600
-Wire Wire Line
-	1500 5600 2100 5600
-Connection ~ 2700 3900
-Wire Wire Line
-	2700 3900 2700 4400
-Wire Wire Line
-	4300 4700 5050 4700
-Wire Wire Line
-	5050 4700 5050 5700
-$Comp
-L SchemaBoard_Library:GND #PWR0103
-U 1 1 5D3F22A2
-P 6350 5700
-F 0 "#PWR0103" H 6350 5450 50  0001 C CNN
-F 1 "GND" H 6355 5527 50  0000 C CNN
-F 2 "" H 6350 5700 50  0001 C CNN
-F 3 "" H 6350 5700 50  0001 C CNN
-	1    6350 5700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6350 5000 6350 5700
-$Comp
-L SchemaBoard_Library:GND #PWR0104
-U 1 1 5D3FA6A0
-P 4500 6950
-F 0 "#PWR0104" H 4500 6700 50  0001 C CNN
-F 1 "GND" H 4505 6777 50  0000 C CNN
-F 2 "" H 4500 6950 50  0001 C CNN
-F 3 "" H 4500 6950 50  0001 C CNN
-	1    4500 6950
-	1    0    0    -1  
-$EndComp
-Connection ~ 4500 4400
-Wire Wire Line
-	4500 4400 5250 4400
-Wire Wire Line
-	4300 4400 4500 4400
-Wire Wire Line
-	4500 6500 4500 6950
-Wire Wire Line
-	4500 6200 4500 4400
 $Comp
 L SchemaBoard_Library:CP CP1
 U 1 1 5D3FE055
-P 4500 6350
-F 0 "CP1" H 4618 6396 50  0000 L CNN
-F 1 "CP" H 4618 6305 50  0000 L CNN
-F 2 "" H 4538 6200 50  0001 C CNN
-F 3 "~" H 4500 6350 50  0001 C CNN
-	1    4500 6350
+P 5250 5900
+F 0 "CP1" H 5368 5946 50  0000 L CNN
+F 1 "CP" H 5368 5855 50  0000 L CNN
+F 2 "" H 5288 5750 50  0001 C CNN
+F 3 "~" H 5250 5900 50  0001 C CNN
+	1    5250 5900
 	1    0    0    -1  
 $EndComp
+$Comp
+L SchemaBoard_Library:+3.3V PWR1
+U 1 1 5D3E25B9
+P 2650 2500
+F 0 "PWR1" H 2650 2350 50  0001 C CNN
+F 1 "+3.3V" H 2738 2537 50  0000 L CNN
+F 2 "" H 2650 2500 50  0001 C CNN
+F 3 "" H 2650 2500 50  0001 C CNN
+	1    2650 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:6pinRelay U2-6
+U 1 1 5D3E2F18
+P 5950 4000
+F 0 "U2-6" V 5283 4000 50  0000 C CNN
+F 1 "6pinRelay" V 5374 4000 50  0000 C CNN
+F 2 "Relay_THT" H 6450 3900 50  0001 L CNN
+F 3 "https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf" H 5850 4000 50  0001 C CNN
+	1    5950 4000
+	0    1    1    0   
+$EndComp
+$Comp
+L SchemaBoard_Library:16pinChip U3-16
+U 1 1 5D3E3E98
+P 4100 3750
+F 0 "U3-16" H 4100 4517 50  0000 C CNN
+F 1 "16pinChip" H 4100 4426 50  0000 C CNN
+F 2 "" H 4100 3350 50  0001 C CNN
+F 3 "" H 4100 3350 50  0001 C CNN
+	1    4100 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:C C1
+U 1 1 5D3E4A94
+P 1050 2600
+F 0 "C1" H 1165 2646 50  0000 L CNN
+F 1 "C" H 1165 2555 50  0000 L CNN
+F 2 "" H 1088 2450 50  0001 C CNN
+F 3 "~" H 1050 2600 50  0001 C CNN
+	1    1050 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:Diode D1
+U 1 1 5D3E50B4
+P 1800 1650
+F 0 "D1" H 1800 1866 50  0000 C CNN
+F 1 "Diode" H 1800 1775 50  0000 C CNN
+F 2 "" H 1800 1650 50  0001 C CNN
+F 3 "~" H 1800 1650 50  0001 C CNN
+	1    1800 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:LED LED1
+U 1 1 5D3E5DAB
+P 4550 6900
+F 0 "LED1" H 4543 7116 50  0000 C CNN
+F 1 "LED" H 4543 7025 50  0000 C CNN
+F 2 "" H 4550 6900 50  0001 C CNN
+F 3 "~" H 4550 6900 50  0001 C CNN
+	1    4550 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:OpAmp OPAMP1
+U 1 1 5D3E6608
+P 9000 4100
+F 0 "OPAMP1" H 9025 4467 50  0000 C CNN
+F 1 "OpAmp" H 9025 4376 50  0000 C CNN
+F 2 "" H 9000 4100 50  0001 C CNN
+F 3 "~" H 9000 4100 50  0001 C CNN
+	1    9000 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:SwitchPush SW1
+U 1 1 5D3E6FAF
+P 3350 6000
+F 0 "SW1" H 3350 6285 50  0000 C CNN
+F 1 "SwitchPush" H 3350 6194 50  0000 C CNN
+F 2 "" H 3350 6200 50  0001 C CNN
+F 3 "~" H 3350 6200 50  0001 C CNN
+	1    3350 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:Inductor L1
+U 1 1 5D3E5584
+P 8250 5300
+F 0 "L1" H 8303 5346 50  0000 L CNN
+F 1 "Inductor" H 8303 5255 50  0000 L CNN
+F 2 "" H 8250 5300 50  0001 C CNN
+F 3 "~" H 8250 5300 50  0001 C CNN
+	1    8250 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:Battery_Cell BT1
+U 1 1 5D3EC35E
+P 7350 1650
+F 0 "BT1" V 7095 1700 50  0000 C CNN
+F 1 "Battery_Cell" V 7186 1700 50  0000 C CNN
+F 2 "" V 7350 1710 50  0001 C CNN
+F 3 "~" V 7350 1710 50  0001 C CNN
+	1    7350 1650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1050 2450 1050 1650
+Wire Wire Line
+	1050 1650 1650 1650
+Wire Wire Line
+	1950 1650 3000 1650
+Wire Wire Line
+	3300 1650 4150 1650
+Wire Wire Line
+	4650 1650 5550 1650
+Wire Wire Line
+	5550 1750 5000 1750
+Wire Wire Line
+	5000 1750 5000 3250
+Wire Wire Line
+	5000 3250 4600 3250
+Wire Wire Line
+	1050 2750 1050 4000
+Wire Wire Line
+	1050 4000 1800 4000
+Wire Wire Line
+	2800 4000 3600 4000
+Wire Wire Line
+	2800 4150 3600 4150
+Wire Wire Line
+	4600 3700 5650 3700
+Wire Wire Line
+	5650 3950 5100 3950
+Wire Wire Line
+	5100 3950 5100 4150
+Wire Wire Line
+	5100 4150 4600 4150
+Wire Wire Line
+	5650 4400 5100 4400
+Wire Wire Line
+	5100 4400 5100 5300
+Wire Wire Line
+	5100 5300 6650 5300
+Wire Wire Line
+	6950 5100 6950 3700
+Wire Wire Line
+	6950 3700 6250 3700
+Wire Wire Line
+	7250 1650 6950 1650
+Wire Wire Line
+	6950 1650 6950 3700
+Connection ~ 6950 3700
+Wire Wire Line
+	7550 1650 7900 1650
+Wire Wire Line
+	7900 1650 7900 4200
+Wire Wire Line
+	7900 4200 8700 4200
+Wire Wire Line
+	8700 4400 8250 4400
+Wire Wire Line
+	8250 4400 8250 5150
+Wire Wire Line
+	9350 4000 9800 4000
+Wire Wire Line
+	9800 4000 9800 6150
+Wire Wire Line
+	9800 6150 8250 6150
+Wire Wire Line
+	8250 6150 8250 5450
+Wire Wire Line
+	6950 5500 6950 6200
+Wire Wire Line
+	6950 6200 9650 6200
+Wire Wire Line
+	9650 6200 9650 4200
+Wire Wire Line
+	9650 4200 9350 4200
+Wire Wire Line
+	5250 6050 5250 6900
+Wire Wire Line
+	5250 6900 4700 6900
+Wire Wire Line
+	5250 5750 5250 4850
+Wire Wire Line
+	5250 4850 6700 4850
+Wire Wire Line
+	6700 4850 6700 4400
+Wire Wire Line
+	6700 4400 6250 4400
+Wire Wire Line
+	3550 6000 3950 6000
+Wire Wire Line
+	3950 6000 3950 6900
+Wire Wire Line
+	3950 6900 4400 6900
+Wire Wire Line
+	3100 6000 1750 6000
+Wire Wire Line
+	1750 6000 1750 6450
+Wire Wire Line
+	2650 2500 2650 3250
+Wire Wire Line
+	2650 3250 3600 3250
 $EndSCHEMATC

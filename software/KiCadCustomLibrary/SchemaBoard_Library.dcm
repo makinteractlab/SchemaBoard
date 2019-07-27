@@ -1,5 +1,15 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP +3.3V
+D Power symbol creates a global label with name "+3.3V"
+K power-flag
+$ENDCMP
+#
+$CMP +3V3
+D Power symbol creates a global label with name "+3V3"
+K power-flag
+$ENDCMP
+#
 $CMP 16pinChip
 D Processor IC
 K 16 pin
@@ -27,6 +37,12 @@ $CMP BC141
 D 1A Ic, 60V Vce, NPN Transistor, TO-39
 K NPN Transistor
 F http://www.farnell.com/datasheets/296634.pdf
+$ENDCMP
+#
+$CMP Battery_Cell
+D Single-cell battery
+K battery cell
+F ~
 $ENDCMP
 #
 $CMP C
