@@ -261,8 +261,12 @@ public class LoadNetUI : MonoBehaviour {
 		}
 
 		modeToggleMenu.setAutoMode();
-		initGlowIcon();
-		setSchematicComponentIcon(true);
+		// initGlowIcon();
+		// GameObject[] temp = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
+		// foreach(GameObject componentObj in temp) {
+		// 	componentObj.transform.localScale = new Vector3(0,0,0);
+		// }
+		// setSchematicComponentIcon(true);
 
 		// if(modeToggleMenu.isBuildMode()) {
 		// 	// auto complete connections

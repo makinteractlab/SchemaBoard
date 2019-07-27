@@ -46,7 +46,7 @@ public class ToggleIcon : MonoBehaviour {
     // Use this for initialization
     void Start() {
 		status = true;
-		changeComponentIcon();
+		//changeComponentIcon();
 		this.GetComponent<Button>().onClick.AddListener(changeComponentIcon);
     }
 

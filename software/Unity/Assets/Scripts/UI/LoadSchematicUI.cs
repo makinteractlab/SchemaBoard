@@ -161,7 +161,7 @@ public class LoadSchematicUI : MonoBehaviour {
 				connector.tag = "auto_prefab";
 				connector.name = uiComponentName;
 				connector.transform.SetParent(ParentPanel, false);
-				connector.transform.position = new Vector3((float)position["x"]/5, -(float)position["y"]/5, 0);
+				connector.transform.position = new Vector3((float)position["x"]/5-50, -(float)position["y"]/5-20, 0);
 				connector.transform.Translate(new Vector3(0,Screen.height,0));
 			}
 			if(component) {
@@ -185,6 +185,11 @@ public class LoadSchematicUI : MonoBehaviour {
 		}
 
 		initGlowIcon();
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
+		foreach(GameObject componentObj in temp) {
+			componentObj.transform.localScale = new Vector3(0,0,0);
+		}
+
 		component = null;
 		connector = null;
 

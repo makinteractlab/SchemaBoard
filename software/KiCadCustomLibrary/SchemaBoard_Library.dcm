@@ -1,87 +1,175 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 16pinChip
+D Processor IC
+K 16 pin
+$ENDCMP
+#
 $CMP 6pinRelay
 D Standex Meder DIP reed relay, DPST, Closing Contacts
 K Single Pole Reed Relay DPST
 F https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf
 $ENDCMP
 #
-$CMP 8pin_chip
+$CMP 8pinChip
 D Timer, DIP-8/SOIC-8/SSOP-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/lm555.pdf
 $ENDCMP
 #
-$CMP ICM7555_copy
+$CMP BC140
+D 1A Ic, 40V Vce, NPN Transistor, TO-39
+K NPN Transistor
+F http://www.farnell.com/datasheets/296634.pdf
+$ENDCMP
+#
+$CMP BC141
+D 1A Ic, 60V Vce, NPN Transistor, TO-39
+K NPN Transistor
+F http://www.farnell.com/datasheets/296634.pdf
+$ENDCMP
+#
+$CMP C
+D Unpolarized capacitor
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP CP
+D Polarized capacitor
+K cap capacitor
+F ~
+$ENDCMP
+#
+$CMP Diode
+D Diode
+K diode
+F ~
+$ENDCMP
+#
+$CMP GND
+D Power symbol creates a global label with name "GND" , ground
+K power-flag
+$ENDCMP
+#
+$CMP ICM7555_copy_copy
 D CMOS General Purpose Timer, DIP-8/SOIC-8
 K single timer 555
 F http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf
 $ENDCMP
 #
-$CMP LMC555xMM_copy
+$CMP Inductor
+D Inductor
+K inductor choke coil reactor magnetic
+F ~
+$ENDCMP
+#
+$CMP LED
+D Light emitting diode
+K LED diode
+F ~
+$ENDCMP
+#
+$CMP LMC555xMM_copy_copy
 D CMOS Timer, VSSOP-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/lmc555.pdf
 $ENDCMP
 #
-$CMP LMC555xM_copy
+$CMP LMC555xM_copy_copy
 D CMOS Timer, SOIC-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/lmc555.pdf
 $ENDCMP
 #
-$CMP LMC555xN_copy
+$CMP LMC555xN_copy_copy
 D CMOS Timer, DIP-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/lmc555.pdf
 $ENDCMP
 #
-$CMP MC1455_copy
+$CMP MC1455_copy_copy
 D Timers, DIP-8/SOIC-8
 K timer
 F https://www.onsemi.com/pub/Collateral/MC1455-D.PDF
 $ENDCMP
 #
-$CMP NA555_copy
+$CMP NA555_copy_copy
 D Precision Timers, DIP-8/SOIC-8/SSOP-8
 K timer
 F http://www.ti.com/lit/ds/symlink/ne555.pdf
 $ENDCMP
 #
-$CMP NE555_copy
+$CMP NE555_copy_copy
 D Precision Timers, DIP-8/SOIC-8
 K timer
 F http://www.ti.com/lit/ds/symlink/ne555.pdf
 $ENDCMP
 #
-$CMP SA555_copy
+$CMP OpAmp
+D OPAmp symbol for simulation only
+K simulation
+F ~
+$ENDCMP
+#
+$CMP R_PHOTO
+D Photoresistor
+K resistor variable light sensitive opto LDR
+F ~
+$ENDCMP
+#
+$CMP Resistor
+D Resistor symbol for simulation only
+K resistor simulation
+F ~
+$ENDCMP
+#
+$CMP SA555_copy_copy
 D Precision Timers, DIP-8/SOIC-8
 K timer
 F http://www.ti.com/lit/ds/symlink/ne555.pdf
 $ENDCMP
 #
-$CMP SE555_copy
+$CMP SE555_copy_copy
 D Precision Timers, DIP-8/SOIC-8
 K timer
 F http://www.ti.com/lit/ds/symlink/ne555.pdf
 $ENDCMP
 #
-$CMP TLC555CD_copy
+$CMP Speaker
+D Speaker
+K speaker sound
+F ~
+$ENDCMP
+#
+$CMP SwitchPush
+D Push button switch, generic, separate symbols, four pins
+K switch normally-open pushbutton push-button
+F ~
+$ENDCMP
+#
+$CMP TLC555CD_copy_copy
 D Single LinCMOS Timer, SOIC-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/tlc555.pdf
 $ENDCMP
 #
-$CMP TLC555CPS_copy
+$CMP TLC555CPS_copy_copy
 D Single LinCMOS Timer, SSOP-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/tlc555.pdf
 $ENDCMP
 #
-$CMP TLC555CP_copy
+$CMP TLC555CP_copy_copy
 D Single LinCMOS Timer, DIP-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/tlc555.pdf
+$ENDCMP
+#
+$CMP Transistor
+D 800mA Ic, 50V Vce, NPN Transistor, TO-39
+K NPN Transistor
+F http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF
 $ENDCMP
 #
 #End Doc Library

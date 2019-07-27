@@ -245,49 +245,37 @@ public class SelectFileDropdown : MonoBehaviour {
 			pinObj.GetComponent<Button>().image.sprite = DefaultPinSprite;;
 		}
 
+		GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
+		foreach(GameObject wireObj in wireTemp) {
+			LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+			lr.enabled = false;
+			//lr.SetVertexCount(0);
+			lr.positionCount = 0;
+			Destroy(wireObj);
+		}
+
+		GameObject[] netwireTemp = GameObject.FindGameObjectsWithTag("netwire");
+		foreach(GameObject netwireObj in netwireTemp) {
+			LineRenderer lr = netwireObj.GetComponent<LineRenderer>();
+			lr.enabled = false;
+			//lr.SetVertexCount(0);
+			lr.positionCount = 0;
+			Destroy(netwireObj);
+		}
+
+		GameObject[] schwireTemp = GameObject.FindGameObjectsWithTag("schwire");
+		foreach(GameObject schwireObj in schwireTemp) {
+				UnityEngine.UI.Extensions.UILineRenderer lr = schwireObj.GetComponent<UnityEngine.UI.Extensions.UILineRenderer>();
+				lr.enabled = false;
+				lr.Points = null;
+				Destroy(schwireObj);
+		}
 		GameObject[] manualPrefabs = GameObject.FindGameObjectsWithTag("manual_prefab");
-        foreach(GameObject componentObj in manualPrefabs) {
-			GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
-			foreach(GameObject wireObj in wireTemp) {
-				if( wireObj.name.Contains(componentObj.name) ) {
-					LineRenderer lr = wireObj.GetComponent<LineRenderer>();
-					lr.enabled = false;
-					//lr.SetVertexCount(0);
-					lr.positionCount = 0;
-					Destroy(wireObj);
-				}
-			}
-
-			GameObject[] netwireTemp = GameObject.FindGameObjectsWithTag("netwire");
-			foreach(GameObject netwireObj in netwireTemp) {
-				if( netwireObj.name.Contains(componentObj.name) ) {
-					LineRenderer lr = netwireObj.GetComponent<LineRenderer>();
-					lr.enabled = false;
-					//lr.SetVertexCount(0);
-					lr.positionCount = 0;
-					Destroy(netwireObj);
-				}
-			}
-        }
-
-		GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
-        foreach(GameObject componentObj in autoPrefabs) {
-			GameObject[] schwires = GameObject.FindGameObjectsWithTag("schwire");
-			foreach(GameObject wireObj in schwires) {
-				if( wireObj.name.Contains(componentObj.name) ) {
-					LineRenderer lr = wireObj.GetComponent<LineRenderer>();
-					lr.enabled = false;
-					//lr.SetVertexCount(0);
-					lr.positionCount = 0;
-					Destroy(wireObj);
-				}
-			}
-        }
-
 		foreach(GameObject componentObj in manualPrefabs) {
 			Destroy(componentObj);
         }
 
+		GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
 		foreach(GameObject componentObj in autoPrefabs) {
 			Destroy(componentObj);
         }
