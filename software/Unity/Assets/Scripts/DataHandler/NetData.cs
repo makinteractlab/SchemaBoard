@@ -132,8 +132,7 @@ public class NetData : MonoBehaviour {
 		// 	}
 		// }
 
-		// debugNetData.ToList().ForEach(x => Console.WriteLine(x.Key)); // debug
-		// initNetData.ToList().ForEach(x => Console.WriteLine(x.Key));	//debug
+		// debugNetData.ToList().ForEach(x => Debug.Log("debugNetData: " + x.Key + " pin1: " + x.Value.getPins()[0].breadboardRowPosition + " , pin2: " + x.Value.getPins()[1].breadboardRowPosition)); // debug
 	}
 
 	// public void setInitNetData(Dictionary<string, _Component> _componentsInCircuit) {
