@@ -20,7 +20,8 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
     // public Sprite offButtonSprite;
     // public Sprite editOnSprite;
     // public Sprite editOffSprite;
-
+    public UnityAction<string> updateGlowIconAction;
+    public IconToggleEvent updateGlowIconEvent;
     private DeleteConfirmPanel deleteConfirmPanel;
     private EditTogglePanel editTogglePanel;
     private UnityAction resetAllYesAction;
@@ -55,6 +56,9 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         //cmd.setUrls();
         this.GetComponent<Button>().onClick.AddListener(componentClick);
         clicked = true;
+        updateGlowIconAction = new UnityAction<string>(updateGlowIcons);
+        updateGlowIconEvent= new IconToggleEvent();
+	    updateGlowIconEvent.AddListener(updateGlowIconAction);
 	}
 
     void Awake () {
@@ -63,6 +67,18 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         // resetAllCancelAction = new UnityAction (resetAllCancelFunction);
         // editTogglePanel = EditTogglePanel.Instance();
         // resetAllStateAction = new UnityAction (HandleDeleteMode);
+    }
+
+    public void updateGlowIcons(string _state) {
+        if(!clicked) {
+            if(_state == "fritzing") {
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            } else {
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
+            }
+        }
     }
 
     public void Wait(float seconds, Action action){

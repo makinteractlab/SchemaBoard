@@ -67,18 +67,26 @@ public class ToggleIcon : MonoBehaviour {
 		// 		status = true;
 		// 	}
 		// } else {
-			if(status) {
+			string mode = "";
+			if(status) {	//schematic
 				gameObject.GetComponent<Button>().image.sprite = onSprite;
 				showFritzingCircuitComponent(false);
 				showSchematicCircuitComponent(true);
 				status = false;
-			} else {
+				mode = "schematic";
+			} else {	//fritzing
 				gameObject.GetComponent<Button>().image.sprite = offSprite;
 				showSchematicCircuitComponent(false);
 				showFritzingCircuitComponent(true);
 				status = true;
+				mode = "fritzing";
 			}
 		// }
+		GameObject[] components = GameObject.FindGameObjectsWithTag("auto_prefab");
+		foreach(var item in components) {
+			SchComponentButton button = Util.getChildObject(item.name, "sch_button").GetComponent<SchComponentButton>();
+			button.updateGlowIconEvent.Invoke(mode);
+		}
 	}
 
 	private void showSchematicCircuitComponent(bool on) {
