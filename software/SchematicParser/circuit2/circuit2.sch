@@ -23,7 +23,7 @@ F 1 "C" H 2065 2005 50  0000 L CNN
 F 2 "" H 1988 1900 50  0001 C CNN
 F 3 "~" H 1950 2050 50  0001 C CNN
 	1    1950 2050
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L SchemaBoard_Library:+3.3V PWR1
@@ -56,7 +56,7 @@ F 1 "Resistor" V 5786 2050 50  0000 C CNN
 F 2 "" H 5900 2050 50  0001 C CNN
 F 3 "~" H 5900 2050 50  0001 C CNN
 	1    5900 2050
-	0    -1   -1   0   
+	0    1    1    0   
 $EndComp
 $Comp
 L SchemaBoard_Library:Speaker SP1

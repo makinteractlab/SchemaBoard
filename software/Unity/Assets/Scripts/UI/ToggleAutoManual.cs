@@ -13,6 +13,7 @@ public class ToggleAutoManual : MonoBehaviour {
 	public LoadNetUI loadNetUI;
 	public Communication comm;
 	public TutorialCard card;
+	public NetData netData;
 
 	bool status;
 	bool manualMode;
@@ -101,6 +102,8 @@ public class ToggleAutoManual : MonoBehaviour {
 			showManualPrefabs(true);
 			status = false;
 		} else {
+			// if some pins disconnected in manual mode, restore previous pins for that
+			netData.recoverEmptyPosForPins();
 			gameObject.GetComponent<Button>().image.sprite = autoSprite;
 			manualMode = false;
 			//showNetWire(false);

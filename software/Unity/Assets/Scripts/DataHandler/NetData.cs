@@ -139,6 +139,17 @@ public class NetData : MonoBehaviour {
 	// public void setInitNetData(Dictionary<string, _Component> _componentsInCircuit) {
 	// 	initNetData = new Dictionary<string, _Component>(_componentsInCircuit);
 	// }
+	
+	public void recoverEmptyPosForPins() {
+		foreach(var item in debugNetData) {
+			foreach(var pin in item.Value.getPins()){
+				if(pin.breadboardRowPosition == "init") {
+					pin.breadboardRowPosition = initNetData[item.Key].getPin(pin.id).breadboardRowPosition;
+					pin.breadboardColPosition = initNetData[item.Key].getPin(pin.id).breadboardColPosition;
+				}
+			}
+		}
+	}
 
 	public Dictionary<string, List<string[]>> getComponentsAndPinsPosition() {
 		Dictionary<string, List<string[]>> result = new Dictionary<string, List<string[]>>();
