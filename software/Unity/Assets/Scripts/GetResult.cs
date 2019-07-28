@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+using System;
 
 public class GetResult : MonoBehaviour
 {
@@ -95,13 +95,17 @@ public class GetResult : MonoBehaviour
             } else if(line.CompareTo("Wire Wire Line") == 0) {
                 JObject tempJson = new JObject();
                 if(count<resultStrings.Length-1) {
-                    string[] wirePos = resultStrings[count+1].Split(' ');
+                    string textLine = resultStrings[count+1];
+                    string[] wirePos = textLine.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+
                     Debug.Log("wire");
                     Debug.Log("x1: " + int.Parse(wirePos[0]));
                     Debug.Log("y1: " + int.Parse(wirePos[1]));
                     Debug.Log("x2: " + int.Parse(wirePos[2]));
                     Debug.Log("y2: " + int.Parse(wirePos[3]));
+
                     wireCount++;
+
                     tempJson.Add("x1", int.Parse(wirePos[0]));
                     tempJson.Add("y1", int.Parse(wirePos[1]));
                     tempJson.Add("x2", int.Parse(wirePos[2]));
