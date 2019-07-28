@@ -40,6 +40,14 @@ public class SchComponentPins : MonoBehaviour
     
     void pinClick() {
         initGlowIcon();
+        //component click state should be updated
+        GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+        foreach(var item in prefabButtons) {
+            if(!item.GetComponent<SchComponentButton>().isButtonClicked()) {
+                item.GetComponent<SchComponentButton>().initClickStatus();
+            }
+        }
+
         int[] boardPins = new int[2];
         string pinName = this.name;
         string componentName = this.transform.parent.name;

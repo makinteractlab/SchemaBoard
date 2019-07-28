@@ -69,6 +69,14 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         // resetAllStateAction = new UnityAction (HandleDeleteMode);
     }
 
+    public void initClickStatus() {
+        clicked = true;
+    }
+
+    public bool isButtonClicked() {
+        return clicked;
+    }
+
     public void updateGlowIcons(string _state) {
         if(!clicked) {
             if(_state == "fritzing") {

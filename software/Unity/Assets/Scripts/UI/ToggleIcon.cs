@@ -82,9 +82,9 @@ public class ToggleIcon : MonoBehaviour {
 				mode = "fritzing";
 			}
 		// }
-		GameObject[] components = GameObject.FindGameObjectsWithTag("auto_prefab");
-		foreach(var item in components) {
-			SchComponentButton button = Util.getChildObject(item.name, "sch_button").GetComponent<SchComponentButton>();
+		GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+		foreach(var item in prefabButtons) {
+			SchComponentButton button = item.GetComponent<SchComponentButton>();
 			button.updateGlowIconEvent.Invoke(mode);
 		}
 	}
