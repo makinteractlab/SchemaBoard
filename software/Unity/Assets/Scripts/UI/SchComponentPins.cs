@@ -8,17 +8,28 @@ using System;
 
 public class SchComponentPins : MonoBehaviour
 {
+    private Communication comm;
     private NetData netdata;
     private Command cmd;
     private HttpRequest http;
+    private bool clicked;
 
     public void Start() {
         setHttpRequestObject();
         setNetDataObject();
+        setCommunicationObject();
 
         this.GetComponent<Button>().onClick.AddListener(pinClick);
         cmd = new Command();
+        clicked = false;
         // cmd.setUrls();
+    }
+
+    public void setCommunicationObject()
+    {
+		comm = GameObject.Find("Communication").GetComponent<Communication>();
+        //comm = temp.GetComponent<ComponentObject>().getCommunicationObject();
+		//Debug.Log(comm.name);
     }
 
     public void setHttpRequestObject() {
@@ -45,8 +56,16 @@ public class SchComponentPins : MonoBehaviour
             }
         }
 	}
-    
+    // public bool isPinClicked() {
+    //     return clicked;
+    // }
+
+    // public void initClickStatus() {
+    //     clicked = false;
+    // }
+
     void pinClick() {
+        clicked = true;
         initGlowIcon();
 
         int[] boardPins = new int[2];
@@ -69,6 +88,7 @@ public class SchComponentPins : MonoBehaviour
         //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         // }
         //http.postJson(cmd.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
+        comm.setSchCompPinClicked(true);
         Debug.Log("============================= componentPinClick: " + this.name);
     }
     

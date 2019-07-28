@@ -15,6 +15,7 @@ public class Communication : MonoBehaviour
     private bool editWireState;
     private bool autoState;
     private bool manualState;
+    private bool pinClicked;
 
     private string component;
 
@@ -29,6 +30,7 @@ public class Communication : MonoBehaviour
         dragState = false;
         popupState = false;
         editWireState = false;
+        pinClicked = false;
     }
 
     public string getCurrentFileName() {
@@ -71,6 +73,13 @@ public class Communication : MonoBehaviour
     public void setManualState() {
         autoState = false;
         manualState = true;
+    }
+
+    public void setSchCompPinClicked(bool _state) {
+        pinClicked = _state;
+    }
+    public bool IsSchCompPinClicked() {
+        return pinClicked;
     }
 
     public bool getAutoState() {

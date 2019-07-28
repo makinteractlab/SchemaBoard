@@ -125,11 +125,16 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         pins = netdata.getComponentPosition(componentName);
 
         if(GlowToggle()) {
-            foreach(var pin in pins) {
-                http.postJson(cmd.getUrl(), cmd.singlePinOn(Int16.Parse(pin)));
-                Wait (0.5f, () => {
-                    Debug.Log("0.5 seconds is lost forever");
-                });
+            if(comm.IsSchCompPinClicked()) {//if component pin clicked, then reset all 
+                http.postJson(cmd.getUrl(), cmd.multiPinOnOff(Int16.Parse(pins[0]), Int16.Parse(pins[1])));
+                comm.setSchCompPinClicked(false);
+            } else {
+                foreach(var pin in pins) {
+                    http.postJson(cmd.getUrl(), cmd.singlePinOn(Int16.Parse(pin)));
+                    Wait (0.5f, () => {
+                        Debug.Log("0.5 seconds is lost forever");
+                    });
+                }
             }
             
             // boardPins = netdata.getComponentPinsNet(componentName); /
