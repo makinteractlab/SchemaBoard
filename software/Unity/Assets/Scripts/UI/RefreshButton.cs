@@ -72,6 +72,13 @@ public class RefreshButton : MonoBehaviour {
 		foreach(GameObject glow in fritzing) {
 			glow.transform.localScale = new Vector3(0,0,0);
 		}
+
+		GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+        foreach(var item in prefabButtons) {
+            if(!item.GetComponent<SchComponentButton>().isButtonClicked()) {
+                item.GetComponent<SchComponentButton>().initClickStatus();
+            }
+        }
 	}
 
 	public void refresh() {

@@ -36,10 +36,7 @@ public class SchComponentPins : MonoBehaviour
 		foreach(GameObject glow in fritzing) {
 			glow.transform.localScale = new Vector3(0,0,0);
 		}
-	}
-    
-    void pinClick() {
-        initGlowIcon();
+
         //component click state should be updated
         GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
         foreach(var item in prefabButtons) {
@@ -47,6 +44,10 @@ public class SchComponentPins : MonoBehaviour
                 item.GetComponent<SchComponentButton>().initClickStatus();
             }
         }
+	}
+    
+    void pinClick() {
+        initGlowIcon();
 
         int[] boardPins = new int[2];
         string pinName = this.name;
