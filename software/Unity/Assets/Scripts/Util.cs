@@ -108,6 +108,7 @@ public static class Util
         {
             if(obj.name == ChildObjectName) {
                 resultObj = obj.gameObject;
+                break;
             }
         }
         return resultObj;

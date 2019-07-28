@@ -93,7 +93,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         return result;
     }
 
-    void componentClick() {
+    public void componentClick() {
         //int[] boardPins = new int[2];
         List<string> pins = new List<string>();
         string componentName = this.transform.parent.name;
