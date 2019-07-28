@@ -122,7 +122,14 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
             // foreach(var url in urls) {
             //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
             // }
-            http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(componentName)) ) );
+            string firstPinPos = netdata.getComponentFirstPinRowPosition(componentName);
+            if (firstPinPos != "") {
+                http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(firstPinPos) ) );
+            }
+            else {
+                Debug.Log("This Component is not included in the net.");
+            }
+            
         } else {
             foreach(var pin in pins) {
                 http.postJson(cmd.getUrl(), cmd.singlePinOff(Int16.Parse(pin)));

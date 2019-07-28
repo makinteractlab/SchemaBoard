@@ -94,7 +94,7 @@ public class _Component {
 public class NetDataHandler {
 	//List<_Component> components = new List<_Component>();
 	Dictionary<string, _Component> debugNetData = new Dictionary<string, _Component>();
-	Dictionary<string, _Component> buildNetData = new Dictionary<string, _Component>();
+	// Dictionary<string, _Component> buildNetData = new Dictionary<string, _Component>();
 	Dictionary<string, _Component> initNetData = new Dictionary<string, _Component>();
 
 	string log = "";
@@ -119,9 +119,9 @@ public class NetDataHandler {
 		return initNetData;
 	}
 
-	public Dictionary<string, _Component> getBuildNetData() {
-		return buildNetData;
-	}
+	// public Dictionary<string, _Component> getBuildNetData() {
+	// 	return buildNetData;
+	// }
 
 	public Dictionary<string, _Component> getDebugNetData() {
 		return debugNetData;
@@ -133,7 +133,7 @@ public class NetDataHandler {
 		int componentCount = 0;
 
 		string noneFormattedString = _netData.ToString(Newtonsoft.Json.Formatting.None);
-        noneFormattedString = noneFormattedString.Replace("\\\"", "\"");
+		noneFormattedString = noneFormattedString.Replace("\\\"", "\"");
 		JObject data = JObject.Parse(noneFormattedString);
 
 		JArray netArray = (JArray)data.GetValue("net");
@@ -268,12 +268,13 @@ public class NetDataHandler {
 				_Component newComponent = SerializationCloner.DeepFieldClone(component);
 				initNetData.Add(component.label, newComponent);
 			}
-			if (!buildNetData.ContainsKey(component.label)) {
-				_Component newComponent = SerializationCloner.DeepFieldClone(component);
-				buildNetData.Add(component.label, newComponent);
-			}
+			// if (!buildNetData.ContainsKey(component.label)) {
+			// 	_Component newComponent = SerializationCloner.DeepFieldClone(component);
+			// 	buildNetData.Add(component.label, newComponent);
+			// }
 			//Debug.Log("done");
 		}
+
 		return debugNetData;
 	}
 }

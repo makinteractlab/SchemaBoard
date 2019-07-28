@@ -49,7 +49,12 @@ public class SchComponentPins : MonoBehaviour
         componentName = componentName.Substring(4, componentName.Length-4);
         
         boardPins = netdata.getAllNetForPin(componentName, pinName);
-        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+
+        if(boardPins[0] > 0) {
+            http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        } else {
+            Debug.Log("This Component is not included in the net.");
+        }
         // ArrayList urls = new ArrayList(cmd.getUrls());
         // foreach(var url in urls) {
         //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));

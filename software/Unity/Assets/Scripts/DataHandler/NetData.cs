@@ -309,6 +309,8 @@ public class NetData : MonoBehaviour {
 
 			for(int i=16; i<32; i++)
 				if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
+		} else {
+			result = Enumerable.Repeat(-1, 2).ToArray();
 		}
 
 		return result;
