@@ -51,7 +51,7 @@ public class SchComponentPins : MonoBehaviour
         //component click state should be updated
         GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
         foreach(var item in prefabButtons) {
-            if(!item.GetComponent<SchComponentButton>().isButtonClicked()) {
+            if(item.GetComponent<SchComponentButton>().isButtonClicked()) {
                 item.GetComponent<SchComponentButton>().initClickStatus();
             }
         }

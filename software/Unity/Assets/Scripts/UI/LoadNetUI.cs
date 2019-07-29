@@ -224,6 +224,9 @@ public class LoadNetUI : MonoBehaviour {
 				case "PWR":
 					component = (GameObject)Instantiate(prefabPWR);
 					break;
+				case "RELAY":
+					component = (GameObject)Instantiate(prefabRelay);
+					break;
 				case "U":
 					string name = item.Key;
 					int start = name.IndexOf("-");

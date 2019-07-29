@@ -55,7 +55,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         cmd = new Command();
         //cmd.setUrls();
         this.GetComponent<Button>().onClick.AddListener(componentClick);
-        clicked = true;
+        clicked = false;
         updateGlowIconAction = new UnityAction<string>(updateGlowIcons);
         updateGlowIconEvent= new IconToggleEvent();
 	    updateGlowIconEvent.AddListener(updateGlowIconAction);
@@ -70,15 +70,19 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
     }
 
     public void initClickStatus() {
-        clicked = true;
+        clicked = false;
     }
 
     public bool isButtonClicked() {
         return clicked;
     }
 
+    public void setButtonClicked(bool _state) {
+        clicked = _state;
+    }
+
     public void updateGlowIcons(string _state) {
-        if(!clicked) {
+        if(clicked) {
             if(_state == "fritzing") {
                 Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
                 Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
@@ -98,23 +102,23 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
 	}
     
     private bool GlowToggle() {
-        bool result = clicked;
+        // bool result = clicked;
         if(clicked) {
             // on glow image
-            if(icon.IsFritzingIcon())
-                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
-            else
-                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
-            clicked = false;
-        } else {
             if(icon.IsFritzingIcon())
                 Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
             else
                 Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            clicked = false;
+        } else {
+            if(icon.IsFritzingIcon())
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
+            else
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
             clicked = true;
         }
 
-        return result;
+        return clicked;
     }
 
     public void componentClick() {
@@ -126,7 +130,9 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
 
         if(GlowToggle()) {
             if(comm.IsSchCompPinClicked()) {//if component pin clicked, then reset all 
-                http.postJson(cmd.getUrl(), cmd.multiPinOnOff(Int16.Parse(pins[0]), Int16.Parse(pins[1])));
+                int[] boardPins = new int[2];
+                boardPins = netdata.getMultiplePinsPosition(pins);
+                http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
                 comm.setSchCompPinClicked(false);
             } else {
                 foreach(var pin in pins) {

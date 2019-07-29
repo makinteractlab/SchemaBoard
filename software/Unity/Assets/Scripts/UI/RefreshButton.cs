@@ -75,7 +75,7 @@ public class RefreshButton : MonoBehaviour {
 
 		GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
         foreach(var item in prefabButtons) {
-            if(!item.GetComponent<SchComponentButton>().isButtonClicked()) {
+            if(item.GetComponent<SchComponentButton>().isButtonClicked()) {
                 item.GetComponent<SchComponentButton>().initClickStatus();
             }
         }

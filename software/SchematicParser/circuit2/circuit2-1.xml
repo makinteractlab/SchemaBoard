@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>D:\Works\Git\RetroBreadboard\software\SchematicParser\circuit2\circuit2.sch</source>
+    <date>2019-07-29 오전 10:09:34</date>
+    <tool>Eeschema (5.1.2)-2</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>circuit2.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>C</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3E4A94</tstamp>
+    </comp>
+    <comp ref="LDR1">
+      <value>R_PHOTO</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="R_PHOTO" description="Photoresistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3CE114</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>Resistor</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="Resistor" description="Resistor symbol for simulation only"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3CF2F7</tstamp>
+    </comp>
+    <comp ref="SP1">
+      <value>Speaker</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="Speaker" description="Speaker"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3CD94C</tstamp>
+    </comp>
+    <comp ref="OPAMP1">
+      <value>OpAmp</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="OpAmp" description="OPAmp symbol for simulation only"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3E6608</tstamp>
+    </comp>
+    <comp ref="U2-6">
+      <value>6pinRelay</value>
+      <footprint>Relay_THT</footprint>
+      <datasheet>https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf</datasheet>
+      <libsource lib="SchemaBoard_Library" part="6pinRelay" description="Standex Meder DIP reed relay, DPST, Closing Contacts"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3E2F18</tstamp>
+    </comp>
+    <comp ref="U1-8">
+      <value>8pinChip</value>
+      <datasheet>http://www.ti.com/lit/ds/symlink/lm555.pdf</datasheet>
+      <libsource lib="SchemaBoard_Library" part="8pinChip" description="Timer, DIP-8/SOIC-8/SSOP-8"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3CCD89</tstamp>
+    </comp>
+    <comp ref="U3-16">
+      <value>16pinChip</value>
+      <libsource lib="SchemaBoard_Library" part="16pinChip" description="Processor IC"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3E3E98</tstamp>
+    </comp>
+    <comp ref="D1">
+      <value>Diode</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="Diode" description="Diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3E50B4</tstamp>
+    </comp>
+    <comp ref="SW1">
+      <value>SwitchPush</value>
+      <libsource lib="SchemaBoard_Library" part="SwitchPush" description="Push button switch, generic, separate symbols, four pins"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3E6FAF</tstamp>
+    </comp>
+    <comp ref="CP1">
+      <value>CP</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="CP" description="Polarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3FE055</tstamp>
+    </comp>
+    <comp ref="Q1">
+      <value>Transistor</value>
+      <datasheet>http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF</datasheet>
+      <libsource lib="SchemaBoard_Library" part="Transistor" description="800mA Ic, 50V Vce, NPN Transistor, TO-39"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3CFB42</tstamp>
+    </comp>
+    <comp ref="L1">
+      <value>Inductor</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="Inductor" description="Inductor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3E5584</tstamp>
+    </comp>
+    <comp ref="LED1">
+      <value>LED</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3E5DAB</tstamp>
+    </comp>
+    <comp ref="BT1">
+      <value>Battery_Cell</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="Battery_Cell" description="Single-cell battery"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3EC35E</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="SchemaBoard_Library" part="16pinChip">
+      <description>Processor IC</description>
+      <footprints>
+        <fp>DIP-16*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U?-16</field>
+        <field name="Value">16pinChip</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="unspc"/>
+        <pin num="2" name="~" type="unspc"/>
+        <pin num="3" name="~" type="unspc"/>
+        <pin num="4" name="~" type="unspc"/>
+        <pin num="5" name="~" type="unspc"/>
+        <pin num="6" name="~" type="unspc"/>
+        <pin num="7" name="~" type="unspc"/>
+        <pin num="8" name="~" type="unspc"/>
+        <pin num="9" name="~" type="unspc"/>
+        <pin num="10" name="~" type="unspc"/>
+        <pin num="11" name="~" type="unspc"/>
+        <pin num="12" name="~" type="unspc"/>
+        <pin num="13" name="~" type="unspc"/>
+        <pin num="14" name="~" type="unspc"/>
+        <pin num="15" name="~" type="unspc"/>
+        <pin num="16" name="~" type="unspc"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="6pinRelay">
+      <description>Standex Meder DIP reed relay, DPST, Closing Contacts</description>
+      <docs>https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf</docs>
+      <footprints>
+        <fp>Relay*StandexMeder*DIP*LowProfile*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U?-6</field>
+        <field name="Value">6pinRelay</field>
+        <field name="Footprint">Relay_THT</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+        <pin num="5" name="~" type="passive"/>
+        <pin num="6" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="8pinChip">
+      <aliases>
+        <alias>ICM7555_copy_copy</alias>
+        <alias>LMC555xM_copy_copy</alias>
+        <alias>LMC555xMM_copy_copy</alias>
+        <alias>LMC555xN_copy_copy</alias>
+        <alias>MC1455_copy_copy</alias>
+        <alias>TLC555CD_copy_copy</alias>
+        <alias>TLC555CP_copy_copy</alias>
+        <alias>TLC555CPS_copy_copy</alias>
+        <alias>NA555_copy_copy</alias>
+        <alias>NE555_copy_copy</alias>
+        <alias>SE555_copy_copy</alias>
+        <alias>SA555_copy_copy</alias>
+      </aliases>
+      <description>Timer, DIP-8/SOIC-8/SSOP-8</description>
+      <docs>http://www.ti.com/lit/ds/symlink/lm555.pdf</docs>
+      <footprints>
+        <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
+        <fp>DIP*W7.62mm*</fp>
+        <fp>TSSOP*3x3mm*P0.65mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U?-8</field>
+        <field name="Value">8pinChip</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="unspc"/>
+        <pin num="2" name="~" type="unspc"/>
+        <pin num="3" name="~" type="unspc"/>
+        <pin num="4" name="~" type="unspc"/>
+        <pin num="5" name="~" type="unspc"/>
+        <pin num="6" name="~" type="unspc"/>
+        <pin num="7" name="~" type="unspc"/>
+        <pin num="8" name="~" type="unspc"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="Battery_Cell">
+      <description>Single-cell battery</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">BT</field>
+        <field name="Value">Battery_Cell</field>
+      </fields>
+      <pins>
+        <pin num="1" name="+" type="passive"/>
+        <pin num="2" name="-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="CP">
+      <description>Polarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">CP</field>
+        <field name="Value">CP</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="Diode">
+      <description>Diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">Diode</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="Inductor">
+      <description>Inductor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Choke_*</fp>
+        <fp>*Coil*</fp>
+        <fp>Inductor_*</fp>
+        <fp>L_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">Inductor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="LED">
+      <description>Light emitting diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">LED</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="OpAmp">
+      <description>OPAmp symbol for simulation only</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">OpAmp</field>
+        <field name="Value">OpAmp</field>
+      </fields>
+      <pins>
+        <pin num="2" name="-" type="input"/>
+        <pin num="3" name="+" type="input"/>
+        <pin num="4" name="~" type="power_in"/>
+        <pin num="6" name="~" type="output"/>
+        <pin num="7" name="~" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="R_PHOTO">
+      <description>Photoresistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>*LDR*</fp>
+        <fp>R?LDR*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">LDR</field>
+        <field name="Value">R_PHOTO</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="Resistor">
+      <description>Resistor symbol for simulation only</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">Resistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="Speaker">
+      <description>Speaker</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">SP</field>
+        <field name="Value">Speaker</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="input"/>
+        <pin num="2" name="2" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="SwitchPush">
+      <description>Push button switch, generic, separate symbols, four pins</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">SW</field>
+        <field name="Value">SwitchPush</field>
+      </fields>
+      <pins>
+        <pin num="1" name="C" type="passive"/>
+        <pin num="2" name="D" type="passive"/>
+        <pin num="3" name="C" type="passive"/>
+        <pin num="4" name="D" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="Transistor">
+      <aliases>
+        <alias>BC140</alias>
+        <alias>BC141</alias>
+      </aliases>
+      <description>800mA Ic, 50V Vce, NPN Transistor, TO-39</description>
+      <docs>http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF</docs>
+      <footprints>
+        <fp>TO?39*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">Transistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="E" type="passive"/>
+        <pin num="2" name="B" type="passive"/>
+        <pin num="3" name="C" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="SchemaBoard_Library">
+      <uri>D:/Works/Git/RetroBreadboard/software/KiCadCustomLibrary/SchemaBoard_Library.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(C1-Pad1)">
+      <node ref="LDR1" pin="2"/>
+      <node ref="C1" pin="1"/>
+    </net>
+    <net code="2" name="Net-(L1-Pad1)">
+      <node ref="L1" pin="1"/>
+      <node ref="OPAMP1" pin="7"/>
+    </net>
+    <net code="3" name="Net-(OPAMP1-Pad3)">
+      <node ref="U1-8" pin="3"/>
+      <node ref="OPAMP1" pin="3"/>
+    </net>
+    <net code="4" name="Net-(SP1-Pad2)">
+      <node ref="SP1" pin="2"/>
+      <node ref="U1-8" pin="4"/>
+    </net>
+    <net code="5" name="Net-(C1-Pad2)">
+      <node ref="U3-16" pin="2"/>
+      <node ref="C1" pin="2"/>
+    </net>
+    <net code="6" name="+3V3">
+      <node ref="U3-16" pin="16"/>
+    </net>
+    <net code="7" name="Net-(BT1-Pad1)">
+      <node ref="Q1" pin="1"/>
+      <node ref="L1" pin="2"/>
+      <node ref="BT1" pin="1"/>
+    </net>
+    <net code="8" name="Net-(D1-Pad1)">
+      <node ref="D1" pin="1"/>
+      <node ref="LED1" pin="2"/>
+    </net>
+    <net code="9" name="GND">
+      <node ref="LED1" pin="1"/>
+    </net>
+    <net code="10" name="Net-(Q1-Pad3)">
+      <node ref="U1-8" pin="2"/>
+      <node ref="Q1" pin="3"/>
+    </net>
+    <net code="11" name="Net-(Q1-Pad2)">
+      <node ref="Q1" pin="2"/>
+    </net>
+    <net code="12" name="Net-(OPAMP1-Pad4)">
+      <node ref="OPAMP1" pin="4"/>
+      <node ref="U1-8" pin="1"/>
+    </net>
+    <net code="13" name="Net-(CP1-Pad2)">
+      <node ref="CP1" pin="2"/>
+      <node ref="SW1" pin="1"/>
+      <node ref="D1" pin="2"/>
+    </net>
+    <net code="14" name="Net-(BT1-Pad2)">
+      <node ref="CP1" pin="1"/>
+      <node ref="BT1" pin="2"/>
+    </net>
+    <net code="15" name="Net-(SW1-Pad2)">
+      <node ref="U2-6" pin="3"/>
+      <node ref="SW1" pin="2"/>
+    </net>
+    <net code="16" name="Net-(U1-8-Pad7)">
+      <node ref="U2-6" pin="4"/>
+      <node ref="U1-8" pin="7"/>
+    </net>
+    <net code="17" name="Net-(U1-8-Pad5)">
+      <node ref="U1-8" pin="5"/>
+      <node ref="U2-6" pin="6"/>
+    </net>
+    <net code="18" name="Net-(OPAMP1-Pad6)">
+      <node ref="OPAMP1" pin="6"/>
+    </net>
+    <net code="19" name="Net-(U1-8-Pad8)">
+      <node ref="U1-8" pin="8"/>
+    </net>
+    <net code="20" name="Net-(U2-6-Pad5)">
+      <node ref="U2-6" pin="5"/>
+    </net>
+    <net code="21" name="Net-(U2-6-Pad2)">
+      <node ref="U2-6" pin="2"/>
+    </net>
+    <net code="22" name="Net-(U2-6-Pad1)">
+      <node ref="U2-6" pin="1"/>
+    </net>
+    <net code="23" name="Net-(OPAMP1-Pad2)">
+      <node ref="OPAMP1" pin="2"/>
+    </net>
+    <net code="24" name="Net-(SP1-Pad1)">
+      <node ref="SP1" pin="1"/>
+    </net>
+    <net code="25" name="Net-(R1-Pad2)">
+      <node ref="R1" pin="2"/>
+    </net>
+    <net code="26" name="Net-(R1-Pad1)">
+      <node ref="R1" pin="1"/>
+    </net>
+    <net code="27" name="Net-(LDR1-Pad1)">
+      <node ref="LDR1" pin="1"/>
+    </net>
+    <net code="28" name="Net-(U3-16-Pad3)">
+      <node ref="U3-16" pin="3"/>
+    </net>
+    <net code="29" name="Net-(U3-16-Pad9)">
+      <node ref="U3-16" pin="9"/>
+    </net>
+    <net code="30" name="Net-(U3-16-Pad8)">
+      <node ref="U3-16" pin="8"/>
+    </net>
+    <net code="31" name="Net-(U3-16-Pad7)">
+      <node ref="U3-16" pin="7"/>
+    </net>
+    <net code="32" name="Net-(U3-16-Pad6)">
+      <node ref="U3-16" pin="6"/>
+    </net>
+    <net code="33" name="Net-(U3-16-Pad5)">
+      <node ref="U3-16" pin="5"/>
+    </net>
+    <net code="34" name="Net-(U3-16-Pad4)">
+      <node ref="U3-16" pin="4"/>
+    </net>
+    <net code="35" name="Net-(U3-16-Pad15)">
+      <node ref="U3-16" pin="15"/>
+    </net>
+    <net code="36" name="Net-(U3-16-Pad14)">
+      <node ref="U3-16" pin="14"/>
+    </net>
+    <net code="37" name="Net-(U3-16-Pad13)">
+      <node ref="U3-16" pin="13"/>
+    </net>
+    <net code="38" name="Net-(U3-16-Pad12)">
+      <node ref="U3-16" pin="12"/>
+    </net>
+    <net code="39" name="Net-(U3-16-Pad11)">
+      <node ref="U3-16" pin="11"/>
+    </net>
+    <net code="40" name="Net-(U3-16-Pad10)">
+      <node ref="U3-16" pin="10"/>
+    </net>
+    <net code="41" name="Net-(U3-16-Pad1)">
+      <node ref="U3-16" pin="1"/>
+    </net>
+    <net code="42" name="Net-(U1-8-Pad6)">
+      <node ref="U1-8" pin="6"/>
+    </net>
+  </nets>
+</export>

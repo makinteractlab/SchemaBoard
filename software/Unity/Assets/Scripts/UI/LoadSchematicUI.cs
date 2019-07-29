@@ -147,6 +147,9 @@ public class LoadSchematicUI : MonoBehaviour {
 				case "BT":
 					component = (GameObject)Instantiate(prefabBattery);
 					break;
+				case "RELAY":
+					component = (GameObject)Instantiate(prefabRelay);
+					break;
 				case "U-":
 					string name = item.Key;
 					int start = name.IndexOf("-")+1;
