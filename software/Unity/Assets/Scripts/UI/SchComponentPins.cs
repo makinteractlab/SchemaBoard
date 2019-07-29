@@ -78,7 +78,7 @@ public class SchComponentPins : MonoBehaviour
         
         boardPins = netdata.getAllNetForPin(componentName, pinName);
 
-        if(boardPins[0] > 0) {
+        if(boardPins[0] > 0 || boardPins[1] > 0) {
             http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         } else {
             Debug.Log("This Component is not included in the net.");
