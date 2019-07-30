@@ -287,7 +287,7 @@ public class NetData : MonoBehaviour {
 		return result;
 	}
 
-	public int[] getAllNetForPin(string _component, string _pin, Sprite _selectedPinSprite) {
+	public int[] getAllNetForPin(string _component, string _pin, ref List<GameObject> _pinsInNet) {
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 		int left = 0;
 		int right = 1;
@@ -300,9 +300,12 @@ public class NetData : MonoBehaviour {
 			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
 			foreach(var element in debugNetData[_component].getPin(_pin).netElementsAll) {	
 				resultPins.Add(debugNetData[element.component].getPin(element.pinid).breadboardRowPosition);
-				GameObject pin = Util.getChildObject(element.component, element.pinid);
-				// pin.GetComponent<Button>().image.sprite = _selectedPinSprite;
-				pin.GetComponent<Image>().sprite = _selectedPinSprite;
+				GameObject spin = Util.getChildObject("SCH_"+element.component, element.pinid);
+				GameObject fpin = Util.getChildObject("SCH_"+element.component, "f"+element.pinid);
+				if(spin != null)
+					_pinsInNet.Add(spin);
+				if(fpin != null)
+					_pinsInNet.Add(fpin);
 			}
 
 			foreach(var item in resultPins) {

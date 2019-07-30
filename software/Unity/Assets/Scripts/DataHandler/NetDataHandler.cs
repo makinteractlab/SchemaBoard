@@ -82,7 +82,14 @@ public class _Component {
 	}
 
 	public _Pin getFirstPin() {
-		_Pin result = pins[0];
+		_Pin result = null;
+		foreach(var pin in pins) {
+			if(pin.id == "connector0") {
+				result = pin;
+				break;
+			}
+		}
+		
 		return result;		
 	}
 

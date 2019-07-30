@@ -67,6 +67,7 @@ public class SchComponentPins : MonoBehaviour
     // }
 
     void pinClick() {
+        List<GameObject> resultPinsInNet = new List<GameObject>();
         clicked = true;
         initGlowIcon();
 
@@ -94,14 +95,17 @@ public class SchComponentPins : MonoBehaviour
                 item.GetComponent<Image>().sprite = DefaultPinSprite;
         }
 
-        this.GetComponent<Button>().image.sprite = SelectedPinSprite;
+        this.GetComponent<Image>().sprite = SelectedPinSprite;
 
         if(this.name.Contains("fconnector")) {
             pinName = pinName.Substring(1,pinName.Length-1);
         }
         componentName = componentName.Substring(4, componentName.Length-4);
         
-        boardPins = netdata.getAllNetForPin(componentName, pinName, SelectedPinSprite);
+        boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
+        foreach(var pin in resultPinsInNet) {
+            pin.GetComponent<Image>().sprite = SelectedPinSprite;
+        }
 
         if(boardPins[0] > 0 || boardPins[1] > 0) {
             http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
