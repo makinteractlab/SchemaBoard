@@ -235,7 +235,7 @@ public class NetDataHandler {
 					if(entry.Key.Contains(component.label+"-"+pinInfo[0])) {
 						foreach(var arrItem in entry.Value) {
 							string strItem = arrItem.ToString();
-							int pos = strItem.IndexOf("-");
+							int pos = strItem.LastIndexOf("-");
 							string comp = strItem.Substring(0,pos);
 							string pinid = strItem.Substring(pos+1, strItem.Length-pos-1);
 							if(component.getPin(pinInfo[0]) != null)
@@ -251,7 +251,7 @@ public class NetDataHandler {
 					if(entry.Key.Contains(component.label+"-"+pin[0])) {
 						foreach(var arrItem in entry.Value) {
 							string strItem = arrItem.ToString();
-							int pos = strItem.IndexOf("-");
+							int pos = strItem.LastIndexOf("-");
 							string comp = strItem.Substring(0,pos);
 							string pinid = strItem.Substring(pos+1, strItem.Length-pos-1);
 							if(component.getPin(pin[0]) != null)

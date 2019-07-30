@@ -72,6 +72,7 @@ public class LoadNetUI : MonoBehaviour {
         {
             if(obj.name == ChildObjectName) {
                 resultObj = obj.gameObject;
+				break;
             }
         }
         return resultObj;
@@ -227,9 +228,9 @@ public class LoadNetUI : MonoBehaviour {
 				case "RELAY":
 					component = (GameObject)Instantiate(prefabRelay);
 					break;
-				case "U":
+				case "U-":
 					string name = item.Key;
-					int start = name.IndexOf("-");
+					int start = name.IndexOf("-")+1;
 					int length = name.Length-start;
 					int chipType = int.Parse(item.Key.Substring(start,length));
 					switch(chipType){

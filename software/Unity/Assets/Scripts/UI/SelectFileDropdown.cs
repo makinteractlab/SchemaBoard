@@ -25,6 +25,8 @@ public class SelectFileDropdown : MonoBehaviour {
 	private string selectedFileName;
 
 	private bool init;
+	private int m_SelectedFile;
+	private int m_PrevSelected;
 
 	private ArrayList fileList;
 
@@ -38,6 +40,10 @@ public class SelectFileDropdown : MonoBehaviour {
 		showCommonMenu(false);
 		showTutorialUI(false);
 		showManualMenu(false);
+		GameObject.Find("SelectAllButton").transform.localScale = new Vector3(0,0,0);
+
+		m_PrevSelected = 0;
+		m_SelectedFile = 0;
 		
 		LoadFileList();
 	}
@@ -86,11 +92,13 @@ public class SelectFileDropdown : MonoBehaviour {
 	}
 	
 	public void CancelLoadFile() {
+		m_Dropdown.value = m_PrevSelected;
 		if(init) {
 			showSchematicMenu(true);
 			showCommonMenu(false);
 			showTutorialUI(false);
 			showManualMenu(false);
+			GameObject.Find("SelectAllButton").transform.localScale = new Vector3(0,0,0);
 		}
 	}
 
@@ -144,8 +152,10 @@ public class SelectFileDropdown : MonoBehaviour {
 
 	public void YesLoadFile() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
+		SetSelectedFileName(m_DropOptions[m_SelectedFile-1]);
 		if(!init)
 			ResetAllComponents();
+		GameObject.Find("SelectAllButton").transform.localScale = new Vector3(1,1,1);
 		showCommonMenu(true);
 		showSchematicMenu(true);
 		showManualMenu(false);
@@ -184,11 +194,12 @@ public class SelectFileDropdown : MonoBehaviour {
 	// }
 	private void SelectFile(Dropdown _selectedFile)
 	{
-		int selectedFile = _selectedFile.value;
+		m_PrevSelected = m_SelectedFile;
+		m_SelectedFile = _selectedFile.value;
 		// ArrayList options = new ArrayList(m_DropOptions.ToArray());
 		// SetSelectedFileName((string)options[selectedFile]);
-		if(selectedFile > 0) {
-			SetSelectedFileName(m_DropOptions[selectedFile-1]);
+		if(m_SelectedFile > 0) {
+			// SetSelectedFileName(m_DropOptions[selectedFile-1]);
 			refreshConfirmWindow();
 		}
 

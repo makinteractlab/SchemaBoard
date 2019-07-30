@@ -70,6 +70,7 @@ public class NetData : MonoBehaviour {
 		//JObject netData = null;
 		netHandler = _netHandler;
 		cmd.setUrl("http://10.0.1.62:8081/get");
+		// cmd.setUrl("http://10.0.1.77:8081/get");
 		http.getJson(cmd.getUrl(), cmd.getJsonFile(_fileName));
 		http.getSch(cmd.getUrl(), cmd.getSchFile(_fileName));
 	}
