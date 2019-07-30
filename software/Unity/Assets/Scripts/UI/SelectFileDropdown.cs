@@ -66,6 +66,13 @@ public class SelectFileDropdown : MonoBehaviour {
 			using (StreamReader reader = new StreamReader(path)) {
 				string line;
 				while((line = reader.ReadLine()) !=null) {
+					if(line.Contains("IP:")){
+						int pos = line.IndexOf(":") + 1;
+						int end = line.Length;
+						string url = line.Substring(pos, end-pos);
+						comm.setUrl(url);
+						continue;
+					}
 					m_DropOptions.Add(line);
 				}
 			}
@@ -79,6 +86,13 @@ public class SelectFileDropdown : MonoBehaviour {
 				using (StreamReader reader = new StreamReader(localpath)) {
 					string line;
 					while((line = reader.ReadLine()) !=null) {
+						if(line.Contains("IP:")){
+							int pos = line.IndexOf(":") + 1;
+							int end = line.Length;
+							string url = line.Substring(pos, end-pos);
+							comm.setUrl(url);
+							continue;
+						}
 						m_DropOptions.Add(line);
 					}
 				}

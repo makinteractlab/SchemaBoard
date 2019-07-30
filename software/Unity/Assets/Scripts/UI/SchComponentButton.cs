@@ -132,11 +132,11 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
             if(comm.IsSchCompPinClicked()) {//if component pin clicked, then reset all 
                 int[] boardPins = new int[2];
                 boardPins = netdata.getMultiplePinsPosition(pins);
-                http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+                http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
                 comm.setSchCompPinClicked(false);
             } else {
                 foreach(var pin in pins) {
-                    http.postJson(cmd.getUrl(), cmd.singlePinOn(Int16.Parse(pin)));
+                    http.postJson(comm.getUrl()+"/set", cmd.singlePinOn(Int16.Parse(pin)));
                     Wait (0.5f, () => {
                         Debug.Log("0.5 seconds is lost forever");
                     });
@@ -144,7 +144,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
             }
             
             // boardPins = netdata.getComponentPinsNet(componentName); /
-            // http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1])); /
+            // http.postJson(comm.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1])); /
             // ArrayList urls = new ArrayList(cmd.getUrls());
             // foreach(var url in urls) {
             //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
@@ -159,7 +159,8 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
             // }
             string firstPinPos = netdata.getComponentFirstPinRowPosition(componentName);
             if (firstPinPos != "") {
-                http.postJson(cmd.getUrl(), cmd.singlePinBlink( Int32.Parse(firstPinPos) ) );
+                string url = comm.getUrl()+"/set";
+                http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink( Int32.Parse(firstPinPos) ) );
             }
             else {
                 Debug.Log("This Component is not included in the net.");
@@ -167,7 +168,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
             
         } else {
             foreach(var pin in pins) {
-                http.postJson(cmd.getUrl(), cmd.singlePinOff(Int16.Parse(pin)));
+                http.postJson(comm.getUrl()+"/set", cmd.singlePinOff(Int16.Parse(pin)));
                 Wait (0.5f, () => {
                     Debug.Log("0.5 seconds is lost forever");
                 });

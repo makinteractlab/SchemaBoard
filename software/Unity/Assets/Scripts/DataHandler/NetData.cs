@@ -41,7 +41,7 @@ public class NetData : MonoBehaviour {
         schDataReceivedEvent = new DataReceivedEvent();
         schDataReceivedEvent.AddListener(schDataReceivedAction);
 
-		cmd = new Command();
+		cmd = new Command();		
 		//cmd.setUrls();
 
 		schematicDrawingData = new JObject();
@@ -69,10 +69,10 @@ public class NetData : MonoBehaviour {
 	{
 		//JObject netData = null;
 		netHandler = _netHandler;
-		cmd.setUrl("http://10.0.1.62:8081/get");
-		// cmd.setUrl("http://10.0.1.77:8081/get");
-		http.getJson(cmd.getUrl(), cmd.getJsonFile(_fileName));
-		http.getSch(cmd.getUrl(), cmd.getSchFile(_fileName));
+		
+		// cmd.setUrl("http://10.0.1.77:8081");
+		http.getJson(comm.getUrl()+"/get", cmd.getJsonFile(_fileName));
+		http.getSch(comm.getUrl()+"/get", cmd.getSchFile(_fileName));
 	}
 
 	public void setSchematicDrawingData(JObject _data) {
@@ -109,10 +109,10 @@ public class NetData : MonoBehaviour {
 	// 	buildNetData = SerializationCloner.DeepFieldClone(initNetData);
 	// }
 
-	public void resetdebugNetData() {
-		debugNetData.Clear();
-		debugNetData = SerializationCloner.DeepFieldClone(initNetData);
-	}
+	// public void resetdebugNetData() {
+	// 	debugNetData.Clear();
+	// 	debugNetData = SerializationCloner.DeepFieldClone(initNetData);
+	// }
 
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
 		string pin = _componentPinName.Substring(_componentPinName.IndexOf('-')+1, _componentPinName.Length-_componentPinName.IndexOf('-')-1);
@@ -153,12 +153,15 @@ public class NetData : MonoBehaviour {
 
 	public Dictionary<string, List<string[]>> getComponentsAndPinsPosition() {
 		Dictionary<string, List<string[]>> result = new Dictionary<string, List<string[]>>();
-		List<string[]> pinsPosition = new List<string[]>();
+		List<string[]> pinsPosition;
+		List<string[]> temp = new List<string[]>();
 		foreach(var item in debugNetData) {
 			foreach(var pin in item.Value.getPins()){
-				pinsPosition.Add(new string[]{pin.id, pin.breadboardRowPosition});
+				temp.Add(new string[]{pin.id, pin.breadboardRowPosition});
 			}
+			pinsPosition = new List<string[]>(temp);
 			result.Add(item.Key, pinsPosition);
+			temp.Clear();
 		}
 		return result;
 	}

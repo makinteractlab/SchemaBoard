@@ -129,7 +129,7 @@ public class TutorialCard : MonoBehaviour {
 		int[] boardPins = new int[2];
 
         boardPins = netdata.getMultiplePinsPosition(_breadboardpins);
-        http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
 		//ArrayList urls = new ArrayList(cmd.getUrls());
         // foreach(var url in urls) {
         //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));

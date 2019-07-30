@@ -49,6 +49,14 @@ public class SelectAllButton : MonoBehaviour {
 
 	public void selectAll() {
 		onGlowIconAll();
-		http.postJson(cmd.getUrl(), cmd.resetAll()); //send command to turn on all the pins
+		Dictionary<string, List<string[]>> data = netData.getComponentsAndPinsPosition();
+		List<string> pins = new List<string>();
+		foreach(var item in data) {
+			foreach(var value in item.Value) {
+				pins.Add(value[1]);
+			}
+		}
+		int[] pinPosition = netData.getMultiplePinsPosition(pins);
+		http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(pinPosition[0], pinPosition[1])); //send command to turn on all the pins
 	}
 }

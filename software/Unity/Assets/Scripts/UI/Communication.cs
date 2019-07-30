@@ -23,6 +23,7 @@ public class Communication : MonoBehaviour
     public Image freezeAll;
 
     private string selectedJsonFileName;
+    private string url;
 
     void Start()
     {
@@ -31,6 +32,14 @@ public class Communication : MonoBehaviour
         popupState = false;
         editWireState = false;
         pinClicked = false;
+        url = "";
+    }
+
+    public void setUrl(string _url) {
+        url = _url;
+    }
+    public string getUrl() {
+        return url;
     }
 
     public string getCurrentFileName() {

@@ -97,7 +97,7 @@ public class RefreshButton : MonoBehaviour {
 			ResetAllConnection();
 		}
 
-		http.postJson(cmd.getUrl(), cmd.resetAll());
+		http.postJson(comm.getUrl()+"/set", cmd.resetAll());
 		initGlowIcon();
 		// netUI.setupManualMode();
 		// constraintsHandle.clearConstraintsDB();

@@ -79,7 +79,7 @@ public class SchComponentPins : MonoBehaviour
         boardPins = netdata.getAllNetForPin(componentName, pinName);
 
         if(boardPins[0] > 0 || boardPins[1] > 0) {
-            http.postJson(cmd.getUrl(), cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+            http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         } else {
             Debug.Log("This Component is not included in the net.");
         }
@@ -87,7 +87,7 @@ public class SchComponentPins : MonoBehaviour
         // foreach(var url in urls) {
         //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         // }
-        //http.postJson(cmd.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
+        //http.postJson(comm.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
         comm.setSchCompPinClicked(true);
         Debug.Log("============================= componentPinClick: " + this.name);
     }
