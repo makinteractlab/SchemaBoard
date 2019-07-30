@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114907030976785278}
   m_Layer: 0
   m_Name: connector0
-  m_TagString: Untagged
+  m_TagString: circuit_prefab_pin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -452,6 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3896c1cf7009d344f96ddb1ab2575e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedPinSprite: {fileID: 21300000, guid: 210a212644245dd40a29d9e644eba0e5, type: 3}
+  DefaultPinSprite: {fileID: 21300000, guid: 44c5ed4d4d2aad04f9a866be1ff0923c, type: 3}
 --- !u!114 &114991952767368234
 MonoBehaviour:
   m_ObjectHideFlags: 1

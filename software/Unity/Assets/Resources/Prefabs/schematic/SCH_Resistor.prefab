@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 114124796964624228}
   m_Layer: 0
   m_Name: connector0
-  m_TagString: Untagged
+  m_TagString: circuit_prefab_pin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 114318866410414756}
   m_Layer: 0
   m_Name: connector1
-  m_TagString: Untagged
+  m_TagString: circuit_prefab_pin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,6 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3896c1cf7009d344f96ddb1ab2575e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedPinSprite: {fileID: 21300000, guid: 48e1bb463f5037c47985b2ee84e74ebc, type: 3}
+  DefaultPinSprite: {fileID: 21300000, guid: 44c5ed4d4d2aad04f9a866be1ff0923c, type: 3}
 --- !u!114 &114279228140424132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,6 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3896c1cf7009d344f96ddb1ab2575e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedPinSprite: {fileID: 21300000, guid: 48e1bb463f5037c47985b2ee84e74ebc, type: 3}
+  DefaultPinSprite: {fileID: 21300000, guid: 44c5ed4d4d2aad04f9a866be1ff0923c, type: 3}
 --- !u!114 &114519528051076150
 MonoBehaviour:
   m_ObjectHideFlags: 1

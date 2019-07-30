@@ -2,18 +2,18 @@
    "sketch":"test.fz",
    "net":[  
       {  
-         "name":"Net-(LED1-Pad2)",
+         "name":"Net-(BT1-Pad2)",
          "connector":[  
-            {  
-               "component":"LED1",
-               "pin":"connector1"
-            },
             {  
                "component":"R1",
                "pin":"connector0"
             },
             {  
                "component":"R2",
+               "pin":"connector0"
+            },
+            {  
+               "component":"BT1",
                "pin":"connector0"
             }
          ]
@@ -27,13 +27,17 @@
             },
             {  
                "component":"BT1",
-               "pin":"connector0"
+               "pin":"connector1"
             }
          ]
       },
       {  
-         "name":"Net-(BT1-Pad2)",
+         "name":"Net-(LED1-Pad2)",
          "connector":[  
+            {  
+               "component":"LED1",
+               "pin":"connector1"
+            },
             {  
                "component":"R1",
                "pin":"connector1"
@@ -41,36 +45,11 @@
             {  
                "component":"R2",
                "pin":"connector1"
-            },
-            {  
-               "component":"BT1",
-               "pin":"connector1"
             }
          ]
       }
    ],
    "components":[  
-      {  
-         "label":"LED1",
-         "connector":[  
-            {  
-               "id":"connector0",
-               "type":"cathode",
-               "position":[  
-                  17,
-                  5
-               ]
-            },
-            {  
-               "id":"connector1",
-               "type":"anode",
-               "position":[  
-                  18,
-                  1
-               ]
-            }
-         ]
-      },
       {  
          "label":"R1",
          "connector":[  
@@ -78,15 +57,15 @@
                "id":"connector0",
                "type":"none",
                "position":[  
-                  19,
-                  4
+                  1,
+                  1
                ]
             },
             {  
                "id":"connector1",
                "type":"none",
                "position":[  
-                  20,
+                  17,
                   5
                ]
             }
@@ -99,15 +78,15 @@
                "id":"connector0",
                "type":"none",
                "position":[  
-                  21,
-                  3
+                  2,
+                  2
                ]
             },
             {  
                "id":"connector1",
                "type":"none",
                "position":[  
-                  22,
+                  18,
                   4
                ]
             }
@@ -120,15 +99,36 @@
                "id":"connector0",
                "type":"positive",
                "position":[  
-                  23,
-                  2
+                  3,
+                  1
                ]
             },
             {  
                "id":"connector1",
                "type":"negative",
                "position":[  
-                  24,
+                  19,
+                  3
+               ]
+            }
+         ]
+      },
+      {  
+         "label":"LED1",
+         "connector":[  
+            {  
+               "id":"connector0",
+               "type":"anode",
+               "position":[  
+                  4,
+                  2
+               ]
+            },
+            {  
+               "id":"connector1",
+               "type":"cathode",
+               "position":[  
+                  20,
                   3
                ]
             }

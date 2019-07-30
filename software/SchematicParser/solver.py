@@ -10,16 +10,18 @@ from random import choice
 def priority(comp):
     counter= 0
     for a in range(len(comp)):
-        if comp[a][0].startswith("U"):
+        if comp[a][0].startswith(("OPAMP","U","RELAY")):
             temp= comp[a]
             comp[a]=comp[counter]
             comp[counter]=temp
             counter+=1
+    
     return(comp)
 
 def sorting(comp):
+    
     for i in range(len(comp)):
-        if comp[i][0].startswith(("U","SW")):
+        if comp[i][0].startswith(("U","RELAY","OPAMP")):
             counter=1
             for j in range(2,len(comp[i]),2):
                 a=comp[i].index(str(int(counter)))
@@ -38,45 +40,92 @@ def sorting(comp):
 
     return(comp)
 
-def no_of_rows(nets,comp,row_assign,no_rows_on_board):#assignment of rows to nets
+def no_of_rows(nets,comp,row_assign,no_rows_on_board,bb):#assignment of rows to nets
     next_empty=1
     free_rows=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     i=0
-    while(comp[i][0].startswith("U")):
+    while(comp[i][0].startswith(("RELAY","U","OPAMP"))):
         U_size= int(len(comp[i])/2)
-        already_exist=0
+        already_exist=-1
+        counter=1
         for a in range(int(U_size/2)):#no of pins in IC/2 for one side
             for j in range(len(row_assign)):
                 if comp[i][(a*2)+1]==row_assign[j][0]:
                     already_exist=j
-            if already_exist!=0:
-                row_assign[j].append(str(next_empty))
+            if already_exist!=-1:
+                row_assign[already_exist].append(str(next_empty))
                 free_rows[next_empty-1]=1
                 next_empty+=1
+                if comp[i][0].startswith("RELAY"):
+                    counter+=1
+                    if counter==3:
+                        if next_empty>(len(free_rows)/2):
+                            bb[next_empty-1][0]=1
+                            bb[next_empty][0]=1                         
+                        else:
+                            bb[next_empty-1][4]=1
+                            bb[next_empty][4]=1
+                        next_empty+=1
             else:
                 row_assign.append([])
                 row_assign[len(row_assign)-1].append(comp[i][(a*2)+1])
                 row_assign[len(row_assign)-1].append(str(next_empty))
                 free_rows[next_empty-1]=1
                 next_empty+=1
-            already_exist=0
+                if comp[i][0].startswith("RELAY"):
+                    counter+=1
+                    if counter==3:
+                        if next_empty>(len(free_rows)/2):
+                            bb[next_empty-1][0]=1
+                            bb[next_empty][0]=1                         
+                        else:
+                            bb[next_empty-1][4]=1
+                            bb[next_empty][4]=1
+                        next_empty+=2
+            already_exist=-1
+            if next_empty>(len(free_rows)/2):
+                print("ciruit is too big ")
+                exit()
         temp=next_empty   
         next_empty=int(next_empty-(U_size/2)+(no_rows_on_board/2))
+        if comp[i][0].startswith("RELAY"):
+            next_empty-=2
+        counter=1
         for a in range(int(U_size/2)):#no of pins in IC/2 for one side
             for j in range(len(row_assign)):
                 if comp[i][(a*2)+1+U_size]==row_assign[j][0]:
                     already_exist=j
-            if already_exist!=0:
-                row_assign[j].append(str(next_empty))
+            if already_exist!=-1:
+                row_assign[already_exist].append(str(next_empty))
                 free_rows[next_empty-1]=1
                 next_empty+=1
+                if comp[i][0].startswith("RELAY"):
+                    counter+=1
+                    if counter==3:
+                        if next_empty>(len(free_rows)/2):
+                            bb[next_empty-1][0]=1
+                            bb[next_empty][0]=1                         
+                        else:
+                            bb[next_empty-1][4]=1
+                            bb[next_empty][4]=1
+                        next_empty+=2
             else:
                 row_assign.append([])
                 row_assign[len(row_assign)-1].append(comp[i][(a*2)+1+U_size])
                 row_assign[len(row_assign)-1].append(str(next_empty))
                 free_rows[next_empty-1]=1
                 next_empty+=1
-            already_exist=0
+                if comp[i][0].startswith("RELAY"):
+                    counter+=1
+                    if counter==3:
+                        if next_empty>(len(free_rows)/2):
+                            bb[next_empty-1][0]=1
+                            bb[next_empty][0]=1                         
+                        else:
+                            bb[next_empty-1][4]=1
+                            bb[next_empty][4]=1
+                        next_empty+=2
+            already_exist=-1
             if 0 not in free_rows:
                 print("circuit to big")
                 exit()
@@ -106,7 +155,7 @@ def no_of_rows(nets,comp,row_assign,no_rows_on_board):#assignment of rows to net
                     more_assign-=1
                     break
                     
-    return row_assign
+    return row_assign,bb
     
 
 def correcting_pin_names(comp,file_type):
@@ -153,6 +202,7 @@ def correcting_pin_names(comp,file_type):
 
 #final printing and adding columns
 def adding_column(comp,row_assign,no_rows_on_board,bb):
+    
     for i in range(len(comp)):
         #print()
         #print (comp[i][0],end=" ")
@@ -162,7 +212,7 @@ def adding_column(comp,row_assign,no_rows_on_board,bb):
                     if row_assign[k][0]== comp[i][j]:
                         for l in range(1,len(row_assign[k])):
                             assignment_done=0
-                            if comp[i][0].startswith("U"):
+                            if comp[i][0].startswith(("U","RELAY","OPAMP")):
                                 possible_rows=1
                             elif len(row_assign[k])==2:
                                 possible_rows=5
@@ -192,7 +242,7 @@ def adding_column(comp,row_assign,no_rows_on_board,bb):
                                 
                             if assignment_done==1:
                                 break
-
+    
     return(comp)
 
 
@@ -335,18 +385,57 @@ def write_json(nets,comp,file_type,fileName):
     final_obj={"sketch":"test.fz","net":list0,"components":list3}
     json.dump(final_obj,f)
 
+def manage_opamp(nets):
+    temp=[]
+    for i in range(len(nets)):
+        for j in range(len(nets[i])):
+            if nets[i][j].startswith("OPAMP") and not (nets[i][j] in temp):
+                temp.append(nets[i][j])
+                nets.append([])
+                nets[-1].append("Net-"+nets[i][j]+"pin1")
+                nets[-1].append(nets[i][j])
+                nets[-1].append("1")
+                nets.append([])
+                nets[-1].append("Net-"+nets[i][j]+"pin8")
+                nets[-1].append(nets[i][j])
+                nets[-1].append("8")
+                nets.append([])
+                nets[-1].append("Net-"+nets[i][j]+"pin5")
+                nets[-1].append(nets[i][j])
+                nets[-1].append("5")
+    return nets
+
+def final_sorting(comp):
+    for i in range(len(comp)):
+        counter=1
+        for j in range(2,len(comp[i]),2):
+            a=comp[i].index(str(counter))
+            counter+=1
+            temp= comp[i][j]
+            comp[i][j]=comp[i][a]
+            comp[i][a]=temp
+            temp= comp[i][j-1]
+            comp[i][j-1]=comp[i][a-1]
+            comp[i][a-1]=temp
+    return comp
+
+
+
 def solver(nets,file_type,fileName):
 
-    
+    nets= manage_opamp(nets)
     bb = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
     no_rows_on_board=len(bb)
     row_assign=[]
     comp=component(nets)
     comp=sorting(comp)
     comp=priority(comp)
-    row_assign=no_of_rows(nets,comp,row_assign,no_rows_on_board)
+    row_assign,bb=no_of_rows(nets,comp,row_assign,no_rows_on_board,bb)
     comp=adding_column(comp,row_assign,no_rows_on_board,bb)
     addingwire(comp,row_assign,no_rows_on_board)
+    comp=final_sorting(comp)
+    print(comp)
+    print(bb)
     write_json(nets,comp,file_type,fileName)
     print("executed")
     

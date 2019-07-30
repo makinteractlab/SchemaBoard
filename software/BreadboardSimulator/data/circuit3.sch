@@ -104,12 +104,12 @@ $EndComp
 $Comp
 L SchemaBoard_Library:Diode D1
 U 1 1 5D3E50B4
-P 2550 5650
-F 0 "D1" H 2550 5866 50  0000 C CNN
-F 1 "Diode" H 2550 5775 50  0000 C CNN
-F 2 "" H 2550 5650 50  0001 C CNN
-F 3 "~" H 2550 5650 50  0001 C CNN
-	1    2550 5650
+P 2400 5650
+F 0 "D1" H 2400 5866 50  0000 C CNN
+F 1 "Diode" H 2400 5775 50  0000 C CNN
+F 2 "" H 2400 5650 50  0001 C CNN
+F 3 "~" H 2400 5650 50  0001 C CNN
+	1    2400 5650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -159,23 +159,23 @@ $EndComp
 $Comp
 L SchemaBoard_Library:GND GND
 U 1 1 5D3D0965
-P 950 6850
-F 0 "GND" H 950 6600 50  0001 C CNN
-F 1 "GND" H 955 6677 50  0000 C CNN
-F 2 "" H 950 6850 50  0001 C CNN
-F 3 "" H 950 6850 50  0001 C CNN
-	1    950  6850
+P 1550 4000
+F 0 "GND" H 1550 3750 50  0001 C CNN
+F 1 "GND" H 1555 3827 50  0000 C CNN
+F 2 "" H 1550 4000 50  0001 C CNN
+F 3 "" H 1550 4000 50  0001 C CNN
+	1    1550 4000
 	1    0    0    -1  
 $EndComp
 $Comp
 L SchemaBoard_Library:LED LED1
 U 1 1 5D3E5DAB
-P 1600 5650
-F 0 "LED1" H 1593 5866 50  0000 C CNN
-F 1 "LED" H 1593 5775 50  0000 C CNN
-F 2 "" H 1600 5650 50  0001 C CNN
-F 3 "~" H 1600 5650 50  0001 C CNN
-	1    1600 5650
+P 1350 6350
+F 0 "LED1" H 1343 6566 50  0000 C CNN
+F 1 "LED" H 1343 6475 50  0000 C CNN
+F 2 "" H 1350 6350 50  0001 C CNN
+F 3 "~" H 1350 6350 50  0001 C CNN
+	1    1350 6350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -190,13 +190,7 @@ F 3 "~" V 5450 6210 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	3050 1700 3050 3150
-Wire Wire Line
-	3050 3150 2500 3150
-Wire Wire Line
 	2100 2050 4150 2050
-Wire Wire Line
-	1800 2050 900  2050
 Wire Wire Line
 	900  2050 900  3300
 Wire Wire Line
@@ -236,10 +230,6 @@ Wire Wire Line
 Wire Wire Line
 	4200 5650 3950 5650
 Wire Wire Line
-	2700 5650 3150 5650
-Wire Wire Line
-	1750 5650 2400 5650
-Wire Wire Line
 	5650 6150 7350 6150
 Connection ~ 7350 6150
 Wire Wire Line
@@ -252,13 +242,8 @@ Wire Wire Line
 	4300 6850 3150 6850
 Wire Wire Line
 	3150 6850 3150 5650
-Connection ~ 3150 5650
 Wire Wire Line
 	3150 5650 3550 5650
-Wire Wire Line
-	1450 5650 950  5650
-Wire Wire Line
-	950  5650 950  6850
 Wire Wire Line
 	7100 3900 7850 3900
 Wire Wire Line
@@ -270,7 +255,30 @@ Wire Wire Line
 Wire Wire Line
 	4450 2050 5650 2050
 Wire Wire Line
-	2500 3300 2500 3150
+	1200 6350 900  6350
+Connection ~ 3150 5650
 Wire Wire Line
-	900  3300 2500 3300
+	2550 5650 3150 5650
+Wire Wire Line
+	2250 5650 1850 5650
+Wire Wire Line
+	1850 5650 1850 6350
+Wire Wire Line
+	1850 6350 1500 6350
+Wire Wire Line
+	900  6350 900  6850
+Wire Wire Line
+	900  6850 3150 6850
+Connection ~ 3150 6850
+Wire Wire Line
+	3050 3300 900  3300
+Wire Wire Line
+	3050 1700 3050 3300
+Wire Wire Line
+	1550 4000 1550 2050
+Wire Wire Line
+	900  2050 1550 2050
+Connection ~ 1550 2050
+Wire Wire Line
+	1550 2050 1800 2050
 $EndSCHEMATC
