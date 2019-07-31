@@ -43,7 +43,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     // private UnityAction awgCloseAction;
     // private UnityAction adcRefreshAction;
     // private float componentValue;
-//    private ConstraintsHandler constraintsHandle;
+    // private ConstraintsHandler constraintsHandle;
 	private Communication comm;
     private DrawVirtualWire wire;
     private ToggleIcon icon;

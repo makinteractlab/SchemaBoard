@@ -22,11 +22,14 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
     // public Sprite editOffSprite;
     public UnityAction<string> updateGlowIconAction;
     public IconToggleEvent updateGlowIconEvent;
+    public UnityAction<string> resetAllStateAction;
+    public ResetAllStateEvent resetAllStateEvent;
+
     private DeleteConfirmPanel deleteConfirmPanel;
     private EditTogglePanel editTogglePanel;
     private UnityAction resetAllYesAction;
     private UnityAction resetAllCancelAction;
-    private UnityAction resetAllStateAction;
+    // private UnityAction resetAllStateAction;
 	private Communication comm;
     private ToggleIcon icon;
     private DrawVirtualWire wire;
@@ -57,8 +60,12 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         this.GetComponent<Button>().onClick.AddListener(componentClick);
         clicked = false;
         updateGlowIconAction = new UnityAction<string>(updateGlowIcons);
-        updateGlowIconEvent= new IconToggleEvent();
+        updateGlowIconEvent = new IconToggleEvent();
 	    updateGlowIconEvent.AddListener(updateGlowIconAction);
+
+        resetAllStateAction = new UnityAction<string>(resetAllState);
+        resetAllStateEvent = new ResetAllStateEvent();
+        resetAllStateEvent.AddListener(resetAllStateAction);
 	}
 
     void Awake () {
@@ -81,6 +88,11 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         clicked = _state;
     }
 
+    public void resetAllState(string _state) {
+        initClickStatus();
+        initComponentGlow();
+    }
+
     public void updateGlowIcons(string _state) {
         if(clicked) {
             if(_state == "fritzing") {
@@ -101,6 +113,13 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
 		callback();
 	}
     
+    public void initComponentGlow() {
+        if(icon.IsFritzingIcon())
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
+            else
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+    }
+
     private bool GlowToggle() {
         // bool result = clicked;
         if(clicked) {
@@ -222,41 +241,6 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         icon = GameObject.Find("ToggleIcon").GetComponent<ToggleIcon>();
     }
 
-    public void editToggleWindow() {
-        editTogglePanel.Choice(resetAllStateAction);
-        editTogglePanel.setPosition(new Vector3(transform.position.x+150, transform.position.y+100, transform.position.z+10));
-    }
-
-    public void deleteOptionWindow() {
-        //string title = "Reset " + transform.parent.name + " ?";
-        deleteConfirmPanel.Choice (resetAllYesAction, resetAllCancelAction);
-        deleteConfirmPanel.setTitle("Reset " + transform.parent.name + " ?");
-        deleteConfirmPanel.setPosition(new Vector3(transform.position.x+200, transform.position.y+100, transform.position.z+10));
-    }
-
-    // void resetAllYesFunction () {
-    //     wire.removeWireWithComponent(transform.parent.name);
-    //     ExitDeleteMode(DefaultPinSprite, true);
-    //     //Debug.Log("after exit deletemode in resetAllYesFunction()");
-
-    //     //{"set":"X2", "on": 1, "value": [{"M":0, "B":1}, {"M":1, "B":2}]}
-
-    //     comm.resetData();
-    //     // Todo: arduino에게 변경된 Json 보내기 (connection, value가 reset 됨)
-    //     // Notify value info ComponentDataHandler -> notify BoardDataHandler
-    //     //                                        -> notify JsonHandler
-
-    //     wire.resetBoardPinObj();
-    //     wire.resetComponentPinObj();
-    // }
-
-    // void resetAllCancelFunction () {
-    //     ExitDeleteMode(ConnectedPinSprite, false);
-    //     comm.resetData();
-    //     wire.resetBoardPinObj();
-    //     wire.resetComponentPinObj();
-    // }
-
     private string getTargetComponentPinName(string targetComponentPinName)
     {
         //string targetComponentPinName = comm.getTargetPin();
@@ -308,74 +292,4 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         //Debug.Log("[Pin.cs] 99 " + "getChildObject = " + resultObj.transform.parent.name);
         return resultObj;
     }
-
-    // public void HandleDeleteMode() {
-    //     if(editOn) {
-    //         EnterDeleteMode();
-    //         editOn = false;
-    //     } else {
-    //         ExitDeleteMode(ConnectedPinSprite, false);
-    //         editOn = true;
-    //     }
-    // }
-
-    // public void EnterDeleteMode()
-    // {
-    //     if(editTogglePanel.modalPanelObject.activeSelf) {
-    //         GameObject.Find("EditToggleButton").GetComponent<Button>().image.sprite = editOnSprite;
-    //     }
-
-    //     //Debug.Log("[Component.cs]" + "Enter Delete Mode");
-    //     //comm.setSourcePin(transform.parent.name); ==>?????
-    //     comm.setComponentPin(transform.parent.name);
-	// 	comm.setDeleteWireState(true, transform.parent.name);
-    //     deleteState = true;
-		
-	// 	getChildObject(transform.parent.name, name).GetComponent<Button>().image.sprite = DeleteModeComponentSprite;
-
-    //     GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
-    //     foreach(GameObject wireObj in temp)
-    //     {
-    //         if( wireObj.name.Contains(transform.parent.name) )
-    //         {
-	// 			int start = wireObj.name.IndexOf(":") + 1;
-	// 			int end = wireObj.name.IndexOf(",");
-	// 			string sourcePinName = wireObj.name.Substring(start, end - start);
-	// 			//Debug.Log("Component.cs - 500000 " + sourcePinName);
-	// 			GameObject.Find(sourcePinName).GetComponent<Button>().image.sprite = DeleteModePinSprite;
-	// 			// int seperator = wireObj.name.IndexOf(",");
-	// 			// string targetComponentPinName = wireObj.name.Substring(seperator+1, wireObj.name.Length-seperator-1);
-	// 			// getTargetComponentPinObject(targetComponentPinName).GetComponent<Button>().image.sprite = DeleteModePinSprite;
-    //         }
-    //     }
-    // }
-
-    // public void ExitDeleteMode(Sprite sprite, bool delete)
-    // {
-    //     if(editTogglePanel.modalPanelObject.activeSelf) {
-    //         GameObject.Find("EditToggleButton").GetComponent<Button>().image.sprite = editOffSprite;
-    //     }
-
-    //     //Debug.Log("[Component.cs]" + "Exit Delete Mode");
-    //     comm.setDeleteWireState(false, transform.parent.name);
-    //     deleteState = false;
-	// 	getChildObject(transform.parent.name, name).GetComponent<Button>().image.sprite = DefaultComponentSprite;
-
-    //     GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
-    //     foreach(GameObject wireObj in temp)
-    //     {
-    //         if( wireObj.name.Contains(transform.parent.name) )
-    //         {
-	// 			int start = wireObj.name.IndexOf(":") + 1;
-	// 			int end = wireObj.name.IndexOf(",");
-	// 			string sourcePinName = wireObj.name.Substring(start, end - start);
-	// 			//Debug.Log("Component.cs - 500000 " + sourcePinName);
-	// 			GameObject.Find(sourcePinName).GetComponent<Button>().image.sprite = sprite;
-    //             // string pinName = wireObj.name.Substring(4, wireObj.name.Length-4-name.Length);
-    //             // Debug.Log(pinName);
-    //             // Button btTempPin = GameObject.Find(pinName).GetComponent<Button>();
-    //             // btTempPin.image.sprite = sprite;
-    //         }
-    //     }
-    // }
 }

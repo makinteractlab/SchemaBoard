@@ -8,6 +8,8 @@ using System;
 
 public class SchComponentPins : MonoBehaviour
 {
+    public UnityAction<string> resetAllStateAction;
+    public ResetAllStateEvent resetAllStateEvent;
     public Sprite SelectedPinSprite;
     public Sprite DefaultPinSprite;
     private Communication comm;
@@ -25,6 +27,22 @@ public class SchComponentPins : MonoBehaviour
         cmd = new Command();
         clicked = false;
         // cmd.setUrls();
+        resetAllStateAction = new UnityAction<string>(resetAllState);
+        resetAllStateEvent = new ResetAllStateEvent();
+        resetAllStateEvent.AddListener(resetAllStateAction);
+    }
+
+    public void resetAllState(string _mode) {
+        initClickStatus();
+        initGlow();
+    }
+
+    void initClickStatus() {
+        clicked = false;
+    }
+
+    void initGlow() {
+        this.GetComponent<Image>().sprite = comm.DefaultPinSprite;
     }
 
     public void setCommunicationObject()

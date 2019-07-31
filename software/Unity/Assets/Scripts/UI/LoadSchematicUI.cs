@@ -242,6 +242,6 @@ public class LoadSchematicUI : MonoBehaviour {
 		// 	}
 		// }
 
-		//modeToggleMenu.setAutoMode();
+		// modeToggleMenu.setAutoMode();
 	}
 }

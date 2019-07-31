@@ -14,11 +14,14 @@ public class ToggleAutoManual : MonoBehaviour {
 	public Communication comm;
 	public TutorialCard card;
 	public NetData netData;
+	public HttpRequest http;
+	Command cmd;
 
-	bool status;
+	bool autoMode;
 	bool manualMode;
+	string mode;
 
-	private string command = "";
+	//private string command = "";
 
     void Awake() {
         if (ToggleAutoManual.instance == null)
@@ -26,18 +29,23 @@ public class ToggleAutoManual : MonoBehaviour {
     }
     // Use this for initialization
     void Start() {
-		status = false;
+		autoMode = false;
 		this.GetComponent<Button>().onClick.AddListener(ModeChange);
 		showManualMenu(false);
 		comm.setAutoState();
+		cmd = new Command();
     }
 
 	public bool IsManualMode() {
 		return manualMode;
 	}
 
+	public bool IsAutoMode() {
+		return autoMode;
+	}
+
 	public void setAutoMode() {
-		status = false;
+		autoMode = false;
 		ModeChange();
 	}
 
@@ -90,7 +98,7 @@ public class ToggleAutoManual : MonoBehaviour {
 
 	void ModeChange() {
 		//gameObject.SetActive(true);
-		if(status) {
+		if(autoMode) { // toggle autoMod --> manualMode
 			gameObject.GetComponent<Button>().image.sprite = manualSprite;
 			manualMode = true;
 			showSchematicMenu(false);
@@ -100,7 +108,8 @@ public class ToggleAutoManual : MonoBehaviour {
 			// card.loadCircuitInfo(1);
 			showAutoPrefabs(false);
 			showManualPrefabs(true);
-			status = false;
+			autoMode = false;
+			mode = "manual";
 		} else {
 			// if some pins disconnected in manual mode, restore previous pins for that
 			netData.recoverEmptyPosForPins();
@@ -113,9 +122,48 @@ public class ToggleAutoManual : MonoBehaviour {
 			comm.setAutoState();
 			showAutoPrefabs(true);
 			showManualPrefabs(true);
-			status = true;
+			autoMode = true;
+			mode = "auto";
 		}
+
+		// reset all states for components
+		GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+		foreach(var item in prefabButtons) {
+			SchComponentButton button = item.GetComponent<SchComponentButton>();
+			button.resetAllStateEvent.Invoke(mode); // auto/manual
+		}
+
+		// reset all states for pins
+		initPinState();
+		http.postJson(comm.getUrl()+"/set", cmd.resetAll());
 	}
+
+	private void initPinState() {
+        GameObject[] sch_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_schematic");
+        GameObject[] fritz_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
+        GameObject[] pin_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_pin");
+        
+        foreach(var item in sch_prefabs) {
+            if(item.name.Contains("connector")) {
+				SchComponentPins pin = item.GetComponent<SchComponentPins>();
+				pin.resetAllStateEvent.Invoke(mode); // auto/manual
+			}
+        }
+
+        foreach(var item in fritz_prefabs) {
+            if(item.name.Contains("connector")) {
+				SchComponentPins pin = item.GetComponent<SchComponentPins>();
+				pin.resetAllStateEvent.Invoke(mode); // auto/manual
+			}
+        }
+
+        foreach(var item in pin_prefabs) {
+            if(item.name.Contains("connector")) {
+				SchComponentPins pin = item.GetComponent<SchComponentPins>();
+				pin.resetAllStateEvent.Invoke(mode); // auto/manual
+			}
+        }
+    }
 
 	private void showManualMenu(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual");
