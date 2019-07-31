@@ -43,7 +43,10 @@ public class SelectAllButton : MonoBehaviour {
 
 		GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
         foreach(var item in prefabButtons) {
-            item.GetComponent<SchComponentButton>().setButtonClicked(true);
+			if(item.name.Contains("sch_"))
+            	item.GetComponent<SchComponentButton>().setButtonClicked(true);
+			else
+				item.GetComponent<ComponentButton>().setButtonClicked(true);
         }
 	}
 

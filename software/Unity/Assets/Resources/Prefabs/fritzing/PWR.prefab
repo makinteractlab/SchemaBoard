@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114574612953582734}
   m_Layer: 5
   m_Name: Component
-  m_TagString: Untagged
+  m_TagString: circuit_prefab_button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 114713128095714504}
   m_Layer: 0
   m_Name: connector0
-  m_TagString: Untagged
+  m_TagString: manual_prefab_common_pin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -573,6 +573,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3896c1cf7009d344f96ddb1ab2575e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedPinSprite: {fileID: 0}
+  DefaultPinSprite: {fileID: 0}
 --- !u!114 &114908896173793266
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,22 +8,47 @@ using System;
 
 public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler//, IPointerClickHandler, IPointerUpHandler//, IBeginDragHandler, IDragHandler, IEndDragHandler, 
 {
-    public Communication comm;
+    public UnityAction<string> resetAllStateAction;
+    public ResetAllStateEvent resetAllStateEvent;
+    public Sprite SelectedPinSprite;
+    public Sprite DefaultPinSprite;
+    private Communication comm;
     public DrawVirtualWire wire;
-    public NetData netdata;
+    private NetData netdata;
     private bool alreadyWired = false;
     private Command cmd;
     private HttpRequest http;
+    private bool clicked;
 
     public void Start() {
         setWireObject();
-		setCommunicationObject();
         setHttpRequestObject();
         setNetDataObject();
+        setCommunicationObject();
 
         this.GetComponent<Button>().onClick.AddListener(componentPinClick);
         cmd = new Command();
+        clicked = false;
         // cmd.setUrls();
+        resetAllStateAction = new UnityAction<string>(resetAllState);
+        resetAllStateEvent = new ResetAllStateEvent();
+        resetAllStateEvent.AddListener(resetAllStateAction);
+
+        SelectedPinSprite = comm.SelectedPinSprite;
+        DefaultPinSprite = comm.DefaultPinSprite;
+    }
+
+    public void resetAllState(string _mode) {
+        initClickStatus();
+        initGlow();
+    }
+
+    void initClickStatus() {
+        clicked = false;
+    }
+
+    void initGlow() {
+        this.GetComponent<Image>().sprite = comm.DefaultPinSprite;
     }
 
     public void setHttpRequestObject() {
@@ -41,21 +66,85 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 		foreach(GameObject glow in fritzing) {
 			glow.transform.localScale = new Vector3(0,0,0);
 		}
+
+        //component click state should be updated
+        GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+        foreach(var item in prefabButtons) {
+            if(item.name.Contains("Component")) {
+                if(item.GetComponent<ComponentButton>().isButtonClicked()) {
+                    item.GetComponent<ComponentButton>().initClickStatus();
+                }
+            }
+        }
 	}
 
+    private void initPinGlow() {
+        GameObject[] sch_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_schematic_pin");
+        GameObject[] fritz_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_fritzing_pin");
+        GameObject[] common_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_common_pin");
+        
+        foreach(var item in sch_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Image>().sprite = comm.DefaultPinSprite;
+        }
+
+        foreach(var item in fritz_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Image>().sprite = comm.DefaultPinSprite;
+        }
+
+        foreach(var item in common_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Image>().sprite = comm.DefaultPinSprite;
+        }
+    }
+    
     void componentPinClick() {
         //int boardPinLineNumber = int.Parse(netdata.getComponentPinNet(this.transform.parent.name, this.name));
+        List<GameObject> resultPinsInNet = new List<GameObject>();
+        clicked = true;
         initGlowIcon();
         int[] boardPins = new int[2];
 
-        boardPins = netdata.getAllNetForPin(this.transform.parent.name, this.name);
-        http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // boardPins = netdata.getAllNetForPin(this.transform.parent.name, this.name);
+        // http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         // ArrayList urls = new ArrayList(cmd.getUrls());
         // foreach(var url in urls) {
         //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         // }
         //http.postJson(comm.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
         //Debug.Log("============================= componentPinClick: " + this.name);
+		
+        string pinName = this.name;
+        string componentName = this.transform.parent.name;
+        // 일단 모든 핀들을 default pin sprite로 돌려놓은 다음
+        // 이 핀과 넷에 들어있는 나머지 핀들 색을 selected pin sprite로 바꾼다.
+        initPinGlow();
+
+        this.GetComponent<Image>().sprite = SelectedPinSprite;
+
+        if(this.name.Contains("fconnector")) {
+            pinName = pinName.Substring(1,pinName.Length-1);
+        }
+        componentName = componentName.Substring(4, componentName.Length-4);
+        
+        boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
+        foreach(var pin in resultPinsInNet) {
+            pin.GetComponent<Image>().sprite = SelectedPinSprite;
+        }
+
+        if(boardPins[0] > 0 || boardPins[1] > 0) {
+            http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        } else {
+            Debug.Log("This Component is not included in the net.");
+        }
+        // ArrayList urls = new ArrayList(cmd.getUrls());
+        // foreach(var url in urls) {
+        //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+        // }
+        //http.postJson(comm.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
+        comm.setCompPinClicked(true);
+        Debug.Log("============================= componentPinClick: " + this.name);
     }
     
     public void setNetDataObject()

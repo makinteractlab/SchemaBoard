@@ -20,6 +20,7 @@ public class ToggleAutoManual : MonoBehaviour {
 	bool autoMode;
 	bool manualMode;
 	string mode;
+	bool init;
 
 	//private string command = "";
 
@@ -29,11 +30,12 @@ public class ToggleAutoManual : MonoBehaviour {
     }
     // Use this for initialization
     void Start() {
-		autoMode = false;
+		autoMode = true;
 		this.GetComponent<Button>().onClick.AddListener(ModeChange);
 		showManualMenu(false);
 		comm.setAutoState();
 		cmd = new Command();
+		init = true;
     }
 
 	public bool IsManualMode() {
@@ -99,6 +101,15 @@ public class ToggleAutoManual : MonoBehaviour {
 	void ModeChange() {
 		//gameObject.SetActive(true);
 		if(autoMode) { // toggle autoMod --> manualMode
+			GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+			foreach(var item in prefabButtons) {
+				if(item.name.Contains("sch_")) {
+					SchComponentButton autobutton = item.GetComponent<SchComponentButton>();
+					autobutton.resetAllStateEvent.Invoke(mode); // auto>manual
+				}
+			}
+			// initAutoPinState();
+
 			gameObject.GetComponent<Button>().image.sprite = manualSprite;
 			manualMode = true;
 			showSchematicMenu(false);
@@ -111,10 +122,25 @@ public class ToggleAutoManual : MonoBehaviour {
 			autoMode = false;
 			mode = "manual";
 		} else {
+			if(!init) {
+				GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+				foreach(var item in prefabButtons) {
+					if(item.name.Contains("Component")) {
+						ComponentButton manualbutton = item.GetComponent<ComponentButton>();
+						manualbutton.resetComponentStateEvent.Invoke(mode); // manual>auto
+					}
+				}
+			} else {
+				init = false;
+			}
+
+			// initManualPinState();
 			// if some pins disconnected in manual mode, restore previous pins for that
 			netData.recoverEmptyPosForPins();
 			gameObject.GetComponent<Button>().image.sprite = autoSprite;
 			manualMode = false;
+			autoMode = true;
+			mode = "auto";
 			//showNetWire(false);
 			showSchematicMenu(true);
 			showManualMenu(false);
@@ -122,23 +148,33 @@ public class ToggleAutoManual : MonoBehaviour {
 			comm.setAutoState();
 			showAutoPrefabs(true);
 			showManualPrefabs(true);
-			autoMode = true;
-			mode = "auto";
 		}
 
-		// reset all states for components
-		GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
-		foreach(var item in prefabButtons) {
-			SchComponentButton button = item.GetComponent<SchComponentButton>();
-			button.resetAllStateEvent.Invoke(mode); // auto/manual
-		}
-
-		// reset all states for pins
-		initPinState();
 		http.postJson(comm.getUrl()+"/set", cmd.resetAll());
 	}
 
-	private void initPinState() {
+	private void initManualPinState() {
+        GameObject[] sch_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_schematic_pin");
+        GameObject[] fritz_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_fritzing_pin");
+        GameObject[] common_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_common_pin");
+        
+        foreach(var item in sch_prefabs) {
+            ComponentPins manualpin = item.GetComponent<ComponentPins>();
+			manualpin.resetAllStateEvent.Invoke(mode); // manual>auto
+        }
+
+        foreach(var item in fritz_prefabs) {
+			ComponentPins manualpin = item.GetComponent<ComponentPins>();
+			manualpin.resetAllStateEvent.Invoke(mode); // manual>auto
+        }
+
+        foreach(var item in common_prefabs) {
+            ComponentPins manualpin = item.GetComponent<ComponentPins>();
+			manualpin.resetAllStateEvent.Invoke(mode); // manual>auto
+        }
+    }
+
+	private void initAutoPinState() {
         GameObject[] sch_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_schematic");
         GameObject[] fritz_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
         GameObject[] pin_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_pin");
@@ -146,21 +182,21 @@ public class ToggleAutoManual : MonoBehaviour {
         foreach(var item in sch_prefabs) {
             if(item.name.Contains("connector")) {
 				SchComponentPins pin = item.GetComponent<SchComponentPins>();
-				pin.resetAllStateEvent.Invoke(mode); // auto/manual
+				pin.resetAllStateEvent.Invoke(mode); // auto>manual
 			}
         }
 
         foreach(var item in fritz_prefabs) {
             if(item.name.Contains("connector")) {
 				SchComponentPins pin = item.GetComponent<SchComponentPins>();
-				pin.resetAllStateEvent.Invoke(mode); // auto/manual
+				pin.resetAllStateEvent.Invoke(mode); // auto>manual
 			}
         }
 
         foreach(var item in pin_prefabs) {
             if(item.name.Contains("connector")) {
 				SchComponentPins pin = item.GetComponent<SchComponentPins>();
-				pin.resetAllStateEvent.Invoke(mode); // auto/manual
+				pin.resetAllStateEvent.Invoke(mode); // auto>manual
 			}
         }
     }

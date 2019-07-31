@@ -140,7 +140,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         return clicked;
     }
 
-    private void initPinGlow() {
+    private void initAutoPinGlow() {
         GameObject[] sch_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_schematic");
         GameObject[] fritz_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
         GameObject[] pin_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_pin");
@@ -160,6 +160,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
                 item.GetComponent<Image>().sprite = comm.DefaultPinSprite;
         }
     }
+    
     public void componentClick() {
         //int[] boardPins = new int[2];
         List<string> pins = new List<string>();
@@ -168,7 +169,7 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
         pins = netdata.getComponentPosition(componentName);
 
         if(GlowToggle()) {
-            initPinGlow();
+            initAutoPinGlow();
             if(comm.IsSchCompPinClicked()) {//if component pin clicked, then reset all 
                 int[] boardPins = new int[2];
                 boardPins = netdata.getMultiplePinsPosition(pins);

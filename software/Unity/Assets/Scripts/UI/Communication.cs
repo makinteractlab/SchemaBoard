@@ -18,6 +18,7 @@ public class Communication : MonoBehaviour
     private bool autoState;
     private bool manualState;
     private bool pinClicked;
+    private bool manualPinClicked;
 
     private string component;
 
@@ -34,6 +35,7 @@ public class Communication : MonoBehaviour
         popupState = false;
         editWireState = false;
         pinClicked = false;
+        manualPinClicked = false;
         url = "";
     }
 
@@ -86,9 +88,18 @@ public class Communication : MonoBehaviour
         manualState = true;
     }
 
+    public void setCompPinClicked(bool _state) {
+        manualPinClicked = _state;
+    }
+    
+    public bool IsCompPinClicked() {
+        return manualPinClicked;
+    }
+
     public void setSchCompPinClicked(bool _state) {
         pinClicked = _state;
     }
+
     public bool IsSchCompPinClicked() {
         return pinClicked;
     }

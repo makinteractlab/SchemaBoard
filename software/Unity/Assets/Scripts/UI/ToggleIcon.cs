@@ -84,8 +84,17 @@ public class ToggleIcon : MonoBehaviour {
 		// }
 		GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
 		foreach(var item in prefabButtons) {
-			SchComponentButton button = item.GetComponent<SchComponentButton>();
-			button.updateGlowIconEvent.Invoke(mode);
+			if(toggleMode.IsAutoMode()) {
+				if(item.name.Contains("sch_")) {
+					SchComponentButton button = item.GetComponent<SchComponentButton>();
+					button.updateGlowIconEvent.Invoke(mode);
+				}
+			} else {
+				if(item.name.Contains("Component")) {
+					ComponentButton manaulbutton = item.GetComponent<ComponentButton>();
+					manaulbutton.updateGlowIconEvent.Invoke(mode);
+				}
+			}
 		}
 	}
 

@@ -61,6 +61,50 @@ public class RefreshButton : MonoBehaviour {
 		VuforiaRenderer.Instance.Pause(false);
 	}
 	
+	private void initManualPinGlow() {
+        GameObject[] sch_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_schematic_pin");
+        GameObject[] fritz_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_fritzing_pin");
+        GameObject[] common_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_common_pin");
+        
+        foreach(var item in sch_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Button>().image.sprite = comm.DefaultPinSprite;
+        }
+
+        foreach(var item in fritz_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Button>().image.sprite = comm.DefaultPinSprite;
+        }
+
+        foreach(var item in common_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Button>().image.sprite = comm.DefaultPinSprite;
+        }
+    }
+
+	void initAutoPinGlow() {
+        GameObject[] sch_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_schematic");
+        GameObject[] fritz_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
+        GameObject[] pin_prefabs = GameObject.FindGameObjectsWithTag("circuit_prefab_pin");
+        
+        foreach(var item in sch_prefabs) {
+            if(item.name.Contains("connector"))
+                item.GetComponent<Button>().image.sprite = comm.DefaultPinSprite;
+        }
+
+        foreach(var item in fritz_prefabs) {
+            if(item.name.Contains("connector"))
+                item.GetComponent<Button>().image.sprite = comm.DefaultPinSprite;
+        }
+
+        foreach(var item in pin_prefabs) {
+            if(item.name.Contains("connector"))
+                item.GetComponent<Button>().image.sprite = comm.DefaultPinSprite;
+        }
+		comm.setCompPinClicked(false);
+		comm.setSchCompPinClicked(false);
+    }
+
 	void initGlowIcon() {
 		GameObject[] schematic = GameObject.FindGameObjectsWithTag("schematic_glow");
 		GameObject[] fritzing = GameObject.FindGameObjectsWithTag("fritzing_glow");
@@ -75,9 +119,15 @@ public class RefreshButton : MonoBehaviour {
 
 		GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
         foreach(var item in prefabButtons) {
-            if(item.GetComponent<SchComponentButton>().isButtonClicked()) {
-                item.GetComponent<SchComponentButton>().initClickStatus();
-            }
+			if(item.name.Contains("sch_")) {
+				if(item.GetComponent<SchComponentButton>().isButtonClicked()) {
+					item.GetComponent<SchComponentButton>().initClickStatus();
+				}
+			} else {
+				if(item.GetComponent<ComponentButton>().isButtonClicked()) {
+					item.GetComponent<ComponentButton>().initClickStatus();
+				}
+			}
         }
 	}
 
@@ -95,6 +145,9 @@ public class RefreshButton : MonoBehaviour {
 			// VuforiaRenderer.Instance.Pause(false);
 			netData.setInitialNetData();	// set init connection data
 			ResetAllConnection();
+			initManualPinGlow();
+		} else {
+			initAutoPinGlow();
 		}
 
 		http.postJson(comm.getUrl()+"/set", cmd.resetAll());

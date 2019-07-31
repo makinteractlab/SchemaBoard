@@ -20,10 +20,10 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     public Sprite offButtonSprite;
     public Sprite editOnSprite;
     public Sprite editOffSprite;
-    // public Sprite refreshingVoltmeter;
-    //private ModalPanel modalPanel;
-    // private UnityAction resistorSaveAction;
-    // private UnityAction resistorCancelAction;
+    public UnityAction<string> updateGlowIconAction;
+    public IconToggleEvent updateGlowIconEvent;
+    public UnityAction<string> resetComponentStateAction;
+    public ResetAllStateEvent resetComponentStateEvent;
     private DeleteConfirmPanel deleteConfirmPanel;
 //    private SelectSingleValuePanel settingAwgPanel;
 //    private SelectValuePanel selectCapacitorValuePanel;
@@ -102,13 +102,21 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         //awgData.Add("selectedToggle", 0);
         //awgOn = true;
         editOn = true;
-        clicked = true;
         // closeActivePopup();
         // BUG!
         //GameObject.Find("EditToggleButton").GetComponent<Button>().onClick.AddListener(HandleDeleteMode);
         cmd = new Command();
         //cmd.setUrls();
         this.GetComponent<Button>().onClick.AddListener(componentClick);
+        clicked = false;
+        updateGlowIconAction = new UnityAction<string>(updateGlowIcons);
+        updateGlowIconEvent = new IconToggleEvent();
+	    updateGlowIconEvent.AddListener(updateGlowIconAction);
+
+        resetComponentStateAction = new UnityAction<string>(resetAllState);
+        resetComponentStateEvent = new ResetAllStateEvent();
+        resetComponentStateEvent.AddListener(resetComponentStateAction);
+        
 	}
 
     void Awake () {
@@ -121,9 +129,34 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         resetAllStateAction = new UnityAction (HandleDeleteMode);
     }
 
-    // public void setWifiObject() {
-    //     wifi = GameObject.Find("WifiConnection").GetComponent<WifiConnection>();
-    // }
+    public void initClickStatus() {
+        clicked = false;
+    }
+
+    public bool isButtonClicked() {
+        return clicked;
+    }
+
+    public void setButtonClicked(bool _state) {
+        clicked = _state;
+    }
+
+    public void resetAllState(string _state) {
+        initClickStatus();
+        initComponentGlow();
+    }
+
+    public void updateGlowIcons(string _state) {
+        if(clicked) {
+            if(_state == "fritzing") {
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            } else {
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
+            }
+        }
+    }
 
     public void Wait(float seconds, Action action){
 		StartCoroutine(_wait(seconds, action));
@@ -136,25 +169,32 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     public void setToggleIconObject() {
         icon = GameObject.Find("ToggleIcon").GetComponent<ToggleIcon>();
     }
+	
+	public void initComponentGlow() {
+        if(icon.IsFritzingIcon())
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
+            else
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+    }
 
     private bool GlowToggle() {
-        bool result = clicked;
+        // bool result = clicked;
         if(clicked) {
             // on glow image
-            if(icon.IsFritzingIcon())
-                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
-            else
-                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
-            clicked = false;
-        } else {
             if(icon.IsFritzingIcon())
                 Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
             else
                 Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            clicked = false;
+        } else {
+            if(icon.IsFritzingIcon())
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
+            else
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
             clicked = true;
         }
 
-        return result;
+        return clicked;
     }
 
     /*
@@ -179,6 +219,27 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     }
     */
 
+    private void initPinGlow() {
+        GameObject[] sch_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_schematic_pin");
+        GameObject[] fritz_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_fritzing_pin");
+        GameObject[] common_prefabs = GameObject.FindGameObjectsWithTag("manual_prefab_common_pin");
+        
+        foreach(var item in sch_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Image>().sprite = comm.DefaultPinSprite;
+        }
+
+        foreach(var item in fritz_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Image>().sprite = comm.DefaultPinSprite;
+        }
+
+        foreach(var item in common_prefabs) {
+            // if(item.name.Contains("connector"))
+                item.GetComponent<Image>().sprite = comm.DefaultPinSprite;
+        }
+    }
+	
     void componentClick() {
         //int[] boardPins = new int[2];
         List<string> pins = new List<string>();
@@ -187,11 +248,19 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         pins = netdata.getComponentPosition(componentName);
 
         if(GlowToggle()) {
-            foreach(var pin in pins) {
-                http.postJson(comm.getUrl()+"/set", cmd.singlePinOn(Int16.Parse(pin)));
-                Wait (0.5f, () => {
-                    Debug.Log("0.5 seconds is lost forever");
-                });
+            initPinGlow();
+            if(comm.IsCompPinClicked()) {//if component pin clicked, then reset all 
+                int[] boardPins = new int[2];
+                boardPins = netdata.getMultiplePinsPosition(pins);
+                http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+                comm.setCompPinClicked(false);
+            } else {
+	            foreach(var pin in pins) {
+	                http.postJson(comm.getUrl()+"/set", cmd.singlePinOn(Int16.Parse(pin)));
+	                Wait (0.5f, () => {
+	                    Debug.Log("0.5 seconds is lost forever");
+	                });
+                }
             }
             
             // boardPins = netdata.getComponentPinsNet(componentName); /
@@ -208,7 +277,15 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
             // foreach(var url in urls) {
             //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
             // }
-            http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(componentName)) ) );
+            string firstPinPos = netdata.getComponentFirstPinRowPosition(componentName);
+            if (firstPinPos != "") {
+                string url = comm.getUrl()+"/set";
+                http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink( Int32.Parse(firstPinPos) ) );
+            }
+            else {
+                Debug.Log("This Component is not included in the net.");
+            }
+            
         } else {
             foreach(var pin in pins) {
                 http.postJson(comm.getUrl()+"/set", cmd.singlePinOff(Int16.Parse(pin)));

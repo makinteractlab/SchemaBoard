@@ -419,6 +419,27 @@ def final_sorting(comp):
             comp[i][a-1]=temp
     return comp
 
+def flipping_components(comp,nets):
+    for i in range(len(comp)):
+        if len(comp[i])==5 and comp[i][0].startswith(("R","CP","C","BT","L")) and (not(comp[i][0].startswith("LED"))) :            
+            temp=comp[i][2]
+            comp[i][2]=comp[i][4]
+            comp[i][4]=temp
+
+            
+    for i in range(len(nets)):
+        for j in range(1,len(nets[i]),2):
+            print(nets[i][j])
+            if nets[i][j].startswith(("R","CP","C","BT","L")) and (not(nets[i][j].startswith("RELAY"))) and (not(nets[i][j].startswith("LED"))) :
+                print("true")
+                if nets[i][j+1]=="1":
+                    nets[i][j+1]="2"
+                   
+                else:
+                    nets[i][j+1]="1"
+
+
+    return comp,nets
 
 
 def solver(nets,file_type,fileName):
@@ -433,9 +454,15 @@ def solver(nets,file_type,fileName):
     row_assign,bb=no_of_rows(nets,comp,row_assign,no_rows_on_board,bb)
     comp=adding_column(comp,row_assign,no_rows_on_board,bb)
     addingwire(comp,row_assign,no_rows_on_board)
-    comp=final_sorting(comp)
+
     print(comp)
-    print(bb)
+    print(nets)
+    print()
+    comp,nets=flipping_components(comp,nets)
+    #comp=flipping_components(comp)
+    print(comp)
+    print(nets)
+    comp=final_sorting(comp)
     write_json(nets,comp,file_type,fileName)
     print("executed")
     

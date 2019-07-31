@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 114912380917674010}
   m_Layer: 5
   m_Name: connector0
-  m_TagString: Untagged
+  m_TagString: manual_prefab_common_pin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 114855120587924102}
   m_Layer: 5
   m_Name: connector1
-  m_TagString: Untagged
+  m_TagString: manual_prefab_common_pin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 114414251805905978}
   m_Layer: 5
   m_Name: Component
-  m_TagString: Untagged
+  m_TagString: circuit_prefab_button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,9 +618,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93923e28afbe01f4f87666bf01d203d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comm: {fileID: 0}
+  SelectedPinSprite: {fileID: 0}
+  DefaultPinSprite: {fileID: 0}
   wire: {fileID: 0}
-  netdata: {fileID: 0}
 --- !u!114 &114855120587924102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -699,9 +699,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93923e28afbe01f4f87666bf01d203d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comm: {fileID: 0}
+  SelectedPinSprite: {fileID: 0}
+  DefaultPinSprite: {fileID: 0}
   wire: {fileID: 0}
-  netdata: {fileID: 0}
 --- !u!114 &114889537384027934
 MonoBehaviour:
   m_ObjectHideFlags: 1
