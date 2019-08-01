@@ -6,8 +6,8 @@ const path = require('path');
 
 
 // Settings
-const SERIAL_PORT = 'COM11';
-// const SERIAL_PORT = '/dev/tty.usbmodem14201';
+// const SERIAL_PORT = 'COM11';
+const SERIAL_PORT = '/dev/ttyACM0';
 
 
 // No need to change this
@@ -38,15 +38,31 @@ app.post('/set', function(req, res) {
     res.send ("ok");
 })
 
+// app.post('/get', function(req, res) {
+//     if (req.body.cmd == "getFile")
+//     {
+//     	var fileName= path.join("data", req.body.name+".xml");
+//     	fs.readFile(fileName, 'utf8', function(err, contents) {
+// 		    res.send (contents);
+// 		});
+//     }  
+// })
+
+
 app.post('/get', function(req, res) {
     if (req.body.cmd == "getFile")
     {
-    	var fileName= path.join("data", req.body.name+".xml");
-    	fs.readFile(fileName, 'utf8', function(err, contents) {
-		    res.send (contents);
-		});
+        var fileName= path.join(__dirname, "data", req.body.name);
+        // console.log(fileName);
+        fs.readFile(fileName, 'utf8', function(err, contents) {
+            console.log(contents);
+            // res.send (contents+"\n");
+            res.sendFile(fileName);
+
+        });
     }  
 })
+
 
 var server = app.listen(8081, function() {
     var host = server.address().address
