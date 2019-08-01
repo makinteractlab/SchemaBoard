@@ -25,6 +25,7 @@ public class NetData : MonoBehaviour {
 	NetDataHandler netHandler;
 	public LoadNetUI netui;
 	public LoadSchematicUI schematicUI;
+	public ToggleAutoManual modeToggle;
 	Dictionary<string, _Component> debugNetData;
 	// Dictionary<string, _Component> buildNetData;
 	Dictionary<string, _Component> initNetData;
@@ -297,15 +298,27 @@ public class NetData : MonoBehaviour {
 		List<string> resultPins = new List<string>();
 
 		if(debugNetData.ContainsKey(_component)) {
+			if(modeToggle.IsAutoMode()) {
 			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
-			foreach(var element in debugNetData[_component].getPin(_pin).netElementsAll) {	
-				resultPins.Add(debugNetData[element.component].getPin(element.pinid).breadboardRowPosition);
-				GameObject spin = Util.getChildObject("SCH_"+element.component, element.pinid);
-				GameObject fpin = Util.getChildObject("SCH_"+element.component, "f"+element.pinid);
-				if(spin != null)
-					_pinsInNet.Add(spin);
-				if(fpin != null)
-					_pinsInNet.Add(fpin);
+				foreach(var element in debugNetData[_component].getPin(_pin).netElementsAll) {	
+					resultPins.Add(debugNetData[element.component].getPin(element.pinid).breadboardRowPosition);
+					GameObject spin = Util.getChildObject("SCH_"+element.component, element.pinid);
+					GameObject fpin = Util.getChildObject("SCH_"+element.component, "f"+element.pinid);
+					if(spin != null)
+						_pinsInNet.Add(spin);
+					if(fpin != null)
+						_pinsInNet.Add(fpin);
+				}
+			} else {
+				foreach(var element in debugNetData[_component].getPin(_pin).netElementsAll) {	
+					resultPins.Add(debugNetData[element.component].getPin(element.pinid).breadboardRowPosition);
+					GameObject spin = Util.getChildObject(element.component, element.pinid);
+					GameObject fpin = Util.getChildObject(element.component, "f"+element.pinid);
+					if(spin != null)
+						_pinsInNet.Add(spin);
+					if(fpin != null)
+						_pinsInNet.Add(fpin);
+				}
 			}
 
 			foreach(var item in resultPins) {

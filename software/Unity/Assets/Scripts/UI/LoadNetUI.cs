@@ -175,10 +175,21 @@ public class LoadNetUI : MonoBehaviour {
 
 		foreach(KeyValuePair<string, _Component> item in _netData)
 		{
-			string componentName = Util.removeDigit(item.Key);
+			// string componentName = Util.removeDigit(item.Key);
 			
-			string uiComponentName = item.Key;
+			// string uiComponentName = item.Key;
 			//ComponentBase comp = ComponentFactory.Create(componentName, componentData);
+
+			// string item.Key = "";
+			string componentName = "";
+			string uiComponentName = "";
+			// Char r = '\r';
+            // if (item.Key.Contains(r.ToString())) {
+            //     item.Key = item.Key.Replace(r.ToString(), "");
+            // }
+			uiComponentName = item.Key;
+			componentName = Util.removeDigit(item.Key);
+
 			switch (componentName) {
 				case "OPAMP":
 					component = (GameObject)Instantiate(prefabOpAmp);
@@ -389,10 +400,36 @@ public class LoadNetUI : MonoBehaviour {
 				{
 					if(last.Contains("connector0")) {
 						wireEndPosition = getComponentPinPosition(componentObj.name, "connector0");
-						wireEndPosition.x -= 5;
 					} else if(last.Contains("connector1")) {
 						wireEndPosition = getComponentPinPosition(componentObj.name, "connector1");
-						wireEndPosition.x += 5;
+					} else if(last.Contains("connector2")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector2");
+					} else if(last.Contains("connector3")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector3");
+					} else if(last.Contains("connector4")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector4");
+					} else if(last.Contains("connector5")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector5");
+					} else if(last.Contains("connector6")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector6");
+					} else if(last.Contains("connector7")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector7");
+					} else if(last.Contains("connector8")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector8");
+					} else if(last.Contains("connector9")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector9");
+					} else if(last.Contains("connector10")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector10");
+					} else if(last.Contains("connector11")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector11");
+					} else if(last.Contains("connector12")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector12");
+					} else if(last.Contains("connector13")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector13");
+					} else if(last.Contains("connector14")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector14");
+					} else if(last.Contains("connector15")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector15");
 					}
 					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
 					wireLineRender.SetPosition(1, wireEndPosition);
@@ -400,12 +437,38 @@ public class LoadNetUI : MonoBehaviour {
 				{
 					if(first.Contains("connector0")) {
 						wireStartPosition = getComponentPinPosition(componentObj.name, "connector0");
-						wireStartPosition.x -= 5;
-					}
-					else if(first.Contains("connector1")) {
+					} else if(first.Contains("connector1")) {
 						wireStartPosition = getComponentPinPosition(componentObj.name, "connector1");
-						wireStartPosition.x += 5;
+					}  else if(first.Contains("connector2")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector2");
+					} else if(first.Contains("connector3")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector3");
+					} else if(first.Contains("connector4")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector4");
+					} else if(first.Contains("connector5")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector5");
+					} else if(first.Contains("connector6")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector6");
+					} else if(first.Contains("connector7")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector7");
+					} else if(first.Contains("connector8")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector8");
+					} else if(first.Contains("connector9")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector9");
+					} else if(first.Contains("connector10")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector10");
+					} else if(first.Contains("connector11")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector11");
+					} else if(first.Contains("connector12")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector12");
+					} else if(first.Contains("connector13")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector13");
+					} else if(first.Contains("connector14")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector14");
+					} else if(first.Contains("connector15")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector15");
 					}
+					
 					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
 					wireLineRender.SetPosition(0, wireStartPosition);
 				}
@@ -429,10 +492,36 @@ public class LoadNetUI : MonoBehaviour {
 				{
 					if(last.Contains("connector0")) {
 						wireEndPosition = getComponentPinPosition(componentObj.name, "connector0");
-						wireEndPosition.x -= 5;
 					} else if(last.Contains("connector1")) {
 						wireEndPosition = getComponentPinPosition(componentObj.name, "connector1");
-						wireEndPosition.x += 5;
+					} else if(last.Contains("connector2")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector2");
+					} else if(last.Contains("connector3")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector3");
+					} else if(last.Contains("connector4")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector4");
+					} else if(last.Contains("connector5")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector5");
+					} else if(last.Contains("connector6")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector6");
+					} else if(last.Contains("connector7")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector7");
+					} else if(last.Contains("connector8")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector8");
+					} else if(last.Contains("connector9")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector9");
+					} else if(last.Contains("connector10")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector10");
+					} else if(last.Contains("connector11")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector11");
+					} else if(last.Contains("connector12")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector12");
+					} else if(last.Contains("connector13")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector13");
+					} else if(last.Contains("connector14")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector14");
+					} else if(last.Contains("connector15")) {
+						wireEndPosition = getComponentPinPosition(componentObj.name, "connector15");
 					}
 					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
 					wireLineRender.SetPosition(1, wireEndPosition);
@@ -440,12 +529,38 @@ public class LoadNetUI : MonoBehaviour {
 				{
 					if(first.Contains("connector0")) {
 						wireStartPosition = getComponentPinPosition(componentObj.name, "connector0");
-						wireStartPosition.x -= 5;
-					}
-					else if(first.Contains("connector1")) {
+					} else if(first.Contains("connector1")) {
 						wireStartPosition = getComponentPinPosition(componentObj.name, "connector1");
-						wireStartPosition.x += 5;
+					} else if(first.Contains("connector2")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector2");
+					} else if(first.Contains("connector3")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector3");
+					} else if(first.Contains("connector4")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector4");
+					} else if(first.Contains("connector5")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector5");
+					} else if(first.Contains("connector6")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector6");
+					} else if(first.Contains("connector7")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector7");
+					} else if(first.Contains("connector8")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector8");
+					} else if(first.Contains("connector9")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector9");
+					} else if(first.Contains("connector10")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector10");
+					} else if(first.Contains("connector11")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector11");
+					} else if(first.Contains("connector12")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector12");
+					} else if(first.Contains("connector13")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector13");
+					} else if(first.Contains("connector14")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector14");
+					} else if(first.Contains("connector15")) {
+						wireStartPosition = getComponentPinPosition(componentObj.name, "connector15");
 					}
+					
 					LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
 					wireLineRender.SetPosition(0, wireStartPosition);
 				}

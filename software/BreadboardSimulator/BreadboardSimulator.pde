@@ -105,7 +105,7 @@ class GetRequest extends ResponseBuilder {
       }
       
     } else if(json.getString("cmd").equals("getJsonFile")) {
-      String filename= json.getString("name");
+      String filename= json.getString("name")+".json";
       File f = new File(dataPath(filename));
       if(!f.exists()) return "";
       
@@ -114,7 +114,7 @@ class GetRequest extends ResponseBuilder {
       println(res.toString());
       return res.toString();
     } else if(json.getString("cmd").equals("getSchFile")) {
-      String filename= json.getString("name");
+      String filename= json.getString("name")+".sch";
       File f = new File(dataPath(filename));
       if(!f.exists()) return "";
       println("sch: " + filename);

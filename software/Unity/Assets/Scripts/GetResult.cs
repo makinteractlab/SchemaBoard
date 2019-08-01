@@ -35,6 +35,13 @@ public class GetResult : MonoBehaviour
         int count = 0;
         int wireCount = 0;
         int connectionCount = 0;
+
+        for(int i=0; i<resultStrings.Length; i++) {
+            Char r = '\r';
+            if(resultStrings[i].Contains(r.ToString()))
+                resultStrings[i] = resultStrings[i].Replace(r.ToString(), "");
+        }
+
         foreach(string line in resultStrings) {
             if(line.CompareTo("$Comp") == 0) {
                 if(count<resultStrings.Length-9) {

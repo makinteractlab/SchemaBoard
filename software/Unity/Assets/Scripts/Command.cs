@@ -21,12 +21,12 @@ public class Command {//: MonoBehaviour {
     }
 
     public string getSchFile(string _filename) {
-        string result = "{\"cmd\": \"getSchFile\", \"name\": \"" + _filename + ".sch\"}";
+        string result = "{\"cmd\": \"getSchFile\", \"name\": \"" + _filename + "\"}";
         return result;
     }
 
     public string getJsonFile(string _filename) {
-        string result = "{\"cmd\": \"getJsonFile\", \"name\": \"" + _filename + ".json\"}";
+        string result = "{\"cmd\": \"getJsonFile\", \"name\": \"" + _filename + "\"}";
         return result;
     }
     

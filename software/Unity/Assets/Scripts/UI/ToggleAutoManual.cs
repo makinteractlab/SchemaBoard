@@ -120,7 +120,7 @@ public class ToggleAutoManual : MonoBehaviour {
 					manualbutton.resetComponentStateEvent.Invoke(mode); // manual>auto
 				}
 			}
-			initAutoPinState();
+			initManualPinState();
 		} else {
 			// if some pins disconnected in manual mode, restore previous pins for that
 			netData.recoverEmptyPosForPins();
@@ -144,7 +144,7 @@ public class ToggleAutoManual : MonoBehaviour {
 						autobutton.resetAllStateEvent.Invoke(mode); // auto>manual
 					}
 				}
-				// initManualPinState(); // need to fix!!
+				initAutoPinState();
 			} else {
 				init = false;
 			}

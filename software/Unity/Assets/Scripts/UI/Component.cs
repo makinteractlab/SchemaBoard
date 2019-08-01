@@ -66,11 +66,36 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 {
                     if(wireObj.name.Contains("connector0")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector0");
-                        wireEndPosition.x -= 5;
-                    }
-                    else if(wireObj.name.Contains("connector1")) {
+                    } else if(wireObj.name.Contains("connector1")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector1");
-                        wireEndPosition.x += 5;
+                    } else if(wireObj.name.Contains("connector2")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector2");
+                    } else if(wireObj.name.Contains("connector3")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector3");
+                    } else if(wireObj.name.Contains("connector4")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector4");
+                    } else if(wireObj.name.Contains("connector5")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector5");
+                    } else if(wireObj.name.Contains("connector6")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector6");
+                    } else if(wireObj.name.Contains("connector7")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector7");
+                    } else if(wireObj.name.Contains("connector8")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector8");
+                    } else if(wireObj.name.Contains("connector9")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector9");
+                    } else if(wireObj.name.Contains("connector10")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector10");
+                    } else if(wireObj.name.Contains("connector11")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector11");
+                    } else if(wireObj.name.Contains("connector12")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector12");
+                    } else if(wireObj.name.Contains("connector13")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector13");
+                    } else if(wireObj.name.Contains("connector14")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector14");
+                    } else if(wireObj.name.Contains("connector15")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector15");
                     }
                     LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                     wireLineRender.SetPosition(1, wireEndPosition);
@@ -91,10 +116,36 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 {
                     if(last.Contains("connector0")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector0");
-                        wireEndPosition.x -= 5;
                     } else if(last.Contains("connector1")) {
                         wireEndPosition = getCurrentComponentPinPosition("connector1");
-                        wireEndPosition.x += 5;
+                    } else if(last.Contains("connector2")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector2");
+                    } else if(last.Contains("connector3")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector3");
+                    } else if(last.Contains("connector4")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector4");
+                    } else if(last.Contains("connector5")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector5");
+                    } else if(last.Contains("connector6")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector6");
+                    } else if(last.Contains("connector7")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector7");
+                    } else if(last.Contains("connector8")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector8");
+                    } else if(last.Contains("connector9")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector9");
+                    } else if(last.Contains("connector10")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector10");
+                    } else if(last.Contains("connector11")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector11");
+                    } else if(last.Contains("connector12")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector12");
+                    } else if(last.Contains("connector13")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector13");
+                    } else if(last.Contains("connector14")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector14");
+                    } else if(last.Contains("connector15")) {
+                        wireEndPosition = getCurrentComponentPinPosition("connector15");
                     }
                     LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                     wireLineRender.SetPosition(1, wireEndPosition);
@@ -102,12 +153,38 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                 {
                     if(first.Contains("connector0")) {
                         wireStartPosition = getCurrentComponentPinPosition("connector0");
-                        wireStartPosition.x -= 5;
-                    }
-                    else if(first.Contains("connector1")) {
+                    } else if(first.Contains("connector1")) {
                         wireStartPosition = getCurrentComponentPinPosition("connector1");
-                        wireStartPosition.x += 5;
+                    } else if(first.Contains("connector2")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector2");
+                    } else if(first.Contains("connector3")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector3");
+                    } else if(first.Contains("connector4")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector4");
+                    } else if(first.Contains("connector5")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector5");
+                    } else if(first.Contains("connector6")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector6");
+                    } else if(first.Contains("connector7")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector7");
+                    } else if(first.Contains("connector8")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector8");
+                    } else if(first.Contains("connector9")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector9");
+                    } else if(first.Contains("connector10")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector10");
+                    } else if(first.Contains("connector11")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector11");
+                    } else if(first.Contains("connector12")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector12");
+                    } else if(first.Contains("connector13")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector13");
+                    } else if(first.Contains("connector14")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector14");
+                    } else if(first.Contains("connector15")) {
+                        wireStartPosition = getCurrentComponentPinPosition("connector15");
                     }
+
                     LineRenderer wireLineRender = wireObj.GetComponent<LineRenderer>();
                     wireLineRender.SetPosition(0, wireStartPosition);
                 }

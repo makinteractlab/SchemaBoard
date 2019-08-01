@@ -68,6 +68,12 @@ D Power symbol creates a global label with name "GND" , ground
 K power-flag
 $ENDCMP
 #
+$CMP ICM7555
+D CMOS General Purpose Timer, DIP-8/SOIC-8
+K single timer 555
+F http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf
+$ENDCMP
+#
 $CMP ICM7555_copy_copy
 D CMOS General Purpose Timer, DIP-8/SOIC-8
 K single timer 555
@@ -86,6 +92,24 @@ K LED diode
 F ~
 $ENDCMP
 #
+$CMP LM555
+D Timer, DIP-8/SOIC-8/SSOP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/lm555.pdf
+$ENDCMP
+#
+$CMP LMC555xM
+D CMOS Timer, SOIC-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/lmc555.pdf
+$ENDCMP
+#
+$CMP LMC555xMM
+D CMOS Timer, VSSOP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/lmc555.pdf
+$ENDCMP
+#
 $CMP LMC555xMM_copy_copy
 D CMOS Timer, VSSOP-8
 K single timer
@@ -98,10 +122,22 @@ K single timer
 F http://www.ti.com/lit/ds/symlink/lmc555.pdf
 $ENDCMP
 #
+$CMP LMC555xN
+D CMOS Timer, DIP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/lmc555.pdf
+$ENDCMP
+#
 $CMP LMC555xN_copy_copy
 D CMOS Timer, DIP-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/lmc555.pdf
+$ENDCMP
+#
+$CMP MC1455
+D Timers, DIP-8/SOIC-8
+K timer
+F https://www.onsemi.com/pub/Collateral/MC1455-D.PDF
 $ENDCMP
 #
 $CMP MC1455_copy_copy
@@ -110,8 +146,20 @@ K timer
 F https://www.onsemi.com/pub/Collateral/MC1455-D.PDF
 $ENDCMP
 #
+$CMP NA555
+D Precision Timers, DIP-8/SOIC-8/SSOP-8
+K timer
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
 $CMP NA555_copy_copy
 D Precision Timers, DIP-8/SOIC-8/SSOP-8
+K timer
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP NE555
+D Precision Timers, DIP-8/SOIC-8
 K timer
 F http://www.ti.com/lit/ds/symlink/ne555.pdf
 $ENDCMP
@@ -140,7 +188,19 @@ K resistor simulation
 F ~
 $ENDCMP
 #
+$CMP SA555
+D Precision Timers, DIP-8/SOIC-8
+K timer
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
 $CMP SA555_copy_copy
+D Precision Timers, DIP-8/SOIC-8
+K timer
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP SE555
 D Precision Timers, DIP-8/SOIC-8
 K timer
 F http://www.ti.com/lit/ds/symlink/ne555.pdf
@@ -164,8 +224,26 @@ K switch normally-open pushbutton push-button
 F ~
 $ENDCMP
 #
+$CMP TLC555CD
+D Single LinCMOS Timer, SOIC-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/tlc555.pdf
+$ENDCMP
+#
 $CMP TLC555CD_copy_copy
 D Single LinCMOS Timer, SOIC-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/tlc555.pdf
+$ENDCMP
+#
+$CMP TLC555CP
+D Single LinCMOS Timer, DIP-8
+K single timer
+F http://www.ti.com/lit/ds/symlink/tlc555.pdf
+$ENDCMP
+#
+$CMP TLC555CPS
+D Single LinCMOS Timer, SSOP-8
 K single timer
 F http://www.ti.com/lit/ds/symlink/tlc555.pdf
 $ENDCMP

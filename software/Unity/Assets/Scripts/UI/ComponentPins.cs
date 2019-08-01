@@ -117,11 +117,13 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 		
         string pinName = this.name;
         string componentName = this.transform.parent.name;
+
+
         // 일단 모든 핀들을 default pin sprite로 돌려놓은 다음
         // 이 핀과 넷에 들어있는 나머지 핀들 색을 selected pin sprite로 바꾼다.
         initPinGlow();
 
-        this.GetComponent<Image>().sprite = SelectedPinSprite;
+        this.GetComponent<Image>().sprite = comm.SelectedPinSprite;
 
         if(this.name.Contains("fconnector")) {
             pinName = pinName.Substring(1,pinName.Length-1);
@@ -129,7 +131,7 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
         
         boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
         foreach(var pin in resultPinsInNet) {
-            pin.GetComponent<Image>().sprite = SelectedPinSprite;
+            pin.GetComponent<Image>().sprite = comm.SelectedPinSprite;
         }
 
         if(boardPins[0] > 0 || boardPins[1] > 0) {
@@ -182,11 +184,15 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
             if(!comm.getDeleteWireState())
                 comm.setComponentPin(transform.parent.name + "-" + name);
         }
+
+        this.GetComponent<Image>().sprite = comm.SelectedPinSprite;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        this.GetComponent<Image>().sprite = comm.DefaultPinSprite;
         Debug.Log("OnPointerUp");
+        
         this.transform.parent.GetComponent<Component>().setDragState(true);
         // VuforiaRenderer.Instance.Pause(false);
         if (Input.GetMouseButtonUp(0))

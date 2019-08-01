@@ -100,9 +100,15 @@ public class LoadSchematicUI : MonoBehaviour {
 
 		foreach(KeyValuePair<string, JObject> item in schematicData)
 		{
-			string componentName = Util.removeDigit(item.Key);
-			
-			string uiComponentName = "SCH_"+item.Key;
+			// string item.Key = "";
+			string componentName = "";
+			string uiComponentName = "";
+			// Char r = '\r';
+            // if (item.Key.Contains(r.ToString())) {
+            //     item.Key = item.Key.Replace(r.ToString(), "");
+            // }
+			uiComponentName = "SCH_"+item.Key;
+			componentName = Util.removeDigit(item.Key);
 			//ComponentBase comp = ComponentFactory.Create(componentName, componentData);
 			switch (componentName) {
 				case "OPAMP":

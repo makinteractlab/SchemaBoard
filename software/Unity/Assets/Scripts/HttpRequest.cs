@@ -52,7 +52,7 @@ public class HttpRequest : MonoBehaviour {
     IEnumerator GetRequestJson(string _url, string _data)
     {
         Debug.Log("json = " + _data);
-        var www = new UnityWebRequest(_url, "GET");
+        var www = new UnityWebRequest(_url, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(_data);
         www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -95,7 +95,7 @@ public class HttpRequest : MonoBehaviour {
     IEnumerator GetRequestText(string _url, string _data)
     {
         Debug.Log("sch = " + _data);
-        var www = new UnityWebRequest(_url, "GET");
+        var www = new UnityWebRequest(_url, "POST");
         byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(_data);
         www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();

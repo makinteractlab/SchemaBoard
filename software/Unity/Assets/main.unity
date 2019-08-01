@@ -8460,11 +8460,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e492d456d94294cae11c983f0caf87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabOpAmp: {fileID: 1736814164243306, guid: 2be2df38f147cef46923d66497cf8d3a,
+  prefabOpAmp: {fileID: 1200745945762028, guid: 2be2df38f147cef46923d66497cf8d3a,
     type: 2}
-  prefabRelay: {fileID: 1738880515276308, guid: 35b05ddd98483ef4ca9a656d17cfc30f,
+  prefabRelay: {fileID: 1907125105900390, guid: 35b05ddd98483ef4ca9a656d17cfc30f,
     type: 2}
-  prefab8pinChip: {fileID: 1418804125402226, guid: c75bca1bb3d28bb48af20502e2b56b5b,
+  prefab8pinChip: {fileID: 1897105079811786, guid: c75bca1bb3d28bb48af20502e2b56b5b,
     type: 2}
   prefab16pinChip: {fileID: 1436952048585284, guid: 774b20d9317e34a4a9b149c8b91cb091,
     type: 2}
@@ -8489,7 +8489,7 @@ MonoBehaviour:
     type: 2}
   prefabVcc: {fileID: 1376105912386546, guid: f3026ec8fe5ca5449b20ca1b885f00c6, type: 2}
   prefabGND: {fileID: 1301730628174274, guid: e0e71ea878b235e4e9e22f1fea4e32f7, type: 2}
-  prefabPWR: {fileID: 1333855841300990, guid: 28386e175be31394f9aba4ec5b0ff2d7, type: 2}
+  prefabPWR: {fileID: 1951278153594582, guid: 28386e175be31394f9aba4ec5b0ff2d7, type: 2}
   prefabEtc: {fileID: 1424161909001742, guid: 4ea01b8b175bace44891e0270a5c7403, type: 2}
   ParentPanel: {fileID: 1984457900}
   netDataObj: {fileID: 855837059}
@@ -22321,6 +22321,7 @@ MonoBehaviour:
   vccPinSprite: {fileID: 21300000, guid: fbf1311e3785f4e4da94262128216247, type: 3}
   netui: {fileID: 293546945}
   schematicUI: {fileID: 457672406}
+  modeToggle: {fileID: 2124341239}
 --- !u!4 &855837060
 Transform:
   m_ObjectHideFlags: 0
