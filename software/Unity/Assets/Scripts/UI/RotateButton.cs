@@ -35,8 +35,8 @@ public class RotateButton : MonoBehaviour {
         {
             string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
             string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
-            string firstComponentName = first.Substring(0,first.IndexOf('-'));
-            string lastComponentName = last.Substring(0,last.IndexOf('-'));
+            string firstComponentName = first.Substring(0,first.LastIndexOf('-'));
+            string lastComponentName = last.Substring(0,last.LastIndexOf('-'));
 
             if(String.Compare(lastComponentName, transform.parent.name, true) == 0 || String.Compare(firstComponentName, transform.parent.name) == 0)
             {
@@ -58,8 +58,8 @@ public class RotateButton : MonoBehaviour {
         {
             string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
             string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
-            string firstComponentName = first.Substring(0,first.IndexOf('-'));
-            string lastComponentName = last.Substring(0,last.IndexOf('-'));
+            string firstComponentName = first.Substring(0,first.LastIndexOf('-'));
+            string lastComponentName = last.Substring(0,last.LastIndexOf('-'));
 
             if(String.Compare(lastComponentName, transform.parent.name, true) == 0) // if this component is FromPin
             {

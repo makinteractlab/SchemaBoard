@@ -197,14 +197,14 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
 
     private string getTargetComponentPinName(string targetComponentPinName)
     {
-        int seperator = targetComponentPinName.IndexOf("-");
+        int seperator = targetComponentPinName.LastIndexOf("-");
         string componentPinName = targetComponentPinName.Substring(seperator+1, targetComponentPinName.Length-seperator-1);
         return componentPinName;
     }
 
     private string getTargetComponentName(string targetComponentPinName)
     {
-        int seperator = targetComponentPinName.IndexOf("-");
+        int seperator = targetComponentPinName.LastIndexOf("-");
         string componentName = targetComponentPinName.Substring(0, seperator);
         return componentName;
     }
@@ -263,7 +263,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                         int compSeperator = wireName.IndexOf(",");
                         targetName = wireName.Substring(compSeperator+1, wireName.Length-compSeperator-1);
 
-                        int compPinSeperator = targetName.IndexOf("-");
+                        int compPinSeperator = targetName.LastIndexOf("-");
                         targetComponentName = targetName.Substring(0, compPinSeperator);
                         targetComponentPinName = targetName.Substring(compPinSeperator+1, targetName.Length-compPinSeperator-1);
                     }

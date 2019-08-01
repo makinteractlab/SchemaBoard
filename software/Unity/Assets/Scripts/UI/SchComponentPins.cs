@@ -119,7 +119,7 @@ public class SchComponentPins : MonoBehaviour
         // 이 핀과 넷에 들어있는 나머지 핀들 색을 selected pin sprite로 바꾼다.
         initAutoPinGlow();
 
-        this.GetComponent<Image>().sprite = SelectedPinSprite;
+        this.GetComponent<Image>().sprite = comm.SelectedPinSprite;
 
         if(this.name.Contains("fconnector")) {
             pinName = pinName.Substring(1,pinName.Length-1);
@@ -128,7 +128,7 @@ public class SchComponentPins : MonoBehaviour
         
         boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
         foreach(var pin in resultPinsInNet) {
-            pin.GetComponent<Image>().sprite = SelectedPinSprite;
+            pin.GetComponent<Image>().sprite = comm.SelectedPinSprite;
         }
 
         if(boardPins[0] > 0 || boardPins[1] > 0) {

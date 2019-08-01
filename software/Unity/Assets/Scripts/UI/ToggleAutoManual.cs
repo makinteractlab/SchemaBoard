@@ -101,15 +101,6 @@ public class ToggleAutoManual : MonoBehaviour {
 	void ModeChange() {
 		//gameObject.SetActive(true);
 		if(autoMode) { // toggle autoMod --> manualMode
-			GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
-			foreach(var item in prefabButtons) {
-				if(item.name.Contains("sch_")) {
-					SchComponentButton autobutton = item.GetComponent<SchComponentButton>();
-					autobutton.resetAllStateEvent.Invoke(mode); // auto>manual
-				}
-			}
-			// initAutoPinState();
-
 			gameObject.GetComponent<Button>().image.sprite = manualSprite;
 			manualMode = true;
 			showSchematicMenu(false);
@@ -121,20 +112,16 @@ public class ToggleAutoManual : MonoBehaviour {
 			showManualPrefabs(true);
 			autoMode = false;
 			mode = "manual";
-		} else {
-			if(!init) {
-				GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
-				foreach(var item in prefabButtons) {
-					if(item.name.Contains("Component")) {
-						ComponentButton manualbutton = item.GetComponent<ComponentButton>();
-						manualbutton.resetComponentStateEvent.Invoke(mode); // manual>auto
-					}
-				}
-			} else {
-				init = false;
-			}
 
-			// initManualPinState();
+			GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+			foreach(var item in prefabButtons) {
+				if(item.name.Contains("Component")) {
+					ComponentButton manualbutton = item.GetComponent<ComponentButton>();
+					manualbutton.resetComponentStateEvent.Invoke(mode); // manual>auto
+				}
+			}
+			initAutoPinState();
+		} else {
 			// if some pins disconnected in manual mode, restore previous pins for that
 			netData.recoverEmptyPosForPins();
 			gameObject.GetComponent<Button>().image.sprite = autoSprite;
@@ -148,8 +135,20 @@ public class ToggleAutoManual : MonoBehaviour {
 			comm.setAutoState();
 			showAutoPrefabs(true);
 			showManualPrefabs(true);
-		}
 
+			if(!init) {
+				GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+				foreach(var item in prefabButtons) {
+					if(item.name.Contains("sch_")) {
+						SchComponentButton autobutton = item.GetComponent<SchComponentButton>();
+						autobutton.resetAllStateEvent.Invoke(mode); // auto>manual
+					}
+				}
+				// initManualPinState(); // need to fix!!
+			} else {
+				init = false;
+			}
+		}
 		http.postJson(comm.getUrl()+"/set", cmd.resetAll());
 	}
 

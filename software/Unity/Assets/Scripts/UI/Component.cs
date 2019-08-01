@@ -58,8 +58,8 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             {
                 string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
 				string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
-				string firstComponentName = first.Substring(0,first.IndexOf('-'));
-				string lastComponentName = last.Substring(0,last.IndexOf('-'));
+				string firstComponentName = first.Substring(0,first.LastIndexOf('-'));
+				string lastComponentName = last.Substring(0,last.LastIndexOf('-'));
 
                 //if(wireObj.name.Contains(name)) // should be fixed!
                 if(String.Compare(lastComponentName, name, true) == 0 || String.Compare(firstComponentName, name) == 0)
@@ -82,8 +82,8 @@ public class Component : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             {
                 string first = wireObj.name.Substring(wireObj.name.IndexOf(':')+1,wireObj.name.IndexOf(',')-wireObj.name.IndexOf(':')-1);
 				string last = wireObj.name.Substring(wireObj.name.IndexOf(',')+1, wireObj.name.Length-wireObj.name.IndexOf(',')-1);
-				string firstComponentName = first.Substring(0,first.IndexOf('-'));
-				string lastComponentName = last.Substring(0,last.IndexOf('-'));
+				string firstComponentName = first.Substring(0,first.LastIndexOf('-'));
+				string lastComponentName = last.Substring(0,last.LastIndexOf('-'));
 
 
                 //if(wireObj.name.Contains(name))

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>D:\Works\Git\RetroBreadboard\software\BreadboardSimulator\data\circuit4.sch</source>
+    <date>2019-08-01 오전 10:07:29</date>
+    <tool>Eeschema (5.1.2)-2</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>circuit4.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="U1-8">
+      <value>8pinChip</value>
+      <datasheet>http://www.ti.com/lit/ds/symlink/lm555.pdf</datasheet>
+      <libsource lib="SchemaBoard_Library" part="8pinChip" description="Timer, DIP-8/SOIC-8/SSOP-8"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D4536D3</tstamp>
+    </comp>
+    <comp ref="LED1">
+      <value>LED</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D4552BA</tstamp>
+    </comp>
+    <comp ref="BT1">
+      <value>Battery_Cell</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="Battery_Cell" description="Single-cell battery"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D455990</tstamp>
+    </comp>
+    <comp ref="CP1">
+      <value>CP</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="CP" description="Polarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D45475C</tstamp>
+    </comp>
+    <comp ref="LDR2">
+      <value>R_PHOTO</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="R_PHOTO" description="Photoresistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D4244B8</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>Resistor</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="Resistor" description="Resistor symbol for simulation only"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D42507A</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="SchemaBoard_Library" part="8pinChip">
+      <aliases>
+        <alias>ICM7555_copy_copy</alias>
+        <alias>LMC555xM_copy_copy</alias>
+        <alias>LMC555xMM_copy_copy</alias>
+        <alias>LMC555xN_copy_copy</alias>
+        <alias>MC1455_copy_copy</alias>
+        <alias>TLC555CD_copy_copy</alias>
+        <alias>TLC555CP_copy_copy</alias>
+        <alias>TLC555CPS_copy_copy</alias>
+        <alias>NA555_copy_copy</alias>
+        <alias>NE555_copy_copy</alias>
+        <alias>SE555_copy_copy</alias>
+        <alias>SA555_copy_copy</alias>
+      </aliases>
+      <description>Timer, DIP-8/SOIC-8/SSOP-8</description>
+      <docs>http://www.ti.com/lit/ds/symlink/lm555.pdf</docs>
+      <footprints>
+        <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
+        <fp>DIP*W7.62mm*</fp>
+        <fp>TSSOP*3x3mm*P0.65mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U?-8</field>
+        <field name="Value">8pinChip</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="unspc"/>
+        <pin num="2" name="~" type="unspc"/>
+        <pin num="3" name="~" type="unspc"/>
+        <pin num="4" name="~" type="unspc"/>
+        <pin num="5" name="~" type="unspc"/>
+        <pin num="6" name="~" type="unspc"/>
+        <pin num="7" name="~" type="unspc"/>
+        <pin num="8" name="~" type="unspc"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="Battery_Cell">
+      <description>Single-cell battery</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">BT</field>
+        <field name="Value">Battery_Cell</field>
+      </fields>
+      <pins>
+        <pin num="1" name="+" type="passive"/>
+        <pin num="2" name="-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="CP">
+      <description>Polarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">CP</field>
+        <field name="Value">CP</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="LED">
+      <description>Light emitting diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">LED</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="R_PHOTO">
+      <description>Photoresistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>*LDR*</fp>
+        <fp>R?LDR*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">LDR</field>
+        <field name="Value">R_PHOTO</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SchemaBoard_Library" part="Resistor">
+      <description>Resistor symbol for simulation only</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">Resistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="SchemaBoard_Library">
+      <uri>D:/Works/Git/RetroBreadboard/software/KiCadCustomLibrary/SchemaBoard_Library.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(BT1-Pad1)">
+      <node ref="U1-8" pin="2"/>
+      <node ref="BT1" pin="1"/>
+    </net>
+    <net code="2" name="Net-(CP1-Pad1)">
+      <node ref="R1" pin="1"/>
+      <node ref="CP1" pin="1"/>
+    </net>
+    <net code="3" name="Net-(U1-8-Pad8)">
+      <node ref="U1-8" pin="8"/>
+    </net>
+    <net code="4" name="Net-(U1-8-Pad3)">
+      <node ref="U1-8" pin="3"/>
+    </net>
+    <net code="5" name="Net-(U1-8-Pad4)">
+      <node ref="U1-8" pin="4"/>
+    </net>
+    <net code="6" name="Net-(U1-8-Pad5)">
+      <node ref="U1-8" pin="5"/>
+    </net>
+    <net code="7" name="Net-(U1-8-Pad6)">
+      <node ref="U1-8" pin="6"/>
+    </net>
+    <net code="8" name="Net-(LED1-Pad2)">
+      <node ref="U1-8" pin="7"/>
+      <node ref="LED1" pin="2"/>
+      <node ref="R1" pin="2"/>
+    </net>
+    <net code="9" name="Net-(U1-8-Pad1)">
+      <node ref="U1-8" pin="1"/>
+    </net>
+    <net code="10" name="Net-(BT1-Pad2)">
+      <node ref="BT1" pin="2"/>
+      <node ref="LED1" pin="1"/>
+      <node ref="LDR2" pin="2"/>
+    </net>
+    <net code="11" name="Net-(CP1-Pad2)">
+      <node ref="CP1" pin="2"/>
+      <node ref="LDR2" pin="1"/>
+    </net>
+  </nets>
+</export>

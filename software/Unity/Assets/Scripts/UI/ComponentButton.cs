@@ -427,7 +427,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     private string getTargetComponentPinName(string targetComponentPinName)
     {
         //string targetComponentPinName = comm.getTargetPin();
-        int seperator = targetComponentPinName.IndexOf("-");
+        int seperator = targetComponentPinName.LastIndexOf("-");
         string componentPinName = targetComponentPinName.Substring(seperator+1, targetComponentPinName.Length-seperator-1);
         //Debug.Log("[pin.cs] 10 getTargetComponentPinName() " + componentPinName);
         return componentPinName;
@@ -435,7 +435,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
 
     private string getTargetComponentName(string targetComponentPinName)
     {
-        int seperator = targetComponentPinName.IndexOf("-");
+        int seperator = targetComponentPinName.LastIndexOf("-");
         string componentName = targetComponentPinName.Substring(0, seperator);
         return componentName;
     }

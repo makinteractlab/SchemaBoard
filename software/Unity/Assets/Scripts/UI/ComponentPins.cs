@@ -126,7 +126,6 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
         if(this.name.Contains("fconnector")) {
             pinName = pinName.Substring(1,pinName.Length-1);
         }
-        componentName = componentName.Substring(4, componentName.Length-4);
         
         boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
         foreach(var pin in resultPinsInNet) {

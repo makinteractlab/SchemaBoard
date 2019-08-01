@@ -115,7 +115,7 @@ public class NetData : MonoBehaviour {
 	// }
 
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
-		string pin = _componentPinName.Substring(_componentPinName.IndexOf('-')+1, _componentPinName.Length-_componentPinName.IndexOf('-')-1);
+		string pin = _componentPinName.Substring(_componentPinName.LastIndexOf('-')+1, _componentPinName.Length-_componentPinName.LastIndexOf('-')-1);
 
 		// if(comm.getAutoState()) {		
 			if(_boardPinName.Contains("init")) {

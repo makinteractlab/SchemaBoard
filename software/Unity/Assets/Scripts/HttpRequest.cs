@@ -68,7 +68,7 @@ public class HttpRequest : MonoBehaviour {
             string result = "";
             
             // string path = @"D:/Works/Git/RetroBreadboard/software/SchematicParser/circuit2/circuit2.json";
-            string path = @"D:/Works/Git/RetroBreadboard/software/BreadboardSimulator/data/circuit3.json";
+            string path = @"D:/Works/Git/RetroBreadboard/software/BreadboardSimulator/data/circuit4.json";
 
             try {
                 using (StreamReader reader = new StreamReader(path)) {
@@ -111,7 +111,7 @@ public class HttpRequest : MonoBehaviour {
             string result = "";
             
             // string path = @"D:/Works/Git/RetroBreadboard/software/SchematicParser/circuit2/circuit2.sch";
-            string path = @"D:/Works/Git/RetroBreadboard/software/BreadboardSimulator/data/circuit3.sch";
+            string path = @"D:/Works/Git/RetroBreadboard/software/BreadboardSimulator/data/circuit4.sch";
             try {
                 using (StreamReader reader = new StreamReader(path)) {
                     string line;
