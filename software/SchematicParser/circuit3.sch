@@ -1,0 +1,281 @@
+EESchema Schematic File Version 4
+LIBS:circuit3-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L SchemaBoard_Library:C C1
+U 1 1 5D3E4A94
+P 1950 2050
+F 0 "C1" H 2065 2096 50  0000 L CNN
+F 1 "C" H 2065 2005 50  0000 L CNN
+F 2 "" H 1988 1900 50  0001 C CNN
+F 3 "~" H 1950 2050 50  0001 C CNN
+	1    1950 2050
+	0    1    1    0   
+$EndComp
+$Comp
+L SchemaBoard_Library:+3.3V PWR1
+U 1 1 5D3E25B9
+P 3050 1700
+F 0 "PWR1" H 3050 1550 50  0001 C CNN
+F 1 "+3.3V" H 3138 1737 50  0000 L CNN
+F 2 "" H 3050 1700 50  0001 C CNN
+F 3 "" H 3050 1700 50  0001 C CNN
+	1    3050 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:R_PHOTO LDR2
+U 1 1 5D3CE114
+P 4300 2050
+F 0 "LDR2" V 3975 2050 50  0000 C CNN
+F 1 "R_PHOTO" V 4066 2050 50  0000 C CNN
+F 2 "" V 4350 1800 50  0001 L CNN
+F 3 "~" H 4300 2000 50  0001 C CNN
+	1    4300 2050
+	0    1    1    0   
+$EndComp
+$Comp
+L SchemaBoard_Library:Resistor R1
+U 1 1 5D3CF2F7
+P 5900 2050
+F 0 "R1" V 5695 2050 50  0000 C CNN
+F 1 "Resistor" V 5786 2050 50  0000 C CNN
+F 2 "" H 5900 2050 50  0001 C CNN
+F 3 "~" H 5900 2050 50  0001 C CNN
+	1    5900 2050
+	0    1    1    0   
+$EndComp
+$Comp
+L SchemaBoard_Library:Speaker SP1
+U 1 1 5D3CD94C
+P 8150 2050
+F 0 "SP1" H 8320 2046 50  0000 L CNN
+F 1 "Speaker" H 8320 1955 50  0000 L CNN
+F 2 "" H 8150 1850 50  0001 C CNN
+F 3 "~" H 8140 2000 50  0001 C CNN
+	1    8150 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:OpAmp OPAMP1
+U 1 1 5D3E6608
+P 8700 3500
+F 0 "OPAMP1" H 8725 3867 50  0000 C CNN
+F 1 "OpAmp" H 8725 3776 50  0000 C CNN
+F 2 "" H 8700 3500 50  0001 C CNN
+F 3 "~" H 8700 3500 50  0001 C CNN
+	1    8700 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:8pinChip U1-8
+U 1 1 5D3CCD89
+P 6600 3650
+F 0 "U1-8" H 6600 4117 50  0000 C CNN
+F 1 "8pinChip" H 6600 4026 50  0000 C CNN
+F 2 "" H 6600 3650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 6600 3650 50  0001 C CNN
+	1    6600 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:Diode D1
+U 1 1 5D3E50B4
+P 2400 5650
+F 0 "D1" H 2400 5866 50  0000 C CNN
+F 1 "Diode" H 2400 5775 50  0000 C CNN
+F 2 "" H 2400 5650 50  0001 C CNN
+F 3 "~" H 2400 5650 50  0001 C CNN
+	1    2400 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:SwitchPush SW1
+U 1 1 5D3E6FAF
+P 3750 5650
+F 0 "SW1" H 3750 5935 50  0000 C CNN
+F 1 "SwitchPush" H 3750 5844 50  0000 C CNN
+F 2 "" H 3750 5850 50  0001 C CNN
+F 3 "~" H 3750 5850 50  0001 C CNN
+	1    3750 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:CP CP1
+U 1 1 5D3FE055
+P 4450 6850
+F 0 "CP1" H 4568 6896 50  0000 L CNN
+F 1 "CP" H 4568 6805 50  0000 L CNN
+F 2 "" H 4488 6700 50  0001 C CNN
+F 3 "~" H 4450 6850 50  0001 C CNN
+	1    4450 6850
+	0    1    1    0   
+$EndComp
+$Comp
+L SchemaBoard_Library:Transistor Q1
+U 1 1 5D3CFB42
+P 7250 5500
+F 0 "Q1" H 7441 5546 50  0000 L CNN
+F 1 "Transistor" H 7441 5455 50  0000 L CNN
+F 2 "" H 7450 5375 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/2N2219-D.PDF" H 7250 5500 50  0001 L CNN
+	1    7250 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:Inductor L1
+U 1 1 5D3E5584
+P 10050 5450
+F 0 "L1" H 10103 5496 50  0000 L CNN
+F 1 "Inductor" H 10103 5405 50  0000 L CNN
+F 2 "" H 10050 5450 50  0001 C CNN
+F 3 "~" H 10050 5450 50  0001 C CNN
+	1    10050 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:GND GND1
+U 1 1 5D3D0965
+P 2650 4000
+F 0 "GND1" H 2650 3750 50  0001 C CNN
+F 1 "GND" H 2655 3827 50  0000 C CNN
+F 2 "" H 2650 4000 50  0001 C CNN
+F 3 "" H 2650 4000 50  0001 C CNN
+	1    2650 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:LED LED1
+U 1 1 5D3E5DAB
+P 1350 6350
+F 0 "LED1" H 1343 6566 50  0000 C CNN
+F 1 "LED" H 1343 6475 50  0000 C CNN
+F 2 "" H 1350 6350 50  0001 C CNN
+F 3 "~" H 1350 6350 50  0001 C CNN
+	1    1350 6350
+	1    0    0    -1  
+$EndComp
+$Comp
+L SchemaBoard_Library:Battery_Cell BT1
+U 1 1 5D3EC35E
+P 5450 6150
+F 0 "BT1" V 5195 6200 50  0000 C CNN
+F 1 "Battery_Cell" V 5286 6200 50  0000 C CNN
+F 2 "" V 5450 6210 50  0001 C CNN
+F 3 "~" V 5450 6210 50  0001 C CNN
+	1    5450 6150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2100 2050 2650 2050
+Wire Wire Line
+	900  2050 900  3300
+Wire Wire Line
+	7950 2150 7400 2150
+Wire Wire Line
+	7400 2150 7400 3450
+Wire Wire Line
+	7400 3450 7100 3450
+Wire Wire Line
+	7100 3600 8400 3600
+Wire Wire Line
+	9050 3400 10050 3400
+Wire Wire Line
+	10050 3400 10050 5300
+Wire Wire Line
+	10050 5600 10050 6150
+Wire Wire Line
+	10050 6150 7350 6150
+Wire Wire Line
+	7350 6150 7350 5700
+Wire Wire Line
+	7100 3750 7350 3750
+Wire Wire Line
+	7350 3750 7350 5300
+Wire Wire Line
+	4200 5650 3950 5650
+Wire Wire Line
+	5650 6150 7350 6150
+Connection ~ 7350 6150
+Wire Wire Line
+	5350 6150 4900 6150
+Wire Wire Line
+	4900 6150 4900 6850
+Wire Wire Line
+	4900 6850 4600 6850
+Wire Wire Line
+	4300 6850 3150 6850
+Wire Wire Line
+	3150 6850 3150 5650
+Wire Wire Line
+	3150 5650 3550 5650
+Wire Wire Line
+	7100 3900 7850 3900
+Wire Wire Line
+	7850 3900 7850 3800
+Wire Wire Line
+	7850 3800 8400 3800
+Wire Wire Line
+	6150 2050 7950 2050
+Wire Wire Line
+	4450 2050 5650 2050
+Wire Wire Line
+	1200 6350 900  6350
+Connection ~ 3150 5650
+Wire Wire Line
+	2550 5650 3150 5650
+Wire Wire Line
+	2250 5650 1850 5650
+Wire Wire Line
+	1850 5650 1850 6350
+Wire Wire Line
+	1850 6350 1500 6350
+Wire Wire Line
+	900  6350 900  6850
+Wire Wire Line
+	900  6850 3150 6850
+Connection ~ 3150 6850
+Wire Wire Line
+	3050 3300 900  3300
+Wire Wire Line
+	3050 1700 3050 3300
+Wire Wire Line
+	2650 4000 2650 2050
+$Comp
+L SchemaBoard_Library:GND GND2
+U 1 1 5D454AC6
+P 4900 4700
+F 0 "GND2" H 4900 4450 50  0001 C CNN
+F 1 "GND" H 4988 4663 50  0000 L CNN
+F 2 "" H 4900 4700 50  0001 C CNN
+F 3 "" H 4900 4700 50  0001 C CNN
+	1    4900 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 3750 6100 3750
+Wire Wire Line
+	4200 3750 4200 5650
+Wire Wire Line
+	4900 3900 4900 4700
+Wire Wire Line
+	4900 3900 6100 3900
+Connection ~ 2650 2050
+Wire Wire Line
+	2650 2050 4150 2050
+Wire Wire Line
+	900  2050 1800 2050
+$EndSCHEMATC

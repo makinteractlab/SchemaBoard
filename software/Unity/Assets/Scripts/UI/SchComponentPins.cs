@@ -126,7 +126,26 @@ public class SchComponentPins : MonoBehaviour
         }
         componentName = componentName.Substring(4, componentName.Length-4);
         
-        boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
+        GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
+
+        if(this.transform.parent.name.Contains("GND")) {
+            boardPins = netdata.getGndNet(ref resultPinsInNet);
+            foreach(var item in autoPrefabs) {
+                if(item.name.Contains("GND")) {
+                    Util.getChildObject(item.name, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+                }
+            }
+        } else if(this.transform.parent.name.Contains("PWR")) {
+            boardPins = netdata.getPwrNet(ref resultPinsInNet);
+            foreach(var item in autoPrefabs) {
+                if(item.name.Contains("PWR")) {
+                    Util.getChildObject(item.name, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+                }
+            }
+        } else {
+            boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
+        }
+
         foreach(var pin in resultPinsInNet) {
             pin.GetComponent<Image>().sprite = comm.SelectedPinSprite;
         }

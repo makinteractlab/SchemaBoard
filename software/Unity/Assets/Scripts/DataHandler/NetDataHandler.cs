@@ -104,6 +104,9 @@ public class NetDataHandler {
 	// Dictionary<string, _Component> buildNetData = new Dictionary<string, _Component>();
 	Dictionary<string, _Component> initNetData = new Dictionary<string, _Component>();
 
+	Dictionary<string, string> gndNetElements = new Dictionary<string, string>();
+	Dictionary<string, string> pwrNetElements = new Dictionary<string, string>();
+
 	string log = "";
 	Dictionary<string, ArrayList> connections = new Dictionary<string, ArrayList>();
 	Dictionary<string, ArrayList> allConnections = new Dictionary<string, ArrayList>();
@@ -121,6 +124,14 @@ public class NetDataHandler {
 	// 	parseNetData(netData);
 	// 	return componentsInCircuit;
 	// }
+
+	public Dictionary<string,string> getGndNet() {
+		return gndNetElements;
+	}
+
+	public Dictionary<string,string> getPwrNet() {
+		return pwrNetElements;
+	}
 
 	public Dictionary<string, _Component> getInitNetData() {
 		return initNetData;
@@ -157,6 +168,17 @@ public class NetDataHandler {
 			int connectorCount = 0;
 			JArray connectorArray = (JArray)((JObject)netArray[i]).GetValue("connector");
 			connectorCount = connectorArray.Count;
+
+			string netName = ((JObject)netArray[i]).GetValue("name").ToString();
+			if(netName.CompareTo("GND") == 0) {
+				foreach(var item in connectorArray) {
+					gndNetElements.Add(item["component"].ToString(), item["pin"].ToString());
+				}
+			} else if(netName.Contains("3V")) {
+				foreach(var item in connectorArray) {
+					pwrNetElements.Add(item["component"].ToString(), item["pin"].ToString());
+				}
+			}
 
 			for(int j=0; j<connectorCount; j++) {
 				//string title = ((JObject)connectorArray[j])["part"]["title"].ToString();

@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:circuit3-cache
 EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
@@ -36,10 +37,10 @@ F 3 "" H 3050 1700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:R_PHOTO LDR1
+L SchemaBoard_Library:R_PHOTO LDR2
 U 1 1 5D3CE114
 P 4300 2050
-F 0 "LDR1" V 3975 2050 50  0000 C CNN
+F 0 "LDR2" V 3975 2050 50  0000 C CNN
 F 1 "R_PHOTO" V 4066 2050 50  0000 C CNN
 F 2 "" V 4350 1800 50  0001 L CNN
 F 3 "~" H 4300 2000 50  0001 C CNN
@@ -78,17 +79,6 @@ F 2 "" H 8700 3500 50  0001 C CNN
 F 3 "~" H 8700 3500 50  0001 C CNN
 	1    8700 3500
 	1    0    0    -1  
-$EndComp
-$Comp
-L SchemaBoard_Library:6pinRelay RELAY1
-U 1 1 5D3E2F18
-P 4700 3750
-F 0 "RELAY1" V 4033 3750 50  0000 C CNN
-F 1 "6pinRelay" V 4124 3750 50  0000 C CNN
-F 2 "Relay_THT" H 5200 3650 50  0001 L CNN
-F 3 "https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf" H 4600 3750 50  0001 C CNN
-	1    4700 3750
-	0    1    1    0   
 $EndComp
 $Comp
 L SchemaBoard_Library:8pinChip U1-8
@@ -157,14 +147,14 @@ F 3 "~" H 10050 5450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:GND GND
+L SchemaBoard_Library:GND GND1
 U 1 1 5D3D0965
-P 1550 4000
-F 0 "GND" H 1550 3750 50  0001 C CNN
-F 1 "GND" H 1555 3827 50  0000 C CNN
-F 2 "" H 1550 4000 50  0001 C CNN
-F 3 "" H 1550 4000 50  0001 C CNN
-	1    1550 4000
+P 2650 4000
+F 0 "GND1" H 2650 3750 50  0001 C CNN
+F 1 "GND" H 2655 3827 50  0000 C CNN
+F 2 "" H 2650 4000 50  0001 C CNN
+F 3 "" H 2650 4000 50  0001 C CNN
+	1    2650 4000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -190,7 +180,7 @@ F 3 "~" V 5450 6210 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	2100 2050 4150 2050
+	2100 2050 2650 2050
 Wire Wire Line
 	900  2050 900  3300
 Wire Wire Line
@@ -215,18 +205,6 @@ Wire Wire Line
 	7100 3750 7350 3750
 Wire Wire Line
 	7350 3750 7350 5300
-Wire Wire Line
-	5000 3450 6100 3450
-Wire Wire Line
-	6100 3750 5500 3750
-Wire Wire Line
-	5500 3750 5500 4150
-Wire Wire Line
-	5500 4150 5000 4150
-Wire Wire Line
-	4400 4150 4200 4150
-Wire Wire Line
-	4200 4150 4200 5650
 Wire Wire Line
 	4200 5650 3950 5650
 Wire Wire Line
@@ -275,10 +253,29 @@ Wire Wire Line
 Wire Wire Line
 	3050 1700 3050 3300
 Wire Wire Line
-	1550 4000 1550 2050
+	2650 4000 2650 2050
+$Comp
+L SchemaBoard_Library:GND GND2
+U 1 1 5D454AC6
+P 4900 4700
+F 0 "GND2" H 4900 4450 50  0001 C CNN
+F 1 "GND" H 4988 4663 50  0000 L CNN
+F 2 "" H 4900 4700 50  0001 C CNN
+F 3 "" H 4900 4700 50  0001 C CNN
+	1    4900 4700
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	900  2050 1550 2050
-Connection ~ 1550 2050
+	4200 3750 6100 3750
 Wire Wire Line
-	1550 2050 1800 2050
+	4200 3750 4200 5650
+Wire Wire Line
+	4900 3900 4900 4700
+Wire Wire Line
+	4900 3900 6100 3900
+Connection ~ 2650 2050
+Wire Wire Line
+	2650 2050 4150 2050
+Wire Wire Line
+	900  2050 1800 2050
 $EndSCHEMATC

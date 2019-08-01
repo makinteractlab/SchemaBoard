@@ -129,7 +129,26 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
             pinName = pinName.Substring(1,pinName.Length-1);
         }
         
-        boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
+        GameObject[] manualPrefabs = GameObject.FindGameObjectsWithTag("manual_prefab");
+
+        if(this.transform.parent.name.Contains("GND")) {
+            boardPins = netdata.getGndNet(ref resultPinsInNet);
+            foreach(var item in manualPrefabs) {
+                if(item.name.Contains("GND")) {
+                    Util.getChildObject(item.name, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+                }
+            }
+        } else if(this.transform.parent.name.Contains("PWR")) {
+            boardPins = netdata.getPwrNet(ref resultPinsInNet);
+            foreach(var item in manualPrefabs) {
+                if(item.name.Contains("PWR")) {
+                    Util.getChildObject(item.name, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+                }
+            }
+        } else {
+            boardPins = netdata.getAllNetForPin(componentName, pinName, ref resultPinsInNet);
+        }
+
         foreach(var pin in resultPinsInNet) {
             pin.GetComponent<Image>().sprite = comm.SelectedPinSprite;
         }
