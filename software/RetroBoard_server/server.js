@@ -38,30 +38,29 @@ app.post('/set', function(req, res) {
     res.send ("ok");
 })
 
-// app.post('/get', function(req, res) {
-//     if (req.body.cmd == "getFile")
-//     {
-//     	var fileName= path.join("data", req.body.name+".xml");
-//     	fs.readFile(fileName, 'utf8', function(err, contents) {
-// 		    res.send (contents);
-// 		});
-//     }  
-// })
-
 
 app.post('/get', function(req, res) {
-    if (req.body.cmd == "getFile")
+    if (req.body.cmd == "getJsonFile")
     {
-        var fileName= path.join(__dirname, "data", req.body.name);
-        // console.log(fileName);
+    	var fileName= path.join("data", req.body.name) + ".json";
+    	fs.readFile(fileName, 'utf8', function(err, contents) {
+		    res.send (contents);
+		});
+        
+    }else if (req.body.cmd == "getSchFile")
+    {
+        var fileName= path.join(__dirname, "data", req.body.name) + ".sch";
+        console.log(fileName);
         fs.readFile(fileName, 'utf8', function(err, contents) {
             console.log(contents);
             // res.send (contents+"\n");
             res.sendFile(fileName);
 
         });
-    }  
+    }   
 })
+
+
 
 
 var server = app.listen(8081, function() {
