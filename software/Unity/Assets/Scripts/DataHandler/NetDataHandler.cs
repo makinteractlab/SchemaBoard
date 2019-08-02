@@ -106,6 +106,8 @@ public class NetDataHandler {
 
 	Dictionary<string, string> gndNetElements = new Dictionary<string, string>();
 	Dictionary<string, string> pwrNetElements = new Dictionary<string, string>();
+	Dictionary<string, string> netElements = new Dictionary<string, string>();
+	List<Dictionary<string, string>> allNetList = new List<Dictionary<string, string>>();
 
 	string log = "";
 	Dictionary<string, ArrayList> connections = new Dictionary<string, ArrayList>();
@@ -125,6 +127,9 @@ public class NetDataHandler {
 	// 	return componentsInCircuit;
 	// }
 
+	public List<Dictionary<string, string>> getAllNetList() {
+		return allNetList;
+	}
 	public Dictionary<string,string> getGndNet() {
 		return gndNetElements;
 	}
@@ -170,6 +175,14 @@ public class NetDataHandler {
 			connectorCount = connectorArray.Count;
 
 			string netName = ((JObject)netArray[i]).GetValue("name").ToString();
+
+			foreach(var item in connectorArray) {
+				netElements.Add(item["component"].ToString(), item["pin"].ToString());
+			}
+			Dictionary<string,string> element = new Dictionary<string,string>(netElements);
+			allNetList.Add(element);
+			netElements.Clear();
+
 			if(netName.CompareTo("GND") == 0) {
 				foreach(var item in connectorArray) {
 					gndNetElements.Add(item["component"].ToString(), item["pin"].ToString());

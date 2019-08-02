@@ -54,6 +54,10 @@ public class NetData : MonoBehaviour {
 		
 	}
 
+	public List<Dictionary<string, string>> getAllNetList() {
+		return netHandler.getAllNetList();
+	}
+
 	public Dictionary<string, _Component> getInitialSchematicData() {
 		return initNetData;
 	}
@@ -445,6 +449,37 @@ public class NetData : MonoBehaviour {
 			result = Enumerable.Repeat(-1, 2).ToArray();
 		}
 
+		return result;
+	}
+
+	public int[] getPositionForNet(Dictionary<string,string> _netElements) { //string _component, string _pin) {
+		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
+		int left = 0;
+		int right = 1;
+
+		int[] result = Enumerable.Repeat(0, 2).ToArray();
+
+		List<string> resultPins = new List<string>();
+
+		foreach(var item in _netElements) {
+			if(debugNetData.ContainsKey(item.Key)) {
+				resultPins.Add(debugNetData[item.Key].getPin(item.Value).breadboardRowPosition);
+
+				foreach(var pin in resultPins) {
+					if(pin.Contains("init")) continue;
+					else boardBinary[int.Parse(pin)-1] = '1';
+				}
+
+				for(int i=0; i<16; i++)
+					if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
+
+				for(int i=16; i<32; i++)
+					if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
+
+			} else {
+				result = Enumerable.Repeat(-1, 2).ToArray();
+			}
+		}
 		return result;
 	}
 

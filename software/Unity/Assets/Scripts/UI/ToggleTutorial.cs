@@ -24,6 +24,7 @@ public class ToggleTutorial : MonoBehaviour {
 	private Sprite currGlowIconSprite;
 	private Sprite firstComponentSprite;
 	public Sprite selectedGlowIconSprite;
+	public Sprite currSelectedPinSprite;
 	
 	public ToggleIcon icon;
 	public Image background;
@@ -38,9 +39,15 @@ public class ToggleTutorial : MonoBehaviour {
 	GameObject selectedComponent;
 	GameObject prevSelectedComponent;
 	Dictionary<string, _Component> data;
+	List<Dictionary<string, string>> nets;
 	List<string> components;
 	bool init;
 	public int index;
+	public int totalSteps;
+	public int componentCount;
+	public int netCount;
+	// bool travelComponent;
+	public bool travelNet;
 
     void Awake() {
         if (ToggleTutorial.instance == null)
@@ -56,6 +63,8 @@ public class ToggleTutorial : MonoBehaviour {
 		selectedComponent = null;
 		components = new List<string>();
 		init = true;
+		travelNet = false;
+		totalSteps = 0;
     }
 
 	public List<string> getComponentNameList() {
@@ -89,49 +98,71 @@ public class ToggleTutorial : MonoBehaviour {
 	}
 
 	public void setSelectedComponent(int _index) {
+		int[] boardPins = new int[2];
 		index = _index;
-		if(index == 0) {
+		if(index == 0 || index == componentCount) {
 			initAll();
 		}
-		prevSelectedComponent = selectedComponent;
-		selectedComponent = GameObject.Find(components[_index]);
-		List<string> pins = new List<string>(netdata.getComponentPosition(selectedComponent.name));
 
-		int[] boardPins = new int[2];
-		boardPins = netdata.getMultiplePinsPosition(pins);
-		http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-		
-		Wait (0.5f, () => {
-			Debug.Log("0.5 seconds is lost forever");
-		});
+		if(index >= componentCount) {
+			// should start travel nets
+			GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
 
-		string firstPinPos = netdata.getComponentFirstPinRowPosition(selectedComponent.name);
-		http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
-		// glow on
-		if(icon.IsFritzingIcon()) {
-			GameObject currGlowIcon = Util.getChildObject("SCH_"+selectedComponent.name, "fritzing_glow");
-			currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
-			currGlowIcon.transform.localScale = new Vector3(1,1,1);
-			currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+			int netIndex = index-componentCount-1;
 			
-			if(prevSelectedComponent) {
-				GameObject prevGlowIcon = Util.getChildObject("SCH_"+prevSelectedComponent.name, "fritzing_glow");
-				prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
-				// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
+			boardPins = netdata.getPositionForNet(nets[netIndex]);
+			http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+			
+			// initAutoPinGlow();
+			
+			if(netIndex > 0) {
+				foreach(var item in nets[netIndex-1]) {
+					Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = comm.SelectedPinSprite;
+				}
 			}
-			prevGlowIconSprite = currGlowIconSprite;
+			foreach(var item in nets[netIndex]) {
+				Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = currSelectedPinSprite;
+			}
 		} else {
-			GameObject currGlowIcon = Util.getChildObject("SCH_"+selectedComponent.name, "schematic_glow");
-			currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
-			currGlowIcon.transform.localScale = new Vector3(1,1,1);
-			currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+			prevSelectedComponent = selectedComponent;
+			selectedComponent = GameObject.Find(components[_index]);
+			List<string> pins = new List<string>(netdata.getComponentPosition(selectedComponent.name));
+			
+			boardPins = netdata.getMultiplePinsPosition(pins);
+			http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
+			
+			Wait (0.5f, () => {
+				Debug.Log("0.5 seconds is lost forever");
+			});
 
-			if(prevSelectedComponent) {
-				GameObject prevGlowIcon = Util.getChildObject("SCH_"+prevSelectedComponent.name, "schematic_glow");
-				prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
-				// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
+			string firstPinPos = netdata.getComponentFirstPinRowPosition(selectedComponent.name);
+			http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
+			// glow on
+			if(icon.IsFritzingIcon()) {
+				GameObject currGlowIcon = Util.getChildObject("SCH_"+selectedComponent.name, "fritzing_glow");
+				currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
+				currGlowIcon.transform.localScale = new Vector3(1,1,1);
+				currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+				
+				if(prevSelectedComponent) {
+					GameObject prevGlowIcon = Util.getChildObject("SCH_"+prevSelectedComponent.name, "fritzing_glow");
+					prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
+					// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
+				}
+				prevGlowIconSprite = currGlowIconSprite;
+			} else {
+				GameObject currGlowIcon = Util.getChildObject("SCH_"+selectedComponent.name, "schematic_glow");
+				currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
+				currGlowIcon.transform.localScale = new Vector3(1,1,1);
+				currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+
+				if(prevSelectedComponent) {
+					GameObject prevGlowIcon = Util.getChildObject("SCH_"+prevSelectedComponent.name, "schematic_glow");
+					prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
+					// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
+				}
+				prevGlowIconSprite = currGlowIconSprite;
 			}
-			prevGlowIconSprite = currGlowIconSprite;
 		}
 	}
 
@@ -202,6 +233,10 @@ public class ToggleTutorial : MonoBehaviour {
 				foreach(var item in data) {
 					components.Add(item.Key);
 				}
+				nets = new List<Dictionary<string, string>>(netdata.getAllNetList());
+				netCount = nets.Count;
+				componentCount = components.Count;
+				totalSteps = netCount + componentCount;
 				init = false;
 			}
 			status = true;

@@ -10352,6 +10352,8 @@ MonoBehaviour:
   offSprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
   selectedGlowIconSprite: {fileID: 21300000, guid: 48e1bb463f5037c47985b2ee84e74ebc,
     type: 3}
+  currSelectedPinSprite: {fileID: 21300000, guid: 642a5969b0c254644bab765a25542a60,
+    type: 3}
   icon: {fileID: 1407594439}
   background: {fileID: 1253560672}
   prevButton: {fileID: 804670246}
@@ -10362,6 +10364,10 @@ MonoBehaviour:
   autoManualButton: {fileID: 2124341240}
   selectFileDropdown: {fileID: 2051277047}
   index: 0
+  totalSteps: 0
+  componentCount: 0
+  netCount: 0
+  travelNet: 0
 --- !u!1 &360065706
 GameObject:
   m_ObjectHideFlags: 0

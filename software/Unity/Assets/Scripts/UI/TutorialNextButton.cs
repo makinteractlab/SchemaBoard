@@ -23,8 +23,9 @@ public class TutorialNextButton : MonoBehaviour {
 	public void selectComponent() {
 		index = tutorial.index;
 		index++;
-		if(index > tutorial.getComponentNameList().Count-1)
+		if(index > tutorial.totalSteps-1) {
 			index = 0;
+		}
 		tutorial.setSelectedComponent(index);
 	}
 }

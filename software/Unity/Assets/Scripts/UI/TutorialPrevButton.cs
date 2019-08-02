@@ -24,7 +24,7 @@ public class TutorialPrevButton : MonoBehaviour {
 		index = tutorial.index;
 		index--;
 		if(index < 0)
-			index = tutorial.getComponentNameList().Count-1;
+			index = tutorial.totalSteps-1;
 		tutorial.setSelectedComponent(index);
 	}
 }
