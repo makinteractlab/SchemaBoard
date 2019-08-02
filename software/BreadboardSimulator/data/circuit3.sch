@@ -92,25 +92,14 @@ F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 6600 3650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:Diode D1
+L SchemaBoard_Library:Diode D3
 U 1 1 5D3E50B4
 P 2400 5650
-F 0 "D1" H 2400 5866 50  0000 C CNN
+F 0 "D3" H 2400 5866 50  0000 C CNN
 F 1 "Diode" H 2400 5775 50  0000 C CNN
 F 2 "" H 2400 5650 50  0001 C CNN
 F 3 "~" H 2400 5650 50  0001 C CNN
 	1    2400 5650
-	1    0    0    -1  
-$EndComp
-$Comp
-L SchemaBoard_Library:SwitchPush SW1
-U 1 1 5D3E6FAF
-P 3750 5650
-F 0 "SW1" H 3750 5935 50  0000 C CNN
-F 1 "SwitchPush" H 3750 5844 50  0000 C CNN
-F 2 "" H 3750 5850 50  0001 C CNN
-F 3 "~" H 3750 5850 50  0001 C CNN
-	1    3750 5650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -206,8 +195,6 @@ Wire Wire Line
 Wire Wire Line
 	7350 3750 7350 5300
 Wire Wire Line
-	4200 5650 3950 5650
-Wire Wire Line
 	5650 6150 7350 6150
 Connection ~ 7350 6150
 Wire Wire Line
@@ -220,8 +207,6 @@ Wire Wire Line
 	4300 6850 3150 6850
 Wire Wire Line
 	3150 6850 3150 5650
-Wire Wire Line
-	3150 5650 3550 5650
 Wire Wire Line
 	7100 3900 7850 3900
 Wire Wire Line
@@ -257,25 +242,40 @@ Wire Wire Line
 $Comp
 L SchemaBoard_Library:GND GND2
 U 1 1 5D454AC6
-P 4900 4700
-F 0 "GND2" H 4900 4450 50  0001 C CNN
-F 1 "GND" H 4988 4663 50  0000 L CNN
-F 2 "" H 4900 4700 50  0001 C CNN
-F 3 "" H 4900 4700 50  0001 C CNN
-	1    4900 4700
+P 5100 4500
+F 0 "GND2" H 5100 4250 50  0001 C CNN
+F 1 "GND" H 5188 4463 50  0000 L CNN
+F 2 "" H 5100 4500 50  0001 C CNN
+F 3 "" H 5100 4500 50  0001 C CNN
+	1    5100 4500
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4200 3750 6100 3750
-Wire Wire Line
-	4200 3750 4200 5650
-Wire Wire Line
-	4900 3900 4900 4700
-Wire Wire Line
-	4900 3900 6100 3900
 Connection ~ 2650 2050
 Wire Wire Line
 	2650 2050 4150 2050
 Wire Wire Line
 	900  2050 1800 2050
+Wire Wire Line
+	4700 5650 4700 3750
+Wire Wire Line
+	4700 3750 6100 3750
+$Comp
+L SchemaBoard_Library:SwitchPush SW1
+U 1 1 5D3E6FAF
+P 4000 5650
+F 0 "SW1" H 4000 5935 50  0000 C CNN
+F 1 "SwitchPush" H 4000 5844 50  0000 C CNN
+F 2 "" H 4000 5850 50  0001 C CNN
+F 3 "~" H 4000 5850 50  0001 C CNN
+	1    4000 5650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3150 5650 3800 5650
+Wire Wire Line
+	4200 5650 4700 5650
+Wire Wire Line
+	6100 3900 5100 3900
+Wire Wire Line
+	5100 3900 5100 4500
 $EndSCHEMATC

@@ -39,6 +39,7 @@ public class SchComponentPins : MonoBehaviour
 
     void initClickStatus() {
         clicked = false;
+        comm.setSchCompPinClicked(false);
     }
 
     void initGlow() {

@@ -8,27 +8,6 @@ using UnityEngine.UI;
 
 public class ToggleIcon : MonoBehaviour {
     public static ToggleIcon instance;
-	public Sprite resistorSymbol;
-	public Sprite capacitorSymbol;
-	public Sprite ledSymbol;
-	public Sprite photoresistorSymbol;
-	public Sprite vccSymbol;
-	public Sprite inductorSymbol;
-	public Sprite switchSymbol;
-	public Sprite diodeSymbol;
-	public Sprite zenerdiodeSymbol;
-	public Sprite etcSymbol;
-
-	public Sprite resistorImage;
-	public Sprite capacitorImage;
-	public Sprite ledImage;
-	public Sprite photoresistorImage;
-	public Sprite vccImage;
-	public Sprite inductorImage;
-	public Sprite switchImage;
-	public Sprite diodeImage;
-	public Sprite zenerdiodeImage;
-	public Sprite etcImage;
 
 	public Sprite onSprite;
 	public Sprite offSprite;
@@ -36,8 +15,6 @@ public class ToggleIcon : MonoBehaviour {
 	public ToggleAutoManual toggleMode;
 
 	bool status;
-
-	private string command = "";
 
     void Awake() {
         if (ToggleIcon.instance == null)

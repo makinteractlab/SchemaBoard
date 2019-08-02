@@ -104,6 +104,7 @@ public class ToggleAutoManual : MonoBehaviour {
 			gameObject.GetComponent<Button>().image.sprite = manualSprite;
 			manualMode = true;
 			showSchematicMenu(false);
+			showTutorialMenu(false);
 			showManualMenu(true);
 			loadNetUI.setupManualMode();
 			comm.setManualState();
@@ -130,6 +131,7 @@ public class ToggleAutoManual : MonoBehaviour {
 			mode = "auto";
 			//showNetWire(false);
 			showSchematicMenu(true);
+			showTutorialMenu(true);
 			showManualMenu(false);
 			loadNetUI.setupAutoMode();
 			comm.setAutoState();
@@ -214,6 +216,18 @@ public class ToggleAutoManual : MonoBehaviour {
 
 	private void showSchematicMenu(bool onoff) {
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("schematic");
+		
+        foreach(GameObject componentObj in temp) {
+			if(onoff) {
+				componentObj.transform.localScale = new Vector3(1,1,1);
+			} else {
+				componentObj.transform.localScale = new Vector3(0,0,0);
+			}
+        }
+	}
+
+	private void showTutorialMenu(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("tutorial");
 		
         foreach(GameObject componentObj in temp) {
 			if(onoff) {
