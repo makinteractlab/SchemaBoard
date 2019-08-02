@@ -6725,6 +6725,7 @@ GameObject:
   - component: {fileID: 211147074}
   - component: {fileID: 211147073}
   - component: {fileID: 211147072}
+  - component: {fileID: 211147075}
   m_Layer: 0
   m_Name: NextButton
   m_TagString: tutorial_button
@@ -6824,6 +6825,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 211147070}
+--- !u!114 &211147075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 211147070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92baad34cb4e56d408fd822195c4967c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorial: {fileID: 356555741}
 --- !u!1 &219076272
 GameObject:
   m_ObjectHideFlags: 0
@@ -10334,8 +10347,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   http: {fileID: 538934852}
   comm: {fileID: 889117451}
+  netdata: {fileID: 855837059}
   onSprite: {fileID: 21300000, guid: bb3369c93b1592e4bbbfc02f0a6c0f40, type: 3}
   offSprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
+  selectedGlowIconSprite: {fileID: 21300000, guid: 48e1bb463f5037c47985b2ee84e74ebc,
+    type: 3}
   icon: {fileID: 1407594439}
   background: {fileID: 1253560672}
   prevButton: {fileID: 804670246}
@@ -10345,6 +10361,7 @@ MonoBehaviour:
   selectAllButton: {fileID: 9582204}
   autoManualButton: {fileID: 2124341240}
   selectFileDropdown: {fileID: 2051277047}
+  index: 0
 --- !u!1 &360065706
 GameObject:
   m_ObjectHideFlags: 0
@@ -21632,6 +21649,7 @@ GameObject:
   - component: {fileID: 804670248}
   - component: {fileID: 804670247}
   - component: {fileID: 804670246}
+  - component: {fileID: 804670249}
   m_Layer: 0
   m_Name: PrevButton
   m_TagString: tutorial_button
@@ -21731,6 +21749,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 804670244}
+--- !u!114 &804670249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 804670244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8342a08f181cf48b754edea50a2745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorial: {fileID: 356555741}
 --- !u!1 &810075517
 GameObject:
   m_ObjectHideFlags: 0
@@ -41965,6 +41995,7 @@ GameObject:
   - component: {fileID: 1608604153}
   - component: {fileID: 1608604152}
   - component: {fileID: 1608604151}
+  - component: {fileID: 1608604154}
   m_Layer: 0
   m_Name: RestartButton
   m_TagString: tutorial_button
@@ -42064,6 +42095,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1608604149}
+--- !u!114 &1608604154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1608604149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 885f57af883703e458acd58fb5566659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorial: {fileID: 356555741}
 --- !u!1 &1613883383
 GameObject:
   m_ObjectHideFlags: 0
