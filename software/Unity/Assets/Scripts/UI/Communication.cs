@@ -8,6 +8,7 @@ public class Communication : MonoBehaviour
 {
     // public Sprite SelectedComponentSprite;
     // public Sprite OriginGlowSprite;
+    public Sprite connectedPinSprite;
     public Sprite SelectedPinSprite;
     public Sprite DefaultPinSprite;
     public VWJson vw;

@@ -28,6 +28,7 @@ public class ToggleTutorial : MonoBehaviour {
 	private Sprite lastComponentFritzingSprite;
 	private Sprite lastComponentSchematicSprite;
 	public Sprite selectedGlowIconSprite;
+	public Sprite prevSelectedPinSprite;
 	public Sprite currSelectedPinSprite;
 	
 	public ToggleIcon icon;
@@ -39,6 +40,7 @@ public class ToggleTutorial : MonoBehaviour {
 	public Button selectAllButton;
 	public Button autoManualButton;
 	public Dropdown selectFileDropdown;
+	public Text stepInfo;
 	bool status;
 	GameObject selectedComponent;
 	GameObject prevSelectedComponent;
@@ -118,6 +120,14 @@ public class ToggleTutorial : MonoBehaviour {
 		int[] boardPins = new int[2];
 		index = _index;
 		if(index == 0) {
+			stepInfo.text = "Start: Step 1";
+		} else if(index == totalSteps-1) {
+			stepInfo.text = "Done: Final Step";			
+		} else {
+			stepInfo.text = "Step " + (index+1);
+		}
+
+		if(index == 0) {
 			initAll();
 		}
 
@@ -155,28 +165,28 @@ public class ToggleTutorial : MonoBehaviour {
 				// }
 				if(netIndex < nets.Count-1) {
 					foreach(var item in nets[netIndex+1]) {
-						Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = comm.SelectedPinSprite;
+						Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = prevSelectedPinSprite;
 						// gnd랑 pwr이랑 아이콘 돌려놔야 함
 						if(gndList.Count>0 && pwrList.Count>0) {
 							if(netIndex+1 == nets.Count-2) {// ground net
 								foreach(var element in gndList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							} else if(netIndex+1 == nets.Count-1) {//power net
 								foreach(var element in pwrList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							}
 						} else if(gndList.Count>0 && pwrList.Count==0) {
 							if(netIndex+1 == nets.Count-1) {// ground net
 								foreach(var element in gndList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							}
 						} else if(gndList.Count==0 && pwrList.Count>0) {
 							if(netIndex+1 == nets.Count-1) {//power net
 								foreach(var element in pwrList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							}
 						}
@@ -212,28 +222,28 @@ public class ToggleTutorial : MonoBehaviour {
 			} else {
 				if(netIndex > 0) {
 					foreach(var item in nets[netIndex-1]) {
-						Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = comm.SelectedPinSprite;
+						Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = prevSelectedPinSprite;
 						// gnd랑 pwr이랑 아이콘 돌려놔야 함
 						if(gndList.Count>0 && pwrList.Count>0) {
 							if(netIndex-1 == nets.Count-2) {// ground net
 								foreach(var element in gndList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							} else if(netIndex == nets.Count-1) {//power net
 								foreach(var element in pwrList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							}
 						} else if(gndList.Count>0 && pwrList.Count==0) {
 							if(netIndex-1 == nets.Count-1) {// ground net
 								foreach(var element in gndList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							}
 						} else if(gndList.Count==0 && pwrList.Count>0) {
 							if(netIndex-1 == nets.Count-1) {//power net
 								foreach(var element in pwrList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							}
 						}
@@ -327,6 +337,7 @@ public class ToggleTutorial : MonoBehaviour {
 			prevButton.transform.localScale = new Vector3(1,1,1);
 			nextButton.transform.localScale = new Vector3(1,1,1);
 			restartButton.transform.localScale = new Vector3(1,1,1);
+			stepInfo.transform.localScale = new Vector3(1,1,1);
 			background.transform.localScale = new Vector3(1,1,1);
 			// background.GetComponent<SpriteRenderer>().sortingOrder = 0;
 			// background.GetComponent<SpriteRenderer>().sortingLayerName = "TutorialLayer";
@@ -338,6 +349,7 @@ public class ToggleTutorial : MonoBehaviour {
 			prevButton.transform.localScale = new Vector3(0,0,0);
 			nextButton.transform.localScale = new Vector3(0,0,0);
 			restartButton.transform.localScale = new Vector3(0,0,0);
+			stepInfo.transform.localScale = new Vector3(0,0,0);
 			background.transform.localScale = new Vector3(0,0,0);
 			refreshButton.transform.localScale = new Vector3(1,1,1);
 			selectAllButton.transform.localScale = new Vector3(1,1,1);
@@ -351,34 +363,9 @@ public class ToggleTutorial : MonoBehaviour {
 			status = false;
 			this.GetComponent<Image>().sprite = offSprite;
 			showButtons(status);
-
-			//firstpin and lastpin sprite
-			if(icon.IsFritzingIcon()) {
-				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
-				firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
-				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "fritzing_glow");
-				lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
-			} else {
-				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
-				firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
-				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "schematic_glow");
-				lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
-			}
-
 			http.postJson(comm.getUrl()+"/set", cmd.resetAll());
-
-			GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
-			foreach(var item in prefabButtons) {
-				if(item.name.Contains("sch_")) {
-					SchComponentButton button = item.GetComponent<SchComponentButton>();
-					button.resetAllStateEvent.Invoke("schematic");
-				}
-			}
-
-			// initComponentGlow();
-			initAutoPinGlow();
-			comm.setSchCompPinClicked(false);
-
+			initAll();
+			prevSelectedComponent = null;
 		} else {	//tutorial on
 			if(init) {
 				data = netdata.getCurrentDebugSchematicData();

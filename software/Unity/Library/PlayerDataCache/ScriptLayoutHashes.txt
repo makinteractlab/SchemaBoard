@@ -21,6 +21,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 9ca6347af5ceb6b0d1c105af31b6722e UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 dc84212124a3a83ae59ca01ac2f00995 Assembly-CSharp.dll:UnityEngine.UI.Extensions.RadialLayout
 5d450351d06c2cdbc664076e05fd630e Assembly-CSharp.dll:UnityEngine.UI.Extensions.Examples.UpdateRadialValue
+06820281aa885e078f47505142107215 Assembly-CSharp.dll:.TutorialPrevButton
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SchComponentButton
 50fc0fd71bb750ab7bf7e7ecceb31ac9 Assembly-CSharp.dll:.ComponentButton
 3be904ca97f4f3904b70b578a102f1a5 Assembly-CSharp.dll:UnityEngine.UI.Extensions.Examples.Example03ScrollView
@@ -158,6 +159,7 @@ ddad56a0cc275123771344136260487c Assembly-CSharp.dll:UnityEngine.UI.Extensions.C
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DefaultInitializationErrorHandler
 5c1e60c21f2b0fc07f40e01adff98854 Assembly-CSharp.dll:UnityEngine.UI.Extensions.BoundTooltipTrigger
+06d9c6f75e86d8076dbc968819127775 Assembly-CSharp.dll:.TutorialNextButton
 57595b81a46f07cf2a9e70231d85cdc3 Assembly-CSharp.dll:UnityEngine.UI.Extensions.CardExpanding2D
 322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
@@ -265,7 +267,7 @@ b9a4cfcce3d290616a866c1ece68195c Assembly-CSharp.dll:.DrawSchematicWire
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityEngine.UI.Extensions.RescaleDragPanel
 9e4d11257b430de4a99eb5d3130e72df Assembly-CSharp.dll:UnityEngine.UI.Extensions.UI_Knob
 148382f13d7cd2b3f34cff62345041ea Assembly-CSharp.dll:UnityEngine.UI.Extensions.UIPolygon
-0cfc9424b362438bf76edd7c1506c95b Assembly-CSharp.dll:.ToggleTutorial
+a93bfb8bc8f72dc35070716d9963085e Assembly-CSharp.dll:.ToggleTutorial
 401e07735d84028434a5956caab1a284 Assembly-CSharp.dll:UnityEngine.UI.Extensions.Examples.Example03Scene
 d63f24e7e506a0314a8cd3b2b9341d82 Assembly-CSharp.dll:UnityEngine.UI.Extensions.UIWindowBase
 d90d28f95fcbc1e0c881cdec7f31d062 Assembly-CSharp.dll:UnityEngine.UI.Extensions.VerticalScrollSnap
@@ -386,7 +388,7 @@ a39680391e460506ce37e681503a93c5 Assembly-CSharp.dll:UnityEngine.UI.Extensions.U
 69582b92a2f9d45d4b82c66dac318922 Assembly-CSharp.dll:UnityEngine.UI.Extensions.FlowLayoutGroup
 4bbac58ca12e354f2ba45426b1b1c058 Assembly-CSharp.dll:UnityEngine.UI.Extensions.UISelectableExtension
 8da7f5b59dbed99e6621d08d306b8b77 Assembly-CSharp.dll:.Pin
-9579991afbbfaba2477348b037b80265 Assembly-CSharp.dll:.Communication
+c75caf5ddff01a9f88ecfac719c54335 Assembly-CSharp.dll:.Communication
 0cfde5cb2e09b51b002ad320ff37abc6 Assembly-CSharp.dll:UnityEngine.UI.ExtensionsToggleGroup
 ec933a2ab5531523f501477c1dbcd874 Assembly-CSharp.dll:UnityEngine.UI.Extensions.ShineEffector
 5f51b678f80124f6bf1189407548b393 Assembly-CSharp.dll:.ToggleWireEdit
@@ -441,6 +443,7 @@ b8c39893db544907eb4bdbda49b519a7 Assembly-CSharp.dll:UnityEngine.UI.Extensions.E
 7246010beb4596a7ebdaffb7632d3e6b Assembly-CSharp.dll:UnityEngine.UI.Extensions.UI_TweenScale
 b80860386c5fbd5b7e008ce002b731b7 Assembly-CSharp.dll:.ToggleAutoManual
 d0434a7cefad4aaf1892839fc0d97c2b Assembly-CSharp.dll:UnityEngine.UI.Extensions.SoftMaskScript
+06d9c6f75e86d8076dbc968819127775 Assembly-CSharp.dll:.TutorialRestartButton
 842106baf1f274a02afd8af69d5f43f0 Assembly-CSharp.dll:.DrawNetWire
 cccd4d62922f67a49d4fa6240458aa7f Assembly-CSharp.dll:.SchComponentPins
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BoardDataHandler
@@ -482,4 +485,3 @@ d2a2bd333db22f480a8589e167314ecc Vuforia.UnityExtensions.dll:Vuforia.UserDefined
 3d1b89310e77c34bc0c8d7132231345c Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 05524b8f659e7bfe5756d1335fec24ba Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 15bea26698002c6c4a3087131232ce5c Vuforia.UnityExtensions.dll:Vuforia.WordBehaviour
-0a4795a9b284c85e81778cd2a6c96fd3 Assembly-CSharp.dll:.TutorialPrevButton

@@ -194,6 +194,11 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
             clicked = true;
         }
 
+        showWires(clicked);
+        if(clicked)
+            EnterDeleteMode();
+        else
+            ExitDeleteMode(comm.connectedPinSprite, false);
         return clicked;
     }
 
@@ -310,10 +315,6 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         wire = GameObject.Find("DrawVirtualWires").GetComponent<DrawVirtualWire>();
     }
 
-    // public void setConstraintsHandleObject() {
-    //     // constraintsHandle = GameObject.Find("ConstraintsHandler").GetComponent<ConstraintsHandler>();
-    // }
-
     public void setCommunicationObject()
     {
 		comm = GameObject.Find("Communication").GetComponent<Communication>();
@@ -321,68 +322,6 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
 		//Debug.Log(comm.name);
     }
     
-    // public void closeActivePopup()
-    // {
-    //     if(setResistorValuePanel.modalPanelObject.activeSelf) {
-    //         GameObject.Find("SliderEditButton").GetComponent<Button>().image.sprite = editOffSprite;
-    //         ExitDeleteMode(ConnectedPinSprite, false);
-    //         setResistorValuePanel.ClosePanel();
-    //     }
-    //     if(selectCapacitorValuePanel.modalPanelObject.activeSelf) {
-    //         GameObject.Find("SelectEditButton").GetComponent<Button>().image.sprite = editOffSprite;
-    //         ExitDeleteMode(ConnectedPinSprite, false);
-    //         selectCapacitorValuePanel.ClosePanel();
-    //     }
-    //     if(selectInductorValuePanel.modalPanelObject.activeSelf) {
-    //         GameObject.Find("SelectEditButton").GetComponent<Button>().image.sprite = editOffSprite;
-    //         ExitDeleteMode(ConnectedPinSprite, false);
-    //         selectInductorValuePanel.ClosePanel();
-    //     }
-    //     if(settingAwgPanel.modalPanelObject.activeSelf) {
-    //         GameObject.Find("AwgEditButton").GetComponent<Button>().image.sprite = editOffSprite;
-    //         ExitDeleteMode(ConnectedPinSprite, false);
-    //         settingAwgPanel.ClosePanel();
-    //     }
-    // }
-
-    //  Send to the Modal Panel to set up the Buttons and Functions to call
-    // public void pop () {
-    //     //Debug.Log("poped");
-    //     if(!comm.getPopupState() && !comm.getDeleteWireState()){
-    //         if(transform.parent.name.Contains("ADC")) {
-    //                 //closeActivePopup();
-    //                 readAdcValueWindow();
-    //                 //comm.setPopupState(true);
-    //         } else if(transform.parent.GetComponent<Component>().fixedComponent) {
-    //             //closeActivePopup();
-    //             //Debug.Log("editToggleWindow");
-    //             editToggleWindow();
-    //             //comm.setPopupState(true);
-    //         } else {
-    //             if(transform.parent.name.Contains("resistor")) {
-    //                 closeActivePopup();
-    //                 setResistorValueWindow();
-    //                 //comm.setPopupState(true);
-    //                 resistorWindowDrag = true;
-    //             } else if(transform.parent.name.Contains("capacitor")) {
-    //                 closeActivePopup();
-    //                 setCapacitorValueWindow();
-    //                 //comm.setPopupState(true);
-    //                 capacitorWindowDrag = true;
-    //             } else if(transform.parent.name.Contains("inductor")) {
-    //                 closeActivePopup();
-    //                 setInductorValueWindow();
-    //                 //comm.setPopupState(true);
-    //                 inductorWindowDrag = true;
-    //             } else if(transform.parent.name.Contains("AWG")) {
-    //                 closeActivePopup();
-    //                 setAwgValueWindow();
-    //                 //comm.setPopupState(true);
-    //             }
-    //         }
-    //     }
-    // }
-
     public void editToggleWindow() {
         editTogglePanel.Choice(resetAllStateAction);
         editTogglePanel.setPosition(new Vector3(transform.position.x+150, transform.position.y+100, transform.position.z+10));
@@ -488,17 +427,10 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
 
     public void EnterDeleteMode()
     {
-        if(editTogglePanel.modalPanelObject.activeSelf) {
-            GameObject.Find("EditToggleButton").GetComponent<Button>().image.sprite = editOnSprite;
-        }
-
-        //Debug.Log("[Component.cs]" + "Enter Delete Mode");
-        //comm.setSourcePin(transform.parent.name); ==>?????
         comm.setComponentPin(transform.parent.name);
-		comm.setDeleteWireState(true, transform.parent.name);
+		// comm.setDeleteWireState(true, transform.parent.name);
+        comm.setEditWireState(true);
         deleteState = true;
-		
-		getChildObject(transform.parent.name, name).GetComponent<Button>().image.sprite = DeleteModeComponentSprite;
 
         GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
         foreach(GameObject wireObj in temp)
@@ -508,25 +440,17 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
 				int start = wireObj.name.IndexOf(":") + 1;
 				int end = wireObj.name.IndexOf(",");
 				string sourcePinName = wireObj.name.Substring(start, end - start);
-				//Debug.Log("Component.cs - 500000 " + sourcePinName);
 				GameObject.Find(sourcePinName).GetComponent<Button>().image.sprite = DeleteModePinSprite;
-				// int seperator = wireObj.name.IndexOf(",");
-				// string targetComponentPinName = wireObj.name.Substring(seperator+1, wireObj.name.Length-seperator-1);
-				// getTargetComponentPinObject(targetComponentPinName).GetComponent<Button>().image.sprite = DeleteModePinSprite;
             }
         }
     }
 
-    public void ExitDeleteMode(Sprite sprite, bool delete)
+    public void ExitDeleteMode(Sprite _sprite, bool _delete)
     {
-        if(editTogglePanel.modalPanelObject.activeSelf) {
-            GameObject.Find("EditToggleButton").GetComponent<Button>().image.sprite = editOffSprite;
-        }
-
         //Debug.Log("[Component.cs]" + "Exit Delete Mode");
-        comm.setDeleteWireState(false, transform.parent.name);
+        // comm.setDeleteWireState(false, transform.parent.name);
+        comm.setEditWireState(false);
         deleteState = false;
-		getChildObject(transform.parent.name, name).GetComponent<Button>().image.sprite = DefaultComponentSprite;
 
         GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
         foreach(GameObject wireObj in temp)
@@ -537,7 +461,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
 				int end = wireObj.name.IndexOf(",");
 				string sourcePinName = wireObj.name.Substring(start, end - start);
 				//Debug.Log("Component.cs - 500000 " + sourcePinName);
-				GameObject.Find(sourcePinName).GetComponent<Button>().image.sprite = sprite;
+				GameObject.Find(sourcePinName).GetComponent<Button>().image.sprite = _sprite;
                 // string pinName = wireObj.name.Substring(4, wireObj.name.Length-4-name.Length);
                 // Debug.Log(pinName);
                 // Button btTempPin = GameObject.Find(pinName).GetComponent<Button>();
@@ -545,6 +469,20 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
             }
         }
     }
+
+    private void showWires(bool onoff) {
+        // hide all wires
+		GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
+        foreach(GameObject wireObj in wireTemp) {
+            if( wireObj.name.Contains(transform.parent.name) ) {
+                LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+                lr.enabled = onoff;
+            } else {
+                LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+                lr.enabled = false;
+            }
+        }
+	}
 /*
     public void OnPointerDown(PointerEventData eventData)
     {

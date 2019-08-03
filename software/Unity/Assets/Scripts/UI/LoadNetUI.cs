@@ -617,5 +617,33 @@ public class LoadNetUI : MonoBehaviour {
 			}
 		}
 		changeNetWiresPosition();
+		showWires(false);
+		showNetWires(false);
+	}
+
+	private void showWires(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
+        foreach(GameObject componentObj in temp) {
+			GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
+			foreach(GameObject wireObj in wireTemp) {
+				if( wireObj.name.Contains(componentObj.name) ) {
+					LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+					lr.enabled = onoff;
+				}
+			}
+        }
+	}
+
+	private void showNetWires(bool onoff) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");
+        foreach(GameObject componentObj in temp) {
+			GameObject[] netwireTemp = GameObject.FindGameObjectsWithTag("netwire");
+			foreach(GameObject netwireObj in netwireTemp) {
+				if( netwireObj.name.Contains(componentObj.name) ) {
+					LineRenderer lr = netwireObj.GetComponent<LineRenderer>();
+					lr.enabled = onoff;
+				}
+			}
+        }
 	}
 }

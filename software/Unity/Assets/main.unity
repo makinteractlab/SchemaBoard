@@ -131,7 +131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8346525
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7883,7 +7883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &264748067
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10251,6 +10251,7 @@ RectTransform:
   - {fileID: 804670245}
   - {fileID: 211147071}
   - {fileID: 1608604150}
+  - {fileID: 1155088249}
   - {fileID: 619979204}
   m_Father: {fileID: 110182758}
   m_RootOrder: 10
@@ -10353,7 +10354,9 @@ MonoBehaviour:
   offSprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
   selectedGlowIconSprite: {fileID: 21300000, guid: 48e1bb463f5037c47985b2ee84e74ebc,
     type: 3}
-  currSelectedPinSprite: {fileID: 21300000, guid: 642a5969b0c254644bab765a25542a60,
+  prevSelectedPinSprite: {fileID: 21300000, guid: 85e66749648dae941a0c9e6ee8156232,
+    type: 3}
+  currSelectedPinSprite: {fileID: 21300000, guid: 48e1bb463f5037c47985b2ee84e74ebc,
     type: 3}
   icon: {fileID: 1407594439}
   background: {fileID: 1253560672}
@@ -10364,6 +10367,7 @@ MonoBehaviour:
   selectAllButton: {fileID: 9582204}
   autoManualButton: {fileID: 2124341240}
   selectFileDropdown: {fileID: 2051277047}
+  stepInfo: {fileID: 1155088250}
   index: 0
   totalSteps: 0
   componentCount: 0
@@ -16981,7 +16985,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 356555737}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -23711,6 +23715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b265ddc9b43e64f9753a68816bc3ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connectedPinSprite: {fileID: 21300000, guid: 93fd043d398a03049be6881680a21b87, type: 3}
   SelectedPinSprite: {fileID: 21300000, guid: 48e1bb463f5037c47985b2ee84e74ebc, type: 3}
   DefaultPinSprite: {fileID: 21300000, guid: 44c5ed4d4d2aad04f9a866be1ff0923c, type: 3}
   vw: {fileID: 439254041}
@@ -29991,6 +29996,80 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1143292695}
+--- !u!1 &1155088248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1155088249}
+  - component: {fileID: 1155088251}
+  - component: {fileID: 1155088250}
+  m_Layer: 0
+  m_Name: StepInfo
+  m_TagString: tutorial_button
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1155088249
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1155088248}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 356555737}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -190, y: -300}
+  m_SizeDelta: {x: 520, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1155088250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1155088248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.99264705, g: 0.3986696, b: 0.13137977, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 8b47c38e0ee1f424e8a119e5a8d77b06, type: 3}
+    m_FontSize: 45
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 60
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Step 1
+--- !u!222 &1155088251
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1155088248}
 --- !u!1 &1159113495
 GameObject:
   m_ObjectHideFlags: 0
