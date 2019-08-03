@@ -464,22 +464,20 @@ public class NetData : MonoBehaviour {
 		foreach(var item in _netElements) {
 			if(debugNetData.ContainsKey(item.Key)) {
 				resultPins.Add(debugNetData[item.Key].getPin(item.Value).breadboardRowPosition);
-
-				foreach(var pin in resultPins) {
-					if(pin.Contains("init")) continue;
-					else boardBinary[int.Parse(pin)-1] = '1';
-				}
-
-				for(int i=0; i<16; i++)
-					if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
-
-				for(int i=16; i<32; i++)
-					if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
-
-			} else {
-				result = Enumerable.Repeat(-1, 2).ToArray();
 			}
 		}
+
+		foreach(var item in resultPins) {
+			if(item.Contains("init")) continue;
+			else boardBinary[int.Parse(item)-1] = '1';
+		}
+
+		for(int i=0; i<16; i++)
+			if(boardBinary[i] == '1') result[left] += (int)Math.Pow(2, i);
+
+		for(int i=16; i<32; i++)
+			if(boardBinary[i] == '1') result[right] += (int)Math.Pow(2, i-16);
+
 		return result;
 	}
 

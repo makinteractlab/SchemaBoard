@@ -117,9 +117,18 @@ public class ToggleTutorial : MonoBehaviour {
 	public void setSelectedComponent(int _index) {
 		int[] boardPins = new int[2];
 		index = _index;
-		if(index == 0 || index == componentCount-1) {
+		if(index == 0) {
 			initAll();
 		}
+
+		if(index == componentCount-1 && prevButtonObj.clicked) {
+			initAll();
+		}
+
+		if(index == componentCount && !prevButtonObj.clicked){
+			initAll();
+		}
+
 		if(index == totalSteps-1) {
 			GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
 			foreach(var item in prefabButtons) {
