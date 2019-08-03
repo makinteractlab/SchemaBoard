@@ -10348,6 +10348,7 @@ MonoBehaviour:
   http: {fileID: 538934852}
   comm: {fileID: 889117451}
   netdata: {fileID: 855837059}
+  prevButtonObj: {fileID: 804670249}
   onSprite: {fileID: 21300000, guid: bb3369c93b1592e4bbbfc02f0a6c0f40, type: 3}
   offSprite: {fileID: 21300000, guid: 459a0c4b4a9d7d14786bddda98474fa1, type: 3}
   selectedGlowIconSprite: {fileID: 21300000, guid: 48e1bb463f5037c47985b2ee84e74ebc,
@@ -21767,6 +21768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorial: {fileID: 356555741}
+  clicked: 0
 --- !u!1 &810075517
 GameObject:
   m_ObjectHideFlags: 0

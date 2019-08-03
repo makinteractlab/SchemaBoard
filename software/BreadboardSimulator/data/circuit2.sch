@@ -28,19 +28,19 @@ $EndComp
 $Comp
 L SchemaBoard_Library:+3.3V PWR1
 U 1 1 5D3E25B9
-P 3050 1700
-F 0 "PWR1" H 3050 1550 50  0001 C CNN
-F 1 "+3.3V" H 3138 1737 50  0000 L CNN
-F 2 "" H 3050 1700 50  0001 C CNN
-F 3 "" H 3050 1700 50  0001 C CNN
-	1    3050 1700
+P 2900 1100
+F 0 "PWR1" H 2900 950 50  0001 C CNN
+F 1 "+3.3V" H 2988 1137 50  0000 L CNN
+F 2 "" H 2900 1100 50  0001 C CNN
+F 3 "" H 2900 1100 50  0001 C CNN
+	1    2900 1100
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:R_PHOTO LDR1
+L SchemaBoard_Library:R_PHOTO LDR2
 U 1 1 5D3CE114
 P 4300 2050
-F 0 "LDR1" V 3975 2050 50  0000 C CNN
+F 0 "LDR2" V 3975 2050 50  0000 C CNN
 F 1 "R_PHOTO" V 4066 2050 50  0000 C CNN
 F 2 "" V 4350 1800 50  0001 L CNN
 F 3 "~" H 4300 2000 50  0001 C CNN
@@ -81,43 +81,21 @@ F 3 "~" H 8700 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:6pinRelay U2-6
-U 1 1 5D3E2F18
-P 4700 3750
-F 0 "U2-6" V 4033 3750 50  0000 C CNN
-F 1 "6pinRelay" V 4124 3750 50  0000 C CNN
-F 2 "Relay_THT" H 5200 3650 50  0001 L CNN
-F 3 "https://standexelectronics.com/wp-content/uploads/datasheet_reed_relay_DIP.pdf" H 4600 3750 50  0001 C CNN
-	1    4700 3750
-	0    1    1    0   
-$EndComp
-$Comp
-L SchemaBoard_Library:8pinChip U1-8
-U 1 1 5D3CCD89
-P 6600 3650
-F 0 "U1-8" H 6600 4117 50  0000 C CNN
-F 1 "8pinChip" H 6600 4026 50  0000 C CNN
-F 2 "" H 6600 3650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 6600 3650 50  0001 C CNN
-	1    6600 3650
-	1    0    0    -1  
-$EndComp
-$Comp
 L SchemaBoard_Library:16pinChip U3-16
 U 1 1 5D3E3E98
-P 2000 3650
-F 0 "U3-16" H 2000 4417 50  0000 C CNN
-F 1 "16pinChip" H 2000 4326 50  0000 C CNN
-F 2 "" H 2000 3250 50  0001 C CNN
-F 3 "" H 2000 3250 50  0001 C CNN
-	1    2000 3650
+P 6600 3800
+F 0 "U3-16" H 6600 4567 50  0000 C CNN
+F 1 "16pinChip" H 6600 4476 50  0000 C CNN
+F 2 "" H 6600 3400 50  0001 C CNN
+F 3 "" H 6600 3400 50  0001 C CNN
+	1    6600 3800
 	1    0    0    -1  
 $EndComp
 $Comp
-L SchemaBoard_Library:Diode D1
+L SchemaBoard_Library:Diode D3
 U 1 1 5D3E50B4
 P 2550 5650
-F 0 "D1" H 2550 5866 50  0000 C CNN
+F 0 "D3" H 2550 5866 50  0000 C CNN
 F 1 "Diode" H 2550 5775 50  0000 C CNN
 F 2 "" H 2550 5650 50  0001 C CNN
 F 3 "~" H 2550 5650 50  0001 C CNN
@@ -202,19 +180,11 @@ F 3 "~" V 5450 6210 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	3050 1700 3050 3150
-Wire Wire Line
-	3050 3150 2500 3150
-Wire Wire Line
-	2100 2050 4150 2050
+	2100 2050 2900 2050
 Wire Wire Line
 	4450 2050 5650 2050
 Wire Wire Line
-	1800 2050 900  2050
-Wire Wire Line
-	900  2050 900  3300
-Wire Wire Line
-	900  3300 1500 3300
+	1800 2050 950  2050
 Wire Wire Line
 	6150 2050 7950 2050
 Wire Wire Line
@@ -240,23 +210,11 @@ Wire Wire Line
 Wire Wire Line
 	7350 3750 7350 5300
 Wire Wire Line
-	5000 3450 6100 3450
-Wire Wire Line
-	6100 3750 5500 3750
-Wire Wire Line
-	5500 3750 5500 4150
-Wire Wire Line
-	5500 4150 5000 4150
-Wire Wire Line
-	4400 4150 4200 4150
-Wire Wire Line
-	4200 4150 4200 5650
-Wire Wire Line
 	4200 5650 3950 5650
 Wire Wire Line
 	2700 5650 3150 5650
 Wire Wire Line
-	1750 5650 2400 5650
+	1750 5650 2000 5650
 Wire Wire Line
 	5650 6150 7350 6150
 Connection ~ 7350 6150
@@ -283,4 +241,42 @@ Wire Wire Line
 	7850 3900 7850 3800
 Wire Wire Line
 	7850 3800 8400 3800
+Wire Wire Line
+	6100 4050 4200 4050
+Wire Wire Line
+	4200 4050 4200 5650
+$Comp
+L SchemaBoard_Library:GND GND2
+U 1 1 5D45597B
+P 950 3650
+F 0 "GND2" H 950 3400 50  0001 C CNN
+F 1 "GND" H 955 3477 50  0000 C CNN
+F 2 "" H 950 3650 50  0001 C CNN
+F 3 "" H 950 3650 50  0001 C CNN
+	1    950  3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	950  3650 950  2050
+Wire Wire Line
+	2900 1100 2900 2050
+Connection ~ 2900 2050
+Wire Wire Line
+	2900 2050 4150 2050
+$Comp
+L SchemaBoard_Library:+3.3V PWR2
+U 1 1 5D4586B3
+P 2000 3800
+F 0 "PWR2" H 2000 3650 50  0001 C CNN
+F 1 "+3.3V" H 2088 3837 50  0000 L CNN
+F 2 "" H 2000 3800 50  0001 C CNN
+F 3 "" H 2000 3800 50  0001 C CNN
+	1    2000 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2000 3800 2000 5650
+Connection ~ 2000 5650
+Wire Wire Line
+	2000 5650 2400 5650
 $EndSCHEMATC

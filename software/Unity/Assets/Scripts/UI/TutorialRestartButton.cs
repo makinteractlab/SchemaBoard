@@ -22,5 +22,6 @@ public class TutorialRestartButton : MonoBehaviour {
 
 	public void selectComponent() {
 		tutorial.setSelectedComponent(0);
+        tutorial.prevButtonObj.clicked = false;
 	}
 }

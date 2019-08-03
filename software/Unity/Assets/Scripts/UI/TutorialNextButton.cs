@@ -27,5 +27,6 @@ public class TutorialNextButton : MonoBehaviour {
 			index = 0;
 		}
 		tutorial.setSelectedComponent(index);
+		tutorial.prevButtonObj.clicked = false;
 	}
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="D">
   <design>
-    <source>D:\Works\Git\RetroBreadboard\software\BreadboardSimulator\data\circuit4.sch</source>
-    <date>2019-08-01 오후 5:31:44</date>
+    <source>D:\Works\Git\RetroBreadboard\software\SchematicParser\circuit4.sch</source>
+    <date>2019-08-03 오전 11:56:29</date>
     <tool>Eeschema (5.1.2)-2</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -31,10 +31,39 @@
       <datasheet>http://www.ti.com/lit/ds/symlink/lm555.pdf</datasheet>
       <libsource lib="SchemaBoard_Library" part="LM555" description="Timer, DIP-8/SOIC-8/SSOP-8"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamp>5D433B16</tstamp>
+      <tstamp>5D43A409</tstamp>
+    </comp>
+    <comp ref="CP1">
+      <value>CP</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="CP" description="Polarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D438166</tstamp>
+    </comp>
+    <comp ref="LED2">
+      <value>LED</value>
+      <datasheet>~</datasheet>
+      <libsource lib="SchemaBoard_Library" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D44AD88</tstamp>
     </comp>
   </components>
   <libparts>
+    <libpart lib="SchemaBoard_Library" part="CP">
+      <description>Polarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">CP</field>
+        <field name="Value">CP</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="SchemaBoard_Library" part="LED">
       <description>Light emitting diode</description>
       <docs>~</docs>
@@ -96,31 +125,35 @@
     </library>
   </libraries>
   <nets>
-    <net code="1" name="Net-(U1-8-Pad1)">
-      <node ref="U1-8" pin="1"/>
-    </net>
-    <net code="2" name="Net-(U1-8-Pad8)">
-      <node ref="U1-8" pin="8"/>
-    </net>
-    <net code="3" name="Net-(U1-8-Pad3)">
+    <net code="1" name="Net-(LED2-Pad2)">
       <node ref="U1-8" pin="3"/>
+      <node ref="LED2" pin="2"/>
     </net>
-    <net code="4" name="Net-(U1-8-Pad4)">
+    <net code="2" name="Net-(CP1-Pad2)">
+      <node ref="CP1" pin="2"/>
       <node ref="U1-8" pin="4"/>
+      <node ref="LED1" pin="1"/>
     </net>
-    <net code="5" name="Net-(U1-8-Pad5)">
+    <net code="3" name="+3V3">
+      <node ref="CP1" pin="1"/>
+      <node ref="U1-8" pin="8"/>
+      <node ref="LED1" pin="2"/>
+    </net>
+    <net code="4" name="GND">
+      <node ref="U1-8" pin="1"/>
+      <node ref="LED2" pin="1"/>
+    </net>
+    <net code="5" name="Net-(U1-8-Pad2)">
+      <node ref="U1-8" pin="2"/>
+    </net>
+    <net code="6" name="Net-(U1-8-Pad5)">
       <node ref="U1-8" pin="5"/>
     </net>
-    <net code="6" name="Net-(U1-8-Pad6)">
+    <net code="7" name="Net-(U1-8-Pad6)">
       <node ref="U1-8" pin="6"/>
     </net>
-    <net code="7" name="Net-(LED1-Pad2)">
-      <node ref="LED1" pin="2"/>
+    <net code="8" name="Net-(U1-8-Pad7)">
       <node ref="U1-8" pin="7"/>
-    </net>
-    <net code="8" name="Net-(LED1-Pad1)">
-      <node ref="LED1" pin="1"/>
-      <node ref="U1-8" pin="2"/>
     </net>
   </nets>
 </export>

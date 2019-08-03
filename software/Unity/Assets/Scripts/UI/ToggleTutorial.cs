@@ -17,6 +17,7 @@ public class ToggleTutorial : MonoBehaviour {
 	public HttpRequest http;
 	public Communication comm;
 	public NetData netdata;
+	public TutorialPrevButton prevButtonObj;
 	Command cmd;
 	public Sprite onSprite;
 	public Sprite offSprite;
@@ -41,6 +42,8 @@ public class ToggleTutorial : MonoBehaviour {
 	Dictionary<string, _Component> data;
 	List<Dictionary<string, string>> nets;
 	List<string> components;
+	List<string> gndList;
+	List<string> pwrList;
 	bool init;
 	public int index;
 	public int totalSteps;
@@ -62,6 +65,8 @@ public class ToggleTutorial : MonoBehaviour {
 		cmd = new Command();
 		selectedComponent = null;
 		components = new List<string>();
+		gndList = new List<string>();
+		pwrList = new List<string>();
 		init = true;
 		travelNet = false;
 		totalSteps = 0;
@@ -108,22 +113,131 @@ public class ToggleTutorial : MonoBehaviour {
 			// should start travel nets
 			GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
 
-			int netIndex = index-componentCount-1;
+			int netIndex = index-componentCount;
 			
 			boardPins = netdata.getPositionForNet(nets[netIndex]);
 			http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
 			
 			// initAutoPinGlow();
-			
-			if(netIndex > 0) {
-				foreach(var item in nets[netIndex-1]) {
+			if(prevButtonObj.clicked) {
+				initAll();
+				if(netIndex < nets.Count-1) {
+					foreach(var item in nets[netIndex+1]) {
+						Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = currSelectedPinSprite;
+						// gnd랑 pwr이랑 아이콘 돌려놔야 함
+						if(gndList.Count>0 && pwrList.Count>0) {
+							if(netIndex+1 == nets.Count-2) {// ground net
+								foreach(var element in gndList) {
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+								}
+							} else if(netIndex+1 == nets.Count-1) {//power net
+								foreach(var element in pwrList) {
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+								}
+							}
+						} else if(gndList.Count>0 && pwrList.Count==0) {
+							if(netIndex+1 == nets.Count-1) {// ground net
+								foreach(var element in gndList) {
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+								}
+							}
+						} else if(gndList.Count==0 && pwrList.Count>0) {
+							if(netIndex+1 == nets.Count-1) {//power net
+								foreach(var element in pwrList) {
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+								}
+							}
+						}
+					}
+				}
+				foreach(var item in nets[netIndex]) {
+					if(gndList.Count>0 && pwrList.Count>0) {
+						if(netIndex == nets.Count-2) {// ground net
+							foreach(var element in gndList) {
+								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+							}
+						} else if(netIndex == nets.Count-1) {//power net
+							foreach(var element in pwrList) {
+								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+							}
+						}
+					} else if(gndList.Count>0 && pwrList.Count==0) {
+						if(netIndex == nets.Count-1) {// ground net
+							foreach(var element in gndList) {
+								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+							}
+						}
+					} else if(gndList.Count==0 && pwrList.Count>0) {
+						if(netIndex == nets.Count-1) {//power net
+							foreach(var element in pwrList) {
+								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+							}
+						}
+					}
 					Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = comm.SelectedPinSprite;
 				}
-			}
-			foreach(var item in nets[netIndex]) {
-				Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = currSelectedPinSprite;
+
+			} else {
+				if(netIndex > 0) {
+					foreach(var item in nets[netIndex-1]) {
+						Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = comm.SelectedPinSprite;
+						// gnd랑 pwr이랑 아이콘 돌려놔야 함
+						if(gndList.Count>0 && pwrList.Count>0) {
+							if(netIndex-1 == nets.Count-2) {// ground net
+								foreach(var element in gndList) {
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+								}
+							} else if(netIndex == nets.Count-1) {//power net
+								foreach(var element in pwrList) {
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+								}
+							}
+						} else if(gndList.Count>0 && pwrList.Count==0) {
+							if(netIndex-1 == nets.Count-1) {// ground net
+								foreach(var element in gndList) {
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+								}
+							}
+						} else if(gndList.Count==0 && pwrList.Count>0) {
+							if(netIndex-1 == nets.Count-1) {//power net
+								foreach(var element in pwrList) {
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+								}
+							}
+						}
+					}
+				}
+				foreach(var item in nets[netIndex]) {
+					if(gndList.Count>0 && pwrList.Count>0) {
+						if(netIndex == nets.Count-2) {// ground net
+							foreach(var element in gndList) {
+								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+							}
+						} else if(netIndex == nets.Count-1) {//power net
+							foreach(var element in pwrList) {
+								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+							}
+						}
+					} else if(gndList.Count>0 && pwrList.Count==0) {
+						if(netIndex == nets.Count-1) {// ground net
+							foreach(var element in gndList) {
+								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+							}
+						}
+					} else if(gndList.Count==0 && pwrList.Count>0) {
+						if(netIndex == nets.Count-1) {//power net
+							foreach(var element in pwrList) {
+								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+							}
+						}
+					}
+					Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = currSelectedPinSprite;
+				}
 			}
 		} else {
+			if(prevButtonObj.clicked) {
+				initAll();
+			}
 			prevSelectedComponent = selectedComponent;
 			selectedComponent = GameObject.Find(components[_index]);
 			List<string> pins = new List<string>(netdata.getComponentPosition(selectedComponent.name));
@@ -233,7 +347,22 @@ public class ToggleTutorial : MonoBehaviour {
 				foreach(var item in data) {
 					components.Add(item.Key);
 				}
+				GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
+				foreach(var item in autoPrefabs) {
+					if(item.name.Contains("GND")) {
+						gndList.Add(item.name);
+					} else if(item.name.Contains("PWR")) {
+						pwrList.Add(item.name);
+					}
+				}
+
 				nets = new List<Dictionary<string, string>>(netdata.getAllNetList());
+				if(gndList.Count > 0) {
+					nets.Add(netdata.getGndNet());
+				}
+				if(pwrList.Count > 0) {
+					nets.Add(netdata.getPwrNet());
+				}
 				netCount = nets.Count;
 				componentCount = components.Count;
 				totalSteps = netCount + componentCount;

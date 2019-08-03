@@ -10,6 +10,7 @@ public class TutorialPrevButton : MonoBehaviour {
     public static TutorialPrevButton instance;
 	public ToggleTutorial tutorial;
 	int index;
+	public bool clicked;
 
     void Awake() {
         if (TutorialPrevButton.instance == null)
@@ -18,6 +19,7 @@ public class TutorialPrevButton : MonoBehaviour {
     // Use this for initialization
     void Start() {
 		this.GetComponent<Button>().onClick.AddListener(selectComponent);
+		clicked = false;
     }
 
 	public void selectComponent() {
@@ -25,6 +27,8 @@ public class TutorialPrevButton : MonoBehaviour {
 		index--;
 		if(index < 0)
 			index = tutorial.totalSteps-1;
+		clicked = true;
 		tutorial.setSelectedComponent(index);
+		
 	}
 }
