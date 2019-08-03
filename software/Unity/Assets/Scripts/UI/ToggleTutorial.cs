@@ -23,7 +23,10 @@ public class ToggleTutorial : MonoBehaviour {
 	public Sprite offSprite;
 	private Sprite prevGlowIconSprite;
 	private Sprite currGlowIconSprite;
-	private Sprite firstComponentSprite;
+	private Sprite firstComponentFritzingSprite;
+	private Sprite firstComponentSchematicSprite;
+	private Sprite lastComponentFritzingSprite;
+	private Sprite lastComponentSchematicSprite;
 	public Sprite selectedGlowIconSprite;
 	public Sprite currSelectedPinSprite;
 	
@@ -98,15 +101,33 @@ public class ToggleTutorial : MonoBehaviour {
 		initAutoPinGlow();
 		comm.setSchCompPinClicked(false);
 
-		GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
-		firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentSprite;
+		if(icon.IsFritzingIcon()) {
+			GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
+			firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
+			GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "fritzing_glow");
+			lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
+		} else {
+			GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
+			firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentSchematicSprite;
+			GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "schematic_glow");
+			lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentSchematicSprite;
+		}
 	}
 
 	public void setSelectedComponent(int _index) {
 		int[] boardPins = new int[2];
 		index = _index;
-		if(index == 0 || index == componentCount) {
+		if(index == 0 || index == componentCount-1) {
 			initAll();
+		}
+		if(index == totalSteps-1) {
+			GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
+			foreach(var item in prefabButtons) {
+				if(item.name.Contains("sch_")) {
+					SchComponentButton button = item.GetComponent<SchComponentButton>();
+					button.resetAllStateEvent.Invoke("schematic");
+				}
+			}
 		}
 
 		if(index >= componentCount) {
@@ -120,31 +141,33 @@ public class ToggleTutorial : MonoBehaviour {
 			
 			// initAutoPinGlow();
 			if(prevButtonObj.clicked) {
-				initAll();
+				// if(index == componentCount) {
+				// 	initAll();
+				// }
 				if(netIndex < nets.Count-1) {
 					foreach(var item in nets[netIndex+1]) {
-						Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = currSelectedPinSprite;
+						Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = comm.SelectedPinSprite;
 						// gnd랑 pwr이랑 아이콘 돌려놔야 함
 						if(gndList.Count>0 && pwrList.Count>0) {
 							if(netIndex+1 == nets.Count-2) {// ground net
 								foreach(var element in gndList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
 								}
 							} else if(netIndex+1 == nets.Count-1) {//power net
 								foreach(var element in pwrList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
 								}
 							}
 						} else if(gndList.Count>0 && pwrList.Count==0) {
 							if(netIndex+1 == nets.Count-1) {// ground net
 								foreach(var element in gndList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
 								}
 							}
 						} else if(gndList.Count==0 && pwrList.Count>0) {
 							if(netIndex+1 == nets.Count-1) {//power net
 								foreach(var element in pwrList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
 								}
 							}
 						}
@@ -174,7 +197,7 @@ public class ToggleTutorial : MonoBehaviour {
 							}
 						}
 					}
-					Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = comm.SelectedPinSprite;
+					Util.getChildObject("SCH_"+item.Key, item.Value).GetComponent<Image>().sprite = currSelectedPinSprite;
 				}
 
 			} else {
@@ -185,23 +208,23 @@ public class ToggleTutorial : MonoBehaviour {
 						if(gndList.Count>0 && pwrList.Count>0) {
 							if(netIndex-1 == nets.Count-2) {// ground net
 								foreach(var element in gndList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
 								}
 							} else if(netIndex == nets.Count-1) {//power net
 								foreach(var element in pwrList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
 								}
 							}
 						} else if(gndList.Count>0 && pwrList.Count==0) {
 							if(netIndex-1 == nets.Count-1) {// ground net
 								foreach(var element in gndList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
 								}
 							}
 						} else if(gndList.Count==0 && pwrList.Count>0) {
 							if(netIndex-1 == nets.Count-1) {//power net
 								foreach(var element in pwrList) {
-									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
+									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = comm.SelectedPinSprite;
 								}
 							}
 						}
@@ -235,9 +258,6 @@ public class ToggleTutorial : MonoBehaviour {
 				}
 			}
 		} else {
-			if(prevButtonObj.clicked) {
-				initAll();
-			}
 			prevSelectedComponent = selectedComponent;
 			selectedComponent = GameObject.Find(components[_index]);
 			List<string> pins = new List<string>(netdata.getComponentPosition(selectedComponent.name));
@@ -251,6 +271,7 @@ public class ToggleTutorial : MonoBehaviour {
 
 			string firstPinPos = netdata.getComponentFirstPinRowPosition(selectedComponent.name);
 			http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
+			
 			// glow on
 			if(icon.IsFritzingIcon()) {
 				GameObject currGlowIcon = Util.getChildObject("SCH_"+selectedComponent.name, "fritzing_glow");
@@ -322,10 +343,18 @@ public class ToggleTutorial : MonoBehaviour {
 			this.GetComponent<Image>().sprite = offSprite;
 			showButtons(status);
 
-			//firstpin sprite
-
-			GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
-			firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentSprite;
+			//firstpin and lastpin sprite
+			if(icon.IsFritzingIcon()) {
+				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
+				firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
+				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "fritzing_glow");
+				lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
+			} else {
+				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
+				firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
+				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "schematic_glow");
+				lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
+			}
 
 			http.postJson(comm.getUrl()+"/set", cmd.resetAll());
 
@@ -372,8 +401,18 @@ public class ToggleTutorial : MonoBehaviour {
 			this.GetComponent<Image>().sprite = onSprite;
 			showButtons(status);
 
-			GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
-			firstComponentSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
+			if(icon.IsFritzingIcon()) {
+				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
+				firstComponentFritzingSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
+				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "fritzing_glow");
+				lastComponentFritzingSprite = lastComponentGlowIcon.GetComponent<Image>().sprite;
+			} else {
+				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
+				firstComponentSchematicSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
+				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "schematic_glow");
+				lastComponentSchematicSprite = lastComponentGlowIcon.GetComponent<Image>().sprite;
+			}
+			
 
 			http.postJson(comm.getUrl()+"/set", cmd.resetAll());
 
