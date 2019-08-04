@@ -41,7 +41,7 @@ public class ToggleWireEdit : MonoBehaviour {
 
 	public void EnterDeleteMode()
     {
-		comm.setEditWireState(true);
+		comm.setEditWireState(true,name);
 
         GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
         foreach(GameObject wireObj in temp)
@@ -62,7 +62,7 @@ public class ToggleWireEdit : MonoBehaviour {
 
 	public void ExitDeleteMode()
     {
-		comm.setEditWireState(false);
+		comm.setEditWireState(false,name);
 
         // deleteState = false;
 		// getChildObject(transform.parent.name, name).GetComponent<Button>().image.sprite = DefaultComponentSprite;

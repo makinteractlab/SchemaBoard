@@ -29,6 +29,7 @@ public class NetData : MonoBehaviour {
 	Dictionary<string, _Component> debugNetData;
 	// Dictionary<string, _Component> buildNetData;
 	Dictionary<string, _Component> initNetData;
+	List<string> occupiedRows;
 
 	JObject schematicDrawingData;
 	// Use this for initialization
@@ -97,6 +98,7 @@ public class NetData : MonoBehaviour {
 		//buildNetData = new Dictionary<string, _Component>(netHandler.getBuildNetData());
 		initNetData = new Dictionary<string, _Component>(netHandler.getInitNetData());
 		netui.dataReceivedEvent.Invoke(debugNetData);
+		findOccupiedRows();
 	}
 
 	// public void setAutoNetData(Dictionary<string, _Component> _data) {
@@ -193,6 +195,33 @@ public class NetData : MonoBehaviour {
 	// 	}
 	// 	return result;
 	// }
+
+	public void findOccupiedRows() {
+		occupiedRows = new List<string>();
+		foreach(var item in debugNetData) {
+			foreach(var pin in item.Value.getPins()) {
+				if(!occupiedRows.Contains(pin.breadboardRowPosition))
+					occupiedRows.Add(pin.breadboardRowPosition);
+			}	
+		}
+	}
+
+	public bool isOccupiedRow(string _name) {
+		bool result = false;
+		string pin = _name;
+		int start = 0;
+		int pos = pin.IndexOf("-");
+		pin = pin.Substring(start, pos);
+		if(occupiedRows.Contains( Util.getDigit(pin).ToString() ) )
+			result = true;
+		else
+			result = false;
+		return result;
+	}
+
+	public List<string> getOccupiedRows() {
+		return occupiedRows;
+	}
 
 	public List<string> getComponentPosition(string _component) {
 		List<string> resultPins = new List<string>();

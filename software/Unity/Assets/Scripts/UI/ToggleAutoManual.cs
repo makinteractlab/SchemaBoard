@@ -137,6 +137,7 @@ public class ToggleAutoManual : MonoBehaviour {
 			comm.setAutoState();
 			showAutoPrefabs(true);
 			showManualPrefabs(true);
+			comm.setEditWireState(false);
 
 			if(!init) {
 				GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");

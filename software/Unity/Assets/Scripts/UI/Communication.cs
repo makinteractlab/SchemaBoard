@@ -30,6 +30,7 @@ public class Communication : MonoBehaviour
 
     private string selectedJsonFileName;
     private string url;
+    string targetEditComponent;
 
     void Start()
     {
@@ -122,9 +123,20 @@ public class Communication : MonoBehaviour
         return component;
     }
 
-    public void setEditWireState(bool state) {
-        editWireState = state;
+    public void setEditWireState(bool _state, string _target) {
+        editWireState = _state;
+        targetEditComponent = _target;
     }
+
+    public void setEditWireState(bool _state) {
+        editWireState = _state;
+    }
+
+    public bool getEditWireState(ref string _target) {
+        _target = targetEditComponent;
+        return editWireState;
+    }
+
     public bool getEditWireState() {
         return editWireState;
     }

@@ -11,9 +11,11 @@ using Vuforia;
 
 public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// required interface when using the OnPointerEnter method.
 {
+    public HttpRequest http;
     public Communication comm;
     public DrawVirtualWire wire;
     public NetData netdata;
+    public Command cmd;
     //public BezierCurve wire;
     //Do this when the cursor enters the rect area of this selectable UI object.
 
@@ -23,10 +25,13 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
     public Sprite ConnectedPinSprite;
     public Sprite DefaultPinSprite;
     public GameObject connectedTo;
+    string targetEditComponent;
 
     void Start() {
         connectedTo = null;
         setNetDataObject();
+        setHttpObject();
+        cmd = new Command();
     }
 
     void Awake () {
@@ -41,6 +46,12 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
 		Debug.Log(netdata.name);
     }
 
+    public void setHttpObject()
+    {
+		http = GameObject.Find("HttpRequest").GetComponent<HttpRequest>();
+		Debug.Log(netdata.name);
+    }
+
      public void deleteOptionWindow() {
         deleteConfirmPanel.Choice (deleteYesAction, deleteCancelAction);
         deleteConfirmPanel.setTitle("Delete this Wire?");
@@ -52,6 +63,11 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
     }
 
     void DeleteYesFunction () {
+        String row = this.name;
+        int start = 0;
+        int pos = row.IndexOf('-');
+        row = row.Substring(start,pos);
+        http.postJson(comm.getUrl()+"/set", cmd.singlePinOff(Util.getDigit(row)));
         //ExitDeleteMode(DefaultPinSprite, true);
         GameObject.Find(name).GetComponent<Button>().image.sprite = DefaultPinSprite; 
         //string connectedComponent = connectedTo.transform.parent.name;
@@ -86,15 +102,15 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
         wire.resetComponentPinObj();
     }
 
-    public bool PinsInDeleteState()
-    {
-        bool active = false;
+    // public bool PinsInDeleteState()
+    // {
+    //     bool active = false;
         
-        if(comm.getEditWireState()) {
-            active = true;
-        }
+    //     if(comm.getEditWireState(ref)) {
+    //         active = true;
+    //     }
 
-        return active;
+    //     return active;
 
         // GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
 
@@ -112,7 +128,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
         //     }
         // }
         // return active;
-    }
+    // }
 
 	private GameObject getComponentObject(string ParentObjectName, string ChildObjectName)
     {
@@ -174,7 +190,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                 else Debug.Log("cannot find board pin object");
             }
         } else {
-            if(!comm.getDeleteWireState())
+            if(!comm.getDeleteWireState() && !netdata.isOccupiedRow(name))
                 comm.setBoardPin(name);
         }
     }
@@ -246,9 +262,28 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
             // if(componentPinName != null || componentPinName != "")
             //     compPin = componentPinName.Substring(0, 3);
 
-            if(comm.getEditWireState())
+            if(comm.getEditWireState(ref targetEditComponent))
             {
+                //Wire:Pin17-1,U1-8-connector7
+                string wireObjectName = "Wire:"+name+","+targetEditComponent;
+                // GameObject wire = GameObject.Find(wireObjectName);
+                GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
+                foreach(GameObject wireObj in wireTemp) {
+                    if( wireObj.name.Contains(wireObjectName)) {
+                        string targetComponentName = targetEditComponent;
+                        string wireName = wire.name;
+                        int compSeperator = wireName.IndexOf(",");
+                        string targetName = wireName.Substring(compSeperator+1, wireName.Length-compSeperator-1);;
+                        int compPinSeperator = targetName.LastIndexOf("-");
+                        string targetComponentPinName = targetName.Substring(compPinSeperator+1, targetName.Length-compPinSeperator-1);
+                        DeleteYesFunction();
+                        netdata.syncNetData(targetComponentName, targetComponentPinName, "init");
+                        break;
+                    }
+                }
+
                 //deleteOptionWindow();
+                /*
                 DeleteYesFunction();
 
                 string targetName = null;
@@ -257,7 +292,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
 
                 GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
                 foreach(GameObject wireObj in wireTemp) {
-                    if( wireObj.name.Contains(this.transform.name) ) {
+                    if( wireObj.name.Contains(this.transform.name)) {
                         string wireName = wireObj.name;
                         //"Wire" + ":" + boardPinObj.name + "," + componentPinObj.transform.parent.name + "-" + componentPinObj.name
                         int compSeperator = wireName.IndexOf(",");
@@ -269,31 +304,38 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                     }
                 }
                 netdata.syncNetData(targetComponentName, targetComponentPinName, "init");
+                */
             } else if((componentPinName == null) || (componentPinName == "")) {
                 wire.resetBoardPinObj();
                 wire.resetComponentPinObj();
                 comm.resetData();
             } else {   // drag released
-                if(boardPinName.Contains("Pin") && componentPinName.Contains("Pin"))
-                {
-                    if(!comm.getEditWireState()) {
+                // 이미 점령된 row면 연결하지 말고 리셋
+                if(netdata.isOccupiedRow(name)) {
+                    wire.resetBoardPinObj();
+                    wire.resetComponentPinObj();
+                    comm.resetData();
+                } else {
+                    if(boardPinName.Contains("Pin") && componentPinName.Contains("Pin")) {
+                        if(!comm.getEditWireState()) {
+                            wire.resetBoardPinObj();
+                            wire.resetComponentPinObj();
+                            comm.resetData();
+                        }
+                    } else if(!pinAlreadyWired(componentPinName) && !pinAlreadyWired(boardPinName))
+                    {
+                        string wireStartBoardPin = "";
+                        comm.setComponentPin(componentPinName);
+                        wireStartBoardPin = wire.setComponentPinObj(getTargetComponentPinObject(componentPinName));
+                        // Todo: arduino에게 Json 보내기 (value 변경)
+                        // Notify connected info ComponentDataHandler -> notify BoardDataHandler
+                        //                                            -> notify JsonHandler
+                        netdata.syncNetData(getTargetComponentPinObject(componentPinName).transform.parent.name, componentPinName, wireStartBoardPin);
+                    } else {
                         wire.resetBoardPinObj();
                         wire.resetComponentPinObj();
                         comm.resetData();
                     }
-                } else if(!pinAlreadyWired(componentPinName) && !pinAlreadyWired(boardPinName))
-                {
-                    string wireStartBoardPin = "";
-                    comm.setComponentPin(componentPinName);
-                    wireStartBoardPin = wire.setComponentPinObj(getTargetComponentPinObject(componentPinName));
-                    // Todo: arduino에게 Json 보내기 (value 변경)
-                    // Notify connected info ComponentDataHandler -> notify BoardDataHandler
-                    //                                            -> notify JsonHandler
-                    netdata.syncNetData(getTargetComponentPinObject(componentPinName).transform.parent.name, componentPinName, wireStartBoardPin);
-                } else {
-                    wire.resetBoardPinObj();
-                    wire.resetComponentPinObj();
-                    comm.resetData();
                 }
             }
         }

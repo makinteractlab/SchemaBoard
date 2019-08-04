@@ -429,7 +429,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
     {
         comm.setComponentPin(transform.parent.name);
 		// comm.setDeleteWireState(true, transform.parent.name);
-        comm.setEditWireState(true);
+        comm.setEditWireState(true, transform.parent.name);
         deleteState = true;
 
         GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
