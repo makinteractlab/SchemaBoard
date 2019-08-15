@@ -208,7 +208,7 @@ public class NetDataHandler {
 			} else if(netName.Contains("3V")) {
 				foreach(var item in connectorArray) {
 					String[] pwrComponentPin = {netName, item["component"].ToString(), item["pin"].ToString()};
-					gndNetElementsList.Add(pwrComponentPin);
+					pwrNetElementsList.Add(pwrComponentPin);
 					// pwrNetElements.Add(item["component"].ToString(), item["pin"].ToString());
 				}
 			} else {

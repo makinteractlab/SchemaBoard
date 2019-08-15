@@ -284,8 +284,8 @@ public class ToggleTutorial : MonoBehaviour {
 			}
 		} else {
 			prevSelectedComponent = selectedComponent;
-			selectedComponent = GameObject.Find(components[_index]);
-			List<string> pins = new List<string>(netdata.getComponentPosition(selectedComponent.name));
+			selectedComponent = GameObject.Find("SCH_"+components[_index]);
+			List<string> pins = new List<string>(netdata.getComponentPosition(components[_index]));
 			
 			boardPins = netdata.getMultiplePinsPosition(pins);
 			http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
@@ -294,30 +294,30 @@ public class ToggleTutorial : MonoBehaviour {
 				Debug.Log("0.5 seconds is lost forever");
 			});
 
-			string firstPinPos = netdata.getComponentFirstPinRowPosition(selectedComponent.name);
+			string firstPinPos = netdata.getComponentFirstPinRowPosition(components[_index]);
 			http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
 			
 			// glow on
 			if(icon.IsFritzingIcon()) {
-				GameObject currGlowIcon = Util.getChildObject("SCH_"+selectedComponent.name, "fritzing_glow");
+				GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "fritzing_glow");
 				currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
 				currGlowIcon.transform.localScale = new Vector3(1,1,1);
 				currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
 				
 				if(prevSelectedComponent) {
-					GameObject prevGlowIcon = Util.getChildObject("SCH_"+prevSelectedComponent.name, "fritzing_glow");
+					GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "fritzing_glow");
 					prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
 					// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
 				}
 				prevGlowIconSprite = currGlowIconSprite;
 			} else {
-				GameObject currGlowIcon = Util.getChildObject("SCH_"+selectedComponent.name, "schematic_glow");
+				GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "schematic_glow");
 				currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
 				currGlowIcon.transform.localScale = new Vector3(1,1,1);
 				currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
 
 				if(prevSelectedComponent) {
-					GameObject prevGlowIcon = Util.getChildObject("SCH_"+prevSelectedComponent.name, "schematic_glow");
+					GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "schematic_glow");
 					prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
 					// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
 				}

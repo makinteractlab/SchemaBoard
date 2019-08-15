@@ -329,6 +329,42 @@ public class NetData : MonoBehaviour {
 		return result;
 	}
 
+	public void addGroundPosition(string _name) {
+		List<string[]> gndNetElements = netHandler.getGndNetList();
+
+		_Component component = new _Component(_name);
+		_Pin pin = new _Pin("connector0", "init", "init");
+		for(int i=0; i<gndNetElements.Count; i++) {
+			NetElement element = new NetElement(gndNetElements[i][1], gndNetElements[i][2]);
+			pin.addNetElement(element);
+			pin.addNetElementAll(element);
+		}
+		component.addPin(pin);
+		debugNetData.Add(_name, component);
+
+		if(gndNetElements!=null && gndNetElements.Count>0) {
+			debugNetData[_name].getPin("connector0").breadboardRowPosition = debugNetData[gndNetElements[0][1]].getPin(gndNetElements[0][2]).breadboardRowPosition;
+		}
+	}
+
+	public void addPowerPosition(string _name) {
+		List<string[]> pwrNetElements = netHandler.getPwrNetList();
+
+		_Component component = new _Component(_name);
+		_Pin pin = new _Pin("connector0", "init", "init");
+		for(int i=0; i<pwrNetElements.Count; i++) {
+			NetElement element = new NetElement(pwrNetElements[i][1], pwrNetElements[i][2]);
+			pin.addNetElement(element);
+			pin.addNetElementAll(element);
+		}
+		component.addPin(pin);
+		debugNetData.Add(_name, component);
+
+		if(pwrNetElements!=null && pwrNetElements.Count>0) {
+			debugNetData[_name].getPin("connector0").breadboardRowPosition = debugNetData[pwrNetElements[0][1]].getPin(pwrNetElements[0][2]).breadboardRowPosition;
+		}
+	}
+
 	public int[] getGndNet(ref List<GameObject> _pinsInNet) {
 		char[] boardBinary = Enumerable.Repeat('0', 32).ToArray();
 		int left = 0;
@@ -343,9 +379,9 @@ public class NetData : MonoBehaviour {
 			if(modeToggle.IsAutoMode()) {
 			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
 				for(int i=0; i<gndNetElements.Count; i++) {	
-					resultPins.Add(debugNetData[gndNetElements[1][i]].getPin(gndNetElements[2][i]).breadboardRowPosition);
-					GameObject spin = Util.getChildObject("SCH_"+gndNetElements[1][i], gndNetElements[2][i]);
-					GameObject fpin = Util.getChildObject("SCH_"+gndNetElements[1][i], "f"+gndNetElements[2][i]);
+					resultPins.Add(debugNetData[gndNetElements[i][1]].getPin(gndNetElements[i][2]).breadboardRowPosition);
+					GameObject spin = Util.getChildObject("SCH_"+gndNetElements[i][1], gndNetElements[i][2]);
+					GameObject fpin = Util.getChildObject("SCH_"+gndNetElements[i][1], "f"+gndNetElements[i][2]);
 					if(spin != null)
 						_pinsInNet.Add(spin);
 					if(fpin != null)
@@ -353,9 +389,9 @@ public class NetData : MonoBehaviour {
 				}
 			} else {
 				for(int i=0; i<gndNetElements.Count; i++) {	
-					resultPins.Add(debugNetData[gndNetElements[1][i]].getPin(gndNetElements[2][i]).breadboardRowPosition);
-					GameObject spin = Util.getChildObject(gndNetElements[1][i], gndNetElements[2][i]);
-					GameObject fpin = Util.getChildObject(gndNetElements[1][i], "f"+gndNetElements[2][i]);
+					resultPins.Add(debugNetData[gndNetElements[i][1]].getPin(gndNetElements[i][2]).breadboardRowPosition);
+					GameObject spin = Util.getChildObject(gndNetElements[i][1], gndNetElements[i][2]);
+					GameObject fpin = Util.getChildObject(gndNetElements[i][1], "f"+gndNetElements[i][2]);
 					if(spin != null)
 						_pinsInNet.Add(spin);
 					if(fpin != null)
@@ -394,9 +430,9 @@ public class NetData : MonoBehaviour {
 			if(modeToggle.IsAutoMode()) {
 			// component pin의 net element에 들어있는 컴포넌트 핀의 breadboard pin 가져오기
 				for(int i=0; i<pwrNetElements.Count; i++) {	
-					resultPins.Add(debugNetData[pwrNetElements[1][i]].getPin(pwrNetElements[2][i]).breadboardRowPosition);
-					GameObject spin = Util.getChildObject("SCH_"+pwrNetElements[1][i], pwrNetElements[2][i]);
-					GameObject fpin = Util.getChildObject("SCH_"+pwrNetElements[1][i], "f"+pwrNetElements[2][i]);
+					resultPins.Add(debugNetData[pwrNetElements[i][1]].getPin(pwrNetElements[i][2]).breadboardRowPosition);
+					GameObject spin = Util.getChildObject("SCH_"+pwrNetElements[i][1], pwrNetElements[i][2]);
+					GameObject fpin = Util.getChildObject("SCH_"+pwrNetElements[i][1], "f"+pwrNetElements[i][2]);
 					if(spin != null)
 						_pinsInNet.Add(spin);
 					if(fpin != null)
@@ -404,9 +440,9 @@ public class NetData : MonoBehaviour {
 				}
 			} else {
 				for(int i=0; i<pwrNetElements.Count; i++) {	
-					resultPins.Add(debugNetData[pwrNetElements[1][i]].getPin(pwrNetElements[2][i]).breadboardRowPosition);
-					GameObject spin = Util.getChildObject(pwrNetElements[1][i], pwrNetElements[2][i]);
-					GameObject fpin = Util.getChildObject(pwrNetElements[1][i], "f"+pwrNetElements[2][i]);
+					resultPins.Add(debugNetData[pwrNetElements[i][1]].getPin(pwrNetElements[i][2]).breadboardRowPosition);
+					GameObject spin = Util.getChildObject(pwrNetElements[i][1], pwrNetElements[i][2]);
+					GameObject fpin = Util.getChildObject(pwrNetElements[i][1], "f"+pwrNetElements[i][2]);
 					if(spin != null)
 						_pinsInNet.Add(spin);
 					if(fpin != null)

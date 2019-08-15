@@ -37,7 +37,7 @@ public class LoadSchematicUI : MonoBehaviour {
 	public UnityAction<JObject> dataReceivedAction;
 	public DataReceivedEvent dataReceivedEvent;
 
-	public NetData netDataObj;
+	public NetData netdata;
 	public ToggleAutoManual modeToggleMenu;
 
 	// Dictionary<string, _Component> netData;
@@ -103,12 +103,17 @@ public class LoadSchematicUI : MonoBehaviour {
 			// string item.Key = "";
 			string componentName = "";
 			string uiComponentName = "";
+			string gndName = "";
+			string pwrName = "";
+			int gndIndex = 100;
+			int pwrIndex = 200;
 			// Char r = '\r';
             // if (item.Key.Contains(r.ToString())) {
             //     item.Key = item.Key.Replace(r.ToString(), "");
             // }
 			uiComponentName = "SCH_"+item.Key;
 			componentName = Util.removeDigit(item.Key);
+			
 			//ComponentBase comp = ComponentFactory.Create(componentName, componentData);
 			switch (componentName) {
 				case "OPAMP":
@@ -146,25 +151,39 @@ public class LoadSchematicUI : MonoBehaviour {
 					break;
 				case "GND":
 					component = (GameObject)Instantiate(prefabGnd);
+					gndName = "GND" + gndIndex;
+					uiComponentName = "SCH_"+ gndName;
+					gndIndex ++;
 					break;
 				case "GND?":
 					component = (GameObject)Instantiate(prefabGnd);
-					uiComponentName = uiComponentName.Remove(uiComponentName.IndexOf('?'),1);
+					gndName = "GND" + gndIndex;
+					uiComponentName = "SCH_"+ gndName;
+					gndIndex ++;
 					break;
 				case "#GND":
 					component = (GameObject)Instantiate(prefabGnd);
-					uiComponentName = uiComponentName.Remove(uiComponentName.IndexOf('#'),1);
+					gndName = "GND" + gndIndex;
+					uiComponentName = "SCH_"+ gndName;
+					gndIndex ++;
 					break;
 				case "#PWR":
 					component = (GameObject)Instantiate(prefabPwr);
-					uiComponentName = uiComponentName.Remove(uiComponentName.IndexOf('#'),1);
+					pwrName = "PWR" + pwrIndex;
+					uiComponentName = "SCH_"+ pwrName;
+					pwrIndex++;
 					break;
 				case "PWR?":
 					component = (GameObject)Instantiate(prefabPwr);
-					uiComponentName = uiComponentName.Remove(uiComponentName.IndexOf('?'),1);
+					pwrName = "PWR" + pwrIndex;
+					uiComponentName = "SCH_"+ pwrName;
+					pwrIndex++;
 					break;
 				case "PWR":
 					component = (GameObject)Instantiate(prefabPwr);
+					pwrName = "PWR" + pwrIndex;
+					uiComponentName = "SCH_"+ pwrName;
+					pwrIndex++;
 					break;
 				case "BT":
 					component = (GameObject)Instantiate(prefabBattery);
@@ -242,6 +261,12 @@ public class LoadSchematicUI : MonoBehaviour {
 				} else {
 					component.transform.localScale = new Vector3(1, 1, 1);
 				}
+			}
+
+			if(item.Key.Contains("GND")) {
+				netdata.addGroundPosition(gndName);
+			} else if(item.Key.Contains("PWR")) {
+				netdata.addPowerPosition(pwrName);
 			}
 		}
 

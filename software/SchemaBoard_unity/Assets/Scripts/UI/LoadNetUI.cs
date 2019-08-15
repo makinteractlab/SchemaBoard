@@ -313,9 +313,13 @@ public class LoadNetUI : MonoBehaviour {
 				}
 			}
 
-			if(item.Key.Contains("VCC") || item.Key.Contains("BT")) {
+			if(item.Key.Contains("BT")) {
 				netDataObj.setColorGroundPins(item.Key, "connector0");
 				netDataObj.setColorVccPins(item.Key, "connector1");
+			} else if(item.Key.Contains("GND")) {
+				netDataObj.setColorGroundPins(item.Key, "connector0");
+			} else if(item.Key.Contains("VCC")) {
+				netDataObj.setColorVccPins(item.Key, "connector0");
 			}
 		}
 
