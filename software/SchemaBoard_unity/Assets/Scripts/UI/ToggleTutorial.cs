@@ -127,6 +127,9 @@ public class ToggleTutorial : MonoBehaviour {
 			stepInfo.text = "Done: Final Step";			
 		} else {
 			stepInfo.text = "Step " + (index+1);
+			// stepInfo.text += "\n\n";
+			// netdata.debugNetData
+			// here !!
 		}
 
 		if(index == 0) {
@@ -137,7 +140,7 @@ public class ToggleTutorial : MonoBehaviour {
 			initAll();
 		}
 
-		if(index == componentCount && !prevButtonObj.clicked){
+		if(index == componentCount-wireCount && !prevButtonObj.clicked){
 			initAll();
 		}
 
@@ -160,22 +163,11 @@ public class ToggleTutorial : MonoBehaviour {
 			boardPins = netdata.getPositionForNet(nets[netIndex]);
 			http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
 			
-			// initAutoPinGlow();
 			if(prevButtonObj.clicked) {
-				
-
-				// if(index == componentCount) {
-				// 	initAll();
-				// }
-				
 				if(netIndex < nets.Count-1) {
 					// foreach(var item in nets[netIndex+1]) {
 					for(int i=0; i<nets[netIndex+1].Count; i++) {
-						if(nets[netIndex+1][i][1].Contains("wire")){
-							// text로 알려줄 것!
-						} else {
-							Util.getChildObject("SCH_"+nets[netIndex+1][i][1], nets[netIndex+1][i][2]).GetComponent<Image>().sprite = prevSelectedPinSprite;
-						}
+						Util.getChildObject("SCH_"+nets[netIndex+1][i][1], nets[netIndex+1][i][2]).GetComponent<Image>().sprite = prevSelectedPinSprite;
 						// gnd랑 pwr이랑 아이콘 돌려놔야 함
 						if(nets[netIndex+1][0][0].Contains("GND")) {
 							if(gndList.Count>0) {
@@ -193,11 +185,7 @@ public class ToggleTutorial : MonoBehaviour {
 					}
 				}
 				for(int i=0; i<nets[netIndex].Count; i++) {
-					if(nets[netIndex][i][1].Contains("wire")){
-						//text 로 알려줄것!
-					} else {
-						Util.getChildObject("SCH_"+nets[netIndex][i][1], nets[netIndex][i][2]).GetComponent<Image>().sprite = currSelectedPinSprite;
-					}
+					Util.getChildObject("SCH_"+nets[netIndex][i][1], nets[netIndex][i][2]).GetComponent<Image>().sprite = currSelectedPinSprite;
 					if(nets[netIndex][0][0].Contains("GND")) {
 						if(gndList.Count>0) {
 							foreach(var element in gndList) {
@@ -216,11 +204,7 @@ public class ToggleTutorial : MonoBehaviour {
 			} else {
 				if(netIndex > 0) {
 					for(int i=0; i<nets[netIndex-1].Count; i++) {
-						if(nets[netIndex-1][i][1].Contains("wire")){
-						//text 로 알려줄것!
-						} else {
-							Util.getChildObject("SCH_"+nets[netIndex-1][i][1], nets[netIndex-1][i][2]).GetComponent<Image>().sprite = prevSelectedPinSprite;
-						}
+						Util.getChildObject("SCH_"+nets[netIndex-1][i][1], nets[netIndex-1][i][2]).GetComponent<Image>().sprite = prevSelectedPinSprite;
 						// gnd랑 pwr이랑 아이콘 돌려놔야 함
 						if(nets[netIndex-1][0][0].Contains("GND")) {
 							if(gndList.Count>0) {
@@ -238,11 +222,7 @@ public class ToggleTutorial : MonoBehaviour {
 					}
 				}
 				for(int i=0; i<nets[netIndex].Count; i++) {
-					if(nets[netIndex-1][i][1].Contains("wire")){
-						//text 로 알려줄것!
-					} else {
-						Util.getChildObject("SCH_"+nets[netIndex][i][1], nets[netIndex][i][2]).GetComponent<Image>().sprite = currSelectedPinSprite;
-					}
+					Util.getChildObject("SCH_"+nets[netIndex][i][1], nets[netIndex][i][2]).GetComponent<Image>().sprite = currSelectedPinSprite;
 					if(nets[netIndex][0][0].Contains("GND")) {
 						if(gndList.Count>0) {
 							foreach(var element in gndList) {
@@ -273,33 +253,29 @@ public class ToggleTutorial : MonoBehaviour {
 			string firstPinPos = netdata.getComponentFirstPinRowPosition(components[_index]);
 			http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
 			
+			if(selectedComponent.name.Contains("wire")) {
+				stepInfo.text += "\n\n Connect wire where the light is on";
+			} else {
 			// glow on
-			if(icon.IsFritzingIcon()) {
-				if(selectedComponent.name.Contains("wire")){
-				//text 로 알려줄것!
-				} else {
+				if(icon.IsFritzingIcon()) {
 					GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "fritzing_glow");
 					currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
 					currGlowIcon.transform.localScale = new Vector3(1,1,1);
 					currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
 					
-					if(prevSelectedComponent) {
+					if(prevSelectedComponent && !prevSelectedComponent.name.Contains("wire")) {
 						GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "fritzing_glow");
 						prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
 						// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
 					}
 					prevGlowIconSprite = currGlowIconSprite;
-				}
-			} else {
-				if(selectedComponent.name.Contains("wire")){
-				//text 로 알려줄것!
 				} else {
 					GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "schematic_glow");
 					currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
 					currGlowIcon.transform.localScale = new Vector3(1,1,1);
 					currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
-
-					if(prevSelectedComponent) {
+					
+					if(prevSelectedComponent && !prevSelectedComponent.name.Contains("wire")) {
 						GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "schematic_glow");
 						prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
 						// prevGlowIcon.transform.localScale = new Vector3(0,0,0);

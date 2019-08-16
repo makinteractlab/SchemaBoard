@@ -29,6 +29,5 @@ public class TutorialPrevButton : MonoBehaviour {
 			index = tutorial.totalSteps-1;
 		clicked = true;
 		tutorial.setSelectedComponent(index);
-		
 	}
 }

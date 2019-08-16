@@ -26,7 +26,7 @@ public class TutorialNextButton : MonoBehaviour {
 		if(index > tutorial.totalSteps-1) {
 			index = 0;
 		}
-		tutorial.setSelectedComponent(index);
 		tutorial.prevButtonObj.clicked = false;
+		tutorial.setSelectedComponent(index);
 	}
 }
