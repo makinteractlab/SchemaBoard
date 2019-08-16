@@ -192,7 +192,7 @@ public class NetDataHandler {
 			string netName = ((JObject)netArray[i]).GetValue("name").ToString();
 
 			foreach(var item in connectorArray) {
-				String[] netComponentPin = {netName, item["component"].ToString(), item["pin"].ToString()};
+				string[] netComponentPin = {netName, item["component"].ToString(), item["pin"].ToString()};
 				netElementsList.Add(netComponentPin);
 				// netElements.Add(item["component"].ToString(), item["pin"].ToString());
 			}
@@ -205,12 +205,17 @@ public class NetDataHandler {
 					gndNetElementsList.Add(gndComponentPin);
 					// gndNetElements.Add(item["component"].ToString(), item["pin"].ToString());
 				}
+				allNet.Add(gndNetElementsList);
+				netElementsList.Clear();
 			} else if(netName.Contains("3V")) {
 				foreach(var item in connectorArray) {
 					String[] pwrComponentPin = {netName, item["component"].ToString(), item["pin"].ToString()};
 					pwrNetElementsList.Add(pwrComponentPin);
+					
 					// pwrNetElements.Add(item["component"].ToString(), item["pin"].ToString());
 				}
+				allNet.Add(pwrNetElementsList);
+				netElementsList.Clear();
 			} else {
 				allNet.Add(netElementsListCopy);
 				// netElements.Clear();
