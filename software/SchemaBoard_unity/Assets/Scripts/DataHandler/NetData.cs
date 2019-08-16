@@ -26,7 +26,7 @@ public class NetData : MonoBehaviour {
 	public LoadNetUI netui;
 	public LoadSchematicUI schematicUI;
 	public ToggleAutoManual modeToggle;
-	Dictionary<string, _Component> debugNetData;
+	public Dictionary<string, _Component> debugNetData;
 	// Dictionary<string, _Component> buildNetData;
 	Dictionary<string, _Component> initNetData;
 	List<string> occupiedRows;
@@ -362,6 +362,36 @@ public class NetData : MonoBehaviour {
 
 		if(pwrNetElements!=null && pwrNetElements.Count>0) {
 			debugNetData[_name].getPin("connector0").breadboardRowPosition = debugNetData[pwrNetElements[0][1]].getPin(pwrNetElements[0][2]).breadboardRowPosition;
+		}
+	}
+
+	public void addWireComponents() {
+		int componentCount = 0;
+		JArray componentsArray = (JArray)netHandler.getJsonNetData().GetValue("components");
+		componentCount = componentsArray.Count;
+		//add wires for schematic breadboard database
+		for(int i=0; i<componentCount; i++) {
+			string breadboardRowPosition = "";
+			string breadboardColPosition = "";
+			int row = 0;
+			int col = 1;
+
+			if( componentsArray[i]["label"].ToString().Contains("wire") ){
+				_Component component = new _Component(componentsArray[i]["label"].ToString());
+
+				breadboardRowPosition = componentsArray[i]["connector"][0]["position"][row].ToString();
+				breadboardColPosition = componentsArray[i]["connector"][0]["position"][col].ToString();
+				_Pin pin1 = new _Pin("connector0", breadboardRowPosition, breadboardColPosition);
+
+				breadboardRowPosition = componentsArray[i]["connector"][1]["position"][row].ToString();
+				breadboardColPosition = componentsArray[i]["connector"][1]["position"][col].ToString();
+				_Pin pin2 = new _Pin("connector1", breadboardRowPosition, breadboardColPosition);
+
+				component.addPin(pin1);
+				component.addPin(pin2);
+
+				debugNetData.Add(componentsArray[i]["label"].ToString(), component);
+			}
 		}
 	}
 

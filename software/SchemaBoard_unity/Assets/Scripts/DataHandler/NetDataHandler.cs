@@ -13,7 +13,6 @@ public class _Pin {
 	public string breadboardColPosition;
 
 	public List<NetElement> netElements = new List<NetElement>();
-
 	public List<NetElement> netElementsAll = new List<NetElement>();
 
 	public _Pin (string _id, string _breadboardRowPosition, string _breadboardColPosition) {
@@ -99,19 +98,15 @@ public class _Component {
 }
 
 public class NetDataHandler {
-	//List<_Component> components = new List<_Component>();
 	Dictionary<string, _Component> debugNetData = new Dictionary<string, _Component>();
-	// Dictionary<string, _Component> buildNetData = new Dictionary<string, _Component>();
 	Dictionary<string, _Component> initNetData = new Dictionary<string, _Component>();
-
-	// Dictionary<string, string> gndNetElements = new Dictionary<string, string>();
 	List<string[]> gndNetElementsList = new List<string[]>();
-	// Dictionary<string, string> pwrNetElements = new Dictionary<string, string>();
 	List<string[]> pwrNetElementsList = new List<string[]>();
-	// Dictionary<string, string> netElements = new Dictionary<string, string>();
 	List<string[]> netElementsList = new List<string[]>();
-	// List<Dictionary<string, string>> allNetList = new List<Dictionary<string, string>>();
 	List<List<string[]>> allNet = new List<List<string[]>>();
+	List<_Component> wireComponentList = new List<_Component>();
+
+	JObject jsonNetData = null;
 
 	string log = "";
 	Dictionary<string, ArrayList> connections = new Dictionary<string, ArrayList>();
@@ -165,6 +160,10 @@ public class NetDataHandler {
 		return debugNetData;
 	}
 
+	public JObject getJsonNetData() {
+		return jsonNetData;
+	}
+
 	public Dictionary<string, _Component> parseNetData(JObject _netData)
 	{
 		int netCount = 0;
@@ -173,6 +172,7 @@ public class NetDataHandler {
 		string noneFormattedString = _netData.ToString(Newtonsoft.Json.Formatting.None);
 		noneFormattedString = noneFormattedString.Replace("\\\"", "\"");
 		JObject data = JObject.Parse(noneFormattedString);
+		jsonNetData = data;
 
 		JArray netArray = (JArray)data.GetValue("net");
 		JArray componentsArray = (JArray)data.GetValue("components");
@@ -331,6 +331,7 @@ public class NetDataHandler {
 					}
 				}
 			}
+			
 			
 			// dictionary에 component add 하기
 			if (!debugNetData.ContainsKey(component.label))

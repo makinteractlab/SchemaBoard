@@ -55,6 +55,7 @@ public class ToggleTutorial : MonoBehaviour {
 	public int totalSteps;
 	public int componentCount;
 	public int netCount;
+	public int wireCount;
 	// bool travelComponent;
 	public bool travelNet;
 
@@ -107,12 +108,12 @@ public class ToggleTutorial : MonoBehaviour {
 		if(icon.IsFritzingIcon()) {
 			GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
 			firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
-			GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "fritzing_glow");
+			GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
 			lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
 		} else {
 			GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
 			firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentSchematicSprite;
-			GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "schematic_glow");
+			GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
 			lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentSchematicSprite;
 		}
 	}
@@ -170,7 +171,11 @@ public class ToggleTutorial : MonoBehaviour {
 				if(netIndex < nets.Count-1) {
 					// foreach(var item in nets[netIndex+1]) {
 					for(int i=0; i<nets[netIndex+1].Count; i++) {
-						Util.getChildObject("SCH_"+nets[netIndex+1][i][1], nets[netIndex+1][i][2]).GetComponent<Image>().sprite = prevSelectedPinSprite;
+						if(nets[netIndex+1][i][1].Contains("wire")){
+							// text로 알려줄 것!
+						} else {
+							Util.getChildObject("SCH_"+nets[netIndex+1][i][1], nets[netIndex+1][i][2]).GetComponent<Image>().sprite = prevSelectedPinSprite;
+						}
 						// gnd랑 pwr이랑 아이콘 돌려놔야 함
 						if(nets[netIndex+1][0][0].Contains("GND")) {
 							if(gndList.Count>0) {
@@ -188,7 +193,11 @@ public class ToggleTutorial : MonoBehaviour {
 					}
 				}
 				for(int i=0; i<nets[netIndex].Count; i++) {
-					Util.getChildObject("SCH_"+nets[netIndex][i][1], nets[netIndex][i][2]).GetComponent<Image>().sprite = currSelectedPinSprite;
+					if(nets[netIndex][i][1].Contains("wire")){
+						//text 로 알려줄것!
+					} else {
+						Util.getChildObject("SCH_"+nets[netIndex][i][1], nets[netIndex][i][2]).GetComponent<Image>().sprite = currSelectedPinSprite;
+					}
 					if(nets[netIndex][0][0].Contains("GND")) {
 						if(gndList.Count>0) {
 							foreach(var element in gndList) {
@@ -207,8 +216,11 @@ public class ToggleTutorial : MonoBehaviour {
 			} else {
 				if(netIndex > 0) {
 					for(int i=0; i<nets[netIndex-1].Count; i++) {
-					// foreach(var item in nets[netIndex-1]) {
-						Util.getChildObject("SCH_"+nets[netIndex-1][i][1], nets[netIndex-1][i][2]).GetComponent<Image>().sprite = prevSelectedPinSprite;
+						if(nets[netIndex-1][i][1].Contains("wire")){
+						//text 로 알려줄것!
+						} else {
+							Util.getChildObject("SCH_"+nets[netIndex-1][i][1], nets[netIndex-1][i][2]).GetComponent<Image>().sprite = prevSelectedPinSprite;
+						}
 						// gnd랑 pwr이랑 아이콘 돌려놔야 함
 						if(nets[netIndex-1][0][0].Contains("GND")) {
 							if(gndList.Count>0) {
@@ -226,7 +238,11 @@ public class ToggleTutorial : MonoBehaviour {
 					}
 				}
 				for(int i=0; i<nets[netIndex].Count; i++) {
-					Util.getChildObject("SCH_"+nets[netIndex][i][1], nets[netIndex][i][2]).GetComponent<Image>().sprite = currSelectedPinSprite;
+					if(nets[netIndex-1][i][1].Contains("wire")){
+						//text 로 알려줄것!
+					} else {
+						Util.getChildObject("SCH_"+nets[netIndex][i][1], nets[netIndex][i][2]).GetComponent<Image>().sprite = currSelectedPinSprite;
+					}
 					if(nets[netIndex][0][0].Contains("GND")) {
 						if(gndList.Count>0) {
 							foreach(var element in gndList) {
@@ -259,29 +275,37 @@ public class ToggleTutorial : MonoBehaviour {
 			
 			// glow on
 			if(icon.IsFritzingIcon()) {
-				GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "fritzing_glow");
-				currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
-				currGlowIcon.transform.localScale = new Vector3(1,1,1);
-				currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
-				
-				if(prevSelectedComponent) {
-					GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "fritzing_glow");
-					prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
-					// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
+				if(selectedComponent.name.Contains("wire")){
+				//text 로 알려줄것!
+				} else {
+					GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "fritzing_glow");
+					currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
+					currGlowIcon.transform.localScale = new Vector3(1,1,1);
+					currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+					
+					if(prevSelectedComponent) {
+						GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "fritzing_glow");
+						prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
+						// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
+					}
+					prevGlowIconSprite = currGlowIconSprite;
 				}
-				prevGlowIconSprite = currGlowIconSprite;
 			} else {
-				GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "schematic_glow");
-				currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
-				currGlowIcon.transform.localScale = new Vector3(1,1,1);
-				currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+				if(selectedComponent.name.Contains("wire")){
+				//text 로 알려줄것!
+				} else {
+					GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "schematic_glow");
+					currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
+					currGlowIcon.transform.localScale = new Vector3(1,1,1);
+					currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
 
-				if(prevSelectedComponent) {
-					GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "schematic_glow");
-					prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
-					// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
+					if(prevSelectedComponent) {
+						GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "schematic_glow");
+						prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
+						// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
+					}
+					prevGlowIconSprite = currGlowIconSprite;
 				}
-				prevGlowIconSprite = currGlowIconSprite;
 			}
 		}
 	}
@@ -351,6 +375,13 @@ public class ToggleTutorial : MonoBehaviour {
 
 				netCount = nets.Count;
 				componentCount = components.Count;
+
+				wireCount = 0;
+				foreach(var component in components) {
+					if(component.Contains("wire"))
+						wireCount++;
+				}
+
 				totalSteps = netCount + componentCount;
 				init = false;
 			}
@@ -361,12 +392,12 @@ public class ToggleTutorial : MonoBehaviour {
 			if(icon.IsFritzingIcon()) {
 				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
 				firstComponentFritzingSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
-				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "fritzing_glow");
+				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
 				lastComponentFritzingSprite = lastComponentGlowIcon.GetComponent<Image>().sprite;
 			} else {
 				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
 				firstComponentSchematicSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
-				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-1], "schematic_glow");
+				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
 				lastComponentSchematicSprite = lastComponentGlowIcon.GetComponent<Image>().sprite;
 			}
 			

@@ -272,6 +272,9 @@ public class LoadNetUI : MonoBehaviour {
 				case "BT":
 					component = (GameObject)Instantiate(prefabVcc);
 					break;
+				case "wire":
+					component = null;
+					break;
 				default:
 					component = (GameObject)Instantiate(prefabEtc);
 					// getChildObject(component, "ValueText").GetComponent<Text>().text = Util.changeUnit(comp.value, componentName);
@@ -303,15 +306,15 @@ public class LoadNetUI : MonoBehaviour {
 		foreach(KeyValuePair<string, _Component> item in _netData)
 		{
 			List<_Pin> pins = item.Value.getPins();
-			foreach(var pin in pins) {
-				List<NetElement> netElement = pin.getNetElement();
-				//float dashSize = 4.0f;
-				foreach(var target in netElement) {
-					GameObject currentObject = GameObject.Find(item.Key);
-					GameObject targetObject = GameObject.Find(target.component);
-					netwire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
-				}
-			}
+			// foreach(var pin in pins) {
+			// 	List<NetElement> netElement = pin.getNetElement();
+			// 	//float dashSize = 4.0f;
+			// 	foreach(var target in netElement) {
+			// 		GameObject currentObject = GameObject.Find(item.Key);
+			// 		GameObject targetObject = GameObject.Find(target.component);
+			// 		netwire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
+			// 	}
+			// }
 
 			if(item.Key.Contains("BT")) {
 				netDataObj.setColorGroundPins(item.Key, "connector0");

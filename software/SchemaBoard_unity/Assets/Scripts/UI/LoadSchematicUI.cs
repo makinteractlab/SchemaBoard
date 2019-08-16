@@ -269,6 +269,7 @@ public class LoadSchematicUI : MonoBehaviour {
 				netdata.addPowerPosition(pwrName);
 			}
 		}
+		netdata.addWireComponents();
 
 		initGlowIcon();
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("circuit_prefab_fritzing");
