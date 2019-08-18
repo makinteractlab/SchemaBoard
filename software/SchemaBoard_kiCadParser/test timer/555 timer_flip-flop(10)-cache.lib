@@ -1,27 +1,26 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# SchemaBoard_Library_+3.3V
+# schemaboard_+9V
 #
-DEF SchemaBoard_Library_+3.3V PWR 0 0 Y Y 1 F P
-F0 "PWR" 0 -150 50 H I C CNN
-F1 "SchemaBoard_Library_+3.3V" 0 140 50 H V C CNN
+DEF schemaboard_+9V #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "schemaboard_+9V" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
-ALIAS +3.3V
 DRAW
 P 2 0 1 0 -30 50 0 100 N
 P 2 0 1 0 0 0 0 100 N
 P 2 0 1 0 0 100 30 50 N
-X +3V3 1 0 0 0 U 50 50 1 1 W N
+X +9V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# SchemaBoard_Library_C
+# schemaboard_C
 #
-DEF SchemaBoard_Library_C C 0 10 N Y 1 F N
+DEF schemaboard_C C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "SchemaBoard_Library_C" 25 -100 50 H V L CNN
+F1 "schemaboard_C" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -35,11 +34,11 @@ X ~ 2 0 -150 110 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# SchemaBoard_Library_GND
+# schemaboard_GND
 #
-DEF SchemaBoard_Library_GND GND 0 0 Y Y 1 F P
+DEF schemaboard_GND GND 0 0 Y Y 1 F P
 F0 "GND" 0 -250 50 H I C CNN
-F1 "SchemaBoard_Library_GND" 0 -150 50 H V C CNN
+F1 "schemaboard_GND" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -48,11 +47,11 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# SchemaBoard_Library_LED
+# schemaboard_LED
 #
-DEF SchemaBoard_Library_LED LED 0 40 N N 1 F N
+DEF schemaboard_LED LED 0 40 N N 1 F N
 F0 "LED" 0 100 50 H V C CNN
-F1 "SchemaBoard_Library_LED" 0 -100 50 H V C CNN
+F1 "schemaboard_LED" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -71,11 +70,11 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# SchemaBoard_Library_LM555
+# schemaboard_LM555
 #
-DEF SchemaBoard_Library_LM555 U 0 20 Y Y 1 F N
+DEF schemaboard_LM555 U 0 20 Y Y 1 F N
 F0 "U" -250 400 50 H V L CNN
-F1 "SchemaBoard_Library_LM555" 50 400 50 H V L CNN
+F1 "schemaboard_LM555" 50 400 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 ALIAS ICM7555 LMC555xM LMC555xMM LMC555xN MC1455 TLC555CD TLC555CP TLC555CPS NA555 NE555 SE555 SA555
@@ -98,11 +97,11 @@ X DIS 7 -500 -100 150 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# SchemaBoard_Library_Resistor
+# schemaboard_Resistor
 #
-DEF SchemaBoard_Library_Resistor R 0 0 N Y 1 F N
+DEF schemaboard_Resistor R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "SchemaBoard_Library_Resistor" 0 0 50 V V C CNN
+F1 "schemaboard_Resistor" 0 0 50 V V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -112,11 +111,11 @@ X ~ 2 0 -250 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# SchemaBoard_Library_SwitchPush
+# schemaboard_SwitchPush
 #
-DEF SchemaBoard_Library_SwitchPush SW 0 40 Y N 2 F N
+DEF schemaboard_SwitchPush SW 0 40 Y N 2 F N
 F0 "SW" 50 100 50 H V L CNN
-F1 "SchemaBoard_Library_SwitchPush" 0 -60 50 H V C CNN
+F1 "schemaboard_SwitchPush" 0 -60 50 H V C CNN
 F2 "" 0 200 50 H I C CNN
 F3 "" 0 200 50 H I C CNN
 DRAW

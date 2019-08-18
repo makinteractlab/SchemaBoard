@@ -313,6 +313,7 @@ public class ToggleTutorial : MonoBehaviour {
 						componentName = "";
 						break;
 					case "U":
+					case "U-":
 						componentName = "";
 						break;
 				}

@@ -261,12 +261,18 @@ public class LoadSchematicUI : MonoBehaviour {
 				} else {
 					component.transform.localScale = new Vector3(1, 1, 1);
 				}
+
+				if(!(componentName.Contains("PWR")||componentName.Contains("GND"))) {
+					string title = netdata.debugNetData[uiComponentName.Replace("SCH_", "")].getValue();
+					Util.getChildObject(component.name, "title").GetComponent<Text>().text = title;
+				}
 			}
 
 			if(item.Key.Contains("GND")) {
 				netdata.addGroundPosition(gndName);
 			} else if(item.Key.Contains("PWR")) {
 				netdata.addPowerPosition(pwrName);
+				//netdata.debugNetData[pwrName].setValue((string)item.Value["value"]);
 			}
 		}
 		netdata.addWireComponents();
@@ -279,28 +285,5 @@ public class LoadSchematicUI : MonoBehaviour {
 
 		component = null;
 		connector = null;
-
-		// Dictionary<string, _Component> netData = netDataObj.getInitialSchematicData();
-
-		// foreach(KeyValuePair<string, _Component> item in netData)
-		// {
-		// 	List<_Pin> pins = item.Value.getPins();
-		// 	foreach(var pin in pins) {
-		// 		List<NetElement> netElement = pin.getNetElement();
-		// 		//float dashSize = 4.0f;
-		// 		foreach(var target in netElement) {
-		// 			GameObject currentObject = GameObject.Find("SCH_"+item.Key);
-		// 			GameObject targetObject = GameObject.Find("SCH_"+target.component);
-		// 			schematicWire.createWireObject(getChildObject(currentObject, pin.id), getChildObject(targetObject, target.pinid));
-		// 		}
-		// 	}
-
-		// 	if(item.Key.Contains("VCC") || item.Key.Contains("BT")) {
-		// 		netDataObj.setColorGroundPins(item.Key, "connector0");
-		// 		netDataObj.setColorVccPins(item.Key, "connector1");
-		// 	}
-		// }
-
-		// modeToggleMenu.setAutoMode();
 	}
 }
