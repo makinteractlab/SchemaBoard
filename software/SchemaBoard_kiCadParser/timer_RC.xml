@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>D:\Works\Git\RetroBreadboard\software\SchemaBoard_kiCadParser\timer_RC.sch</source>
-    <date>2019-08-07 오후 6:57:57</date>
+    <date>2019-08-18 오후 1:01:49</date>
     <tool>Eeschema (5.1.2)-2</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -19,111 +19,131 @@
     </sheet>
   </design>
   <components>
-    <comp ref="R4">
-      <value>Resistor</value>
+    <comp ref="U1">
+      <value>LM555 Timer</value>
+      <datasheet>http://www.ti.com/lit/ds/symlink/lm555.pdf</datasheet>
+      <libsource lib="schemaboard" part="LM555" description="Timer, DIP-8/SOIC-8/SSOP-8"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D4D75EC</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>1K minimum</value>
       <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="Resistor-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
+      <libsource lib="schemaboard" part="Resistor" description="Resistor symbol for simulation only"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D4DC2A4</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>4.7K</value>
+      <datasheet>~</datasheet>
+      <libsource lib="schemaboard" part="Resistor" description="Resistor symbol for simulation only"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5D4DD38D</tstamp>
     </comp>
     <comp ref="R5">
-      <value>Resistor</value>
+      <value>4.7K</value>
       <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="Resistor-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
+      <libsource lib="schemaboard" part="Resistor" description="Resistor symbol for simulation only"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5D4DCCCE</tstamp>
     </comp>
+    <comp ref="SW11">
+      <value>SwitchPush</value>
+      <libsource lib="schemaboard" part="SwitchPush" description="Push button switch, generic, separate symbols, four pins"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D4E4B63</tstamp>
+    </comp>
     <comp ref="R3">
-      <value>Resistor</value>
+      <value>47</value>
       <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="Resistor-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
+      <libsource lib="schemaboard" part="Resistor" description="Resistor symbol for simulation only"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5D500A29</tstamp>
     </comp>
-    <comp ref="C9">
-      <value>C</value>
+    <comp ref="C10">
+      <value>0.033μF</value>
       <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="C-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
+      <libsource lib="schemaboard" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D5010FC</tstamp>
+    </comp>
+    <comp ref="C9">
+      <value>0.01μF</value>
+      <datasheet>~</datasheet>
+      <libsource lib="schemaboard" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5D501BEA</tstamp>
     </comp>
     <comp ref="CP7">
-      <value>CP</value>
+      <value>47μF</value>
       <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="CP-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
+      <libsource lib="schemaboard" part="CP" description="Polarized capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5D503BC1</tstamp>
     </comp>
     <comp ref="CP6">
-      <value>CP</value>
+      <value>10μF</value>
       <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="CP-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
+      <libsource lib="schemaboard" part="CP" description="Polarized capacitor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5D5048EF</tstamp>
     </comp>
     <comp ref="SP8">
       <value>Speaker</value>
       <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="Speaker-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
+      <libsource lib="schemaboard" part="Speaker" description="Speaker"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5D5051E9</tstamp>
     </comp>
-    <comp ref="C10">
-      <value>C</value>
-      <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="C-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5D5010FC</tstamp>
-    </comp>
-    <comp ref="R2">
-      <value>Resistor</value>
-      <datasheet>~</datasheet>
-      <libsource lib="timer_RC-rescue" part="Resistor-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5D4DC2A4</tstamp>
-    </comp>
-    <comp ref="SW11">
-      <value>SwitchPush</value>
-      <libsource lib="timer_RC-rescue" part="SwitchPush-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5D4E4B63</tstamp>
-    </comp>
-    <comp ref="U1-8">
-      <value>LM555</value>
-      <datasheet>http://www.ti.com/lit/ds/symlink/lm555.pdf</datasheet>
-      <libsource lib="timer_RC-rescue" part="LM555-SchemaBoard_Library-555-timer_RC-rescue" description=""/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5D4D75EC</tstamp>
-    </comp>
   </components>
   <libparts>
-    <libpart lib="timer_RC-rescue" part="C-SchemaBoard_Library-555-timer_RC-rescue">
+    <libpart lib="schemaboard" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
       <footprints>
         <fp>C_*</fp>
       </footprints>
       <fields>
         <field name="Reference">C</field>
-        <field name="Value">C-SchemaBoard_Library-555-timer_RC-rescue</field>
+        <field name="Value">C</field>
       </fields>
       <pins>
         <pin num="1" name="~" type="passive"/>
         <pin num="2" name="~" type="passive"/>
       </pins>
     </libpart>
-    <libpart lib="timer_RC-rescue" part="CP-SchemaBoard_Library-555-timer_RC-rescue">
+    <libpart lib="schemaboard" part="CP">
+      <description>Polarized capacitor</description>
+      <docs>~</docs>
       <footprints>
         <fp>CP_*</fp>
       </footprints>
       <fields>
         <field name="Reference">CP</field>
-        <field name="Value">CP-SchemaBoard_Library-555-timer_RC-rescue</field>
+        <field name="Value">CP</field>
       </fields>
       <pins>
         <pin num="1" name="~" type="passive"/>
         <pin num="2" name="~" type="passive"/>
       </pins>
     </libpart>
-    <libpart lib="timer_RC-rescue" part="LM555-SchemaBoard_Library-555-timer_RC-rescue">
+    <libpart lib="schemaboard" part="LM555">
+      <aliases>
+        <alias>ICM7555</alias>
+        <alias>LMC555xM</alias>
+        <alias>LMC555xMM</alias>
+        <alias>LMC555xN</alias>
+        <alias>MC1455</alias>
+        <alias>TLC555CD</alias>
+        <alias>TLC555CP</alias>
+        <alias>TLC555CPS</alias>
+        <alias>NA555</alias>
+        <alias>NE555</alias>
+        <alias>SE555</alias>
+        <alias>SA555</alias>
+      </aliases>
+      <description>Timer, DIP-8/SOIC-8/SSOP-8</description>
+      <docs>http://www.ti.com/lit/ds/symlink/lm555.pdf</docs>
       <footprints>
         <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
         <fp>DIP*W7.62mm*</fp>
@@ -131,7 +151,7 @@
       </footprints>
       <fields>
         <field name="Reference">U</field>
-        <field name="Value">LM555-SchemaBoard_Library-555-timer_RC-rescue</field>
+        <field name="Value">LM555</field>
       </fields>
       <pins>
         <pin num="1" name="GND" type="power_in"/>
@@ -144,30 +164,36 @@
         <pin num="8" name="VCC" type="power_in"/>
       </pins>
     </libpart>
-    <libpart lib="timer_RC-rescue" part="Resistor-SchemaBoard_Library-555-timer_RC-rescue">
+    <libpart lib="schemaboard" part="Resistor">
+      <description>Resistor symbol for simulation only</description>
+      <docs>~</docs>
       <fields>
         <field name="Reference">R</field>
-        <field name="Value">Resistor-SchemaBoard_Library-555-timer_RC-rescue</field>
+        <field name="Value">Resistor</field>
       </fields>
       <pins>
         <pin num="1" name="~" type="passive"/>
         <pin num="2" name="~" type="passive"/>
       </pins>
     </libpart>
-    <libpart lib="timer_RC-rescue" part="Speaker-SchemaBoard_Library-555-timer_RC-rescue">
+    <libpart lib="schemaboard" part="Speaker">
+      <description>Speaker</description>
+      <docs>~</docs>
       <fields>
         <field name="Reference">SP</field>
-        <field name="Value">Speaker-SchemaBoard_Library-555-timer_RC-rescue</field>
+        <field name="Value">Speaker</field>
       </fields>
       <pins>
         <pin num="1" name="1" type="input"/>
         <pin num="2" name="2" type="input"/>
       </pins>
     </libpart>
-    <libpart lib="timer_RC-rescue" part="SwitchPush-SchemaBoard_Library-555-timer_RC-rescue">
+    <libpart lib="schemaboard" part="SwitchPush">
+      <description>Push button switch, generic, separate symbols, four pins</description>
+      <docs>~</docs>
       <fields>
         <field name="Reference">SW</field>
-        <field name="Value">SwitchPush-SchemaBoard_Library-555-timer_RC-rescue</field>
+        <field name="Value">SwitchPush</field>
       </fields>
       <pins>
         <pin num="1" name="C" type="passive"/>
@@ -178,58 +204,58 @@
     </libpart>
   </libparts>
   <libraries>
-    <library logical="timer_RC-rescue">
-      <uri>D:\Works\Git\RetroBreadboard\software\SchemaBoard_kiCadParser/timer_RC-rescue.lib</uri>
+    <library logical="schemaboard">
+      <uri>D:/Works/Git/RetroBreadboard/study/KiCadCustomLibrary/SchemaBoard_Library.lib</uri>
     </library>
   </libraries>
   <nets>
-    <net code="1" name="Net-(CP7-Pad1)">
-      <node ref="CP7" pin="1"/>
-      <node ref="R4" pin="2"/>
-      <node ref="U1-8" pin="8"/>
-      <node ref="SW11" pin="2"/>
-    </net>
-    <net code="2" name="Net-(R4-Pad1)">
-      <node ref="U1-8" pin="7"/>
-      <node ref="R5" pin="2"/>
-      <node ref="R4" pin="1"/>
-    </net>
-    <net code="3" name="Net-(CP7-Pad2)">
-      <node ref="CP7" pin="2"/>
-      <node ref="R2" pin="2"/>
-      <node ref="U1-8" pin="4"/>
-    </net>
-    <net code="4" name="+3V3">
-      <node ref="SW11" pin="1"/>
-    </net>
-    <net code="5" name="GND">
-      <node ref="SP8" pin="1"/>
-      <node ref="C9" pin="1"/>
-      <node ref="R2" pin="1"/>
-      <node ref="C10" pin="1"/>
-      <node ref="U1-8" pin="1"/>
-    </net>
-    <net code="6" name="Net-(C9-Pad2)">
-      <node ref="U1-8" pin="5"/>
-      <node ref="C9" pin="2"/>
-    </net>
-    <net code="7" name="Net-(R3-Pad1)">
+    <net code="1" name="Net-(R3-Pad1)">
       <node ref="SP8" pin="2"/>
       <node ref="R3" pin="1"/>
     </net>
-    <net code="8" name="Net-(CP6-Pad1)">
-      <node ref="U1-8" pin="3"/>
-      <node ref="CP6" pin="1"/>
-    </net>
-    <net code="9" name="Net-(CP6-Pad2)">
+    <net code="2" name="Net-(CP6-Pad2)">
       <node ref="CP6" pin="2"/>
       <node ref="R3" pin="2"/>
     </net>
+    <net code="3" name="Net-(CP7-Pad1)">
+      <node ref="CP7" pin="1"/>
+      <node ref="SW11" pin="2"/>
+      <node ref="R4" pin="2"/>
+      <node ref="U1" pin="8"/>
+    </net>
+    <net code="4" name="Net-(CP6-Pad1)">
+      <node ref="CP6" pin="1"/>
+      <node ref="U1" pin="3"/>
+    </net>
+    <net code="5" name="Net-(R4-Pad1)">
+      <node ref="R5" pin="2"/>
+      <node ref="R4" pin="1"/>
+      <node ref="U1" pin="7"/>
+    </net>
+    <net code="6" name="+9V">
+      <node ref="SW11" pin="1"/>
+    </net>
+    <net code="7" name="GND">
+      <node ref="C10" pin="1"/>
+      <node ref="C9" pin="1"/>
+      <node ref="SP8" pin="1"/>
+      <node ref="R2" pin="2"/>
+      <node ref="U1" pin="1"/>
+    </net>
+    <net code="8" name="Net-(C9-Pad2)">
+      <node ref="C9" pin="2"/>
+      <node ref="U1" pin="5"/>
+    </net>
+    <net code="9" name="Net-(CP7-Pad2)">
+      <node ref="U1" pin="4"/>
+      <node ref="CP7" pin="2"/>
+      <node ref="R2" pin="1"/>
+    </net>
     <net code="10" name="Net-(C10-Pad2)">
-      <node ref="C10" pin="2"/>
-      <node ref="U1-8" pin="2"/>
-      <node ref="U1-8" pin="6"/>
+      <node ref="U1" pin="6"/>
+      <node ref="U1" pin="2"/>
       <node ref="R5" pin="1"/>
+      <node ref="C10" pin="2"/>
     </net>
   </nets>
 </export>

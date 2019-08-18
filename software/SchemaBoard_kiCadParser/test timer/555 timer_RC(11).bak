@@ -1,0 +1,281 @@
+EESchema Schematic File Version 4
+LIBS:555 timer_RC(11)-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L schemaboard:+3.3V PWR?
+U 1 1 5D4D6C05
+P 2600 1350
+F 0 "PWR?" H 2600 1200 50  0001 C CNN
+F 1 "+3.3V" H 2688 1387 50  0000 L CNN
+F 2 "" H 2600 1350 50  0001 C CNN
+F 3 "" H 2600 1350 50  0001 C CNN
+	1    2600 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:LM555 U1
+U 1 1 5D4D75EC
+P 2650 4100
+F 0 "U1" H 2650 3633 50  0000 C CNN
+F 1 "LM555" H 2650 3724 50  0000 C CNN
+F 2 "" H 2650 4100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 2650 4100 50  0001 C CNN
+	1    2650 4100
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:GND GND?
+U 1 1 5D4DA759
+P 1450 1350
+F 0 "GND?" H 1450 1100 50  0001 C CNN
+F 1 "GND" H 1538 1313 50  0000 L CNN
+F 2 "" H 1450 1350 50  0001 C CNN
+F 3 "" H 1450 1350 50  0001 C CNN
+	1    1450 1350
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:Resistor R2
+U 1 1 5D4DC2A4
+P 2000 5400
+F 0 "R2" V 2205 5400 50  0000 C CNN
+F 1 "Resistor" V 2114 5400 50  0000 C CNN
+F 2 "" H 2000 5400 50  0001 C CNN
+F 3 "~" H 2000 5400 50  0001 C CNN
+	1    2000 5400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L schemaboard:Resistor R4
+U 1 1 5D4DD38D
+P 4050 2800
+F 0 "R4" H 3982 2754 50  0000 R CNN
+F 1 "Resistor" H 3982 2845 50  0000 R CNN
+F 2 "" H 4050 2800 50  0001 C CNN
+F 3 "~" H 4050 2800 50  0001 C CNN
+	1    4050 2800
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:Resistor R5
+U 1 1 5D4DCCCE
+P 5300 2800
+F 0 "R5" H 5232 2754 50  0000 R CNN
+F 1 "Resistor" H 5232 2845 50  0000 R CNN
+F 2 "" H 5300 2800 50  0001 C CNN
+F 3 "~" H 5300 2800 50  0001 C CNN
+	1    5300 2800
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:SwitchPush SW11
+U 1 1 5D4E4B63
+P 5100 1700
+F 0 "SW11" H 5100 1985 50  0000 C CNN
+F 1 "SwitchPush" H 5100 1894 50  0000 C CNN
+F 2 "" H 5100 1900 50  0001 C CNN
+F 3 "~" H 5100 1900 50  0001 C CNN
+	1    5100 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:Resistor R3
+U 1 1 5D500A29
+P 3200 6200
+F 0 "R3" V 2995 6200 50  0000 C CNN
+F 1 "Resistor" V 3086 6200 50  0000 C CNN
+F 2 "" H 3200 6200 50  0001 C CNN
+F 3 "~" H 3200 6200 50  0001 C CNN
+	1    3200 6200
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:C C10
+U 1 1 5D5010FC
+P 4850 4450
+F 0 "C10" V 4598 4450 50  0000 C CNN
+F 1 "C" V 4689 4450 50  0000 C CNN
+F 2 "" H 4888 4300 50  0001 C CNN
+F 3 "~" H 4850 4450 50  0001 C CNN
+	1    4850 4450
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:C C9
+U 1 1 5D501BEA
+P 4050 4800
+F 0 "C9" V 3798 4800 50  0000 C CNN
+F 1 "C" V 3889 4800 50  0000 C CNN
+F 2 "" H 4088 4650 50  0001 C CNN
+F 3 "~" H 4050 4800 50  0001 C CNN
+	1    4050 4800
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:CP CP7
+U 1 1 5D503BC1
+P 3450 5400
+F 0 "CP7" V 3195 5400 50  0000 C CNN
+F 1 "CP" V 3286 5400 50  0000 C CNN
+F 2 "" H 3488 5250 50  0001 C CNN
+F 3 "~" H 3450 5400 50  0001 C CNN
+	1    3450 5400
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:CP CP6
+U 1 1 5D5048EF
+P 1800 6200
+F 0 "CP6" V 2055 6200 50  0000 C CNN
+F 1 "CP" V 1964 6200 50  0000 C CNN
+F 2 "" H 1838 6050 50  0001 C CNN
+F 3 "~" H 1800 6200 50  0001 C CNN
+	1    1800 6200
+	0    -1   -1   0   
+$EndComp
+$Comp
+L schemaboard:Speaker SP8
+U 1 1 5D5051E9
+P 4600 6400
+F 0 "SP8" V 4517 6580 50  0000 L CNN
+F 1 "Speaker" V 4608 6580 50  0000 L CNN
+F 2 "" H 4600 6200 50  0001 C CNN
+F 3 "~" H 4590 6350 50  0001 C CNN
+	1    4600 6400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2600 1300 2600 1350
+Wire Wire Line
+	2600 1700 4900 1700
+Wire Wire Line
+	5300 1700 6050 1700
+Wire Wire Line
+	6050 1700 6050 2150
+Wire Wire Line
+	6050 5400 3600 5400
+Wire Wire Line
+	3150 4300 3600 4300
+Wire Wire Line
+	3600 4300 3600 4800
+Wire Wire Line
+	3600 4800 3900 4800
+Wire Wire Line
+	4200 4800 5450 4800
+Wire Wire Line
+	5450 4800 5450 6200
+Wire Wire Line
+	5450 7200 800  7200
+Wire Wire Line
+	800  7200 800  5400
+Wire Wire Line
+	800  1700 1450 1700
+Wire Wire Line
+	1450 1700 1450 1350
+Wire Wire Line
+	2600 1700 2600 1350
+Connection ~ 2600 1350
+Wire Wire Line
+	4600 6200 5450 6200
+Connection ~ 5450 6200
+Wire Wire Line
+	5450 6200 5450 7200
+Wire Wire Line
+	3450 6200 4500 6200
+Wire Wire Line
+	1950 6200 2950 6200
+Wire Wire Line
+	2150 4150 1250 4150
+Wire Wire Line
+	1250 4150 1250 6200
+Wire Wire Line
+	1250 6200 1650 6200
+Wire Wire Line
+	2250 5400 2700 5400
+Wire Wire Line
+	1750 5400 800  5400
+Connection ~ 800  5400
+Wire Wire Line
+	800  5400 800  3850
+Wire Wire Line
+	2700 5400 2700 4900
+Wire Wire Line
+	2700 4900 1750 4900
+Wire Wire Line
+	1750 4900 1750 4300
+Wire Wire Line
+	1750 4300 2150 4300
+Connection ~ 2700 5400
+Wire Wire Line
+	2700 5400 3300 5400
+Wire Wire Line
+	3150 4150 3500 4150
+Wire Wire Line
+	4150 4150 4150 4450
+Wire Wire Line
+	4150 4450 4700 4450
+Wire Wire Line
+	5000 4450 5450 4450
+Wire Wire Line
+	5450 4450 5450 4800
+Connection ~ 5450 4800
+Wire Wire Line
+	2150 4000 1600 4000
+Wire Wire Line
+	1600 4000 1600 3150
+Wire Wire Line
+	1600 3150 3500 3150
+Wire Wire Line
+	3500 3150 3500 4150
+Connection ~ 3500 4150
+Wire Wire Line
+	3500 4150 4150 4150
+Connection ~ 4150 4150
+Wire Wire Line
+	5300 3050 5300 4150
+Wire Wire Line
+	4150 4150 5300 4150
+Wire Wire Line
+	3150 4000 4050 4000
+Wire Wire Line
+	4750 4000 4750 2550
+Wire Wire Line
+	4750 2550 5300 2550
+Wire Wire Line
+	4050 3050 4050 4000
+Connection ~ 4050 4000
+Wire Wire Line
+	4050 4000 4750 4000
+Wire Wire Line
+	4050 2550 4050 2150
+Wire Wire Line
+	4050 2150 6050 2150
+Connection ~ 6050 2150
+Wire Wire Line
+	6050 2150 6050 5400
+Wire Wire Line
+	3150 3850 3750 3850
+Wire Wire Line
+	3750 3850 3750 2150
+Wire Wire Line
+	3750 2150 4050 2150
+Connection ~ 4050 2150
+Wire Wire Line
+	2150 3850 800  3850
+Connection ~ 800  3850
+Wire Wire Line
+	800  3850 800  1700
+$EndSCHEMATC

@@ -10,6 +10,11 @@ D Power symbol creates a global label with name "+3V3"
 K power-flag
 $ENDCMP
 #
+$CMP +9V
+D Power symbol creates a global label with name "+9V"
+K power-flag
+$ENDCMP
+#
 $CMP 16pinChip
 D Processor IC
 K 16 pin

@@ -15,264 +15,266 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L timer_RC-rescue:Resistor-SchemaBoard_Library-555-timer_RC-rescue R4
-U 1 1 5D4DD38D
-P 4750 2900
-F 0 "R4" H 4682 2854 50  0000 R CNN
-F 1 "Resistor" H 4682 2945 50  0000 R CNN
-F 2 "" H 4750 2900 50  0001 C CNN
-F 3 "~" H 4750 2900 50  0001 C CNN
-	1    4750 2900
-	-1   0    0    1   
-$EndComp
-$Comp
-L timer_RC-rescue:Resistor-SchemaBoard_Library-555-timer_RC-rescue R5
-U 1 1 5D4DCCCE
-P 6000 2900
-F 0 "R5" H 5932 2854 50  0000 R CNN
-F 1 "Resistor" H 5932 2945 50  0000 R CNN
-F 2 "" H 6000 2900 50  0001 C CNN
-F 3 "~" H 6000 2900 50  0001 C CNN
-	1    6000 2900
-	-1   0    0    1   
-$EndComp
-$Comp
-L timer_RC-rescue:Resistor-SchemaBoard_Library-555-timer_RC-rescue R3
-U 1 1 5D500A29
-P 3900 6750
-F 0 "R3" V 3695 6750 50  0000 C CNN
-F 1 "Resistor" V 3786 6750 50  0000 C CNN
-F 2 "" H 3900 6750 50  0001 C CNN
-F 3 "~" H 3900 6750 50  0001 C CNN
-	1    3900 6750
-	0    1    1    0   
-$EndComp
-$Comp
-L timer_RC-rescue:C-SchemaBoard_Library-555-timer_RC-rescue C9
-U 1 1 5D501BEA
-P 4750 4900
-F 0 "C9" V 4498 4900 50  0000 C CNN
-F 1 "C" V 4589 4900 50  0000 C CNN
-F 2 "" H 4788 4750 50  0001 C CNN
-F 3 "~" H 4750 4900 50  0001 C CNN
-	1    4750 4900
-	0    1    1    0   
-$EndComp
-$Comp
-L timer_RC-rescue:CP-SchemaBoard_Library-555-timer_RC-rescue CP7
-U 1 1 5D503BC1
-P 4150 5500
-F 0 "CP7" V 3895 5500 50  0000 C CNN
-F 1 "CP" V 3986 5500 50  0000 C CNN
-F 2 "" H 4188 5350 50  0001 C CNN
-F 3 "~" H 4150 5500 50  0001 C CNN
-	1    4150 5500
-	0    1    1    0   
-$EndComp
-$Comp
-L timer_RC-rescue:CP-SchemaBoard_Library-555-timer_RC-rescue CP6
-U 1 1 5D5048EF
-P 2500 6750
-F 0 "CP6" V 2755 6750 50  0000 C CNN
-F 1 "CP" V 2664 6750 50  0000 C CNN
-F 2 "" H 2538 6600 50  0001 C CNN
-F 3 "~" H 2500 6750 50  0001 C CNN
-	1    2500 6750
-	0    -1   -1   0   
-$EndComp
-$Comp
-L timer_RC-rescue:Speaker-SchemaBoard_Library-555-timer_RC-rescue SP8
-U 1 1 5D5051E9
-P 5300 6950
-F 0 "SP8" V 5217 7130 50  0000 L CNN
-F 1 "Speaker" V 5308 7130 50  0000 L CNN
-F 2 "" H 5300 6750 50  0001 C CNN
-F 3 "~" H 5290 6900 50  0001 C CNN
-	1    5300 6950
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	3300 1800 5600 1800
-Wire Wire Line
-	6000 1800 6750 1800
-Wire Wire Line
-	6750 1800 6750 2250
-Wire Wire Line
-	6750 5500 4300 5500
-Wire Wire Line
-	3850 4400 4300 4400
-Wire Wire Line
-	4300 4400 4300 4900
-Wire Wire Line
-	4300 4900 4600 4900
-Wire Wire Line
-	4900 4900 6150 4900
-Wire Wire Line
-	3300 1800 3300 1450
-Wire Wire Line
-	5300 6750 6150 6750
-Wire Wire Line
-	4150 6750 5200 6750
-Wire Wire Line
-	2650 6750 3650 6750
-Wire Wire Line
-	2850 4250 1950 4250
-Wire Wire Line
-	1950 6750 2350 6750
-Wire Wire Line
-	3400 5500 3400 5000
-Wire Wire Line
-	3400 5000 2450 5000
-Wire Wire Line
-	2450 5000 2450 4400
-Wire Wire Line
-	2450 4400 2850 4400
-Connection ~ 3400 5500
-Wire Wire Line
-	3400 5500 4000 5500
-Wire Wire Line
-	3850 4250 4200 4250
-Wire Wire Line
-	4850 4250 4850 4550
-Wire Wire Line
-	6150 4550 6150 4900
-Connection ~ 6150 4900
-Wire Wire Line
-	2850 4100 2300 4100
-Wire Wire Line
-	2300 4100 2300 3250
-Wire Wire Line
-	2300 3250 4200 3250
-Wire Wire Line
-	4200 3250 4200 4250
-Connection ~ 4200 4250
-Wire Wire Line
-	4200 4250 4850 4250
-Connection ~ 4850 4250
-Wire Wire Line
-	6000 3150 6000 4250
-Wire Wire Line
-	4850 4250 6000 4250
-Wire Wire Line
-	3850 4100 4750 4100
-Wire Wire Line
-	5450 4100 5450 2650
-Wire Wire Line
-	5450 2650 6000 2650
-Wire Wire Line
-	4750 3150 4750 4100
-Connection ~ 4750 4100
-Wire Wire Line
-	4750 4100 5450 4100
-Wire Wire Line
-	4750 2650 4750 2250
-Wire Wire Line
-	4750 2250 6750 2250
-Connection ~ 6750 2250
-Wire Wire Line
-	6750 2250 6750 5500
-Wire Wire Line
-	3850 3950 4450 3950
-Wire Wire Line
-	4450 3950 4450 2250
-Wire Wire Line
-	4450 2250 4750 2250
-Connection ~ 4750 2250
-Connection ~ 6150 6750
-Wire Wire Line
-	6150 6750 6150 7300
-Wire Wire Line
-	6150 4900 6150 6750
-$Comp
-L timer_RC-rescue:C-SchemaBoard_Library-555-timer_RC-rescue C10
-U 1 1 5D5010FC
-P 5650 4550
-F 0 "C10" V 5398 4550 50  0000 C CNN
-F 1 "C" V 5489 4550 50  0000 C CNN
-F 2 "" H 5688 4400 50  0001 C CNN
-F 3 "~" H 5650 4550 50  0001 C CNN
-	1    5650 4550
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	4850 4550 5500 4550
-Wire Wire Line
-	5800 4550 6150 4550
-Wire Wire Line
-	2150 1800 2150 1450
-Wire Wire Line
-	1500 1800 2150 1800
-Wire Wire Line
-	6150 7300 1500 7300
-Wire Wire Line
-	2950 5500 3400 5500
-$Comp
-L timer_RC-rescue:Resistor-SchemaBoard_Library-555-timer_RC-rescue R2
-U 1 1 5D4DC2A4
-P 2700 5500
-F 0 "R2" V 2905 5500 50  0000 C CNN
-F 1 "Resistor" V 2814 5500 50  0000 C CNN
-F 2 "" H 2700 5500 50  0001 C CNN
-F 3 "~" H 2700 5500 50  0001 C CNN
-	1    2700 5500
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	1950 4250 1950 6750
-Wire Wire Line
-	1500 3950 1500 1800
-Connection ~ 1500 3950
-Wire Wire Line
-	1500 5500 1500 3950
-Connection ~ 1500 5500
-Wire Wire Line
-	1500 7300 1500 5500
-Wire Wire Line
-	2850 3950 1500 3950
-Wire Wire Line
-	2450 5500 1500 5500
-$Comp
-L timer_RC-rescue:+3.3V-SchemaBoard_Library-555-timer_RC-rescue PWR30
-U 1 1 5D4D6C05
-P 3300 1450
-F 0 "PWR30" H 3300 1300 50  0001 C CNN
-F 1 "+3.3V-SchemaBoard_Library-555-timer_RC-rescue" H 3388 1487 50  0001 L CNN
-F 2 "" H 3300 1450 50  0001 C CNN
-F 3 "" H 3300 1450 50  0001 C CNN
-	1    3300 1450
-	1    0    0    -1  
-$EndComp
-$Comp
-L timer_RC-rescue:GND-SchemaBoard_Library-555-timer_RC-rescue GND20
-U 1 1 5D4DA759
-P 2150 1450
-F 0 "GND20" H 2150 1200 50  0001 C CNN
-F 1 "GND-SchemaBoard_Library-555-timer_RC-rescue" H 2238 1413 50  0001 L CNN
-F 2 "" H 2150 1450 50  0001 C CNN
-F 3 "" H 2150 1450 50  0001 C CNN
-	1    2150 1450
-	-1   0    0    1   
-$EndComp
-$Comp
-L timer_RC-rescue:SwitchPush-SchemaBoard_Library-555-timer_RC-rescue SW11
-U 1 1 5D4E4B63
-P 5800 1800
-F 0 "SW11" H 5800 2085 50  0000 C CNN
-F 1 "SwitchPush" H 5800 1994 50  0000 C CNN
-F 2 "" H 5800 2000 50  0001 C CNN
-F 3 "~" H 5800 2000 50  0001 C CNN
-	1    5800 1800
-	1    0    0    -1  
-$EndComp
-$Comp
-L timer_RC-rescue:LM555-SchemaBoard_Library-555-timer_RC-rescue U1-8
+L schemaboard:LM555 U1
 U 1 1 5D4D75EC
-P 3350 4200
-F 0 "U1-8" H 3350 3733 50  0000 C CNN
-F 1 "LM555" H 3350 3824 50  0000 C CNN
-F 2 "" H 3350 4200 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 3350 4200 50  0001 C CNN
-	1    3350 4200
+P 3800 4400
+F 0 "U1" H 3800 3933 50  0000 C CNN
+F 1 "LM555 Timer" H 3800 4024 50  0000 C CNN
+F 2 "" H 3800 4400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 3800 4400 50  0001 C CNN
+	1    3800 4400
 	-1   0    0    1   
 $EndComp
+$Comp
+L schemaboard:Resistor R2
+U 1 1 5D4DC2A4
+P 2900 5700
+F 0 "R2" V 3105 5700 50  0000 C CNN
+F 1 "1K minimum" V 3014 5700 50  0000 C CNN
+F 2 "" H 2900 5700 50  0001 C CNN
+F 3 "~" H 2900 5700 50  0001 C CNN
+	1    2900 5700
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:Resistor R4
+U 1 1 5D4DD38D
+P 5300 3650
+F 0 "R4" H 5232 3604 50  0000 R CNN
+F 1 "4.7K" H 5232 3695 50  0000 R CNN
+F 2 "" H 5300 3650 50  0001 C CNN
+F 3 "~" H 5300 3650 50  0001 C CNN
+	1    5300 3650
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:Resistor R5
+U 1 1 5D4DCCCE
+P 6450 3650
+F 0 "R5" H 6382 3604 50  0000 R CNN
+F 1 "4.7K" H 6382 3695 50  0000 R CNN
+F 2 "" H 6450 3650 50  0001 C CNN
+F 3 "~" H 6450 3650 50  0001 C CNN
+	1    6450 3650
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:SwitchPush SW11
+U 1 1 5D4E4B63
+P 6000 2350
+F 0 "SW11" H 6000 2635 50  0000 C CNN
+F 1 "SwitchPush" H 6000 2544 50  0000 C CNN
+F 2 "" H 6000 2550 50  0001 C CNN
+F 3 "~" H 6000 2550 50  0001 C CNN
+	1    6000 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:Resistor R3
+U 1 1 5D500A29
+P 3650 6500
+F 0 "R3" V 3445 6500 50  0000 C CNN
+F 1 "47" V 3536 6500 50  0000 C CNN
+F 2 "" H 3650 6500 50  0001 C CNN
+F 3 "~" H 3650 6500 50  0001 C CNN
+	1    3650 6500
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:C C10
+U 1 1 5D5010FC
+P 6000 4750
+F 0 "C10" V 5748 4750 50  0000 C CNN
+F 1 "0.033μF" V 5839 4750 50  0000 C CNN
+F 2 "" H 6038 4600 50  0001 C CNN
+F 3 "~" H 6000 4750 50  0001 C CNN
+	1    6000 4750
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:C C9
+U 1 1 5D501BEA
+P 5200 5200
+F 0 "C9" V 4948 5200 50  0000 C CNN
+F 1 "0.01μF" V 5039 5200 50  0000 C CNN
+F 2 "" H 5238 5050 50  0001 C CNN
+F 3 "~" H 5200 5200 50  0001 C CNN
+	1    5200 5200
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:CP CP7
+U 1 1 5D503BC1
+P 4400 5700
+F 0 "CP7" V 4145 5700 50  0000 C CNN
+F 1 "47μF" V 4236 5700 50  0000 C CNN
+F 2 "" H 4438 5550 50  0001 C CNN
+F 3 "~" H 4400 5700 50  0001 C CNN
+	1    4400 5700
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:CP CP6
+U 1 1 5D5048EF
+P 2150 6500
+F 0 "CP6" V 2405 6500 50  0000 C CNN
+F 1 "10μF" V 2314 6500 50  0000 C CNN
+F 2 "" H 2188 6350 50  0001 C CNN
+F 3 "~" H 2150 6500 50  0001 C CNN
+	1    2150 6500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L schemaboard:Speaker SP8
+U 1 1 5D5051E9
+P 5750 6700
+F 0 "SP8" V 5667 6880 50  0000 L CNN
+F 1 "Speaker" V 5758 6880 50  0000 L CNN
+F 2 "" H 5750 6500 50  0001 C CNN
+F 3 "~" H 5740 6650 50  0001 C CNN
+	1    5750 6700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4300 4600 4650 4600
+Wire Wire Line
+	5350 5200 6600 5200
+Wire Wire Line
+	5750 6500 6600 6500
+Wire Wire Line
+	1550 4450 1550 6500
+Wire Wire Line
+	3650 5700 3650 5200
+Wire Wire Line
+	2900 5200 2900 4600
+Wire Wire Line
+	2900 4600 3300 4600
+Wire Wire Line
+	4300 4450 4650 4450
+Wire Wire Line
+	5300 4450 5300 4750
+Wire Wire Line
+	5300 4750 5850 4750
+Wire Wire Line
+	6150 4750 6600 4750
+Wire Wire Line
+	3300 4300 2900 4300
+Wire Wire Line
+	2900 4300 2900 3950
+Connection ~ 4650 4450
+Wire Wire Line
+	4650 4450 5300 4450
+Connection ~ 5300 4450
+Wire Wire Line
+	5300 4450 6450 4450
+Wire Wire Line
+	4300 4150 4900 4150
+Wire Wire Line
+	4900 4150 4900 2800
+Wire Wire Line
+	6600 6900 6600 6500
+Connection ~ 6600 6500
+Wire Wire Line
+	4650 3950 4650 4450
+Wire Wire Line
+	2900 3950 4650 3950
+Wire Wire Line
+	4300 4300 5300 4300
+Wire Wire Line
+	5300 3900 5300 4300
+Wire Wire Line
+	4900 2800 5300 2800
+Wire Wire Line
+	6850 2800 6850 5700
+Wire Wire Line
+	5300 3400 5300 2800
+Wire Wire Line
+	5900 3000 5900 4300
+Wire Wire Line
+	5900 3000 6450 3000
+Wire Wire Line
+	6450 3000 6450 3400
+Wire Wire Line
+	6450 3900 6450 4450
+Wire Wire Line
+	1300 2350 1950 2350
+Connection ~ 1300 4150
+Wire Wire Line
+	1300 4150 3300 4150
+Wire Wire Line
+	1300 6900 6600 6900
+Wire Wire Line
+	1550 4450 3300 4450
+Wire Wire Line
+	1550 6500 2000 6500
+Wire Wire Line
+	3150 5700 3650 5700
+Wire Wire Line
+	3650 5200 2900 5200
+Wire Wire Line
+	3650 5700 4250 5700
+Connection ~ 3650 5700
+Wire Wire Line
+	4550 5700 6850 5700
+Wire Wire Line
+	2300 6500 3400 6500
+Wire Wire Line
+	3900 6500 5650 6500
+Connection ~ 6600 5200
+Wire Wire Line
+	6600 5200 6600 6500
+Wire Wire Line
+	6600 4750 6600 5200
+Wire Wire Line
+	4650 4600 4650 5200
+Wire Wire Line
+	4650 5200 5050 5200
+Wire Wire Line
+	2650 5700 1300 5700
+Wire Wire Line
+	1300 4150 1300 5700
+Wire Wire Line
+	1300 5700 1300 6900
+Connection ~ 1300 5700
+Wire Wire Line
+	6200 2350 6850 2350
+Wire Wire Line
+	3750 2350 5800 2350
+Connection ~ 5300 2800
+Connection ~ 5300 4300
+Wire Wire Line
+	5300 4300 5900 4300
+Wire Wire Line
+	5300 2800 6850 2800
+$Comp
+L schemaboard:+9V #PWR0200
+U 1 1 5D59C142
+P 3750 2050
+F 0 "#PWR0200" H 3750 1900 50  0001 C CNN
+F 1 "+9V" H 3838 2087 50  0000 L CNN
+F 2 "" H 3750 2050 50  0001 C CNN
+F 3 "" H 3750 2050 50  0001 C CNN
+	1    3750 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:GND #GND0100
+U 1 1 5D59CDA7
+P 1950 2600
+F 0 "#GND0100" H 1950 2350 50  0001 C CNN
+F 1 "GND" H 2038 2563 50  0000 L CNN
+F 2 "" H 1950 2600 50  0001 C CNN
+F 3 "" H 1950 2600 50  0001 C CNN
+	1    1950 2600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1950 2350 1950 2600
+Wire Wire Line
+	3750 2050 3750 2350
+Wire Wire Line
+	6850 2350 6850 2800
+Connection ~ 6850 2800
+Wire Wire Line
+	1300 2350 1300 4150
 $EndSCHEMATC

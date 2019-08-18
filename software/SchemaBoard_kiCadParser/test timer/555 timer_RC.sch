@@ -1,0 +1,282 @@
+EESchema Schematic File Version 4
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L schemaboard:+3.3V PWR200
+U 1 1 5D4D6C05
+P 3750 2250
+F 0 "PWR200" H 3750 2100 50  0001 C CNN
+F 1 "+3.3V" H 3838 2287 50  0000 L CNN
+F 2 "" H 3750 2250 50  0001 C CNN
+F 3 "" H 3750 2250 50  0001 C CNN
+	1    3750 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:LM555 U1
+U 1 1 5D4D75EC
+P 3800 4400
+F 0 "U1" H 3800 3933 50  0000 C CNN
+F 1 "LM555" H 3800 4024 50  0000 C CNN
+F 2 "" H 3800 4400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 3800 4400 50  0001 C CNN
+	1    3800 4400
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:Resistor R2
+U 1 1 5D4DC2A4
+P 2900 5700
+F 0 "R2" V 3105 5700 50  0000 C CNN
+F 1 "1K minimum" V 3014 5700 50  0000 C CNN
+F 2 "" H 2900 5700 50  0001 C CNN
+F 3 "~" H 2900 5700 50  0001 C CNN
+	1    2900 5700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L schemaboard:Resistor R4
+U 1 1 5D4DD38D
+P 5500 3650
+F 0 "R4" H 5432 3604 50  0000 R CNN
+F 1 "4.7K" H 5432 3695 50  0000 R CNN
+F 2 "" H 5500 3650 50  0001 C CNN
+F 3 "~" H 5500 3650 50  0001 C CNN
+	1    5500 3650
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:Resistor R5
+U 1 1 5D4DCCCE
+P 6450 3650
+F 0 "R5" H 6382 3604 50  0000 R CNN
+F 1 "4.7K" H 6382 3695 50  0000 R CNN
+F 2 "" H 6450 3650 50  0001 C CNN
+F 3 "~" H 6450 3650 50  0001 C CNN
+	1    6450 3650
+	-1   0    0    1   
+$EndComp
+$Comp
+L schemaboard:SwitchPush SW11
+U 1 1 5D4E4B63
+P 6000 2600
+F 0 "SW11" H 6000 2885 50  0000 C CNN
+F 1 "SwitchPush" H 6000 2794 50  0000 C CNN
+F 2 "" H 6000 2800 50  0001 C CNN
+F 3 "~" H 6000 2800 50  0001 C CNN
+	1    6000 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:Resistor R3
+U 1 1 5D500A29
+P 3650 6500
+F 0 "R3" V 3445 6500 50  0000 C CNN
+F 1 "47" V 3536 6500 50  0000 C CNN
+F 2 "" H 3650 6500 50  0001 C CNN
+F 3 "~" H 3650 6500 50  0001 C CNN
+	1    3650 6500
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:C C10
+U 1 1 5D5010FC
+P 6000 4750
+F 0 "C10" V 5748 4750 50  0000 C CNN
+F 1 "0.033μF" V 5839 4750 50  0000 C CNN
+F 2 "" H 6038 4600 50  0001 C CNN
+F 3 "~" H 6000 4750 50  0001 C CNN
+	1    6000 4750
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:C C9
+U 1 1 5D501BEA
+P 5200 5200
+F 0 "C9" V 4948 5200 50  0000 C CNN
+F 1 "0.01μF" V 5039 5200 50  0000 C CNN
+F 2 "" H 5238 5050 50  0001 C CNN
+F 3 "~" H 5200 5200 50  0001 C CNN
+	1    5200 5200
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:CP CP7
+U 1 1 5D503BC1
+P 4400 5700
+F 0 "CP7" V 4145 5700 50  0000 C CNN
+F 1 "47μF" V 4236 5700 50  0000 C CNN
+F 2 "" H 4438 5550 50  0001 C CNN
+F 3 "~" H 4400 5700 50  0001 C CNN
+	1    4400 5700
+	0    1    1    0   
+$EndComp
+$Comp
+L schemaboard:CP CP6
+U 1 1 5D5048EF
+P 2150 6500
+F 0 "CP6" V 2405 6500 50  0000 C CNN
+F 1 "10μF" V 2314 6500 50  0000 C CNN
+F 2 "" H 2188 6350 50  0001 C CNN
+F 3 "~" H 2150 6500 50  0001 C CNN
+	1    2150 6500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L schemaboard:Speaker SP8
+U 1 1 5D5051E9
+P 5750 6700
+F 0 "SP8" V 5667 6880 50  0000 L CNN
+F 1 "Speaker" V 5758 6880 50  0000 L CNN
+F 2 "" H 5750 6500 50  0001 C CNN
+F 3 "~" H 5740 6650 50  0001 C CNN
+	1    5750 6700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3750 2200 3750 2250
+Wire Wire Line
+	4300 4600 4650 4600
+Wire Wire Line
+	5350 5200 6600 5200
+Wire Wire Line
+	3750 2600 3750 2250
+Connection ~ 3750 2250
+Wire Wire Line
+	5750 6500 6600 6500
+Wire Wire Line
+	1550 4450 1550 6500
+Wire Wire Line
+	3650 5700 3650 5200
+Wire Wire Line
+	2900 5200 2900 4600
+Wire Wire Line
+	2900 4600 3300 4600
+Wire Wire Line
+	4300 4450 4650 4450
+Wire Wire Line
+	5300 4450 5300 4750
+Wire Wire Line
+	5300 4750 5850 4750
+Wire Wire Line
+	6150 4750 6600 4750
+Wire Wire Line
+	3300 4300 2900 4300
+Wire Wire Line
+	2900 4300 2900 3950
+Connection ~ 4650 4450
+Wire Wire Line
+	4650 4450 5300 4450
+Connection ~ 5300 4450
+Wire Wire Line
+	5300 4450 6450 4450
+Wire Wire Line
+	4300 4150 4900 4150
+Wire Wire Line
+	4900 4150 4900 2800
+Wire Wire Line
+	6600 6900 6600 6500
+Connection ~ 6600 6500
+Wire Wire Line
+	4650 3950 4650 4450
+Wire Wire Line
+	2900 3950 4650 3950
+Wire Wire Line
+	4300 4300 5500 4300
+Wire Wire Line
+	5500 3900 5500 4300
+Connection ~ 5500 4300
+Wire Wire Line
+	5500 4300 5900 4300
+Wire Wire Line
+	4900 2800 5500 2800
+Wire Wire Line
+	6850 2800 6850 5700
+Wire Wire Line
+	5500 3400 5500 2800
+Connection ~ 5500 2800
+Wire Wire Line
+	5500 2800 6850 2800
+Wire Wire Line
+	5900 3000 5900 4300
+Wire Wire Line
+	5900 3000 6450 3000
+Wire Wire Line
+	6450 3000 6450 3400
+Wire Wire Line
+	6450 3900 6450 4450
+Wire Wire Line
+	6850 2600 6850 2800
+Wire Wire Line
+	1300 2600 1300 4150
+Wire Wire Line
+	1950 2600 1950 2250
+Wire Wire Line
+	1300 2600 1950 2600
+$Comp
+L schemaboard:GND GND100
+U 1 1 5D4DA759
+P 1950 2250
+F 0 "GND100" H 1950 2000 50  0001 C CNN
+F 1 "GND" H 2038 2213 50  0000 L CNN
+F 2 "" H 1950 2250 50  0001 C CNN
+F 3 "" H 1950 2250 50  0001 C CNN
+	1    1950 2250
+	-1   0    0    1   
+$EndComp
+Connection ~ 1300 4150
+Wire Wire Line
+	1300 4150 3300 4150
+Wire Wire Line
+	1300 6900 6600 6900
+Wire Wire Line
+	1550 4450 3300 4450
+Wire Wire Line
+	1550 6500 2000 6500
+Wire Wire Line
+	3150 5700 3650 5700
+Wire Wire Line
+	3650 5200 2900 5200
+Wire Wire Line
+	3650 5700 4250 5700
+Connection ~ 3650 5700
+Wire Wire Line
+	4550 5700 6850 5700
+Wire Wire Line
+	2300 6500 3400 6500
+Wire Wire Line
+	3900 6500 5650 6500
+Connection ~ 6600 5200
+Wire Wire Line
+	6600 5200 6600 6500
+Wire Wire Line
+	6600 4750 6600 5200
+Wire Wire Line
+	4650 4600 4650 5200
+Wire Wire Line
+	4650 5200 5050 5200
+Wire Wire Line
+	2650 5700 1300 5700
+Wire Wire Line
+	1300 4150 1300 5700
+Wire Wire Line
+	1300 5700 1300 6900
+Connection ~ 1300 5700
+Wire Wire Line
+	6200 2600 6850 2600
+Wire Wire Line
+	3750 2600 5800 2600
+Connection ~ 6850 2800
+$EndSCHEMATC

@@ -41,7 +41,7 @@ def sorting(comp):
     return(comp)
 
 def no_of_rows(nets,comp,row_assign,no_rows_on_board,bb):#assignment of rows to nets
-    next_empty=1
+    next_empty=3
     free_rows=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     i=0
     while(comp[i][0].startswith(("RELAY","U","OPAMP","SW"))):
@@ -196,9 +196,47 @@ def no_of_rows(nets,comp,row_assign,no_rows_on_board,bb):#assignment of rows to 
             if free_rows[i]==0:
                 free_rows_list.append(i)
 ##
+
+    
     for i in range(len(nets)):
         #check if already assigned
         already_assign=0
+        if nets[i][0].startswith(("+3","3V")):
+            for j in range(len(row_assign)):
+                if nets[i][0]==row_assign[j][0]:
+                    already_assign=len(row_assign[j])-1
+                    break
+            if already_assign==0:
+                row_assign.append([])
+                row_assign[len(row_assign)-1].append(nets[i][0])
+                row_assign[len(row_assign)-1].append("17")
+                row_assign[len(row_assign)-1].append("18")
+            else:
+                row_assign[j].append("17")
+                row_assign[j].append("18")
+
+            free_rows[16]=free_rows[17]=1
+            continue
+        if nets[i][0].startswith("GND"):
+            for j in range(len(row_assign)):
+                if nets[i][0]==row_assign[j][0]:
+                    already_assign=len(row_assign[j])-1
+                    break
+            if already_assign==0:
+                row_assign.append([])
+                row_assign[len(row_assign)-1].append(nets[i][0])
+                row_assign[len(row_assign)-1].append("1")
+                row_assign[len(row_assign)-1].append("2")
+            else:
+                row_assign[j].append("1")
+                row_assign[j].append("2")
+            free_rows[0]=free_rows[1]=1
+            continue
+
+
+    
+
+        
         for j in range(len(row_assign)):
             if nets[i][0]==row_assign[j][0]:
                 already_assign=len(row_assign[j])-1
@@ -216,7 +254,9 @@ def no_of_rows(nets,comp,row_assign,no_rows_on_board,bb):#assignment of rows to 
                 ## added for localised allotment of space
             if free_rows[next_empty-1]==0:
                 next_empty=next_empty
-            if free_rows[next_empty]==0:
+            elif next_empty>31:
+                next_empty=choice([i for i in range(0,no_rows_on_board) if free_rows[i] != 1])+1
+            elif free_rows[next_empty]==0:
                 next_empty=next_empty+1
             elif free_rows[next_empty-2]==0:
                 next_empty=next_empty-1
@@ -229,7 +269,7 @@ def no_of_rows(nets,comp,row_assign,no_rows_on_board,bb):#assignment of rows to 
                     free_rows[next_empty-1]=1
                     more_assign-=1
                     break
-                    
+    print(row_assign)               
     return row_assign,bb
     
 
@@ -431,7 +471,7 @@ def component(nets):
     
     return comp
 
-def write_json(nets,comp,file_type,fileName):
+def write_json(nets,comp,file_type,fileName,comp_value):
     #writing onto json 
     fileName=fileName+".json"
     f=open(fileName,"w")
@@ -451,10 +491,18 @@ def write_json(nets,comp,file_type,fileName):
     comp=correcting_pin_names(comp,file_type)
     for i in range(len(comp_new)):
         list2=[]
+
+        #####
+        for k in range(len(comp_value)):
+            if comp[i][0] in comp_value[k]:
+                index= k
+                break
+
+        ####
         for j in range(1,len(comp_new[i])-1,2):
             obj2={"id":"connector"+str(int(comp_new[i][j+1])-1),"type":comp[i][j+1],"position":[int(x) for x in comp[i][j]]}
             list2.append(obj2)
-        obj2 ={"label":comp[i][0],"connector":list2}
+        obj2 ={"label":comp[i][0],"value":comp_value[k][1],"connector":list2}
         list3.append(obj2)
 
     final_obj={"sketch":"test.fz","net":list0,"components":list3}
@@ -481,7 +529,6 @@ def manage_opamp(nets):
     return nets
 
 def final_sorting(comp):
-    print(comp)
     for i in range(len(comp)):
         counter=1
         for j in range(2,len(comp[i]),2):
@@ -518,7 +565,7 @@ def flipping_components(comp,nets):
     return comp,nets
 
 
-def solver(nets,file_type,fileName):
+def solver(nets,file_type,fileName,comp_value):
 
     nets= manage_opamp(nets)
     bb = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
@@ -535,7 +582,7 @@ def solver(nets,file_type,fileName):
     comp,nets=flipping_components(comp,nets)
 
     comp=final_sorting(comp)
-    write_json(nets,comp,file_type,fileName)
+    write_json(nets,comp,file_type,fileName,comp_value)
     print("executed")
     
 

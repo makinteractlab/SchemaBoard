@@ -332,7 +332,7 @@ public class NetData : MonoBehaviour {
 	public void addGroundPosition(string _name) {
 		List<string[]> gndNetElements = netHandler.getGndNetList();
 
-		_Component component = new _Component(_name);
+		_Component component = new _Component(_name, "");
 		_Pin pin = new _Pin("connector0", "init", "init");
 		for(int i=0; i<gndNetElements.Count; i++) {
 			NetElement element = new NetElement(gndNetElements[i][1], gndNetElements[i][2]);
@@ -350,7 +350,7 @@ public class NetData : MonoBehaviour {
 	public void addPowerPosition(string _name) {
 		List<string[]> pwrNetElements = netHandler.getPwrNetList();
 
-		_Component component = new _Component(_name);
+		_Component component = new _Component(_name, "");
 		_Pin pin = new _Pin("connector0", "init", "init");
 		for(int i=0; i<pwrNetElements.Count; i++) {
 			NetElement element = new NetElement(pwrNetElements[i][1], pwrNetElements[i][2]);
@@ -377,7 +377,7 @@ public class NetData : MonoBehaviour {
 			int col = 1;
 
 			if( componentsArray[i]["label"].ToString().Contains("wire") ){
-				_Component component = new _Component(componentsArray[i]["label"].ToString());
+				_Component component = new _Component(componentsArray[i]["label"].ToString(), "");
 
 				breadboardRowPosition = componentsArray[i]["connector"][0]["position"][row].ToString();
 				breadboardColPosition = componentsArray[i]["connector"][0]["position"][col].ToString();

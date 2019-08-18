@@ -57,12 +57,20 @@ public class NetElement {
 
 public class _Component {
 	public string label;
-	//public string title;
+	public string value;
 	public List<_Pin> pins = new List<_Pin>();
 	
-	public _Component(string _label) {
+	public _Component(string _label, string _value) {
 		this.label = _label;
-		//this.title = _title;
+		this.value = _value;
+	}
+
+	public string getValue() {
+		return value;
+	}
+
+	public void setValue(string _value) {
+		value = _value;
 	}
 
 	public void addPin(_Pin pin) {
@@ -207,7 +215,7 @@ public class NetDataHandler {
 				}
 				allNet.Add(gndNetElementsList);
 				netElementsList.Clear();
-			} else if(netName.Contains("3V")) {
+			} else if(netName.Contains("3V") || netName.Contains("9V")) {
 				foreach(var item in connectorArray) {
 					String[] pwrComponentPin = {netName, item["component"].ToString(), item["pin"].ToString()};
 					pwrNetElementsList.Add(pwrComponentPin);
@@ -295,7 +303,7 @@ public class NetDataHandler {
 		}
 
 		foreach(KeyValuePair<string, ArrayList> item in componentNameAndPins) {
-			_Component component = new _Component(item.Key);
+			_Component component = new _Component(item.Key, "");
 
 			foreach(string[] pinInfo in item.Value) {
 				component.addPin(new _Pin(pinInfo[0], pinInfo[1], pinInfo[2]));
@@ -332,19 +340,23 @@ public class NetDataHandler {
 				}
 			}
 			
-			
 			// dictionary에 component add 하기
-			if (!debugNetData.ContainsKey(component.label))
+			if (!debugNetData.ContainsKey(component.label)){
+				for(int i=0; i<componentCount; i++) {
+					if(componentsArray[i]["label"].ToString().Equals(component.label) ) {
+						component.setValue((string)componentsArray[i]["value"]);
+						break;
+					}
+				}
+
 				debugNetData.Add(component.label, component);
+			}
 			if (!initNetData.ContainsKey(component.label)) {
 				_Component newComponent = SerializationCloner.DeepFieldClone(component);
 				initNetData.Add(component.label, newComponent);
 			}
-			// if (!buildNetData.ContainsKey(component.label)) {
-			// 	_Component newComponent = SerializationCloner.DeepFieldClone(component);
-			// 	buildNetData.Add(component.label, newComponent);
-			// }
-			//Debug.Log("done");
+
+
 		}
 
 		return debugNetData;

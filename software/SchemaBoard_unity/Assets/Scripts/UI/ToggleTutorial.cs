@@ -105,17 +105,17 @@ public class ToggleTutorial : MonoBehaviour {
 		initAutoPinGlow();
 		comm.setSchCompPinClicked(false);
 
-		if(icon.IsFritzingIcon()) {
-			GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
-			firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
-			GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
-			lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
-		} else {
-			GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
-			firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentSchematicSprite;
-			GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
-			lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentSchematicSprite;
-		}
+		// if(icon.IsFritzingIcon()) {
+		// 	GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
+		// 	firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
+		// 	GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
+		// 	lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
+		// } else {
+		// 	GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
+		// 	firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentSchematicSprite;
+		// 	GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
+		// 	lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentSchematicSprite;
+		// }
 	}
 
 	public void setSelectedComponent(int _index) {
@@ -127,9 +127,6 @@ public class ToggleTutorial : MonoBehaviour {
 			stepInfo.text = "Done: Final Step";			
 		} else {
 			stepInfo.text = "Step " + (index+1);
-			// stepInfo.text += "\n\n";
-			// netdata.debugNetData
-			// here !!
 		}
 
 		if(index == 0) {
@@ -159,6 +156,9 @@ public class ToggleTutorial : MonoBehaviour {
 			GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
 
 			int netIndex = index-componentCount;
+
+			if(index < totalSteps-1)
+				stepInfo.text += "\n\nLet's check every component is connected correctly.";
 			
 			boardPins = netdata.getPositionForNet(nets[netIndex]);
 			http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
@@ -175,7 +175,7 @@ public class ToggleTutorial : MonoBehaviour {
 									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							}
-						} else if(nets[netIndex+1][0][0].Contains("3V")) {
+						} else if(nets[netIndex+1][0][0].Contains("3V") || nets[netIndex+1][0][0].Contains("9V")) {
 							if(pwrList.Count>0) {
 								foreach(var element in pwrList) {
 									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
@@ -192,7 +192,7 @@ public class ToggleTutorial : MonoBehaviour {
 								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
 							}
 						}
-					} else if(nets[netIndex][0][0].Contains("3V")) {
+					} else if(nets[netIndex][0][0].Contains("3V") || nets[netIndex][0][0].Contains("9V")) {
 						if(pwrList.Count>0) {
 							foreach(var element in pwrList) {
 								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
@@ -212,7 +212,7 @@ public class ToggleTutorial : MonoBehaviour {
 									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
 								}
 							}
-						} else if(nets[netIndex-1][0][0].Contains("3V")) {
+						} else if(nets[netIndex-1][0][0].Contains("3V") || nets[netIndex-1][0][0].Contains("9V")) {
 							if(pwrList.Count>0) {
 								foreach(var element in pwrList) {
 									Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = prevSelectedPinSprite;
@@ -229,7 +229,7 @@ public class ToggleTutorial : MonoBehaviour {
 								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
 							}
 						}
-					} else if(nets[netIndex][0][0].Contains("3V")){
+					} else if(nets[netIndex][0][0].Contains("3V") || nets[netIndex][0][0].Contains("9V")){
 						if(pwrList.Count>0) {
 							foreach(var element in pwrList) {
 								Util.getChildObject(element, "connector0").GetComponent<Image>().sprite = currSelectedPinSprite;
@@ -254,9 +254,65 @@ public class ToggleTutorial : MonoBehaviour {
 			http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
 			
 			if(selectedComponent.name.Contains("wire")) {
-				stepInfo.text += "\n\n Connect wire where the light is on";
+				stepInfo.text += "\n\nConnect wire (" + Util.getDigit(selectedComponent.name) + "/" + wireCount + ")\n" +"where the light is on";
 			} else {
-			// glow on
+				// glow on				
+				string value = netdata.debugNetData[components[index]].getValue();
+				string componentName = netdata.debugNetData[components[index]].label;
+				componentName = Util.removeDigit(componentName);
+				switch(componentName) {
+					case "R":
+						componentName = "resistor";
+						break;
+					case "C":
+					case "CP":
+						componentName = "capacitor";
+						break;
+					case "L":
+						componentName = "inductor";
+						break;
+					case "LED":
+						value = "LED";
+						componentName = "";
+						break;
+					case "SW":
+						value = "switch";
+						componentName = "";
+						break;
+					case "LDR":
+						value = "photoresistor";
+						componentName = "";
+						break;
+					case "Q":
+						componentName = "transistor";
+						break;
+					case "SP":
+						value = "speaker";
+						componentName = "";
+						break;
+					case "D":
+						componentName = "diode";
+						break;
+					case "GND":
+						componentName = "ground";
+						value = "";
+						break;
+					case "PWR":
+						componentName = "power";
+						break;
+					case "BT":
+						componentName = "battery";
+						break;
+					case "RERAY":
+						value = "relay";
+						componentName = "";
+						break;
+					case "U":
+						componentName = "";
+						break;
+				}
+				stepInfo.text += "\n\nPlace the " + value + " " + componentName;
+			
 				if(icon.IsFritzingIcon()) {
 					GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "fritzing_glow");
 					currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
@@ -365,17 +421,17 @@ public class ToggleTutorial : MonoBehaviour {
 			this.GetComponent<Image>().sprite = onSprite;
 			showButtons(status);
 
-			if(icon.IsFritzingIcon()) {
-				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
-				firstComponentFritzingSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
-				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
-				lastComponentFritzingSprite = lastComponentGlowIcon.GetComponent<Image>().sprite;
-			} else {
-				GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
-				firstComponentSchematicSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
-				GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
-				lastComponentSchematicSprite = lastComponentGlowIcon.GetComponent<Image>().sprite;
-			}
+			// if(icon.IsFritzingIcon()) {
+			// 	GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
+			// 	firstComponentFritzingSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
+			// 	GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
+			// 	lastComponentFritzingSprite = lastComponentGlowIcon.GetComponent<Image>().sprite;
+			// } else {
+			// 	GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
+			// 	firstComponentSchematicSprite = firstComponentGlowIcon.GetComponent<Image>().sprite;
+			// 	GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
+			// 	lastComponentSchematicSprite = lastComponentGlowIcon.GetComponent<Image>().sprite;
+			// }
 			
 
 			http.postJson(comm.getUrl()+"/set", cmd.resetAll());
