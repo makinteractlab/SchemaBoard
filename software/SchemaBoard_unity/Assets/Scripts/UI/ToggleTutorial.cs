@@ -23,10 +23,11 @@ public class ToggleTutorial : MonoBehaviour {
 	public Sprite offSprite;
 	private Sprite prevGlowIconSprite;
 	private Sprite currGlowIconSprite;
-	private Sprite firstComponentFritzingSprite;
-	private Sprite firstComponentSchematicSprite;
-	private Sprite lastComponentFritzingSprite;
-	private Sprite lastComponentSchematicSprite;
+	public Sprite glowIconSprite;
+	// private Sprite firstComponentFritzingSprite;
+	// private Sprite firstComponentSchematicSprite;
+	// private Sprite lastComponentFritzingSprite;
+	// private Sprite lastComponentSchematicSprite;
 	public Sprite selectedGlowIconSprite;
 	public Sprite prevSelectedPinSprite;
 	public Sprite currSelectedPinSprite;
@@ -105,17 +106,21 @@ public class ToggleTutorial : MonoBehaviour {
 		initAutoPinGlow();
 		comm.setSchCompPinClicked(false);
 
-		// if(icon.IsFritzingIcon()) {
-		// 	GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
-		// 	firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentFritzingSprite;
-		// 	GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
-		// 	lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentFritzingSprite;
-		// } else {
-		// 	GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
-		// 	firstComponentGlowIcon.GetComponent<Image>().sprite = firstComponentSchematicSprite;
-		// 	GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
-		// 	lastComponentGlowIcon.GetComponent<Image>().sprite = lastComponentSchematicSprite;
-		// }
+		if(icon.IsFritzingIcon()) {
+			// GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
+			// firstComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
+			// GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
+			// lastComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
+			GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[index], "fritzing_glow");
+			selectedComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
+		} else {
+			// GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
+			// firstComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
+			// GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
+			// lastComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
+			GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[index], "schematic_glow");
+			selectedComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
+		}
 	}
 
 	public void setSelectedComponent(int _index) {
