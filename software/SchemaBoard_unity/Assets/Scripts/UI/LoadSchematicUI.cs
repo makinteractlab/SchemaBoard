@@ -44,8 +44,6 @@ public class LoadSchematicUI : MonoBehaviour {
 	public DrawSchematicWire schematicWire;
 
 	float distance = 3.0f;
-	// string deviceName = "A6";	//1920*1200
-	string deviceName = "5Se";
 
     public void Start() {
         setWireObject();
@@ -92,7 +90,8 @@ public class LoadSchematicUI : MonoBehaviour {
 
 	public void drawSchematic(JObject _data)
 	{	
-		int screenOffest = 120;
+		// int screenOffset = 120;
+		int screenOffset = 50;
 		GameObject component = null;
 		GameObject connector = null;
 		Dictionary<string, JObject> schematicData = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(_data.ToString());
@@ -222,12 +221,14 @@ public class LoadSchematicUI : MonoBehaviour {
 					}
 					break;
 				case "wire":
-					if(deviceName == "A6") {
-						pointList.Add(new Vector2 ((float)item.Value["x1"]/4.5f-Screen.width/1.7f-screenOffest, -(float)item.Value["y1"]/4.5f+Screen.height/1.7f+screenOffest));
-						pointList.Add(new Vector2 ((float)item.Value["x2"]/4.5f-Screen.width/1.7f-screenOffest, -(float)item.Value["y2"]/4.5f+Screen.height/1.7f+screenOffest));
-					} else {
-						pointList.Add(new Vector2 ((float)item.Value["x1"]/4.5f-Screen.width/2-screenOffest, -(float)item.Value["y1"]/4.5f+Screen.height/2+screenOffest));
-						pointList.Add(new Vector2 ((float)item.Value["x2"]/4.5f-Screen.width/2-screenOffest, -(float)item.Value["y2"]/4.5f+Screen.height/2+screenOffest));
+					if(Screen.width == 1920) {
+						float a6_xscreenOffest = 216;
+						float a6_yscreenOffest = 162;
+						pointList.Add(new Vector2 ((float)item.Value["x1"]/4.5f-Screen.width/1.7f-a6_xscreenOffest, -(float)item.Value["y1"]/4.5f+Screen.height/1.7f+a6_yscreenOffest));
+						pointList.Add(new Vector2 ((float)item.Value["x2"]/4.5f-Screen.width/1.7f-a6_xscreenOffest, -(float)item.Value["y2"]/4.5f+Screen.height/1.7f+a6_yscreenOffest));
+					} else if(Screen.width == 2560) {
+						pointList.Add(new Vector2 ((float)item.Value["x1"]/4.5f-Screen.width/2-screenOffset, -(float)item.Value["y1"]/4.5f+Screen.height/2+screenOffset));
+						pointList.Add(new Vector2 ((float)item.Value["x2"]/4.5f-Screen.width/2-screenOffset, -(float)item.Value["y2"]/4.5f+Screen.height/2+screenOffset));
 					}
 					schematicWire.createWireObject(pointList, uiComponentName);
 					pointList.Clear();
@@ -248,10 +249,10 @@ public class LoadSchematicUI : MonoBehaviour {
 				connector.tag = "auto_prefab";
 				connector.name = uiComponentName;
 				connector.transform.SetParent(ParentPanel, false);
-				if(deviceName == "A6") {
-					connector.transform.position = new Vector3((float)position["x"]/5.15f-screenOffest, -(float)position["y"]/5.15f+screenOffest, 0);
-				} else {
-					connector.transform.position = new Vector3((float)position["x"]/4.5f-screenOffest, -(float)position["y"]/4.5f+screenOffest, 0);
+				if(Screen.width == 1920) {
+					connector.transform.position = new Vector3((float)position["x"]/6f-screenOffset, -(float)position["y"]/6f+screenOffset, 0);
+				} else if(Screen.width == 2560) {
+					connector.transform.position = new Vector3((float)position["x"]/4.5f-screenOffset, -(float)position["y"]/4.5f+screenOffset, 0);
 				}
 				connector.transform.Translate(new Vector3(0,Screen.height,0));
 			}
@@ -260,10 +261,10 @@ public class LoadSchematicUI : MonoBehaviour {
 				component.tag = "auto_prefab";
 				component.name = uiComponentName;
 				component.transform.SetParent(ParentPanel, false);
-				if(deviceName == "A6") {
-					component.transform.position = new Vector3((float)position["x"]/5.15f-screenOffest+20, -(float)position["y"]/5.15f+screenOffest, 0);
-				} else{
-					component.transform.position = new Vector3((float)position["x"]/4.5f-screenOffest, -(float)position["y"]/4.5f+screenOffest, 0);
+				if(Screen.width == 1920) {
+					component.transform.position = new Vector3((float)position["x"]/6f-screenOffset, -(float)position["y"]/6f+screenOffset, 0);
+				} else if(Screen.width == 2560) {
+					component.transform.position = new Vector3((float)position["x"]/4.5f-screenOffset, -(float)position["y"]/4.5f+screenOffset, 0);
 				}
 				component.transform.Translate(new Vector3(0,Screen.height,0));
 				
