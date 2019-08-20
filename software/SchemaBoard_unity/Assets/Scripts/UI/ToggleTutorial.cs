@@ -320,10 +320,10 @@ public class ToggleTutorial : MonoBehaviour {
 			prevSelectedComponent = selectedComponent;
 			selectedComponent = GameObject.Find("SCH_"+components[_index]);
 			List<string> pins = new List<string>(netdata.getComponentPosition(components[_index]));
-			
+
 			boardPins = netdata.getMultiplePinsPosition(pins);
 			http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-			
+
 			Wait (0.5f, () => {
 				Debug.Log("0.5 seconds is lost forever");
 			});
@@ -471,7 +471,16 @@ public class ToggleTutorial : MonoBehaviour {
 			if(init) {
 				data = netdata.getCurrentDebugSchematicData();
 				foreach(var item in data) {
-					components.Add(item.Key);
+					if(item.Key.Contains("U")) {
+						components.Add(item.Key);
+					}
+				}
+				foreach(var item in data) {
+					if(item.Key.Contains("U8-")||item.Key.Contains("U16-")){
+						Debug.Log("chip is already added");
+					} else {
+						components.Add(item.Key);
+					}
 				}
 				GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
 				foreach(var item in autoPrefabs) {
