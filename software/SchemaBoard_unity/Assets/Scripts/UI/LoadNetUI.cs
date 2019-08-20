@@ -299,6 +299,11 @@ public class LoadNetUI : MonoBehaviour {
 
 				List<_Pin> pins = item.Value.getPins();
 
+				// if(!(componentName.Contains("PWR")||componentName.Contains("GND"))) {
+				// 	string title = netDataObj.debugNetData[uiComponentName].getValue();
+				// 	Util.getChildObject(component.name, "title").GetComponent<Text>().text = title;
+				// }
+
 			}
 			count ++;
 		}
@@ -616,9 +621,9 @@ public class LoadNetUI : MonoBehaviour {
 
 			foreach(KeyValuePair<string, _Component> item in netDataObj.getCurrentDebugSchematicData())
 			{
+				if(item.Value.label.Contains("PWR")||item.Value.label.Contains("GND")||item.Value.label.Contains("wire")) continue;
 				List<_Pin> pins = item.Value.getPins();
 				foreach(var pin in pins) {
-					
 					string connectedRowPos = pin.getConnectedBreadboardRowPosition();
 					string connectedColPos = pin.getConnectedBreadboardColPosition();
 					if(connectedRowPos != null && connectedColPos != null) {

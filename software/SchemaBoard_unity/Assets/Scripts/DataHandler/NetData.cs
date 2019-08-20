@@ -333,7 +333,7 @@ public class NetData : MonoBehaviour {
 		List<string[]> gndNetElements = netHandler.getGndNetList();
 
 		_Component component = new _Component(_name, "");
-		_Pin pin = new _Pin("connector0", "init", "init");
+		_Pin pin = new _Pin("connector0", "init", "1");
 		for(int i=0; i<gndNetElements.Count; i++) {
 			NetElement element = new NetElement(gndNetElements[i][1], gndNetElements[i][2]);
 			pin.addNetElement(element);
@@ -351,7 +351,7 @@ public class NetData : MonoBehaviour {
 		List<string[]> pwrNetElements = netHandler.getPwrNetList();
 
 		_Component component = new _Component(_name, "");
-		_Pin pin = new _Pin("connector0", "init", "init");
+		_Pin pin = new _Pin("connector0", "init", "1");
 		for(int i=0; i<pwrNetElements.Count; i++) {
 			NetElement element = new NetElement(pwrNetElements[i][1], pwrNetElements[i][2]);
 			pin.addNetElement(element);
