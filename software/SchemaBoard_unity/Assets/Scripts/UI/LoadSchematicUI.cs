@@ -44,6 +44,8 @@ public class LoadSchematicUI : MonoBehaviour {
 	public DrawSchematicWire schematicWire;
 
 	float distance = 3.0f;
+	// string deviceName = "A6";	//1920*1200
+	string deviceName = "5Se";
 
     public void Start() {
         setWireObject();
@@ -220,8 +222,13 @@ public class LoadSchematicUI : MonoBehaviour {
 					}
 					break;
 				case "wire":
-					pointList.Add(new Vector2 ((float)item.Value["x1"]/4.5f-Screen.width/2-screenOffest, -(float)item.Value["y1"]/4.5f+Screen.height/2+screenOffest));
-					pointList.Add(new Vector2 ((float)item.Value["x2"]/4.5f-Screen.width/2-screenOffest, -(float)item.Value["y2"]/4.5f+Screen.height/2+screenOffest));
+					if(deviceName == "A6") {
+						pointList.Add(new Vector2 ((float)item.Value["x1"]/4.5f-Screen.width/1.7f-screenOffest, -(float)item.Value["y1"]/4.5f+Screen.height/1.7f+screenOffest));
+						pointList.Add(new Vector2 ((float)item.Value["x2"]/4.5f-Screen.width/1.7f-screenOffest, -(float)item.Value["y2"]/4.5f+Screen.height/1.7f+screenOffest));
+					} else {
+						pointList.Add(new Vector2 ((float)item.Value["x1"]/4.5f-Screen.width/2-screenOffest, -(float)item.Value["y1"]/4.5f+Screen.height/2+screenOffest));
+						pointList.Add(new Vector2 ((float)item.Value["x2"]/4.5f-Screen.width/2-screenOffest, -(float)item.Value["y2"]/4.5f+Screen.height/2+screenOffest));
+					}
 					schematicWire.createWireObject(pointList, uiComponentName);
 					pointList.Clear();
 					component = null;
@@ -241,7 +248,11 @@ public class LoadSchematicUI : MonoBehaviour {
 				connector.tag = "auto_prefab";
 				connector.name = uiComponentName;
 				connector.transform.SetParent(ParentPanel, false);
-				connector.transform.position = new Vector3((float)position["x"]/4.5f-screenOffest, -(float)position["y"]/4.5f+screenOffest, 0);
+				if(deviceName == "A6") {
+					connector.transform.position = new Vector3((float)position["x"]/5.15f-screenOffest, -(float)position["y"]/5.15f+screenOffest, 0);
+				} else {
+					connector.transform.position = new Vector3((float)position["x"]/4.5f-screenOffest, -(float)position["y"]/4.5f+screenOffest, 0);
+				}
 				connector.transform.Translate(new Vector3(0,Screen.height,0));
 			}
 			if(component) {
@@ -249,7 +260,11 @@ public class LoadSchematicUI : MonoBehaviour {
 				component.tag = "auto_prefab";
 				component.name = uiComponentName;
 				component.transform.SetParent(ParentPanel, false);
-				component.transform.position = new Vector3((float)position["x"]/4.5f-screenOffest, -(float)position["y"]/4.5f+screenOffest, 0);
+				if(deviceName == "A6") {
+					component.transform.position = new Vector3((float)position["x"]/5.15f-screenOffest+20, -(float)position["y"]/5.15f+screenOffest, 0);
+				} else{
+					component.transform.position = new Vector3((float)position["x"]/4.5f-screenOffest, -(float)position["y"]/4.5f+screenOffest, 0);
+				}
 				component.transform.Translate(new Vector3(0,Screen.height,0));
 				
 				Debug.Log("+=+=+=+" + component.transform.position);

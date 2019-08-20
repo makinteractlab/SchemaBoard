@@ -21,8 +21,8 @@ public class ToggleTutorial : MonoBehaviour {
 	Command cmd;
 	public Sprite onSprite;
 	public Sprite offSprite;
-	private Sprite prevGlowIconSprite;
-	private Sprite currGlowIconSprite;
+	// private Sprite prevGlowIconSprite;
+	// private Sprite currGlowIconSprite;
 	public Sprite glowIconSprite;
 	// private Sprite firstComponentFritzingSprite;
 	// private Sprite firstComponentSchematicSprite;
@@ -60,6 +60,9 @@ public class ToggleTutorial : MonoBehaviour {
 	// bool travelComponent;
 	public bool travelNet;
 
+	public UnityAction<string> updateGlowIconAction;
+    public IconToggleEvent updateGlowIconEvent;
+
     void Awake() {
         if (ToggleTutorial.instance == null)
             ToggleTutorial.instance = this;
@@ -78,6 +81,76 @@ public class ToggleTutorial : MonoBehaviour {
 		init = true;
 		travelNet = false;
 		totalSteps = 0;
+
+		updateGlowIconAction = new UnityAction<string>(updateGlowIcons);
+        updateGlowIconEvent = new IconToggleEvent();
+	    updateGlowIconEvent.AddListener(updateGlowIconAction);
+    }
+
+	public void updateGlowIcons(string _state) {
+		GameObject[] fritzingGlow = GameObject.FindGameObjectsWithTag("fritzing_glow");
+		GameObject[] schematicGlow = GameObject.FindGameObjectsWithTag("schematic_glow");
+		
+		foreach(var icon in fritzingGlow) {
+			icon.GetComponent<Image>().sprite = glowIconSprite;
+			icon.transform.localScale = new Vector3(0,0,0);
+		}
+		foreach(var icon in schematicGlow) {
+			icon.GetComponent<Image>().sprite = glowIconSprite;
+			icon.transform.localScale = new Vector3(0,0,0);
+		}
+
+		if(index <= componentCount) {
+			if(prevButtonObj.clicked) {
+				if(_state == "fritzing") {
+					foreach(var icon in fritzingGlow) {
+						for(int i=index; i>=0; i--) {
+							if(icon.transform.parent.name.CompareTo("SCH_"+components[i])==0) {
+								if(i == index) {
+									icon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+								}
+								icon.transform.localScale = new Vector3(1,1,1);
+							}
+						}
+					}
+				} else {
+					foreach(var icon in schematicGlow) {
+						for(int i=index; i>=0; i--) {
+							if(icon.transform.parent.name.CompareTo("SCH_"+components[i])==0) {
+								if(i == index) {
+									icon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+								}
+								icon.transform.localScale = new Vector3(1,1,1);
+							}
+						}
+					}
+				}
+			} else {
+				if(_state == "fritzing") {
+					foreach(var icon in fritzingGlow) {
+						for(int i=0; i<=index; i++) {
+							if(icon.transform.parent.name.CompareTo("SCH_"+components[i])==0) {
+								if(i == index) {
+									icon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+								}
+								icon.transform.localScale = new Vector3(1,1,1);
+							}
+						}
+					}
+				} else {
+					foreach(var icon in schematicGlow) {
+						for(int i=0; i<=index; i++) {
+							if(icon.transform.parent.name.CompareTo("SCH_"+components[i])==0) {
+								if(i == index) {
+									icon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+								}
+								icon.transform.localScale = new Vector3(1,1,1);
+							}
+						}
+					}
+				}
+			}
+		}
     }
 
 	public List<string> getComponentNameList() {
@@ -105,22 +178,6 @@ public class ToggleTutorial : MonoBehaviour {
 
 		initAutoPinGlow();
 		comm.setSchCompPinClicked(false);
-
-		if(icon.IsFritzingIcon()) {
-			// GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "fritzing_glow");
-			// firstComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
-			// GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
-			// lastComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
-			GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[index], "fritzing_glow");
-			selectedComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
-		} else {
-			// GameObject firstComponentGlowIcon = Util.getChildObject("SCH_"+components[0], "schematic_glow");
-			// firstComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
-			// GameObject lastComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
-			// lastComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
-			GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[index], "schematic_glow");
-			selectedComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
-		}
 	}
 
 	public void setSelectedComponent(int _index) {
@@ -136,17 +193,34 @@ public class ToggleTutorial : MonoBehaviour {
 
 		if(index == 0) {
 			initAll();
-		}
-
-		if(index == componentCount-1 && prevButtonObj.clicked) {
+			prevSelectedComponent = null;
+			selectedComponent = null;
+			if(icon.IsFritzingIcon()) {
+				GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[index], "fritzing_glow");
+				selectedComponentGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+			} else {
+				GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[index], "schematic_glow");
+				selectedComponentGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+			}
+		} else if(index == componentCount-1 && prevButtonObj.clicked) {
 			initAll();
-		}
-
-		if(index == componentCount-wireCount && !prevButtonObj.clicked){
+			if(icon.IsFritzingIcon()) {
+				GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "fritzing_glow");
+				selectedComponentGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+			} else {
+				GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[componentCount-wireCount-1], "schematic_glow");
+				selectedComponentGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
+			}
+		} else if(index == componentCount-wireCount && !prevButtonObj.clicked){
 			initAll();
-		}
-
-		if(index == totalSteps-1) {
+			if(icon.IsFritzingIcon()) {
+				GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[index-1], "fritzing_glow");
+				selectedComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
+			} else {
+				GameObject selectedComponentGlowIcon = Util.getChildObject("SCH_"+components[index-1], "schematic_glow");
+				selectedComponentGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
+			}
+		} else if(index == totalSteps-1) {
 			GameObject[] prefabButtons = GameObject.FindGameObjectsWithTag("circuit_prefab_button");
 			foreach(var item in prefabButtons) {
 				if(item.name.Contains("sch_")) {
@@ -156,8 +230,7 @@ public class ToggleTutorial : MonoBehaviour {
 			}
 		}
 
-		if(index >= componentCount) {
-			// should start travel nets
+		if(index >= componentCount) { // should start travel nets
 			GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
 
 			int netIndex = index-componentCount;
@@ -243,7 +316,7 @@ public class ToggleTutorial : MonoBehaviour {
 					}
 				}
 			}
-		} else {
+		} else {	// travel components
 			prevSelectedComponent = selectedComponent;
 			selectedComponent = GameObject.Find("SCH_"+components[_index]);
 			List<string> pins = new List<string>(netdata.getComponentPosition(components[_index]));
@@ -255,13 +328,15 @@ public class ToggleTutorial : MonoBehaviour {
 				Debug.Log("0.5 seconds is lost forever");
 			});
 
-			string firstPinPos = netdata.getComponentFirstPinRowPosition(components[_index]);
-			http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
+			// string firstPinPos = netdata.getComponentFirstPinRowPosition(components[_index]);
+			// http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
 			
 			if(selectedComponent.name.Contains("wire")) {
 				stepInfo.text += "\n\nConnect wire (" + Util.getDigit(selectedComponent.name) + "/" + wireCount + ")\n" +"where the light is on";
 			} else {
-				// glow on				
+				string firstPinPos = netdata.getComponentFirstPinRowPosition(components[_index]);
+				http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
+			// glow on				
 				string value = netdata.debugNetData[components[index]].getValue();
 				string componentName = netdata.debugNetData[components[index]].label;
 				componentName = Util.removeDigit(componentName);
@@ -321,28 +396,28 @@ public class ToggleTutorial : MonoBehaviour {
 			
 				if(icon.IsFritzingIcon()) {
 					GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "fritzing_glow");
-					currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
+					// currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
 					currGlowIcon.transform.localScale = new Vector3(1,1,1);
 					currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
 					
 					if(prevSelectedComponent && !prevSelectedComponent.name.Contains("wire")) {
 						GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "fritzing_glow");
-						prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
+						prevGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
 						// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
 					}
-					prevGlowIconSprite = currGlowIconSprite;
+					// prevGlowIconSprite = glowIconSprite; //currGlowIconSprite;
 				} else {
 					GameObject currGlowIcon = Util.getChildObject(selectedComponent.name, "schematic_glow");
-					currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
+					// currGlowIconSprite = currGlowIcon.GetComponent<Image>().sprite;
 					currGlowIcon.transform.localScale = new Vector3(1,1,1);
 					currGlowIcon.GetComponent<Image>().sprite = selectedGlowIconSprite;
 					
 					if(prevSelectedComponent && !prevSelectedComponent.name.Contains("wire")) {
 						GameObject prevGlowIcon = Util.getChildObject(prevSelectedComponent.name, "schematic_glow");
-						prevGlowIcon.GetComponent<Image>().sprite = prevGlowIconSprite;
+						prevGlowIcon.GetComponent<Image>().sprite = glowIconSprite;
 						// prevGlowIcon.transform.localScale = new Vector3(0,0,0);
 					}
-					prevGlowIconSprite = currGlowIconSprite;
+					// prevGlowIconSprite = glowIconSprite; //currGlowIconSprite;
 				}
 			}
 		}
@@ -367,8 +442,6 @@ public class ToggleTutorial : MonoBehaviour {
 			restartButton.transform.localScale = new Vector3(1,1,1);
 			stepInfo.transform.localScale = new Vector3(1,1,1);
 			background.transform.localScale = new Vector3(1,1,1);
-			// background.GetComponent<SpriteRenderer>().sortingOrder = 0;
-			// background.GetComponent<SpriteRenderer>().sortingLayerName = "TutorialLayer";
 			refreshButton.transform.localScale = new Vector3(0,0,0);
 			selectAllButton.transform.localScale = new Vector3(0,0,0);
 			autoManualButton.transform.localScale = new Vector3(0,0,0);

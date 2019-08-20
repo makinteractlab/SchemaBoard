@@ -115,9 +115,9 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
     
     public void initComponentGlow() {
         if(icon.IsFritzingIcon())
-                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
-            else
-                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
+        else
+            Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
     }
 
     private bool GlowToggle() {

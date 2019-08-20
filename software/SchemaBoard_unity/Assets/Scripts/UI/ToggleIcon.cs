@@ -73,6 +73,7 @@ public class ToggleIcon : MonoBehaviour {
 				}
 			}
 		}
+		GameObject.Find("TutorialToggle").GetComponent<ToggleTutorial>().updateGlowIconEvent.Invoke(mode);
 	}
 
 	private void showSchematicCircuitComponent(bool on) {
