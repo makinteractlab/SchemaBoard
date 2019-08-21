@@ -343,7 +343,9 @@ public class NetData : MonoBehaviour {
 		debugNetData.Add(_name, component);
 
 		if(gndNetElements!=null && gndNetElements.Count>0) {
-			debugNetData[_name].getPin("connector0").breadboardRowPosition = debugNetData[gndNetElements[gndNetElements.Count-1][1]].getPin(gndNetElements[gndNetElements.Count-1][2]).breadboardRowPosition;
+			// debugNetData[_name].getPin("connector0").breadboardRowPosition = debugNetData[gndNetElements[gndNetElements.Count-1][1]].getPin(gndNetElements[gndNetElements.Count-1][2]).breadboardRowPosition;
+			string test = debugNetData[gndNetElements[3][1]].getPin(gndNetElements[3][2]).breadboardRowPosition;
+			debugNetData[_name].getPin("connector0").breadboardRowPosition = "1";//debugNetData[gndNetElements[0][1]].getPin(gndNetElements[0][2]).breadboardRowPosition;
 		}
 	}
 

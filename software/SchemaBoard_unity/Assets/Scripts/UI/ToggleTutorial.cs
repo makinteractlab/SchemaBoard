@@ -476,7 +476,7 @@ public class ToggleTutorial : MonoBehaviour {
 					}
 				}
 				foreach(var item in data) {
-					if(item.Key.Contains("U8-")||item.Key.Contains("U16-")){
+					if(item.Key.Contains("U")){
 						Debug.Log("chip is already added");
 					} else {
 						components.Add(item.Key);
