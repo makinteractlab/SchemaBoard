@@ -26,6 +26,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
     public Sprite DefaultPinSprite;
     public GameObject connectedTo;
     string targetEditComponent;
+    string prevPinWireName;
 
     void Start() {
         connectedTo = null;
@@ -40,6 +41,12 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
         deleteCancelAction = new UnityAction (DeleteCancleFunction);
     }
 
+    public string getPrevPinWireName() {
+        return prevPinWireName;
+    }
+    public void setPrevPinWireName(string _name) {
+        prevPinWireName = _name;
+    }
     public void setNetDataObject()
     {
 		netdata = GameObject.Find("NetData").GetComponent<NetData>();
@@ -81,6 +88,8 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
         {
             if( wireObj.name.Contains(name) )
             {
+                setPrevPinWireName(wireObj.name);
+                netdata.removebbNetPosition(this.name);
                 LineRenderer lr = wireObj.GetComponent<LineRenderer>();
                 lr.enabled = false;
                 lr.positionCount = 0;
@@ -92,6 +101,8 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
         wire.resetBoardPinObj();
         wire.resetComponentPinObj();
         connectedTo = null;
+        
+        
     }
 
     void DeleteCancleFunction () {
@@ -296,7 +307,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                     foreach(GameObject wireObj in wireTemp) {
                         if( wireObj.name.Contains(wireObjectName)) {
                             string targetComponentName = targetEditComponent;
-                            string wireName = wire.name;
+                            string wireName = wireObj.name;
                             int compSeperator = wireName.IndexOf(",");
                             string targetName = wireName.Substring(compSeperator+1, wireName.Length-compSeperator-1);;
                             int compPinSeperator = targetName.LastIndexOf("-");

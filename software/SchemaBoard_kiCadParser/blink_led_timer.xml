@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>D:\Works\Git\RetroBreadboard\software\SchemaBoard_kiCadParser\blink_led_timer.sch</source>
+    <date>2019-08-23 오후 6:55:06</date>
+    <tool>Eeschema (5.1.2)-2</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>blink_led_timer.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C4">
+      <value>0.01</value>
+      <datasheet>~</datasheet>
+      <libsource lib="blink_led_timer-rescue" part="C-SchemaBoard_Library" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D5FBA56</tstamp>
+    </comp>
+    <comp ref="LED6">
+      <value>LED</value>
+      <datasheet>~</datasheet>
+      <libsource lib="blink_led_timer-rescue" part="LED-SchemaBoard_Library" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D5FCF34</tstamp>
+    </comp>
+    <comp ref="CP4">
+      <value>10</value>
+      <datasheet>~</datasheet>
+      <libsource lib="blink_led_timer-rescue" part="CP-SchemaBoard_Library" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D5FE6BF</tstamp>
+    </comp>
+    <comp ref="R7">
+      <value>220</value>
+      <datasheet>~</datasheet>
+      <libsource lib="blink_led_timer-rescue" part="Resistor-SchemaBoard_Library" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D5FFA2F</tstamp>
+    </comp>
+    <comp ref="U3">
+      <value>LM555</value>
+      <datasheet>http://www.ti.com/lit/ds/symlink/lm555.pdf</datasheet>
+      <libsource lib="blink_led_timer-rescue" part="LM555-SchemaBoard_Library" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D5FD651</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>5.1K</value>
+      <datasheet>~</datasheet>
+      <libsource lib="blink_led_timer-rescue" part="Resistor-SchemaBoard_Library" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D60081A</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>4.7K</value>
+      <datasheet>~</datasheet>
+      <libsource lib="blink_led_timer-rescue" part="Resistor-SchemaBoard_Library" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D600158</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="blink_led_timer-rescue" part="C-SchemaBoard_Library">
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C-SchemaBoard_Library</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="blink_led_timer-rescue" part="CP-SchemaBoard_Library">
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">CP</field>
+        <field name="Value">CP-SchemaBoard_Library</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="blink_led_timer-rescue" part="LED-SchemaBoard_Library">
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">LED</field>
+        <field name="Value">LED-SchemaBoard_Library</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="blink_led_timer-rescue" part="LM555-SchemaBoard_Library">
+      <footprints>
+        <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
+        <fp>DIP*W7.62mm*</fp>
+        <fp>TSSOP*3x3mm*P0.65mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LM555-SchemaBoard_Library</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="TR" type="input"/>
+        <pin num="3" name="Q" type="output"/>
+        <pin num="4" name="R" type="input"/>
+        <pin num="5" name="CV" type="input"/>
+        <pin num="6" name="THR" type="input"/>
+        <pin num="7" name="DIS" type="input"/>
+        <pin num="8" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="blink_led_timer-rescue" part="Resistor-SchemaBoard_Library">
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">Resistor-SchemaBoard_Library</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="blink_led_timer-rescue">
+      <uri>D:\Works\Git\RetroBreadboard\software\SchemaBoard_kiCadParser/blink_led_timer-rescue.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(CP4-Pad1)">
+      <node ref="CP4" pin="1"/>
+      <node ref="U3" pin="2"/>
+      <node ref="R2" pin="2"/>
+      <node ref="U3" pin="6"/>
+    </net>
+    <net code="2" name="Net-(LED6-Pad1)">
+      <node ref="R7" pin="2"/>
+      <node ref="LED6" pin="1"/>
+    </net>
+    <net code="3" name="GND">
+      <node ref="U3" pin="1"/>
+      <node ref="R7" pin="1"/>
+      <node ref="CP4" pin="2"/>
+      <node ref="C4" pin="1"/>
+    </net>
+    <net code="4" name="Net-(R1-Pad1)">
+      <node ref="R1" pin="1"/>
+      <node ref="R2" pin="1"/>
+      <node ref="U3" pin="7"/>
+    </net>
+    <net code="6" name="Net-(C4-Pad2)">
+      <node ref="U3" pin="5"/>
+      <node ref="C4" pin="2"/>
+    </net>
+    <net code="7" name="Net-(LED6-Pad2)">
+      <node ref="U3" pin="3"/>
+      <node ref="LED6" pin="2"/>
+    </net>
+    <net code="8" name="+3V3">
+      <node ref="U3" pin="4"/>
+      <node ref="R1" pin="2"/>
+      <node ref="U3" pin="8"/>
+    </net>
+  </nets>
+</export>

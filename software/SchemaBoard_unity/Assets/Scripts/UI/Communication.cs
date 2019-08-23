@@ -12,6 +12,7 @@ public class Communication : MonoBehaviour
     public Sprite connectedPinSprite;
     public Sprite SelectedPinSprite;
     public Sprite DefaultPinSprite;
+    public Sprite DefaultbbPinSprite;
     public VWJson vw;
     private int key = 1;
     private float time;
@@ -95,6 +96,10 @@ public class Communication : MonoBehaviour
 
     public void setCompPinClicked(bool _state) {
         manualPinClicked = _state;
+    }
+
+    public bool getCompPinClicked() {
+        return manualPinClicked;
     }
     
     public bool IsCompPinClicked() {

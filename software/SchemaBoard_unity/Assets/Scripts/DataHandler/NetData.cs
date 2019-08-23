@@ -29,7 +29,9 @@ public class NetData : MonoBehaviour {
 	public Dictionary<string, _Component> debugNetData;
 	// Dictionary<string, _Component> buildNetData;
 	Dictionary<string, _Component> initNetData;
+	Dictionary<string, List<string>> bbNetPosition = new Dictionary<string, List<string>>();
 	List<string> occupiedRows;
+	string bbPinNetName;
 
 	JObject schematicDrawingData;
 	// Use this for initialization
@@ -47,6 +49,7 @@ public class NetData : MonoBehaviour {
 		//cmd.setUrls();
 
 		schematicDrawingData = new JObject();
+		bbPinNetName = "";
 	}
 
 	
@@ -99,6 +102,7 @@ public class NetData : MonoBehaviour {
 		initNetData = new Dictionary<string, _Component>(netHandler.getInitNetData());
 		netui.dataReceivedEvent.Invoke(debugNetData);
 		findOccupiedRows();
+		setNetbbPins();
 	}
 
 	// public void setAutoNetData(Dictionary<string, _Component> _data) {
@@ -110,24 +114,6 @@ public class NetData : MonoBehaviour {
 		debugNetData.Clear();
 		debugNetData = SerializationCloner.DeepFieldClone(initNetData);
 	}
-
-	// public void copyAutoDataToManualData(){
-	// 	setManualNetData(buildNetData);
-	// }
-
-	// public void copyManualDataToAutoData(){
-	// 	setAutoNetData(buildNetData);
-	// }
-
-	// public void resetBuildNetData() {
-	// 	buildNetData.Clear();
-	// 	buildNetData = SerializationCloner.DeepFieldClone(initNetData);
-	// }
-
-	// public void resetdebugNetData() {
-	// 	debugNetData.Clear();
-	// 	debugNetData = SerializationCloner.DeepFieldClone(initNetData);
-	// }
 
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
 		string pin = _componentPinName.Substring(_componentPinName.LastIndexOf('-')+1, _componentPinName.Length-_componentPinName.LastIndexOf('-')-1);
@@ -181,21 +167,6 @@ public class NetData : MonoBehaviour {
 		return result;
 	}
 
-	// public Dictionary <string, Dictionary<string,string>> getConnectedComponentAndPinsPosition(string _component, string _pin) {
-	// 	Dictionary <string, Dictionary<string,string>> result = new Dictionary <string, Dictionary<string,string>>();
-	// 	Dictionary<string,string> connectedComponentsPins = new Dictionary<string,string>();
-	// 	foreach(var item in buildNetData) {
-	// 		if(item.Key.Contains(_component)) {
-	// 			foreach(var element in item.Value.getPin(_pin).getNetElementAll()) {
-	// 				getBreadboardPosition(element.component,element.pinid);
-	// 				connectedComponentsPins.Add(element.component, getBreadboardPosition(element.component,element.pinid));
-	// 			}
-	// 			result.Add("net:"+_component+"-"+_pin, );
-	// 		}			
-	// 	}
-	// 	return result;
-	// }
-
 	public void findOccupiedRows() {
 		occupiedRows = new List<string>();
 		foreach(var item in debugNetData) {
@@ -205,7 +176,155 @@ public class NetData : MonoBehaviour {
 			}	
 		}
 	}
+	
+	public void setNetbbPins() {
+		List<List<string[]>> allNetList = getAllNetList();
+		string netName = "";
+		foreach(var net in allNetList) {
+			List<string> bbPins = new List<string>();
+			
+			foreach(var element in net) {
+				netName = element[0];
+				//if(!bbPins.Contains(debugNetData[element[1]].getPin(element[2]).breadboardRowPosition))
+				bbPins.Add(debugNetData[element[1]].getPin(element[2]).breadboardRowPosition);
+			}
+			if(bbNetPosition.ContainsKey(netName)) {
+				List<string> pins = bbNetPosition[netName];
+				pins.AddRange(bbPins);
+				bbNetPosition.Remove(netName);
+			}
+			bbNetPosition.Add(netName, bbPins);
+		}
+	}
 
+/*
+	public string getNetName(string _wirename) {
+		string result = "";
+
+		if(_wirename != "") {
+			string first = _wirename.Substring(_wirename.IndexOf(':')+1,_wirename.IndexOf(',')-_wirename.IndexOf(':')-1);
+			string last = _wirename.Substring(_wirename.IndexOf(',')+1, _wirename.Length-_wirename.IndexOf(',')-1);
+			string firstComponentName = first.Substring(0,first.LastIndexOf('-'));
+			string lastComponentName = last.Substring(0,last.LastIndexOf('-'));
+			string component = "";
+			string pin = "";
+			if(firstComponentName.Contains("Pin")) {
+				component = lastComponentName;
+				pin = last.Substring(last.LastIndexOf('-')+1, last.Length-last.LastIndexOf('-')-1);
+			} else {
+				component = firstComponentName;
+				pin = first.Substring(first.LastIndexOf('-')+1, first.Length-first.LastIndexOf('-')-1);
+			}
+			
+			List<List<string[]>> allNetList = getAllNetList();
+			//{netName, item["component"].ToString(), item["pin"].ToString()}
+			foreach(var net in allNetList) {
+				for(int i=0; i<net.Count; i++) {
+					if(net[i][1].Contains(component) && net[i][2].Contains(pin)) {
+						result = net[i][0];
+						return result;
+					}
+				}
+			}
+		} else {
+			Debug.Log("wire name is null");
+		}
+		return result;
+	}
+*/
+	public void setNetName(string _name) {
+		bbPinNetName = _name;
+	}
+
+	public string getbbPinWire(string _bbPinName) {
+		GameObject[] temp = GameObject.FindGameObjectsWithTag("wire");
+        foreach(GameObject wireObj in temp)
+        {
+			string bbrow = _bbPinName.Substring(0, _bbPinName.IndexOf('-'));
+            if( wireObj.name.Contains(_bbPinName.Substring(0, _bbPinName.IndexOf('-'))) )
+            {
+				return wireObj.name;
+            }
+        }
+		return "";
+	}
+
+	public string getNetName() {
+		string componentPinName = comm.getComponentPin();
+		string component = componentPinName.Substring(0, componentPinName.IndexOf('-'));
+		string pin = componentPinName.Substring(componentPinName.IndexOf('-')+1, componentPinName.Length-componentPinName.IndexOf('-')-1);
+
+		List<List<string[]>> allNetList = getAllNetList();
+		//{netName, item["component"].ToString(), item["pin"].ToString()}
+		foreach(var net in allNetList) {
+			for(int i=0; i<net.Count; i++) {
+				if(net[i][1].Contains(component) && net[i][2].Contains(pin)) {
+					bbPinNetName = net[i][0];
+					return bbPinNetName;
+				}
+			}
+		}
+		return "";
+	}
+
+	public void addbbNetPosition(string _bbPinName) {
+		string bbPinPos = "";
+		string componentPinName = comm.getComponentPin();
+		string component = componentPinName.Substring(0, componentPinName.IndexOf('-'));
+		string pin = componentPinName.Substring(componentPinName.IndexOf('-')+1, componentPinName.Length-componentPinName.IndexOf('-')-1);
+
+		List<List<string[]>> allNetList = getAllNetList();
+		//{netName, item["component"].ToString(), item["pin"].ToString()}
+		foreach(var net in allNetList) {
+			for(int i=0; i<net.Count; i++) {
+				if(net[i][1].Contains(component) && net[i][2].Contains(pin)) {
+					bbPinNetName = net[i][0];
+				}
+			}
+		}
+
+		bbPinPos = (Util.getDigit( _bbPinName.Substring(0, _bbPinName.IndexOf('-'))).ToString());
+		bbNetPosition[bbPinNetName].Add(bbPinPos);
+	}
+
+	public void removebbNetPosition(string _bbPinName) {
+		string bbPinPos = (Util.getDigit( _bbPinName.Substring(0, _bbPinName.IndexOf('-'))).ToString());
+		foreach(var item in bbNetPosition) {
+			if(item.Value.Contains(bbPinPos)) {
+				item.Value.Remove(bbPinPos);
+				break;
+			}
+		}
+	}
+
+	public bool isOccupiedRow(string _bbPinName) {
+		bool result = false;
+		string pin = _bbPinName;
+		int start = 0;
+		int pos = pin.IndexOf("-");
+		pin = pin.Substring(start, pos);
+
+		if(occupiedRows.Contains( Util.getDigit(pin).ToString() ) ) {
+			// allow connect to the same net
+			bbPinNetName = getNetName();
+			if(bbPinNetName != "") {
+				if(bbNetPosition[bbPinNetName].Contains(Util.getDigit(pin).ToString())) {
+					result = false;
+					addbbNetPosition(_bbPinName);
+				} else {
+					result = true;
+				}
+			} else {
+				result = true;
+			}
+		} else {
+			result = false;
+			addbbNetPosition(_bbPinName);
+		}
+		return result;
+	}
+
+	/*
 	public bool isOccupiedRow(string _name) {
 		bool result = false;
 		string pin = _name;
@@ -217,7 +336,7 @@ public class NetData : MonoBehaviour {
 		else
 			result = false;
 		return result;
-	}
+	} */
 
 	public List<string> getOccupiedRows() {
 		return occupiedRows;

@@ -120,6 +120,7 @@ public class NetDataHandler {
 	Dictionary<string, ArrayList> connections = new Dictionary<string, ArrayList>();
 	Dictionary<string, ArrayList> allConnections = new Dictionary<string, ArrayList>();
 	Dictionary<string, ArrayList> componentNameAndPins = new Dictionary<string, ArrayList>();
+	//Dictionary<string, List<string>> bbNetPosition = new Dictionary<string, List<string>>();
 	// public Dictionary<string, _Component> getNetData(string _filePath)
 	// {
 	// 	JObject netData = null;
@@ -143,6 +144,11 @@ public class NetDataHandler {
 
 	// public Dictionary<string,string> getPwrNet() {
 	// 	return pwrNetElements;
+	// }
+
+
+	// public Dictionary<string, List<string>> getbbNetPosition() {
+	// 	return bbNetPosition;
 	// }
 
 	public List<List<string[]>> getAllNet() {
@@ -213,20 +219,19 @@ public class NetDataHandler {
 					gndNetElementsList.Add(gndComponentPin);
 					// gndNetElements.Add(item["component"].ToString(), item["pin"].ToString());
 				}
+				//for tutorial
 				allNet.Add(gndNetElementsList);
 				netElementsList.Clear();
 			} else if(netName.Contains("3V") || netName.Contains("9V")) {
 				foreach(var item in connectorArray) {
 					String[] pwrComponentPin = {netName, item["component"].ToString(), item["pin"].ToString()};
 					pwrNetElementsList.Add(pwrComponentPin);
-					
 					// pwrNetElements.Add(item["component"].ToString(), item["pin"].ToString());
 				}
 				allNet.Add(pwrNetElementsList);
 				netElementsList.Clear();
 			} else {
 				allNet.Add(netElementsListCopy);
-				// netElements.Clear();
 				netElementsList.Clear();
 			}
 

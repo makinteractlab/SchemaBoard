@@ -251,6 +251,7 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
         string componentName = this.transform.parent.name;
         //componentName = componentName.Substring(4, componentName.Length-4);
         pins = netdata.getComponentPosition(componentName);
+        comm.setComponentPin(null);
 
         if(GlowToggle()) {
             initPinGlow();
@@ -427,7 +428,9 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
 
     public void EnterDeleteMode()
     {
-        comm.setComponentPin(transform.parent.name);
+        // comm.setComponentPin(transform.parent.name);
+        comm.setComponentPin(null);
+        // comm.setComponentPin(transform.parent.name + "-" + name);
 		// comm.setDeleteWireState(true, transform.parent.name);
         comm.setEditWireState(true, transform.parent.name);
         deleteState = true;
@@ -477,10 +480,15 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
             if( wireObj.name.Contains(transform.parent.name) ) {
                 LineRenderer lr = wireObj.GetComponent<LineRenderer>();
                 lr.enabled = onoff;
-            } else {
-                LineRenderer lr = wireObj.GetComponent<LineRenderer>();
-                lr.enabled = false;
-            }
+            } 
+            // else if(comm.IsCompPinClicked()) {
+            //     LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+            //     lr.enabled = false;
+            // }
+            // else {
+            //     LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+            //     lr.enabled = false;
+            // }
         }
 	}
 /*

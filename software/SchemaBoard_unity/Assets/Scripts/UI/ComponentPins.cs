@@ -129,7 +129,7 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 
     public void EnterDeleteMode()
     {
-        comm.setComponentPin(transform.parent.name);
+        comm.setComponentPin(transform.parent.name + "-" + name);
 		// comm.setDeleteWireState(true, transform.parent.name);
         comm.setEditWireState(true, transform.parent.name);
         // deleteState = true;
@@ -154,39 +154,38 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
             if( wireObj.name.Contains(transform.parent.name) && wireObj.name.Contains(name)) {
                 LineRenderer lr = wireObj.GetComponent<LineRenderer>();
                 lr.enabled = onoff;
-            } else {
-                LineRenderer lr = wireObj.GetComponent<LineRenderer>();
-                lr.enabled = false;
+            }
+        }
+	}
+
+    private void showWires(bool onoff, List<GameObject> _resultPinsInNet) {
+        // hide all wires
+		GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
+        
+        foreach(GameObject wireObj in wireTemp) {
+            foreach(var pins in _resultPinsInNet) {
+                if( wireObj.name.Contains(pins.transform.parent.name) && wireObj.name.Contains(pins.name)) {
+                    LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+                    lr.enabled = onoff;
+                }
+                // else {
+                //     LineRenderer lr = wireObj.GetComponent<LineRenderer>();
+                //     lr.enabled = false;
+                // }
             }
         }
 	}
 
     void componentPinClick() {
-        if(wireOn) {
-            ExitDeleteMode(comm.connectedPinSprite, false);
-            showWires(false);
-            wireOn = false;
-        } else {
-            EnterDeleteMode();
-            showWires(true);
-            wireOn = true;
-        }
-            
+        comm.setComponentPin(null);
+        wire.resetBoardPinObj();
+        wire.resetComponentPinObj();
+        comm.resetData();
 
-        //int boardPinLineNumber = int.Parse(netdata.getComponentPinNet(this.transform.parent.name, this.name));
         List<GameObject> resultPinsInNet = new List<GameObject>();
         clicked = true;
         initGlowIcon();
         int[] boardPins = new int[2];
-
-        // boardPins = netdata.getAllNetForPin(this.transform.parent.name, this.name);
-        // http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        // ArrayList urls = new ArrayList(cmd.getUrls());
-        // foreach(var url in urls) {
-        //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
-        // }
-        //http.postJson(comm.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
-        //Debug.Log("============================= componentPinClick: " + this.name);
 		
         string pinName = this.name;
         string componentName = this.transform.parent.name;
@@ -236,6 +235,19 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
         //     http.postJson((string)url, cmd.multiPinOnOff(boardPins[0], boardPins[1]));
         // }
         //http.postJson(comm.getUrl(), cmd.singlePinToggle(boardPinLineNumber));
+        if(wireOn) {
+            ExitDeleteMode(comm.connectedPinSprite, false);
+            showWires(false, resultPinsInNet);
+            initPinGlow();
+            wireOn = false;
+            // comm.setCompPinClicked(false);
+        } else {
+            EnterDeleteMode();
+            showWires(true, resultPinsInNet);
+            wireOn = true;
+            // comm.setCompPinClicked(true);
+        }
+
         comm.setCompPinClicked(true);
         Debug.Log("============================= componentPinClick: " + this.name);
     }
@@ -300,6 +312,7 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
             boardPin = Util.removeDigit(boardPinName);
 
             if(boardPinName == null) {  // click
+                comm.setComponentPin(null);
                 wire.resetBoardPinObj();
                 wire.resetComponentPinObj();
                 comm.resetData();

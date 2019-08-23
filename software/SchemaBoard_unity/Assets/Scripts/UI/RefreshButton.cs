@@ -8,7 +8,7 @@ using UnityEngine.Events;
 using Newtonsoft.Json.Linq;
 
 public class RefreshButton : MonoBehaviour {
-	public Sprite DefaultPinSprite;
+	public Sprite DefaultbbPinSprite;
 	public Sprite AutoRefreshSprite;
 	public Sprite ManualRefreshSprite;
 	public WifiConnection wifi;
@@ -131,6 +131,12 @@ public class RefreshButton : MonoBehaviour {
         }
 	}
 
+	void ResetBreadboardPinsSprite() {
+		GameObject[] pinsTemp = GameObject.FindGameObjectsWithTag("pin");
+		foreach(GameObject pinObj in pinsTemp) {
+			pinObj.GetComponent<Button>().image.sprite = DefaultbbPinSprite;
+		}
+	}
 	public void refresh() {
 		// Debug.Log("\n\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>yes pressed!\n\n\n");
 		if(modeToggleMenu.IsManualMode()) {
@@ -146,6 +152,7 @@ public class RefreshButton : MonoBehaviour {
 			netData.setInitialNetData();	// set init connection data
 			ResetAllConnection();
 			initManualPinGlow();
+			//ResetBreadboardPinsSprite();
 		} else {
 			initAutoPinGlow();
 		}
@@ -174,7 +181,7 @@ public class RefreshButton : MonoBehaviour {
 	private void ResetAllComponents() {
 		GameObject[] pinsTemp = GameObject.FindGameObjectsWithTag("pin");
 		foreach(GameObject pinObj in pinsTemp) {
-			pinObj.GetComponent<Button>().image.sprite = DefaultPinSprite;;
+			pinObj.GetComponent<Button>().image.sprite = DefaultbbPinSprite;
 		}
 
 		GameObject[] temp = GameObject.FindGameObjectsWithTag("manual_prefab");

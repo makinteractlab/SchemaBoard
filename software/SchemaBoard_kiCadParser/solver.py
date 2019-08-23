@@ -44,6 +44,7 @@ def no_of_rows(nets,comp,row_assign,no_rows_on_board,bb):#assignment of rows to 
     next_empty=3
     free_rows=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     i=0
+    print(comp)
     while(comp[i][0].startswith(("RELAY","U","OPAMP","SW"))):
         U_size= int(len(comp[i])/2)
         already_exist=-1
@@ -201,7 +202,7 @@ def no_of_rows(nets,comp,row_assign,no_rows_on_board,bb):#assignment of rows to 
     for i in range(len(nets)):
         #check if already assigned
         already_assign=0
-        if nets[i][0].startswith(("+3","3V")):
+        if nets[i][0].startswith(("+3","3V","+9V")):
             for j in range(len(row_assign)):
                 if nets[i][0]==row_assign[j][0]:
                     already_assign=len(row_assign[j])-1
@@ -245,7 +246,7 @@ def no_of_rows(nets,comp,row_assign,no_rows_on_board,bb):#assignment of rows to 
             row_assign[len(row_assign)-1].append(nets[i][0])
 
         more_assign=math.ceil(((len(nets[i])-1)/2)/4)-already_assign
-        if nets[i][0].startswith(("+3","GND","3V")) or len(nets[i])>17:
+        if nets[i][0].startswith(("+3","GND","3V","+9V")) or len(nets[i])>17:
             more_assign=math.ceil(((len(nets[i])-1)/2)/3)-already_assign
         while more_assign>0:
             if 0 not in free_rows:
@@ -580,7 +581,7 @@ def solver(nets,file_type,fileName,comp_value):
 
 
     comp,nets=flipping_components(comp,nets)
-
+    print(row_assign)
     comp=final_sorting(comp)
     write_json(nets,comp,file_type,fileName,comp_value)
     print("executed")
