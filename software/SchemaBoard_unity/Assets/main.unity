@@ -27879,7 +27879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -450, y: 745.35}
+  m_AnchoredPosition: {x: -800, y: 745.35}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1049560206
@@ -27893,6 +27893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111cfb9f847a3c64ea041de674677d1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  netdata: {fileID: 855837059}
 --- !u!114 &1049560207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32768,7 +32769,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: AddNetWireTest
+  m_Text: RemoveWireTest
 --- !u!222 &1215795824
 CanvasRenderer:
   m_ObjectHideFlags: 0
