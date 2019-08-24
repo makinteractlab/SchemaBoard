@@ -267,6 +267,65 @@ public class NetData : MonoBehaviour {
 		return "";
 	}
 
+	public void addbbNetPosition(string _bbPinName, string _componentName, string _pinName) {
+		string bbPinPos = "";
+		string componentPinName = comm.getComponentPin();
+		string component = _componentName;//componentPinName.Substring(0, componentPinName.IndexOf('-'));
+		string pin = _pinName; //componentPinName.Substring(componentPinName.IndexOf('-')+1, componentPinName.Length-componentPinName.IndexOf('-')-1);
+
+		List<List<string[]>> allNetList = getAllNetList();
+		//{netName, item["component"].ToString(), item["pin"].ToString()}
+		foreach(var net in allNetList) {
+			for(int i=0; i<net.Count; i++) {
+				if(net[i][1].Contains(component) && net[i][2].Contains(pin)) {
+					bbPinNetName = net[i][0];
+				}
+			}
+		}
+
+		bbPinPos = (Util.getDigit( _bbPinName.Substring(0, _bbPinName.IndexOf('-'))).ToString());
+		bbNetPosition[bbPinNetName].Add(bbPinPos);
+
+		Dictionary<string, _Component> wires = new Dictionary<string, _Component>();
+		int count = 0;
+		foreach(var item in debugNetData) {
+			if(item.Value.getValue() == "wire") {
+				wires.Add(item.Key, item.Value);
+				count++;
+			}
+		}
+
+		bool needToAddWire = true;
+		for(int i=0; i<bbNetPosition[bbPinNetName].Count-1; i++) {
+			foreach(var item in wires) {
+				if( ((item.Value.getPin("connector0").breadboardRowPosition == bbNetPosition[bbPinNetName][i]) &&
+					(item.Value.getPin("connector1").breadboardRowPosition == bbNetPosition[bbPinNetName][i+1])) ||
+					((item.Value.getPin("connector0").breadboardRowPosition == bbNetPosition[bbPinNetName][i+1]) &&
+					(item.Value.getPin("connector1").breadboardRowPosition == bbNetPosition[bbPinNetName][i])) ) {
+						needToAddWire = false;
+						break;
+				}
+			}
+
+			if(needToAddWire) {
+				count ++;
+				_Component wirecomponent = new _Component("wire" + count, "");
+
+				string breadboardRowPosition = bbNetPosition[bbPinNetName][i];
+				string breadboardColPosition = "5";
+				_Pin pin1 = new _Pin("connector0", breadboardRowPosition, breadboardColPosition);
+
+				breadboardRowPosition = bbNetPosition[bbPinNetName][i+1];
+				breadboardColPosition = "5";
+				_Pin pin2 = new _Pin("connector1", breadboardRowPosition, breadboardColPosition);
+
+				wirecomponent.addPin(pin1);
+				wirecomponent.addPin(pin2);
+				wirecomponent.setValue("wire");
+				debugNetData.Add("wire"+count, wirecomponent);
+			}
+		}
+	}
 	public void addbbNetPosition(string _bbPinName) {
 		string bbPinPos = "";
 		string componentPinName = comm.getComponentPin();
@@ -285,6 +344,57 @@ public class NetData : MonoBehaviour {
 
 		bbPinPos = (Util.getDigit( _bbPinName.Substring(0, _bbPinName.IndexOf('-'))).ToString());
 		bbNetPosition[bbPinNetName].Add(bbPinPos);
+
+		Dictionary<string, _Component> wires = new Dictionary<string, _Component>();
+		int count = 0;
+		foreach(var item in debugNetData) {
+			if(item.Value.getValue() == "wire") {
+				wires.Add(item.Key, item.Value);
+				count++;
+			}
+		}
+
+		bool needToAddWire = true;
+		for(int i=0; i<bbNetPosition[bbPinNetName].Count-1; i++) {
+			foreach(var item in wires) {
+				if(
+					((item.Value.getPin("connector0").breadboardRowPosition == bbNetPosition[bbPinNetName][i]) && (item.Value.getPin("connector1").breadboardRowPosition == bbNetPosition[bbPinNetName][i+1]))
+				 || ((item.Value.getPin("connector0").breadboardRowPosition == bbNetPosition[bbPinNetName][i+1]) && (item.Value.getPin("connector1").breadboardRowPosition == bbNetPosition[bbPinNetName][i]))
+				) {
+						needToAddWire = false;
+						break;
+				}
+			}
+
+			if(needToAddWire) {
+				count ++;
+				_Component wirecomponent = new _Component("wire" + count, "");
+
+				string breadboardRowPosition = bbNetPosition[bbPinNetName][i];
+				string breadboardColPosition = "5";
+				_Pin pin1 = new _Pin("connector0", breadboardRowPosition, breadboardColPosition);
+
+				breadboardRowPosition = bbNetPosition[bbPinNetName][i+1];
+				breadboardColPosition = "5";
+				_Pin pin2 = new _Pin("connector1", breadboardRowPosition, breadboardColPosition);
+
+				wirecomponent.addPin(pin1);
+				wirecomponent.addPin(pin2);
+
+				wirecomponent.setValue("wire");
+				debugNetData.Add("wire"+count, wirecomponent);
+			}
+		}
+	}
+
+	public void removebbNetPositionTest(string _bbPinName) {
+		string bbPinPos = (Util.getDigit( _bbPinName.Substring(0, _bbPinName.IndexOf('-'))).ToString());
+		foreach(var item in bbNetPosition) {
+			if(item.Value.Contains(bbPinPos)) {
+				item.Value.Remove(bbPinPos);
+				break;
+			}
+		}
 	}
 
 	public void removebbNetPosition(string _bbPinName) {
@@ -510,6 +620,7 @@ public class NetData : MonoBehaviour {
 
 				component.addPin(pin1);
 				component.addPin(pin2);
+				component.setValue("wire");
 
 				debugNetData.Add(componentsArray[i]["label"].ToString(), component);
 			}

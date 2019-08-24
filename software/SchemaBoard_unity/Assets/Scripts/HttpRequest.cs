@@ -41,7 +41,7 @@ public class HttpRequest : MonoBehaviour {
 
         if (www.isNetworkError) {
             Debug.Log("Error While Sending: " + www.error);
-            StartCoroutine(PostRequest(url, json));
+            //StartCoroutine(PostRequest(url, json));
         } else {
             string result = www.downloadHandler.text;
             Debug.Log("Received: " + result);

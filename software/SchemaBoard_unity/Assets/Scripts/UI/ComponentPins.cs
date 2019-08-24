@@ -277,16 +277,11 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
         if (Input.GetMouseButtonDown(0))
         {
             this.transform.parent.GetComponent<Component>().setDragState(false);
-            // if (!comm.getDeleteWireState())
-            // {
-                comm.setComponentPin(transform.parent.name + "-" + name);
-                Debug.Log("OnPointerEnter() - button down - componentPin = " + comm.getComponentPin());
-                wire.setComponentPinObj(gameObject);
-            // }
-        } else
-        {
-            // if(!comm.getDeleteWireState())
-                comm.setComponentPin(transform.parent.name + "-" + name);
+            comm.setComponentPin(transform.parent.name + "-" + name);
+            Debug.Log("OnPointerEnter() - button down - componentPin = " + comm.getComponentPin());
+            wire.setComponentPinObj(gameObject);
+        } else {
+            comm.setComponentPin(transform.parent.name + "-" + name);
         }
 
         this.GetComponent<Image>().sprite = comm.SelectedPinSprite;

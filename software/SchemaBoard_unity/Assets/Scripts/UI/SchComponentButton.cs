@@ -175,13 +175,13 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
                 boardPins = netdata.getMultiplePinsPosition(pins);
                 http.postJson(comm.getUrl()+"/set", cmd.multiPinOnOff(boardPins[0], boardPins[1]));
                 comm.setSchCompPinClicked(false);
-            } else {
-                foreach(var pin in pins) {
-                    http.postJson(comm.getUrl()+"/set", cmd.singlePinOn(Int16.Parse(pin)));
-                    Wait (0.5f, () => {
-                        Debug.Log("0.5 seconds is lost forever");
-                    });
-                }
+            }
+            
+            foreach(var pin in pins) {
+                http.postJson(comm.getUrl()+"/set", cmd.singlePinOn(Int16.Parse(pin)));
+                Wait (0.5f, () => {
+                    Debug.Log("0.5 seconds is lost forever");
+                });
             }
             
             // boardPins = netdata.getComponentPinsNet(componentName); /

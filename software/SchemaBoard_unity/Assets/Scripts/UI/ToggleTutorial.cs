@@ -468,43 +468,44 @@ public class ToggleTutorial : MonoBehaviour {
 			initAll();
 			prevSelectedComponent = null;
 		} else {	//tutorial on
-			if(init) {
-				data = netdata.getCurrentDebugSchematicData();
-				foreach(var item in data) {
-					if(item.Key.Contains("U")) {
-						components.Add(item.Key);
-					}
+			components.Clear();
+			wireCount = 0;
+			// if(init) {
+			data = netdata.getCurrentDebugSchematicData();
+			foreach(var item in data) {
+				if(item.Key.Contains("U")) {
+					components.Add(item.Key);
 				}
-				foreach(var item in data) {
-					if(item.Key.Contains("U")){
-						Debug.Log("chip is already added");
-					} else {
-						components.Add(item.Key);
-					}
-				}
-				GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
-				foreach(var item in autoPrefabs) {
-					if(item.name.Contains("GND")) {
-						gndList.Add(item.name);
-					} else if(item.name.Contains("PWR")) {
-						pwrList.Add(item.name);
-					}
-				}
-
-				nets = new List<List<string[]>>(netdata.getAllNetList());
-
-				netCount = nets.Count;
-				componentCount = components.Count;
-
-				wireCount = 0;
-				foreach(var component in components) {
-					if(component.Contains("wire"))
-						wireCount++;
-				}
-
-				totalSteps = netCount + componentCount;
-				init = false;
 			}
+			foreach(var item in data) {
+				if(item.Key.Contains("U")){
+					Debug.Log("chip is already added");
+				} else {
+					components.Add(item.Key);
+				}
+			}
+			GameObject[] autoPrefabs = GameObject.FindGameObjectsWithTag("auto_prefab");
+			foreach(var item in autoPrefabs) {
+				if(item.name.Contains("GND")) {
+					gndList.Add(item.name);
+				} else if(item.name.Contains("PWR")) {
+					pwrList.Add(item.name);
+				}
+			}
+
+			nets = new List<List<string[]>>(netdata.getAllNetList());
+
+			netCount = nets.Count;
+			componentCount = components.Count;
+
+			foreach(var component in components) {
+				if(component.Contains("wire"))
+					wireCount++;
+			}
+
+			totalSteps = netCount + componentCount;
+				// init = false;
+			// }
 			status = true;
 			this.GetComponent<Image>().sprite = onSprite;
 			showButtons(status);
