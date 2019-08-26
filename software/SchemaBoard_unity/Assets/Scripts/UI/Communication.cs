@@ -43,6 +43,7 @@ public class Communication : MonoBehaviour
         pinClicked = false;
         manualPinClicked = false;
         url = "";
+        resetData();
     }
 
     public void setUrl(string _url) {

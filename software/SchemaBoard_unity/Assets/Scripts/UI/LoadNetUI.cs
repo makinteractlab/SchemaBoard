@@ -287,13 +287,13 @@ public class LoadNetUI : MonoBehaviour {
 				component.transform.SetParent(ParentPanel, false);
 
 				if(count < 4) {
-					component.transform.position = new Vector3(0,ParentPanel.transform.position.y+10,150-count*150);
+					component.transform.position = new Vector3(-550,ParentPanel.transform.position.y+10,150-count*150);
 				} else if(count >= 4 && count < 8){
-					component.transform.position = new Vector3(-250,ParentPanel.transform.position.y+10,200-(count-4)*150);
+					component.transform.position = new Vector3(-350,ParentPanel.transform.position.y+10,200-(count-4)*150);
 				} else if (count >= 8 && count < 12) {
-					component.transform.position = new Vector3(-500,ParentPanel.transform.position.y+10,150-(count-8)*150);
+					component.transform.position = new Vector3(350,ParentPanel.transform.position.y+10,150-(count-8)*150);
 				} else {
-					component.transform.position = new Vector3(-750,ParentPanel.transform.position.y+10,200-(count-12)*150);
+					component.transform.position = new Vector3(550,ParentPanel.transform.position.y+10,200-(count-12)*150);
 				}
 				component.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 

@@ -177,10 +177,10 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 	}
 
     void componentPinClick() {
-        comm.setComponentPin(null);
-        wire.resetBoardPinObj();
-        wire.resetComponentPinObj();
-        comm.resetData();
+        // comm.setComponentPin(null);
+        // wire.resetBoardPinObj();
+        // wire.resetComponentPinObj();
+        // comm.resetData();
 
         List<GameObject> resultPinsInNet = new List<GameObject>();
         clicked = true;
@@ -250,6 +250,11 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 
         comm.setCompPinClicked(true);
         Debug.Log("============================= componentPinClick: " + this.name);
+
+        comm.setComponentPin(null);
+        wire.resetBoardPinObj();
+        wire.resetComponentPinObj();
+        comm.resetData();
     }
     
     public void setNetDataObject()
@@ -303,8 +308,6 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 
             componentPinName = comm.getComponentPin();
             boardPinName = comm.getBoardPin();
-            compPin = Util.removeDigit(componentPinName);
-            boardPin = Util.removeDigit(boardPinName);
 
             if(boardPinName == null) {  // click
                 comm.setComponentPin(null);
@@ -312,6 +315,8 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
                 wire.resetComponentPinObj();
                 comm.resetData();
             } else { // dragging (component pin -> pin drag)
+                compPin = Util.removeDigit(componentPinName);
+                boardPin = Util.removeDigit(boardPinName);
                 if(netdata.isOccupiedRow(boardPinName)) { // pin이 occupied row에 있는 거면 
                     wire.resetBoardPinObj();
                     wire.resetComponentPinObj();
@@ -328,6 +333,7 @@ public class ComponentPins : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
                         wire.resetBoardPinObj();
                         wire.resetComponentPinObj();
                         comm.resetData();
+                        comm.setComponentPin(null);
                     }
                 }
             }

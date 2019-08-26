@@ -115,9 +115,14 @@ public class NetData : MonoBehaviour {
 	public void setInitialNetData() {
 		debugNetData.Clear();
 		debugNetData = SerializationCloner.DeepFieldClone(initNetData);
+
 		addGroundPosition(gndName);
 		addPowerPosition(pwrName);
 		addWireComponents();
+
+		bbNetPosition.Clear();
+		findOccupiedRows();
+		setNetbbPins();
 	}
 
 	public void syncNetData(string _componentName, string _componentPinName, string _boardPinName) {
@@ -328,9 +333,12 @@ public class NetData : MonoBehaviour {
 				wirecomponent.addPin(pin2);
 				wirecomponent.setValue("wire");
 				debugNetData.Add("wire"+count, wirecomponent);
+
+				needToAddWire = false;
 			}
 		}
 	}
+
 	public void addbbNetPosition(string _bbPinName) {
 		string bbPinPos = "";
 		string componentPinName = comm.getComponentPin();
@@ -360,34 +368,44 @@ public class NetData : MonoBehaviour {
 		}
 
 		bool needToAddWire = true;
-		for(int i=0; i<bbNetPosition[bbPinNetName].Count-1; i++) {
-			foreach(var item in wires) {
-				if(
-					((item.Value.getPin("connector0").breadboardRowPosition == bbNetPosition[bbPinNetName][i]) && (item.Value.getPin("connector1").breadboardRowPosition == bbNetPosition[bbPinNetName][i+1]))
-				 || ((item.Value.getPin("connector0").breadboardRowPosition == bbNetPosition[bbPinNetName][i+1]) && (item.Value.getPin("connector1").breadboardRowPosition == bbNetPosition[bbPinNetName][i]))
-				) {
-						needToAddWire = false;
-						break;
+
+		if (bbNetPosition[bbPinNetName].Distinct().Count() == 1) {
+			needToAddWire = false;
+		} else {
+			// for(int i=0; i<bbNetPosition[bbPinNetName].Count-1; i++) {
+			for(int i=bbNetPosition[bbPinNetName].Count-1; i>0; i--) {
+				foreach(var item in wires) {
+					if(
+						((item.Value.getPin("connector0").breadboardRowPosition == bbNetPosition[bbPinNetName][i]) && (item.Value.getPin("connector1").breadboardRowPosition == bbNetPosition[bbPinNetName][i-1]))
+						|| ((item.Value.getPin("connector0").breadboardRowPosition == bbNetPosition[bbPinNetName][i-1]) && (item.Value.getPin("connector1").breadboardRowPosition == bbNetPosition[bbPinNetName][i])
+					)
+					) {
+							needToAddWire = false;
+							break;
+					}
 				}
-			}
 
-			if(needToAddWire) {
-				count ++;
-				_Component wirecomponent = new _Component("wire" + count, "");
+				if(needToAddWire) {
+					count ++;
+					_Component wirecomponent = new _Component("wire" + count, "");
 
-				string breadboardRowPosition = bbNetPosition[bbPinNetName][i];
-				string breadboardColPosition = "5";
-				_Pin pin1 = new _Pin("connector0", breadboardRowPosition, breadboardColPosition);
+					string breadboardRowPosition = bbNetPosition[bbPinNetName][i];
+					string breadboardColPosition = "5";
+					_Pin pin1 = new _Pin("connector0", breadboardRowPosition, breadboardColPosition);
 
-				breadboardRowPosition = bbNetPosition[bbPinNetName][i+1];
-				breadboardColPosition = "5";
-				_Pin pin2 = new _Pin("connector1", breadboardRowPosition, breadboardColPosition);
+					breadboardRowPosition = bbNetPosition[bbPinNetName][i-1];
+					breadboardColPosition = "5";
+					_Pin pin2 = new _Pin("connector1", breadboardRowPosition, breadboardColPosition);
 
-				wirecomponent.addPin(pin1);
-				wirecomponent.addPin(pin2);
+					wirecomponent.addPin(pin1);
+					wirecomponent.addPin(pin2);
 
-				wirecomponent.setValue("wire");
-				debugNetData.Add("wire"+count, wirecomponent);
+					wirecomponent.setValue("wire");
+					debugNetData.Add("wire"+count, wirecomponent);
+					
+					needToAddWire = false;
+					break;
+				}
 			}
 		}
 	}
@@ -402,6 +420,7 @@ public class NetData : MonoBehaviour {
 		}
 
 		Dictionary<string, _Component> wires = new Dictionary<string, _Component>();
+		Dictionary<string, _Component> temp = new Dictionary<string, _Component>();
 		int count = 0;
 		foreach(var item in debugNetData) {
 			if(item.Value.getValue() == "wire") {
@@ -414,6 +433,20 @@ public class NetData : MonoBehaviour {
 			if ( (item.Value.getPin("connector0").breadboardRowPosition == bbPinPos) ||
 					(item.Value.getPin("connector1").breadboardRowPosition == bbPinPos) ) {
 				debugNetData.Remove(item.Key);
+
+				if(Util.getDigit(item.Key) < count) {
+					for(int i=Util.getDigit(item.Key)+1; i<=count; i++){
+						_Component comp;
+						if(debugNetData.TryGetValue("wire"+ i, out comp)) {
+							string key = "wire" + (i-1);
+							_Component value = comp;
+							value.label = key;
+							debugNetData.Remove("wire"+i);
+							debugNetData.Add(key, value);
+						}
+					}
+					
+				}
 			}
 		}
 	}

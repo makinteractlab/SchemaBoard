@@ -301,6 +301,11 @@ public class ComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDownH
             }
         }
         Debug.Log("============================= componentClick: " + this.name);
+
+        comm.setComponentPin(null);
+        wire.resetBoardPinObj();
+        wire.resetComponentPinObj();
+        comm.resetData();
     }
 
     public void setHttpRequestObject() {

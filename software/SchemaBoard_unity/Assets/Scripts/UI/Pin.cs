@@ -33,7 +33,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
         setNetDataObject();
         setHttpObject();
         cmd = new Command();
-        this.GetComponent<Button>().onClick.AddListener(pinClick);
+        // this.GetComponent<Button>().onClick.AddListener(pinClick);
     }
 
     void Awake () {
@@ -160,6 +160,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
 
     void pinClick () {
         //Wire:Pin17-1,U1-8-connector7
+        // comm.setBoardPin(name);
         string wireObjectName = "Wire:"+name+","+targetEditComponent;
         // GameObject wire = GameObject.Find(wireObjectName);
         GameObject[] wireTemp = GameObject.FindGameObjectsWithTag("wire");
@@ -176,9 +177,10 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                 break;
             }
         }
-        wire.resetBoardPinObj();
-        wire.resetComponentPinObj();
-        comm.resetData();
+        comm.setComponentPin(null);
+        // wire.resetBoardPinObj();
+        // wire.resetComponentPinObj();
+        // comm.resetData();
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -196,7 +198,6 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
             componentPinName = comm.getComponentPin();
 
             if(comm.getEditWireState(ref targetEditComponent)) {
-
                 if(componentPinName != null) {
                     //dragging
                     // 이미 점령된 row면 연결하지 말고 리셋
@@ -211,8 +212,7 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                                 wire.resetComponentPinObj();
                                 comm.resetData();
                             }
-                        } else if(!pinAlreadyWired(componentPinName) && !pinAlreadyWired(boardPinName))
-                        {
+                        } else if(!pinAlreadyWired(componentPinName) && !pinAlreadyWired(boardPinName)) {
                             string wireStartBoardPin = "";
                             comm.setComponentPin(componentPinName);
                             wireStartBoardPin = wire.setComponentPinObj(getTargetComponentPinObject(componentPinName));
@@ -224,8 +224,11 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
                             wire.resetBoardPinObj();
                             wire.resetComponentPinObj();
                             comm.resetData();
+                            comm.setComponentPin(null);
                         }
                     }
+                } else {
+                    pinClick();
                 }
             }
         }
@@ -238,18 +241,13 @@ public class Pin : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler// requ
             Debug.Log("[pin.cs] " + "mouse button down: " + name);
             comm.setStartTime(Time.time);
 
-            // if (!comm.getDeleteWireState())
-            // {
-                comm.setBoardPin(name);
-                GameObject temp = GameObject.Find(name);
-                if(temp != null)
-                    wire.setBoardPinObj(temp);
-                else Debug.Log("cannot find board pin object");
-            // }
+            comm.setBoardPin(name);
+            GameObject temp = GameObject.Find(name);
+            if(temp != null)
+                wire.setBoardPinObj(temp);
+            else Debug.Log("cannot find board pin object");
         } else {
-            // if(!comm.getDeleteWireState() && !netdata.isOccupiedRow(name))
-            //if(!netdata.isOccupiedRow(name))
-                comm.setBoardPin(name);
+            comm.setBoardPin(name);
         }
     }
 
