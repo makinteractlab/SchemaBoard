@@ -412,40 +412,58 @@ public class NetData : MonoBehaviour {
 
 	public void removebbNetPosition(string _bbPinName) {
 		string bbPinPos = (Util.getDigit( _bbPinName.Substring(0, _bbPinName.IndexOf('-'))).ToString());
+		// string componentPinName = comm.getComponentPin();
+		// string component = componentPinName.Substring(0, componentPinName.IndexOf('-'));
+		// string pin = componentPinName.Substring(componentPinName.IndexOf('-')+1, componentPinName.Length-componentPinName.IndexOf('-')-1);
+
+		// List<List<string[]>> allNetList = getAllNetList();
+		// //{netName, item["component"].ToString(), item["pin"].ToString()}
+		// foreach(var net in allNetList) {
+		// 	for(int i=0; i<net.Count; i++) {
+		// 		if(net[i][1].Contains(component) && net[i][2].Contains(pin)) {
+		// 			bbPinNetName = net[i][0];
+		// 		}
+		// 	}
+		// }
+
+		// bbNetPosition[bbPinNetName].Remove(bbPinPos);
+
 		foreach(var item in bbNetPosition) {
 			if(item.Value.Contains(bbPinPos)) {
 				item.Value.Remove(bbPinPos);
+				bbPinNetName = item.Key;
 				break;
 			}
 		}
 
-		Dictionary<string, _Component> wires = new Dictionary<string, _Component>();
-		Dictionary<string, _Component> temp = new Dictionary<string, _Component>();
-		int count = 0;
-		foreach(var item in debugNetData) {
-			if(item.Value.getValue() == "wire") {
-				wires.Add(item.Key, item.Value);
-				count++;
+		if(!bbNetPosition[bbPinNetName].Contains(bbPinPos)) {
+			Dictionary<string, _Component> wires = new Dictionary<string, _Component>();
+			Dictionary<string, _Component> temp = new Dictionary<string, _Component>();
+			int count = 0;
+			foreach(var item in debugNetData) {
+				if(item.Value.getValue() == "wire") {
+					wires.Add(item.Key, item.Value);
+					count++;
+				}
 			}
-		}
 
-		foreach(var item in wires) {
-			if ( (item.Value.getPin("connector0").breadboardRowPosition == bbPinPos) ||
-					(item.Value.getPin("connector1").breadboardRowPosition == bbPinPos) ) {
-				debugNetData.Remove(item.Key);
+			foreach(var item in wires) {
+				if ( (item.Value.getPin("connector0").breadboardRowPosition == bbPinPos) ||
+						(item.Value.getPin("connector1").breadboardRowPosition == bbPinPos) ) {
+					debugNetData.Remove(item.Key);
 
-				if(Util.getDigit(item.Key) < count) {
-					for(int i=Util.getDigit(item.Key)+1; i<=count; i++){
-						_Component comp;
-						if(debugNetData.TryGetValue("wire"+ i, out comp)) {
-							string key = "wire" + (i-1);
-							_Component value = comp;
-							value.label = key;
-							debugNetData.Remove("wire"+i);
-							debugNetData.Add(key, value);
-						}
+					if(Util.getDigit(item.Key) < count) {
+						for(int i=Util.getDigit(item.Key)+1; i<=count; i++){
+							_Component comp;
+							if(debugNetData.TryGetValue("wire"+ i, out comp)) {
+								string key = "wire" + (i-1);
+								_Component value = comp;
+								value.label = key;
+								debugNetData.Remove("wire"+i);
+								debugNetData.Add(key, value);
+							}
+						}	
 					}
-					
 				}
 			}
 		}

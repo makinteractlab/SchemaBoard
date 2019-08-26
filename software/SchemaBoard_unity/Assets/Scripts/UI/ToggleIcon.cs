@@ -13,6 +13,7 @@ public class ToggleIcon : MonoBehaviour {
 	public Sprite offSprite;
 
 	public ToggleAutoManual toggleMode;
+	public ToggleTutorial tutorialMode;
 
 	bool status;
 
@@ -73,7 +74,8 @@ public class ToggleIcon : MonoBehaviour {
 				}
 			}
 		}
-		GameObject.Find("TutorialToggle").GetComponent<ToggleTutorial>().updateGlowIconEvent.Invoke(mode);
+		if(tutorialMode.isInTutorial())
+			GameObject.Find("TutorialToggle").GetComponent<ToggleTutorial>().updateGlowIconEvent.Invoke(mode);
 	}
 
 	private void showSchematicCircuitComponent(bool on) {

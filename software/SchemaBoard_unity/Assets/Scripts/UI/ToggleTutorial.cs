@@ -459,6 +459,10 @@ public class ToggleTutorial : MonoBehaviour {
 		}
 	}
 
+	public bool isInTutorial() {
+		return status;
+	}
+
 	public void tutorial() {
 		if(status) {	//tutorial off
 			status = false;
@@ -533,7 +537,7 @@ public class ToggleTutorial : MonoBehaviour {
 				}
 			}
 
-			// initComponentGlow();
+			initComponentGlow();
 			initAutoPinGlow();
 			comm.setSchCompPinClicked(false);
 
