@@ -470,6 +470,14 @@ public class ToggleTutorial : MonoBehaviour {
 			showButtons(status);
 			http.postJson(comm.getUrl()+"/set", cmd.resetAll());
 			initAll();
+			if(selectedComponent) {
+				GameObject iconObject;
+				if(icon.IsFritzingIcon())
+					iconObject = Util.getChildObject(selectedComponent.name, "fritzing_glow");
+				else
+					iconObject = Util.getChildObject(selectedComponent.name, "schematic_glow");
+				iconObject.GetComponent<Image>().sprite = glowIconSprite;
+			}
 			prevSelectedComponent = null;
 		} else {	//tutorial on
 			components.Clear();
