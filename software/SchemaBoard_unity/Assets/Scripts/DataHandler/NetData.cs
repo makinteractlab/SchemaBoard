@@ -736,6 +736,9 @@ public class NetData : MonoBehaviour {
 				}
 			}
 
+			if(!resultPins.Contains("1"))
+				resultPins.Add("1");
+
 			foreach(var item in resultPins) {
 				if(item.Contains("init")) continue;
 				else boardBinary[int.Parse(item)-1] = '1';
@@ -786,6 +789,9 @@ public class NetData : MonoBehaviour {
 						_pinsInNet.Add(fpin);
 				}
 			}
+
+			if(!resultPins.Contains("17"))
+				resultPins.Add("17");
 
 			foreach(var item in resultPins) {
 				if(item.Contains("init")) continue;
