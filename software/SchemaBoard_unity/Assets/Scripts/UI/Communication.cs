@@ -13,6 +13,9 @@ public class Communication : MonoBehaviour
     public Sprite SelectedPinSprite;
     public Sprite DefaultPinSprite;
     public Sprite DefaultbbPinSprite;
+    public Sprite OrangeGlowIconSprite;
+    public Sprite GreenGlowIconSprite;
+
     public VWJson vw;
     private int key = 1;
     private float time;

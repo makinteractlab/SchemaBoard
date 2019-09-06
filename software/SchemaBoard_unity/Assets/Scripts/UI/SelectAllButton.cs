@@ -33,10 +33,12 @@ public class SelectAllButton : MonoBehaviour {
 
 		if(icon.IsFritzingIcon()) {
 			foreach(GameObject glow in fritzing) {
+				glow.GetComponent<UnityEngine.UI.Image>().sprite = comm.OrangeGlowIconSprite;
 				glow.transform.localScale = new Vector3(1,1,1);
 			}
 		} else {
 			foreach(GameObject glow in schematic) {
+				glow.GetComponent<UnityEngine.UI.Image>().sprite = comm.OrangeGlowIconSprite;
 				glow.transform.localScale = new Vector3(1,1,1);
 			}
 		}

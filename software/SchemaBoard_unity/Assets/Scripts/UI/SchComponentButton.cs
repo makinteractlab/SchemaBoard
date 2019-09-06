@@ -123,20 +123,25 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
     private bool GlowToggle() {
         // bool result = clicked;
         if(clicked) {
-            // on glow image
-            if(icon.IsFritzingIcon())
-                Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
-            else
-                Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            // on --> off glow image
+            if(icon.IsFritzingIcon()) {
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").GetComponent<Image>().sprite = comm.GreenGlowIconSprite;
+                //Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(0,0,0);
+            } else {
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").GetComponent<Image>().sprite = comm.GreenGlowIconSprite;
+                //Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(0,0,0);
+            }
             clicked = false;
         } else {
-            if(icon.IsFritzingIcon())
+            if(icon.IsFritzingIcon()) {
+                Util.getChildObject(this.transform.parent.name, "fritzing_glow").GetComponent<Image>().sprite = comm.OrangeGlowIconSprite;
                 Util.getChildObject(this.transform.parent.name, "fritzing_glow").transform.localScale = new Vector3(1,1,1);
-            else
+            } else {
+                Util.getChildObject(this.transform.parent.name, "schematic_glow").GetComponent<Image>().sprite = comm.OrangeGlowIconSprite;
                 Util.getChildObject(this.transform.parent.name, "schematic_glow").transform.localScale = new Vector3(1,1,1);
+            }
             clicked = true;
         }
-
         return clicked;
     }
 
