@@ -330,12 +330,17 @@ public class ToggleTutorial : MonoBehaviour {
 
 			// string firstPinPos = netdata.getComponentFirstPinRowPosition(components[_index]);
 			// http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
-			
+			bool polarized = false;
+            if(selectedComponent.name.Contains("LED") || selectedComponent.name.Contains("U") || selectedComponent.name.Contains("CP")) {
+                polarized = true;
+            }
+
 			if(selectedComponent.name.Contains("wire")) {
 				stepInfo.text += "\n\nConnect wire (" + Util.getDigit(selectedComponent.name) + "/" + wireCount + ")\n" +"where the light is on";
 			} else {
 				string firstPinPos = netdata.getComponentFirstPinRowPosition(components[_index]);
-				http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
+				if(firstPinPos != "" && polarized)
+					http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink(Int32.Parse(firstPinPos)));
 			// glow on				
 				string value = netdata.debugNetData[components[index]].getValue();
 				string componentName = netdata.debugNetData[components[index]].label;

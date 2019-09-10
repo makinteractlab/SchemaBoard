@@ -203,8 +203,12 @@ public class SchComponentButton : MonoBehaviour//, IPointerUpHandler, IPointerDo
             // foreach(var url in urls) {
             //     http.postJson((string)url, cmd.singlePinBlink( Int32.Parse(netdata.getComponentFirstPinRowPosition(this.transform.parent.name)) ) );
             // }
+            bool polarized = false;
+            if(this.transform.parent.name.Contains("LED") || this.transform.parent.name.Contains("U") || this.transform.parent.name.Contains("CP")) {
+                polarized = true;
+            }
             string firstPinPos = netdata.getComponentFirstPinRowPosition(componentName);
-            if (firstPinPos != "") {
+            if (firstPinPos != "" && polarized) {
                 string url = comm.getUrl()+"/set";
                 http.postJson(comm.getUrl()+"/set", cmd.singlePinBlink( Int32.Parse(firstPinPos) ) );
             }
