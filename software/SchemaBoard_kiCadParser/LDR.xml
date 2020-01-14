@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>D:\Works\Git\RetroBreadboard\software\SchemaBoard_kiCadParser\LDR.sch</source>
+    <date>2019-09-16 오후 2:24:45</date>
+    <tool>Eeschema (5.1.2)-2</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>LDR.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="LDR1">
+      <value>LDR</value>
+      <datasheet>~</datasheet>
+      <libsource lib="schemaboard" part="R_PHOTO" description="Photoresistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D7F298F</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>10K</value>
+      <datasheet>~</datasheet>
+      <libsource lib="schemaboard" part="Resistor" description="Resistor symbol for simulation only"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D7F1B49</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="schemaboard" part="R_PHOTO">
+      <description>Photoresistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>*LDR*</fp>
+        <fp>R?LDR*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">LDR</field>
+        <field name="Value">R_PHOTO</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="schemaboard" part="Resistor">
+      <description>Resistor symbol for simulation only</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">Resistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="schemaboard">
+      <uri>D:/Works/Git/RetroBreadboard/study/KiCadCustomLibrary/SchemaBoard_Library.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="GND">
+      <node ref="LDR1" pin="2"/>
+    </net>
+    <net code="2" name="+3V3">
+      <node ref="R2" pin="1"/>
+    </net>
+    <net code="3" name="Net-(LDR1-Pad1)">
+      <node ref="LDR1" pin="1"/>
+      <node ref="R2" pin="2"/>
+    </net>
+  </nets>
+</export>

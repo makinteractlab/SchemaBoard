@@ -70,17 +70,6 @@ F 3 "~" H 2350 5900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L schemaboard:LED LED10
-U 1 1 5D4E318A
-P 3250 4300
-F 0 "LED10" H 3243 4045 50  0000 C CNN
-F 1 "LED" H 3243 4136 50  0000 C CNN
-F 2 "" H 3250 4300 50  0001 C CNN
-F 3 "~" H 3250 4300 50  0001 C CNN
-	1    3250 4300
-	-1   0    0    -1  
-$EndComp
-$Comp
 L schemaboard:SwitchPush SW4
 U 1 1 5D4E42D5
 P 5300 3300
@@ -241,4 +230,15 @@ Connection ~ 1500 2400
 Wire Wire Line
 	7300 1950 7300 2650
 Connection ~ 7300 2650
+$Comp
+L schemaboard:LED LED10
+U 1 1 5D4E318A
+P 3250 4300
+F 0 "LED10" H 3243 4045 50  0000 C CNN
+F 1 "LED" H 3243 4136 50  0000 C CNN
+F 2 "" H 3250 4300 50  0001 C CNN
+F 3 "~" H 3250 4300 50  0001 C CNN
+	1    3250 4300
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC

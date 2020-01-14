@@ -15,17 +15,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L schemaboard:LM555 U1
-U 1 1 5D4D75EC
-P 4050 4000
-F 0 "U1" H 4050 3533 50  0000 C CNN
-F 1 "LM555 Timer" H 4050 3624 50  0000 C CNN
-F 2 "" H 4050 4000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 4050 4000 50  0001 C CNN
-	1    4050 4000
-	-1   0    0    1   
-$EndComp
-$Comp
 L schemaboard:Resistor R2
 U 1 1 5D4DC2A4
 P 3150 5300
@@ -273,4 +262,15 @@ Wire Wire Line
 	1550 5300 1550 6900
 Wire Wire Line
 	6850 6100 6850 6900
+$Comp
+L schemaboard:LM555 U1-8
+U 1 1 5D7B2B89
+P 4050 3950
+F 0 "U1-8" H 4050 4417 50  0000 C CNN
+F 1 "LM555" H 4050 4326 50  0000 C CNN
+F 2 "" H 4050 3950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 4050 3950 50  0001 C CNN
+	1    4050 3950
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

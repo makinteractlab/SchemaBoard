@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:timer_flip-flop-cache
+LIBS:FlipFlop-cache
 EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
@@ -15,10 +15,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L schemaboard:+9V #PWR0200
+L schemaboard:+9V PWR200
 U 1 1 5D4D6C05
 P 1500 2000
-F 0 "#PWR0200" H 1500 1850 50  0001 C CNN
+F 0 "PWR200" H 1500 1850 50  0001 C CNN
 F 1 "+9V" H 1588 2037 50  0000 L CNN
 F 2 "" H 1500 2000 50  0001 C CNN
 F 3 "" H 1500 2000 50  0001 C CNN
@@ -26,10 +26,10 @@ F 3 "" H 1500 2000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L schemaboard:GND #GND0100
+L schemaboard:GND GND100
 U 1 1 5D4DA759
 P 7300 1950
-F 0 "#GND0100" H 7300 1700 50  0001 C CNN
+F 0 "GND100" H 7300 1700 50  0001 C CNN
 F 1 "GND" H 7388 1913 50  0000 L CNN
 F 2 "" H 7300 1950 50  0001 C CNN
 F 3 "" H 7300 1950 50  0001 C CNN
@@ -187,7 +187,7 @@ Connection ~ 4300 4300
 Wire Wire Line
 	4300 5300 4300 5900
 $Comp
-L schemaboard:LM555 U1-8
+L FlipFlop-rescue:LM555-schemaboard U1-8
 U 1 1 5D4D75EC
 P 5300 4250
 F 0 "U1-8" H 5300 3783 50  0000 C CNN

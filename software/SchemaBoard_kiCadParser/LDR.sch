@@ -1,0 +1,67 @@
+EESchema Schematic File Version 4
+LIBS:LDR-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L schemaboard:+3V3 #PWR0200
+U 1 1 5D7F2057
+P 3950 1900
+F 0 "#PWR0200" H 3950 1750 50  0001 C CNN
+F 1 "+3V3" H 4038 1937 50  0000 L CNN
+F 2 "" H 3950 1900 50  0001 C CNN
+F 3 "" H 3950 1900 50  0001 C CNN
+	1    3950 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:R_PHOTO LDR1
+U 1 1 5D7F298F
+P 3950 4700
+F 0 "LDR1" H 4020 4746 50  0000 L CNN
+F 1 "LDR" H 4020 4655 50  0000 L CNN
+F 2 "" V 4000 4450 50  0001 L CNN
+F 3 "~" H 3950 4650 50  0001 C CNN
+	1    3950 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:GND #GND0100
+U 1 1 5D7F348F
+P 3950 5850
+F 0 "#GND0100" H 3950 5600 50  0001 C CNN
+F 1 "GND" H 4038 5813 50  0000 L CNN
+F 2 "" H 3950 5850 50  0001 C CNN
+F 3 "" H 3950 5850 50  0001 C CNN
+	1    3950 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L schemaboard:Resistor R2
+U 1 1 5D7F1B49
+P 3950 3050
+F 0 "R2" H 4018 3096 50  0000 L CNN
+F 1 "10K" H 4018 3005 50  0000 L CNN
+F 2 "" H 3950 3050 50  0001 C CNN
+F 3 "~" H 3950 3050 50  0001 C CNN
+	1    3950 3050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3950 1900 3950 2800
+Wire Wire Line
+	3950 3300 3950 4550
+Wire Wire Line
+	3950 4850 3950 5850
+$EndSCHEMATC

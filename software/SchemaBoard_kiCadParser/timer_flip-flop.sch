@@ -70,17 +70,6 @@ F 3 "~" H 2350 5900 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L schemaboard:LED LED10
-U 1 1 5D4E318A
-P 3250 4300
-F 0 "LED10" H 3243 4045 50  0000 C CNN
-F 1 "LED" H 3243 4136 50  0000 C CNN
-F 2 "" H 3250 4300 50  0001 C CNN
-F 3 "~" H 3250 4300 50  0001 C CNN
-	1    3250 4300
-	-1   0    0    1   
-$EndComp
-$Comp
 L schemaboard:SwitchPush SW4
 U 1 1 5D4E42D5
 P 5300 3300
@@ -200,13 +189,13 @@ Wire Wire Line
 $Comp
 L schemaboard:LM555 U1-8
 U 1 1 5D4D75EC
-P 5300 4250
-F 0 "U1-8" H 5300 3783 50  0000 C CNN
-F 1 "LM555 Timer" H 5300 3874 50  0000 C CNN
-F 2 "" H 5300 4250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 5300 4250 50  0001 C CNN
-	1    5300 4250
-	-1   0    0    1   
+P 5300 4200
+F 0 "U1-8" H 5300 3733 50  0000 C CNN
+F 1 "LM555 Timer" H 5300 3824 50  0000 C CNN
+F 2 "" H 5300 4200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm555.pdf" H 5300 4200 50  0001 C CNN
+	1    5300 4200
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	7300 3300 7300 4300
@@ -241,4 +230,15 @@ Connection ~ 1500 2400
 Wire Wire Line
 	7300 1950 7300 2650
 Connection ~ 7300 2650
+$Comp
+L schemaboard:LED2 LED10
+U 1 1 5D7B538A
+P 3250 4300
+F 0 "LED10" H 3257 4555 50  0000 C CNN
+F 1 "LED" H 3257 4464 50  0000 C CNN
+F 2 "" H 3250 4300 50  0001 C CNN
+F 3 "~" H 3250 4300 50  0001 C CNN
+	1    3250 4300
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
